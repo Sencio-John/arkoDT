@@ -114,6 +114,9 @@ namespace arkoDT
                 case Keys.L:
                     btnL.BackColor = Color.LightGray;
                     break;
+                case Keys.F:
+                    btnFlash.BackColor = Color.LightGray;
+                    break;
             }
         }
 

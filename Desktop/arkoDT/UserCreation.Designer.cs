@@ -39,15 +39,15 @@ namespace arkoDT
             this.label4 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtRole = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
+            this.cbRole = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(176, 47);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(162, 20);
             this.txtUsername.TabIndex = 0;
@@ -77,7 +77,7 @@ namespace arkoDT
             // btnCreate
             // 
             this.btnCreate.Location = new System.Drawing.Point(209, 198);
-            this.btnCreate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(50, 22);
             this.btnCreate.TabIndex = 4;
@@ -99,7 +99,7 @@ namespace arkoDT
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(176, 131);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(162, 20);
             this.txtEmail.TabIndex = 5;
@@ -118,7 +118,7 @@ namespace arkoDT
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(176, 102);
-            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(162, 20);
             this.txtName.TabIndex = 7;
@@ -134,32 +134,36 @@ namespace arkoDT
             this.label5.TabIndex = 10;
             this.label5.Text = "Role";
             // 
-            // txtRole
-            // 
-            this.txtRole.Location = new System.Drawing.Point(176, 160);
-            this.txtRole.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtRole.Name = "txtRole";
-            this.txtRole.Size = new System.Drawing.Size(162, 20);
-            this.txtRole.TabIndex = 9;
-            // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(176, 74);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '●';
             this.txtPassword.Size = new System.Drawing.Size(162, 20);
             this.txtPassword.TabIndex = 11;
             // 
             // btnBack
             // 
             this.btnBack.Location = new System.Drawing.Point(8, 8);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(2);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(50, 22);
             this.btnBack.TabIndex = 12;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // cbRole
+            // 
+            this.cbRole.FormattingEnabled = true;
+            this.cbRole.Items.AddRange(new object[] {
+            "Admin",
+            "User"});
+            this.cbRole.Location = new System.Drawing.Point(176, 156);
+            this.cbRole.Name = "cbRole";
+            this.cbRole.Size = new System.Drawing.Size(162, 21);
+            this.cbRole.TabIndex = 13;
             // 
             // frmUC
             // 
@@ -169,10 +173,10 @@ namespace arkoDT
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(451, 252);
             this.ControlBox = false;
+            this.Controls.Add(this.cbRole);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtRole);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label3);
@@ -182,7 +186,7 @@ namespace arkoDT
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsername);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmUC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserCreation";
@@ -202,8 +206,8 @@ namespace arkoDT
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtRole;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.ComboBox cbRole;
     }
 }

@@ -174,7 +174,7 @@ namespace arkoDT
                     Username = txtUsername.Text,
                     Password = txtPassword.Text, // You may want to encrypt the password here
                     Email = txtEmail.Text,
-                    Role = txtRole.Text,
+                    Role = cbRole.Text,
                     Status = "Inactive"
                 };
 
