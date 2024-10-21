@@ -16,7 +16,7 @@ namespace arkoDT
         public frmLogin()
         {
             InitializeComponent();
-            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
         }
 
@@ -58,13 +58,13 @@ namespace arkoDT
             {
                 txtPassword.PasswordChar = '\0';
                 // Change to the second image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
             }
             else
             {
                 txtPassword.PasswordChar = '●';
                 // Revert to the first image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             }
 
             // Toggle the flag
