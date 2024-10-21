@@ -37,6 +37,7 @@ namespace arkoDT
             this.lblForgotPassword = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +72,7 @@ namespace arkoDT
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(1162, 385);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(1453, 39);
+            this.txtUsername.Size = new System.Drawing.Size(1427, 39);
             this.txtUsername.TabIndex = 3;
             // 
             // txtPassword
@@ -83,7 +84,7 @@ namespace arkoDT
             this.txtPassword.Location = new System.Drawing.Point(1162, 495);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(1453, 39);
+            this.txtPassword.Size = new System.Drawing.Size(1427, 39);
             this.txtPassword.TabIndex = 4;
             // 
             // lblForgotPassword
@@ -121,14 +122,27 @@ namespace arkoDT
             this.label2.TabIndex = 9;
             this.label2.Text = "Password:";
             // 
+            // btnLogin
+            // 
+            this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.btnLogin.Location = new System.Drawing.Point(1789, 672);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(192, 58);
+            this.btnLogin.TabIndex = 7;
+            this.btnLogin.Text = "LOGIN";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1924, 1050);
+            this.ClientSize = new System.Drawing.Size(1898, 1024);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblForgotPassword);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
@@ -136,7 +150,6 @@ namespace arkoDT
             this.Controls.Add(this.pbLogin);
             this.Name = "frmLogin";
             this.Text = "Login";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -152,5 +165,6 @@ namespace arkoDT
         private System.Windows.Forms.Label lblForgotPassword;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnLogin;
     }
 }
