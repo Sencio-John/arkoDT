@@ -183,11 +183,7 @@ namespace arkoDT
                 SetResponse responce = await client.SetAsync("Users/" + generatedID, register);
 
                 MessageBox.Show(string.Format("User {0} ({1}) has been successfully inserted into the database with ID {2}.", register.Name, register.Username, generatedID));
-                txtName.Text = "";
-                txtUsername.Text = "";
-                txtPassword.Text = "";
-                txtEmail.Text = "";
-                cbRole.Text = "";
+                this.Close();
             }
             catch (Exception ex)
             {
