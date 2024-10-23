@@ -320,3 +320,12 @@ C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.cspro
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.csproj.CopyComplete
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.exe
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.pdb
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.dll
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.pdb
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.xml
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.xml
