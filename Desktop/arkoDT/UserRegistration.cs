@@ -8,11 +8,11 @@ namespace arkoDT
 {
     class UserRegistration
     {
-        public string Name;
-        public string Username;
-        public string Password;
-        public string Email;
-        public string Role;
-        public string Status;
+        public string Name { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string Status { get; set; }
     }
 }

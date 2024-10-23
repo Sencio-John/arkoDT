@@ -190,6 +190,7 @@ namespace arkoDT
             this.Name = "frmUC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UserCreation";
+            this.Load += new System.EventHandler(this.frmUC_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
