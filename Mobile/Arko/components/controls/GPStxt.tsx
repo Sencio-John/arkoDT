@@ -1,3 +1,4 @@
+import { READ_IP } from '@/constants/config';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -5,7 +6,7 @@ const GPSTracker = () => {
     const [gpsData, setGpsData] = useState({ latitude: null, longitude: null });
     console.log(gpsData);
     useEffect(() => {
-        const socket = new WebSocket('ws://192.168.1.153:6789');
+        const socket = new WebSocket(READ_IP);
 
         socket.onopen = () => {
         console.log('Connected to WebSocket server');

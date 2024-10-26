@@ -1,119 +1,23 @@
 import * as React from 'react';
-import { TouchableOpacity, View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
 import { useRouter } from 'expo-router';
 
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import Button from '@/components/buttons/button';
-import Input from '@/components/inputs/input';
-
-import { ref, get, child, onValue } from 'firebase/database';
-import { database } from '@/constants/firebase';
+import SplashScreen from '@/components/SplashScreen';
 
 const ArkoIcon = require('../../assets/images/appImg/arko-logo.png');
 
-const LoginScreen = () =>{
+const OnboardingScreen = () =>{
 
-
+    
     const router = useRouter();
     const colorScheme = useColorScheme();
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [inputs, setInputs] = React.useState({
-        username: "",
-        password: "",
-    })
-
-    const [error, setError] = React.useState({
-        username: "",
-        password: "",
-    });
-
-    const handleOnChange = (text: string, input: string) => {
-        setInputs((prevState) => ({ ...prevState, [input]: text.trim() }));
-    };
-
-    const handleError = (text: string | null, input: string) => {
-        setError((prevState) => ({ ...prevState, [input]: text }));
-    };
-
-    const CheckLoginAuth = async() => {
-        let isValid = false
-
-        if(!inputs.username){
-            handleError("Username is required!", "username")
-            isValid = false
-        } else{
-            handleError("", "username")
-            isValid = true
-        }
-
-        if(!inputs.password){
-            handleError("Password is required", "password")
-            isValid = false
-        } else{
-            handleError("", "password")
-            isValid = true
-        }
-
-        if(isValid){
-            try{
-                // FIREBASE
-                const username = inputs.username;
-                const password = inputs.password
-
-                const dbRef = ref(database);
-                const snapshot = await get(child(dbRef, 'Users'));
-
-                if (snapshot.exists()) {
-                    const users = snapshot.val();
-                    
-                    let foundUser = null;
-
-                    for (const userId in users) {
-                        if (users[userId].Username === username) {
-                            foundUser = users[userId];
-                            break;
-                        }
-                    }
-
-                    if (foundUser) {
-
-                        if (foundUser.Password === password) {
-                            console.log(foundUser);
-                            Alert.alert('Login Successfully', "Welcome to ARKO")
-                            LoginSuccess();
-
-                        } else {
-                            Alert.alert('Error', 'Incorrect password');
-                        }
-                    } else {
-                        Alert.alert('Error', 'Username not found');
-                    }
-
-                    console.log("Found User", foundUser)
-
-                } else {
-                    Alert.alert('Error', 'No users found in the database');
-                }
-
-                
-            
-            } catch(error){ 
-
-                Alert.alert('', error.message);
-                console.log(error)
-            }
-
-        }
-        
-        
-    }
-
-    const LoginSuccess = () =>{
-        router.replace("/(home)/")
-        setInputs({username: "", password: "",})
-    }
-
+    
     return(
         <SafeAreaView style={[style.container, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6'}] }>
             <View style={style.top}>
@@ -122,31 +26,28 @@ const LoginScreen = () =>{
                     <Image source={ArkoIcon} style={style.logo}/>
                 </View>
 
+                <View style={style.title}>
+                    <ThemedText type='title'>
+                        A  R  K  O
+                    </ThemedText>
+                </View>
+                <View style={style.subtitle}>
+                    <ThemedText type='defaultSemiBold'>
+                        subtitle here
+                    </ThemedText>
+                </View>
             </View>
-            <View style={style.middle}>
-                <View style={style.form}>
-                    <View style={style.input}>
-                        <Input label="Username" iconName='person-outline'  onChangeText={(text) => handleOnChange(text, "username")} error={error.username}/>
-                    </View>
-                    <View style={style.input}>
-                        <Input label="Password" iconName='key-outline' password onChangeText={(text) => handleOnChange(text, "password")} error={error.password}/>
-                    </View>
-                </View>
-                <View style={style.forgotlink}>
-                    <TouchableOpacity onPress={() => {router.navigate("/(login)/forgot")}}>
-                        <Text style={{color: "#277CA5"}}>Forgot Password?</Text>
-                    </TouchableOpacity>
-                </View>
-
+            <View style={style.bottom}>
                 <View style={style.btn}>
-                    <Button title="Login" onPress={() => CheckLoginAuth()}/>
+                    <Button title="Login" type='primary' onPress={() => {router.push('/(login)/login')}}/>
                 </View>
-
-
             </View>
-        
+            
+            
+            
         </SafeAreaView>
-    )
+    );
+
 }
 
 const style = StyleSheet.create({
@@ -155,9 +56,10 @@ const style = StyleSheet.create({
         paddingVertical: 25,
         flex: 1,
         alignContent: "center",
+        justifyContent: 'space-between',
     },
     top:{
-        marginTop: 30,
+        marginTop: 40,
     },
     logocontainer:{
         flexDirection: "column",
@@ -166,8 +68,8 @@ const style = StyleSheet.create({
         alignItems: "center"
     },
     logo:{
-        height: 175,
-        width: 175,
+        height: 275,
+        width: 275,
     },
     title:{
         margin: 10,
@@ -176,61 +78,19 @@ const style = StyleSheet.create({
         alignItems: "center",
         textAlign: "center"
     },
-    middle:{
-        flexDirection: "column",
-        justifyContent: "center",
-        alignContent: "center",
-        marginTop: 30,
-    },
-    form:{
-        marginVertical: 10,
-    },
-    input:{
-        justifyContent: "center",
+    subtitle:{
+        margin: 5,
+        textAlign: "center",
         alignItems: "center",
-        marginVertical: 13,
     },
-    forgotlink:{
-        marginTop: 3,
-        marginBottom: 15,
-        marginHorizontal: 10,
-        justifyContent: "flex-start",
-        flexDirection: "row",
-        alignContent: "center",
+    bottom:{
+        flexDirection: "column",
     },
     btn:{
+        marginVertical: 10,
         justifyContent: "center",
-        alignItems: "center",
-    },
-    dividerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 50,
-        marginHorizontal: 10,
-    },
-    divider: {
-        flex: 1,
-        height: 1,
-        backgroundColor: '#B3B4BA',
-    },
-    dividerText: {
-        marginHorizontal: 10,
-        color: '#B3B4BA',
-        fontFamily: "CeraPro"
-    },
-    create:{
-        flexDirection: "row",
-        justifyContent: "center",
-        alignContent: "center",
         alignItems: "center"
-    },
+    }
+})
 
-    createAccountText: {
-        color: '#004495',
-        textDecorationLine: 'underline',
-        fontFamily: "CeraPro"
-    },
-
-});
-
-export default LoginScreen;
+export default OnboardingScreen;

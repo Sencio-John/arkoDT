@@ -13,6 +13,10 @@ export default function LoginLayout() {
         options={{
             headerShown: false,
             }}/>
+        <Stack.Screen name="login" 
+        options={{
+            headerShown: false,
+            }}/>
         <Stack.Screen name="forgot" 
         options={{
           headerTitle: "Forgot Password", 

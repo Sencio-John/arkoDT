@@ -1,11 +1,12 @@
 import { Stack } from "expo-router";
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, BackHandler } from 'react-native';
 import { useColorScheme } from "react-native";
 
 export default function SettingsLayout() {
 
   const colorScheme = useColorScheme();
+  
 
   return (
     <Stack>

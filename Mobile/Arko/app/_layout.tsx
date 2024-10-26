@@ -2,12 +2,15 @@ import { Stack } from "expo-router";
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import SplashScreen from "@/components/SplashScreen";
 
 export default function RootLayout() {
-  const router = useRouter()
+  const router = useRouter();
+
+  const [loading, setLoading] = React.useState(true);
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     CeraPro: require('../assets/fonts/CeraPro-Regular.ttf'),
@@ -20,19 +23,31 @@ export default function RootLayout() {
   });
 
   React.useEffect(() => {
+    const checkLoginStatus = async () => {
+      const logKey = await AsyncStorage.getItem('log_key');
+      const storage = await AsyncStorage.getAllKeys();
+      console.log("AsyncStorage: ", storage)
+      
+      if (logKey) {
+        setLoading(false)
+        router.replace("/(home)/"); 
+      } else{
+        setLoading(false)
+        router.replace("/(login)/")
+      }
+    };
 
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
+      if (loaded) {
+        checkLoginStatus();
+      }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
+  if (!loaded || loading) {
+    return <SplashScreen/>;
   }
   
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
       <Stack.Screen name="(login)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
     </Stack>

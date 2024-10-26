@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { WEBSOCKET_IP } from '@/constants/config';
+import { CONTROL_IP } from '@/constants/config';
 
 export default function Gear(){
 
@@ -10,7 +10,7 @@ export default function Gear(){
     const [socket, setSocket] = React.useState<WebSocket | null>(null);
 
     React.useEffect(() => {
-        const ws = new WebSocket(WEBSOCKET_IP);
+        const ws = new WebSocket(CONTROL_IP);
         setSocket(ws);
 
         ws.onopen = () => {
@@ -20,7 +20,6 @@ export default function Gear(){
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
             // Handle incoming messages if needed
-            console.log('Received:', data.message);
         };
 
         ws.onclose = () => {

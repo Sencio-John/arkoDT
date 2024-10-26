@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { WEBSOCKET_IP } from '@/constants/config';
+import { CONTROL_IP } from '@/constants/config';
 
 const ThrottleControl = () => {
   const [power, setPower] = useState(0);
@@ -38,7 +38,7 @@ const ThrottleControl = () => {
 
 
   React.useEffect(() => {
-      const ws = new WebSocket(WEBSOCKET_IP);
+      const ws = new WebSocket(CONTROL_IP);
       setSocket(ws);
 
       ws.onopen = () => {
@@ -48,7 +48,6 @@ const ThrottleControl = () => {
       ws.onmessage = (event) => {
           const data = JSON.parse(event.data);
           // Handle incoming messages if needed
-          console.log('Received:', data.message);
       };
 
       ws.onclose = () => {

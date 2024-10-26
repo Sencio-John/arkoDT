@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
@@ -8,26 +8,51 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import WeatherCard from '@/components/cards/WeatherCard';
 import DeviceStatusCard from '@/components/cards/DeviceCard';
-import WeatherCardLoader from '@/components/cards/WeatherCardLoading';
 import IconButton from '@/components/buttons/IconButton';
 import { useRouter } from 'expo-router';
 import { useColorScheme } from 'react-native';
+import getData from '@/constants/getData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from '@/components/SplashScreen';
 
 const Dashboard = () =>{
 
     const router = useRouter();
     const colorScheme = useColorScheme();
 
+    const [userData, setUserData] = React.useState(null)
+    const [loading, setLoading] = React.useState(true);
+    
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const key = await AsyncStorage.getItem('log_key');
+            if(key){
+                const data = await getData(key);
+                setUserData(data);
+            } else{
+                router.replace("/(login)/");
+            }
+            
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <SplashScreen />; // Replace with your actual loading component
+    }
+
     return(
         <SafeAreaView style={[style.container, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6'}] }>
-
             {/* TOP BAR */}
             <ThemedView style={style.header}>
                 <View style={style.profilegrp}>
                     <View style={style.profileContainer}>
                         <Image style={style.profile} source={require('../../assets/images/profile.jpg')}/>
                     </View>
-                    <ThemedText style={style.user}>Hi, John Doe</ThemedText>
+                    <ThemedText style={style.user}>Hi, {userData?.Name}</ThemedText>
                 </View>
                 <View>
                     <TouchableOpacity onPress={() => router.push('/(home)/(settings)')}>
@@ -46,14 +71,14 @@ const Dashboard = () =>{
                 </View>
                 <ThemedText type='subtitle'>Device</ThemedText>
                 <View style={dashboard.card}>
-                    <DeviceStatusCard onPress={() => {router.push('/(home)/(device)/')}} />
+                    <DeviceStatusCard onPress={() => {router.navigate('/(home)/(device)/')}} />
                 </View>
                 <ThemedText type='subtitle'>Tools</ThemedText>
                 <View style={dashboard.card}>
                     <View style={dashboard.buttons}>
-                        <IconButton type="map" onPress={() => router.push('/(home)/(tools)/')}/>
-                        <IconButton type="camera" onPress={() => router.push('/(home)/(tools)/camera')}/>
-                        <IconButton type="control" onPress={() => router.push('/(home)/(tools)/controller')}/>
+                        <IconButton type="map" onPress={() => router.navigate('/(home)/(tools)/')}/>
+                        <IconButton type="camera" onPress={() => router.navigate('/(home)/(tools)/camera')}/>
+                        <IconButton type="control" onPress={() => router.navigate('/(home)/(tools)/controller')}/>
                     </View>
                 </View>
             </ThemedView>

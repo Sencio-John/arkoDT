@@ -1,10 +1,13 @@
 import { ThemedView } from '@/components/ThemedView';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, useColorScheme, Alert } from 'react-native';
 
 import MenuDivider from '@/components/buttons/MenuDivider';
 import { ThemedText } from '@/components/ThemedText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ref, remove } from "firebase/database";
+import { database } from '@/constants/firebase';
 
 export default function Settings() {
 
@@ -12,7 +15,12 @@ export default function Settings() {
     const colorScheme = useColorScheme();
 
 
-    const handleLogOut = () =>{
+    const handleLogOut = async () =>{
+        const key = await AsyncStorage.getItem('log_key')
+        const dbRef = ref(database, `appLog/${key}`);
+        await remove(dbRef);
+        await AsyncStorage.clear();
+        Alert.alert("Logging Out", "Log Out Successfully")
         router.replace("/(login)");
     }
     

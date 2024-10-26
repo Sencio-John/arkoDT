@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { Ionicons } from '@expo/vector-icons';
 
-import { WEBSOCKET_IP } from '@/constants/config';
+import { CONTROL_IP } from '@/constants/config';
 
 interface Message {
     message: string;
@@ -18,7 +18,7 @@ const DPadv2 = () => {
     const [output, setOutput] = useState<string[]>([]);
 
     useEffect(() => {
-        const ws = new WebSocket(WEBSOCKET_IP);
+        const ws = new WebSocket(CONTROL_IP);
         setSocket(ws);
 
         ws.onopen = () => {
@@ -28,7 +28,6 @@ const DPadv2 = () => {
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
             // Handle incoming messages if needed
-            console.log('Received:', data.message);
         };
 
         ws.onclose = () => {
