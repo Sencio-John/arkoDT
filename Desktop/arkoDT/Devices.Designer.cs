@@ -70,7 +70,7 @@ namespace arkoDT
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1264, 985);
             this.ControlBox = false;
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.dataGridView1);

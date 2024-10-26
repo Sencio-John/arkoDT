@@ -13,11 +13,24 @@ namespace arkoDT
     {
         private MJPEGStream mjpegStream;
         private ClientWebSocket webSocket;
+        private bool isFirstImage = true;
+        private Image flashOnImage;
+        private Image flashOffImage;
 
         public frmControl()
         {
             InitializeComponent();
             pbBattery.Value = 70;
+
+            // Load the images once (make sure paths are correct)
+            flashOnImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashon.png");
+            flashOffImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashoff.png");
+
+            // Set the initial image and BackgroundImageLayout to Zoom
+            btnFlash.BackgroundImage = flashOffImage;
+            btnFlash.BackgroundImageLayout = ImageLayout.Zoom;  // Set the layout to Zoom
+
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -113,6 +126,21 @@ namespace arkoDT
                     break;
                 case Keys.L:
                     btnL.BackColor = Color.LightGray;
+                    break;
+                case Keys.F:
+                        if (isFirstImage)
+                        {
+                            // Change to the second image (flash on)
+                            btnFlash.BackgroundImage = flashOnImage;
+                        }
+                        else
+                        {
+                            // Revert to the first image (flash off)
+                            btnFlash.BackgroundImage = flashOffImage;
+                        }
+
+                    // Toggle the flag
+                    isFirstImage = !isFirstImage;
                     break;
             }
         }

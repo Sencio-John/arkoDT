@@ -8,6 +8,7 @@ using FireSharp.Interfaces;
 using FireSharp.Response;
 using System.Collections.Generic;
 
+
 namespace arkoDT
 {
     public partial class frmUC : Form
@@ -45,14 +46,14 @@ namespace arkoDT
         }
 
         // Generate a random unique ID when the form loads
-        private async void frmUC_Load(object sender, EventArgs e)
+        public async void frmUC_Load(object sender, EventArgs e)
         {
             // Generate random ID
             await GenerateRandomIDOnLoad();
         }
 
         // Generate the random ID and check for uniqueness
-        private async Task GenerateRandomIDOnLoad()
+        public async Task GenerateRandomIDOnLoad()
         {
             generatedID = await GenerateUniqueID();
             MessageBox.Show("Generated Unique ID: " + generatedID);
@@ -174,12 +175,12 @@ namespace arkoDT
                     Username = txtUsername.Text,
                     Password = txtPassword.Text, // You may want to encrypt the password here
                     Email = txtEmail.Text,
-                    Role = txtRole.Text,
-                    Status = "Inactive"
+                    Role = cbRole.Text,
+                    Status = "Active"
                 };
 
                 // Save the user to Firebase with the generated ID
-                SetResponse response = await client.SetAsync("Users/" + generatedID, register);
+                SetResponse responce = await client.SetAsync("Users/" + generatedID, register);
 
                 MessageBox.Show(string.Format("User {0} ({1}) has been successfully inserted into the database with ID {2}.", register.Name, register.Username, generatedID));
                 this.Close();
@@ -188,6 +189,12 @@ namespace arkoDT
             {
                 MessageBox.Show("An error occurred: " + ex.Message); // Provide meaningful error message
             }
+        }
+
+        private async void frmUC_Load_1(object sender, EventArgs e)
+        {
+            generatedID = await GenerateUniqueID();
+            MessageBox.Show("Generated Unique ID: " + generatedID);
         }
     }
 }
