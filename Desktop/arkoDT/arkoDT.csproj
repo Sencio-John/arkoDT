@@ -177,12 +177,6 @@
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devices.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Devices.Designer.cs">
-      <DependentUpon>Devices.cs</DependentUpon>
-    </Compile>
     <Compile Include="ForgotPass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,9 +224,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Devices.resx">
-      <DependentUpon>Devices.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ForgotPass.resx">
       <DependentUpon>ForgotPass.cs</DependentUpon>

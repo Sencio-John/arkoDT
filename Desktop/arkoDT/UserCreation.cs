@@ -8,7 +8,6 @@ using FireSharp.Interfaces;
 using FireSharp.Response;
 using System.Collections.Generic;
 
-
 namespace arkoDT
 {
     public partial class frmUC : Form
@@ -26,16 +25,23 @@ namespace arkoDT
         {
             InitializeComponent();
 
-            // Initialize Firebase Client
-            client = new FireSharp.FirebaseClient(config);
+            try
+            {
+                // Initialize Firebase Client with error handling
+                client = new FireSharp.FirebaseClient(config);
 
-            if (client != null)
-            {
-                MessageBox.Show("Connected to Firebase!");
+                if (client != null)
+                {
+                    MessageBox.Show("Connected to Firebase!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to connect to Firebase.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to connect to Firebase.");
+                MessageBox.Show($"Error connecting to Firebase: {ex.Message}");
             }
         }
 
@@ -48,15 +54,22 @@ namespace arkoDT
         // Generate a random unique ID when the form loads
         public async void frmUC_Load(object sender, EventArgs e)
         {
-            // Generate random ID
-            await GenerateRandomIDOnLoad();
+            generatedID = await GenerateUniqueID();
+            MessageBox.Show("Generated Unique ID: " + generatedID);
         }
 
         // Generate the random ID and check for uniqueness
         public async Task GenerateRandomIDOnLoad()
         {
             generatedID = await GenerateUniqueID();
-            MessageBox.Show("Generated Unique ID: " + generatedID);
+            if (generatedID != null)
+            {
+                MessageBox.Show("Generated Unique ID: " + generatedID);
+            }
+            else
+            {
+                MessageBox.Show("Could not generate a unique ID. Please try again.");
+            }
         }
 
         // Generate a unique random ID
@@ -64,12 +77,21 @@ namespace arkoDT
         {
             string newID;
             bool exists;
+            int retryCount = 0;
+            const int maxRetries = 10;
 
             do
             {
                 newID = GenerateRandomID(8); // Generate an 8-character random ID
                 exists = await IsIDExists(newID); // Check if the ID already exists in Firebase
-            } while (exists);
+                retryCount++;
+            } while (exists && retryCount < maxRetries);
+
+            if (retryCount >= maxRetries)
+            {
+                MessageBox.Show("Failed to generate a unique ID after multiple attempts.");
+                return null;
+            }
 
             return newID;
         }
@@ -100,45 +122,85 @@ namespace arkoDT
         // Check if the username already exists in Firebase
         private async Task<bool> IsUsernameExists(string username)
         {
-            FirebaseResponse response = await client.GetAsync("Users/");
-            var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-            if (users != null && users.Values.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
+            try
             {
-                return true; // Username exists
+                FirebaseResponse response = await client.GetAsync("Users/");
+                if (response == null || response.Body == "null")
+                {
+                    MessageBox.Show("No data found under 'Users' in Firebase.");
+                    return false;
+                }
+
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+                if (users != null && users.Values.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while checking username existence: {ex.Message}");
             }
 
             return false;
         }
 
         // Check if the email already exists in Firebase
+        // Check if the email already exists in Firebase
         private async Task<bool> IsEmailExists(string email)
         {
-            FirebaseResponse response = await client.GetAsync("Users/");
-            var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-            if (users != null && users.Values.Any(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
+            try
             {
-                return true; // Email exists
+                if (client == null)
+                {
+                    MessageBox.Show("Firebase client is not initialized.");
+                    return false;
+                }
+
+                FirebaseResponse response = await client.GetAsync("Users/");
+
+                // Log the raw response for debugging
+                if (response == null || response.Body == "null")
+                {
+                    // No data exists under "Users" in Firebase
+                    return false;
+                }
+
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                // Check if users dictionary is not null and contains valid UserRegistration instances
+                if (users != null && users.Values.Any(u => u?.Email != null && u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                {
+                    return true; // Email exists
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log more details about the error
+                MessageBox.Show($"An error occurred while checking email existence: {ex.Message}\n{ex.StackTrace}");
             }
 
             return false;
         }
 
+
+
+
+
         // Validate the email format
         private bool IsValidEmail(string email)
         {
-            // Regular expression to validate email format
             var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, emailPattern);
         }
 
         // Create user and store in Firebase
+        // Create user and store in Firebase
         private async void btnCreate_Click(object sender, EventArgs e)
         {
             try
             {
-                // Basic validation
+                // Basic validation for empty fields
                 if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtEmail.Text))
                 {
                     MessageBox.Show("Username and Email cannot be empty.");
@@ -173,28 +235,24 @@ namespace arkoDT
                 {
                     Name = txtName.Text,
                     Username = txtUsername.Text,
-                    Password = txtPassword.Text, // You may want to encrypt the password here
+                    Password = txtPassword.Text, // Consider encrypting this in a real application
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
                     Status = "Active"
                 };
 
                 // Save the user to Firebase with the generated ID
-                SetResponse responce = await client.SetAsync("Users/" + generatedID, register);
+                SetResponse response = await client.SetAsync("Users/" + generatedID, register);
 
-                MessageBox.Show(string.Format("User {0} ({1}) has been successfully inserted into the database with ID {2}.", register.Name, register.Username, generatedID));
+                MessageBox.Show($"User {register.Name} ({register.Username}) has been successfully inserted into the database with ID {generatedID}.");
                 this.Close();
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message); // Provide meaningful error message
+                MessageBox.Show("An error occurred: " + ex.Message); // Provide a meaningful error message
             }
         }
 
-        private async void frmUC_Load_1(object sender, EventArgs e)
-        {
-            generatedID = await GenerateUniqueID();
-            MessageBox.Show("Generated Unique ID: " + generatedID);
-        }
     }
 }

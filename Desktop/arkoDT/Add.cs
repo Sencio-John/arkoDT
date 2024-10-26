@@ -12,9 +12,16 @@ namespace arkoDT
 {
     public partial class frmAdd : Form
     {
-        public frmAdd()
+        private frmDashboard frmDashboard;
+        public frmAdd(frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
+            frmDashboard = frmDashboardInstance;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmDashboard.UpdateDevicesAttributes();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
