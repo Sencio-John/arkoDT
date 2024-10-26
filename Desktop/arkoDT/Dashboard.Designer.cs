@@ -31,11 +31,12 @@ namespace arkoDT
         {
             this.components = new System.ComponentModel.Container();
             this.gbSidepanel = new System.Windows.Forms.GroupBox();
+            this.btnReg = new System.Windows.Forms.Button();
             this.btnMap = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnGraph = new System.Windows.Forms.Button();
-            this.btnDevices = new System.Windows.Forms.Button();
             this.btnController = new System.Windows.Forms.Button();
+            this.btnDevices = new System.Windows.Forms.Button();
             this.gbPanel = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@ namespace arkoDT
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlDevices = new System.Windows.Forms.Panel();
             this.flpDevices = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnReg = new System.Windows.Forms.Button();
             this.pnlContain = new System.Windows.Forms.Panel();
             this.flpCards = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -79,6 +79,17 @@ namespace arkoDT
             this.gbSidepanel.Size = new System.Drawing.Size(191, 1039);
             this.gbSidepanel.TabIndex = 1;
             this.gbSidepanel.TabStop = false;
+            // 
+            // btnReg
+            // 
+            this.btnReg.Location = new System.Drawing.Point(7, 98);
+            this.btnReg.Margin = new System.Windows.Forms.Padding(2);
+            this.btnReg.Name = "btnReg";
+            this.btnReg.Size = new System.Drawing.Size(91, 23);
+            this.btnReg.TabIndex = 4;
+            this.btnReg.Text = "Registration";
+            this.btnReg.UseVisualStyleBackColor = true;
+            this.btnReg.Click += new System.EventHandler(this.btnReg_Click);
             // 
             // btnMap
             // 
@@ -113,17 +124,6 @@ namespace arkoDT
             this.btnGraph.UseVisualStyleBackColor = true;
             this.btnGraph.Click += new System.EventHandler(this.btnGraph_Click);
             // 
-            // btnDevices
-            // 
-            this.btnDevices.Location = new System.Drawing.Point(210, 16);
-            this.btnDevices.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDevices.Name = "btnDevices";
-            this.btnDevices.Size = new System.Drawing.Size(91, 23);
-            this.btnDevices.TabIndex = 1;
-            this.btnDevices.Text = "Devices";
-            this.btnDevices.UseVisualStyleBackColor = true;
-            this.btnDevices.Click += new System.EventHandler(this.btnDevices_Click);
-            // 
             // btnController
             // 
             this.btnController.Location = new System.Drawing.Point(7, 16);
@@ -134,6 +134,17 @@ namespace arkoDT
             this.btnController.Text = "Controller";
             this.btnController.UseVisualStyleBackColor = true;
             this.btnController.Click += new System.EventHandler(this.btnController_Click);
+            // 
+            // btnDevices
+            // 
+            this.btnDevices.Location = new System.Drawing.Point(210, 16);
+            this.btnDevices.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDevices.Name = "btnDevices";
+            this.btnDevices.Size = new System.Drawing.Size(91, 23);
+            this.btnDevices.TabIndex = 1;
+            this.btnDevices.Text = "Devices";
+            this.btnDevices.UseVisualStyleBackColor = true;
+            this.btnDevices.Click += new System.EventHandler(this.btnDevices_Click);
             // 
             // gbPanel
             // 
@@ -296,17 +307,6 @@ namespace arkoDT
             this.flpDevices.Name = "flpDevices";
             this.flpDevices.Size = new System.Drawing.Size(288, 665);
             this.flpDevices.TabIndex = 4;
-            // 
-            // btnReg
-            // 
-            this.btnReg.Location = new System.Drawing.Point(7, 98);
-            this.btnReg.Margin = new System.Windows.Forms.Padding(2);
-            this.btnReg.Name = "btnReg";
-            this.btnReg.Size = new System.Drawing.Size(91, 23);
-            this.btnReg.TabIndex = 4;
-            this.btnReg.Text = "Registration";
-            this.btnReg.UseVisualStyleBackColor = true;
-            this.btnReg.Click += new System.EventHandler(this.btnReg_Click);
             // 
             // pnlContain
             // 

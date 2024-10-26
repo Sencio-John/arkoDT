@@ -71,25 +71,29 @@ namespace arkoDT
 
             pnlControls.BackColor = System.Drawing.SystemColors.ControlLightLight;
             pnlControls.Name = "pnlControls";
-            pnlControls.Location = new System.Drawing.Point(3, 3);
+            pnlControls.Location = new System.Drawing.Point(3,3);
+            pnlControls.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             pnlControls.Size = new System.Drawing.Size(441, 255);
             pnlControls.TabIndex = 0;
 
             pnlGraph.BackColor = System.Drawing.SystemColors.ControlLightLight;
             pnlGraph.Name = "pnlGraph";
-            pnlGraph.Location = new System.Drawing.Point(3, 3);
+            pnlGraph.Location = new System.Drawing.Point(3,3);
+            pnlGraph.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             pnlGraph.Size = new System.Drawing.Size(441, 255);
             pnlGraph.TabIndex = 1;
 
             pnlReg.BackColor = System.Drawing.SystemColors.ControlLightLight;
             pnlReg.Name = "pnlReg";
-            pnlReg.Location = new System.Drawing.Point(3, 3);
+            pnlReg.Location = new System.Drawing.Point(3,3);
+            pnlReg.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             pnlReg.Size = new System.Drawing.Size(441, 255);
             pnlReg.TabIndex = 2;
 
             pnlMap.BackColor = System.Drawing.SystemColors.ControlLightLight;
             pnlMap.Name = "pnlMap";
-            pnlMap.Location = new System.Drawing.Point(3, 3);
+            pnlMap.Location = new System.Drawing.Point(3,3);
+            pnlMap.Margin = new System.Windows.Forms.Padding(10, 10, 10, 10);
             pnlMap.Size = new System.Drawing.Size(441, 255);
             pnlMap.TabIndex = 3;
 
