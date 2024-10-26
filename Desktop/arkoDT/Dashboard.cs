@@ -61,6 +61,42 @@ namespace arkoDT
             timer.Interval = 1000; // 1 second
             timer.Tick += new EventHandler(UpdateLabel); // Subscribe to Tick event
             timer.Start(); // Start the timer
+
+            int margin = 10;
+
+            Panel pnlControls = new Panel();
+            Panel pnlGraph = new Panel();
+            Panel pnlReg = new Panel();
+            Panel pnlMap = new Panel();
+
+            pnlControls.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlControls.Name = "pnlControls";
+            pnlControls.Location = new System.Drawing.Point(3, 3);
+            pnlControls.Size = new System.Drawing.Size(441, 255);
+            pnlControls.TabIndex = 0;
+
+            pnlGraph.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlGraph.Name = "pnlGraph";
+            pnlGraph.Location = new System.Drawing.Point(3, 3);
+            pnlGraph.Size = new System.Drawing.Size(441, 255);
+            pnlGraph.TabIndex = 1;
+
+            pnlReg.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlReg.Name = "pnlReg";
+            pnlReg.Location = new System.Drawing.Point(3, 3);
+            pnlReg.Size = new System.Drawing.Size(441, 255);
+            pnlReg.TabIndex = 2;
+
+            pnlMap.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlMap.Name = "pnlMap";
+            pnlMap.Location = new System.Drawing.Point(3, 3);
+            pnlMap.Size = new System.Drawing.Size(441, 255);
+            pnlMap.TabIndex = 3;
+
+            flpCards.Controls.Add(pnlControls);
+            flpCards.Controls.Add(pnlGraph);
+            flpCards.Controls.Add(pnlReg);
+            flpCards.Controls.Add(pnlMap);
         }
 
         private void UpdateLabel(object sender, EventArgs e)
@@ -71,8 +107,8 @@ namespace arkoDT
 
         public void UpdateDevicesAttributes()
         {
-            Panel pnlCard = new Panel();
-            Panel pnlHeader = new Panel();
+            Panel pnlDeviceCard = new Panel();
+            Panel pnlDeviceHeader = new Panel();
             Label Title = new Label();
             Label Device_Name = new Label();
             Label Device_Status = new Label();
@@ -84,11 +120,11 @@ namespace arkoDT
             Title.Text = "Device";
             Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-            pnlHeader.BackColor = System.Drawing.SystemColors.ControlLight;
-            pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(285, 53);
-            pnlHeader.TabIndex = 4;
+            pnlDeviceHeader.BackColor = System.Drawing.SystemColors.ControlLight;
+            pnlDeviceHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlDeviceHeader.Location = new System.Drawing.Point(0, 0);
+            pnlDeviceHeader.Size = new System.Drawing.Size(285, 53);
+            pnlDeviceHeader.TabIndex = 4;
 
             Device_Status.Dock = System.Windows.Forms.DockStyle.Right;
             Device_Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -106,65 +142,16 @@ namespace arkoDT
             Device_Name.Text = "Device Name";
             Device_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 
-            pnlCard.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCard.Location = new System.Drawing.Point(3, 3);
-            pnlCard.Size = new System.Drawing.Size(256, 100);
-            pnlCard.TabIndex = 4;
+            pnlDeviceCard.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlDeviceCard.Location = new System.Drawing.Point(3, 3);
+            pnlDeviceCard.Size = new System.Drawing.Size(256, 100);
+            pnlDeviceCard.TabIndex = 4;
 
-            pnlHeader.Controls.Add(Title);
-            pnlCard.Controls.Add(Device_Name);
-            pnlCard.Controls.Add(Device_Status);
-            pnlCard.Controls.Add(pnlHeader);
-            flpDevices.Controls.Add(pnlCard);
-        }
-
-        public void UpdateUserAttributes()
-        {
-            Panel pnlCard = new Panel();
-            Panel pnlHeader = new Panel();
-            Label Title = new Label();
-            Label Device_Name = new Label();
-            Label Device_Status = new Label();
-
-            Title.Dock = System.Windows.Forms.DockStyle.Fill;
-            Title.Location = new System.Drawing.Point(0, 0);
-            Title.Size = new System.Drawing.Size(285, 53);
-            Title.TabIndex = 0;
-            Title.Text = "Device";
-            Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            pnlHeader.BackColor = System.Drawing.SystemColors.ControlLight;
-            pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(285, 53);
-            pnlHeader.TabIndex = 4;
-
-            Device_Status.Dock = System.Windows.Forms.DockStyle.Right;
-            Device_Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            Device_Status.Location = new System.Drawing.Point(156, 53);
-            Device_Status.Size = new System.Drawing.Size(100, 47);
-            Device_Status.TabIndex = 6;
-            Device_Status.Text = "Status";
-            Device_Status.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-
-            Device_Name.Dock = System.Windows.Forms.DockStyle.Fill;
-            Device_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            Device_Name.Location = new System.Drawing.Point(0, 53);
-            Device_Name.Size = new System.Drawing.Size(256, 47);
-            Device_Name.TabIndex = 5;
-            Device_Name.Text = "Device Name";
-            Device_Name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
-            pnlCard.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCard.Location = new System.Drawing.Point(3, 3);
-            pnlCard.Size = new System.Drawing.Size(256, 100);
-            pnlCard.TabIndex = 4;
-
-            pnlHeader.Controls.Add(Title);
-            pnlCard.Controls.Add(Device_Name);
-            pnlCard.Controls.Add(Device_Status);
-            pnlCard.Controls.Add(pnlHeader);
-            flpDevices.Controls.Add(pnlCard);
+            pnlDeviceHeader.Controls.Add(Title);
+            pnlDeviceCard.Controls.Add(Device_Name);
+            pnlDeviceCard.Controls.Add(Device_Status);
+            pnlDeviceCard.Controls.Add(pnlDeviceHeader);
+            flpDevices.Controls.Add(pnlDeviceCard);
         }
     }
 }
