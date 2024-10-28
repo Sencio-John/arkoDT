@@ -337,3 +337,13 @@ C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinF
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmDevices.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Buffers.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Memory.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\BCrypt.Net-Next.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Buffers.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Memory.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml

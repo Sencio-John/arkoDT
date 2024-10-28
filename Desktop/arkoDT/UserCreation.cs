@@ -7,6 +7,7 @@ using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using System.Collections.Generic;
+using BCrypt.Net;
 
 namespace arkoDT
 {
@@ -56,6 +57,21 @@ namespace arkoDT
         {
             generatedID = await GenerateUniqueID();
         }
+
+        /*public class PasswordHelper
+        {
+            // Method to hash a password
+            public static string HashPassword(string password)
+            {
+                return BCrypt.Net.BCrypt.HashPassword(password);
+            }
+
+            // Method to verify a password against a hash
+            public static bool VerifyPassword(string password, string hashedPassword)
+            {
+                return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            }
+        }*/
 
         // Generate the random ID and check for uniqueness
         public async Task GenerateRandomIDOnLoad()
@@ -182,10 +198,6 @@ namespace arkoDT
             return false;
         }
 
-
-
-
-
         // Validate the email format
         private bool IsValidEmail(string email)
         {
@@ -203,6 +215,12 @@ namespace arkoDT
                 if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtEmail.Text))
                 {
                     MessageBox.Show("Username and Email cannot be empty.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    MessageBox.Show("Password cannot be empty");
                     return;
                 }
 
@@ -229,15 +247,18 @@ namespace arkoDT
                     return;
                 }
 
+                //Password Hashing
+                string hashedPassword = PasswordHelper.HashPassword(txtPassword.Text);
+
                 // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
                     Name = txtName.Text,
                     Username = txtUsername.Text,
-                    Password = txtPassword.Text, // Consider encrypting this in a real application
+                    Password = hashedPassword,
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
-                    Status = "Active"
+                    Status = "Inactive"
                 };
 
                 // Save the user to Firebase with the generated ID
