@@ -337,3 +337,4 @@ C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinF
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.WinForms.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmDevices.resources

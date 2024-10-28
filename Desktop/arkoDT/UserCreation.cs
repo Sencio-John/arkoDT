@@ -32,16 +32,16 @@ namespace arkoDT
 
                 if (client != null)
                 {
-                    MessageBox.Show("Connected to Firebase!");
+                    MessageBox.Show("Welcome to User Creation");
                 }
                 else
                 {
-                    MessageBox.Show("Failed to connect to Firebase.");
+                    MessageBox.Show("Failed to open the User Creation Window");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error connecting to Firebase: {ex.Message}");
+                MessageBox.Show($"Error connecting to Database: {ex.Message}");
             }
         }
 
@@ -55,7 +55,6 @@ namespace arkoDT
         public async void frmUC_Load(object sender, EventArgs e)
         {
             generatedID = await GenerateUniqueID();
-            MessageBox.Show("Generated Unique ID: " + generatedID);
         }
 
         // Generate the random ID and check for uniqueness
@@ -78,7 +77,7 @@ namespace arkoDT
             string newID;
             bool exists;
             int retryCount = 0;
-            const int maxRetries = 10;
+            const int maxRetries = 30;
 
             do
             {
@@ -153,7 +152,7 @@ namespace arkoDT
             {
                 if (client == null)
                 {
-                    MessageBox.Show("Firebase client is not initialized.");
+                    MessageBox.Show("Database client is not initialized.");
                     return false;
                 }
 
@@ -244,7 +243,7 @@ namespace arkoDT
                 // Save the user to Firebase with the generated ID
                 SetResponse response = await client.SetAsync("Users/" + generatedID, register);
 
-                MessageBox.Show($"User {register.Name} ({register.Username}) has been successfully inserted into the database with ID {generatedID}.");
+                MessageBox.Show($"New User has been successfully inserted into the database.");
                 this.Close();
 
             }

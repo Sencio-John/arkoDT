@@ -16,13 +16,12 @@ namespace arkoDT
         public frmLogin()
         {
             InitializeComponent();
-            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
         }
 
         private void lblForgotPassword_Click(object sender, EventArgs e)
         {
-            lblForgotPassword.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             frmForgot form1 = new frmForgot();
             form1.Show();
         }
@@ -58,19 +57,24 @@ namespace arkoDT
             {
                 txtPassword.PasswordChar = '\0';
                 // Change to the second image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
             }
             else
             {
                 txtPassword.PasswordChar = '●';
                 // Revert to the first image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             }
 
             // Toggle the flag
             isFirstImage = !isFirstImage;
 
 
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            lblForgotPassword.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
         }
     }
 }
