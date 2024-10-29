@@ -7,49 +7,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace arkoDT
 {
     public partial class frmLogin : Form
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "9LIEv3oM8IkGzdbhvL6949CXXFAD86pu2v2ISD1r",
+            BasePath = "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+
+        IFirebaseClient client;
+
+
         private bool isFirstImage = true;
         public frmLogin()
         {
             InitializeComponent();
-            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
+
+            client = new FireSharp.FirebaseClient(config);
+            if (client == null)
+            {
+                MessageBox.Show("Failed to connect to Firebase.");
+            }
         }
 
         private void lblForgotPassword_Click(object sender, EventArgs e)
         {
-            lblForgotPassword.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             frmForgot form1 = new frmForgot();
             form1.Show();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
-            // Define the correct username and password
-            string correctUsername = "admin";  // Change this to your desired username
-            string correctPassword = "password"; // Change this to your desired password
-
-            // Check if the entered username and password are correct
-            if (txtUsername.Text == correctUsername && txtPassword.Text == correctPassword)
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text;
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                // Create an instance of frmControl
-                frmDashboard frmDashboard = new frmDashboard();
+                MessageBox.Show("Username and password cannot be empty.");
+                return;
+            }
 
-                // Show frmControl
-                frmDashboard.Show();
+            bool isLoginSuccessful = await LoginUser(username, password);
 
-                // Close frmLogin
+            if (isLoginSuccessful)
+            {
                 this.Hide();
+                new frmDashboard().Show();
+                MessageBox.Show("Login successful!");
+                // Proceed to the next form or action
             }
             else
             {
-                // Show a message box if credentials are incorrect
-                MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Login failed. Please check your credentials.");
             }
+            
         }
 
         private void btnShowPass_Click(object sender, EventArgs e)
@@ -58,13 +76,13 @@ namespace arkoDT
             {
                 txtPassword.PasswordChar = '\0';
                 // Change to the second image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
             }
             else
             {
                 txtPassword.PasswordChar = '●';
                 // Revert to the first image
-                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             }
 
             // Toggle the flag
@@ -72,5 +90,49 @@ namespace arkoDT
 
 
         }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            lblForgotPassword.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+        }
+
+        //Method for dehashing
+
+        private async Task<bool> LoginUser(string username, string password)
+        {
+            try
+            {
+                // Fetch all users from Firebase
+                FirebaseResponse response = await client.GetAsync("Users/");
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                if (users == null)
+                {
+                    MessageBox.Show("No users found.");
+                    return false;
+                }
+
+                // Find the user by username
+                foreach (var user in users.Values)
+                {
+                    if (user.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // If the username matches, verify the password
+                        bool isPasswordValid = PasswordHelper.VerifyPassword(password, user.Password);
+                        return isPasswordValid; // Returns true or false based on password validation
+                    }
+                }
+
+                // If we finish the loop and find no match
+                MessageBox.Show("Username does not exist.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+                return false;
+            }
+        }
+
     }
 }

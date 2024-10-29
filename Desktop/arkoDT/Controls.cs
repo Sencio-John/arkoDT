@@ -23,8 +23,8 @@ namespace arkoDT
             pbBattery.Value = 70;
 
             // Load the images once (make sure paths are correct)
-            flashOnImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashon.png");
-            flashOffImage = Image.FromFile("C:/Users/Windows10/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashoff.png");
+            flashOnImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashon.png");
+            flashOffImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/flashoff.png");
 
             // Set the initial image and BackgroundImageLayout to Zoom
             btnFlash.BackgroundImage = flashOffImage;

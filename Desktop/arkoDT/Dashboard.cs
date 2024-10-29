@@ -24,24 +24,6 @@ namespace arkoDT
             form1.Show();
         }
 
-        private void btnDevices_Click(object sender, EventArgs e)
-        {
-            frmDevices form2 = new frmDevices();
-            form2.Show();
-        }
-
-        private void btnGraph_Click(object sender, EventArgs e)
-        {
-            frmGraph form3 = new frmGraph();
-            form3.Show();
-        }
-
-        private void btnReg_Click(object sender, EventArgs e)
-        {
-            frmUC form4 = new frmUC();
-            form4.Show();
-        }
-
         private void btnMap_Click(object sender, EventArgs e)
         {
             frmMap form5 = new frmMap();
@@ -61,12 +43,37 @@ namespace arkoDT
             timer.Interval = 1000; // 1 second
             timer.Tick += new EventHandler(UpdateLabel); // Subscribe to Tick event
             timer.Start(); // Start the timer
+
+            lblGoWaterLevel.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+            lblGoUsers.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+            lblDevices.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
         }
 
         private void UpdateLabel(object sender, EventArgs e)
         {
-            // Assuming your label is named 'labelDateTime'
-            lblDate.Text = DateTime.Now.ToString("dddd, MMMM dd, yyyy hh:mm tt");
+            lblDay.Text = DateTime.Now.ToString("dddd");            // e.g., "Monday"
+            lblDateNum.Text = DateTime.Now.Day.ToString();                    // e.g., "28"
+            lblDate.Text = DateTime.Now.ToString("MMMM yyyy");       // e.g., "October 2024"
+            lblTime.Text = DateTime.Now.ToString("hh:mm");                // e.g., "7:00"
+            lblPeriod.Text = DateTime.Now.ToString("tt");
+        }
+
+        private void lblGoWaterLevel_Click(object sender, EventArgs e)
+        {
+            frmGraph form3 = new frmGraph();
+            form3.Show();
+        }
+
+        private void lblGoUsers_Click(object sender, EventArgs e)
+        {
+            frmUC form4 = new frmUC();
+            form4.Show();
+        }
+
+        private void lblDevices_Click(object sender, EventArgs e)
+        {
+            frmDevices form2 = new frmDevices();
+            form2.Show();
         }
     }
 }
