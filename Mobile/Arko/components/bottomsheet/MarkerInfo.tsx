@@ -6,7 +6,7 @@ import { ThemedText } from '../ThemedText'; // Assuming you're using ThemedText 
 
 import { useColorScheme } from 'react-native';
 
-const TrackingInformationBottomSheet = ({ bottomSheetRef, snapPoints, onChange }) => {
+const MarkerInfo = ({ bottomSheetRef, snapPoints, address, description, index}) => {
 
     const colorScheme = useColorScheme();
 
@@ -16,7 +16,8 @@ const TrackingInformationBottomSheet = ({ bottomSheetRef, snapPoints, onChange }
             snapPoints={snapPoints}
             handleStyle={[styles.handleStyle, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff'}]}
             handleIndicatorStyle={[styles.handleIndicator, {backgroundColor: colorScheme === 'dark' ? '#fff' : '#151718'}]}
-            onChange={onChange}
+            index={index}
+            enablePanDownToClose={true}
         >
             <BottomSheetView style={[styles.contentContainer, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff'}]}>
             {/* Header */}
@@ -33,7 +34,7 @@ const TrackingInformationBottomSheet = ({ bottomSheetRef, snapPoints, onChange }
                         </ThemedText>
                         <View style={styles.infoTextContainer}>
                             <Text style={styles.infoTitle}>Location Address</Text>
-                            <ThemedText type="fade" style={styles.infoSubtitle}>21 St. Brgy 14, Dagat-Dagatan Caloocan City</ThemedText>
+                            <ThemedText type="fade">{address}</ThemedText>
                         </View>
                     </View>
 
@@ -43,8 +44,8 @@ const TrackingInformationBottomSheet = ({ bottomSheetRef, snapPoints, onChange }
                             <Ionicons name="information-circle" style={styles.icon} />
                         </ThemedText>
                         <View style={styles.infoTextContainer}>
-                            <Text style={styles.infoTitle}>Request Details</Text>
-                            <ThemedText type="fade" style={styles.infoSubtitle}>Food Supplies Needed</ThemedText>
+                            <Text style={styles.infoTitle}>Description</Text>
+                            <ThemedText type="fade">{description}</ThemedText>
                         </View>
                     </View>
                 </View>
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         padding: 16,
+        marginHorizontal: 5,
     },
     header: {
         marginBottom: 16,
@@ -99,4 +101,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default TrackingInformationBottomSheet;
+export default MarkerInfo;
