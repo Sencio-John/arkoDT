@@ -45,6 +45,9 @@ namespace arkoDT
             this.txtConfirmPass = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnShowPass = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtOTP = new System.Windows.Forms.TextBox();
+            this.btnGetOTP = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -80,7 +83,7 @@ namespace arkoDT
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(209, 211);
+            this.btnCreate.Location = new System.Drawing.Point(208, 244);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(50, 22);
@@ -133,7 +136,7 @@ namespace arkoDT
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(117, 187);
+            this.label5.Location = new System.Drawing.Point(117, 210);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
@@ -167,7 +170,7 @@ namespace arkoDT
             this.cbRole.Items.AddRange(new object[] {
             "Admin",
             "User"});
-            this.cbRole.Location = new System.Drawing.Point(176, 184);
+            this.cbRole.Location = new System.Drawing.Point(176, 207);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(162, 21);
             this.cbRole.TabIndex = 13;
@@ -204,14 +207,47 @@ namespace arkoDT
             this.btnShowPass.UseVisualStyleBackColor = true;
             this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(117, 184);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "OTP";
+            // 
+            // txtOTP
+            // 
+            this.txtOTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOTP.Location = new System.Drawing.Point(176, 180);
+            this.txtOTP.Margin = new System.Windows.Forms.Padding(2);
+            this.txtOTP.Name = "txtOTP";
+            this.txtOTP.Size = new System.Drawing.Size(162, 22);
+            this.txtOTP.TabIndex = 18;
+            // 
+            // btnGetOTP
+            // 
+            this.btnGetOTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnGetOTP.Location = new System.Drawing.Point(343, 156);
+            this.btnGetOTP.Name = "btnGetOTP";
+            this.btnGetOTP.Size = new System.Drawing.Size(61, 20);
+            this.btnGetOTP.TabIndex = 20;
+            this.btnGetOTP.Text = "Get Code";
+            this.btnGetOTP.UseVisualStyleBackColor = true;
+            // 
             // frmUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(451, 252);
+            this.ClientSize = new System.Drawing.Size(451, 273);
             this.ControlBox = false;
+            this.Controls.Add(this.btnGetOTP);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtOTP);
             this.Controls.Add(this.btnShowPass);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.label6);
@@ -255,5 +291,8 @@ namespace arkoDT
         private System.Windows.Forms.TextBox txtConfirmPass;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnShowPass;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtOTP;
+        private System.Windows.Forms.Button btnGetOTP;
     }
 }
