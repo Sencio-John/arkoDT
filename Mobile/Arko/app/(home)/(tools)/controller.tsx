@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, ActivityIndicator, SafeAreaView } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { WebView } from 'react-native-webview';
 
-import Joystick from '../../../components/controls/Joystick';
-import { CAMERA_IP } from '@/constants/config';
+import CamMvt from '@/components/controls/CameraMvt';
+import { CAMERA_IP, CONTROL_IP, READ_IP, VC_IP } from '@/constants/config';
 import ThrottleControl from '@/components/controls/Throttle';
 import DPadv2 from '@/components/controls/Dpad_2';
 import Brake from '@/components/controls/BrakeBtn';
@@ -14,11 +14,8 @@ import GPSTracker from '@/components/controls/GPStxt';
 
 
 export default function Controller() {
-
     const [joystickPosition, setJoystickPosition] = React.useState({ x: 0, y: 0 });
     const [direction, setDirection] = React.useState('');
-    const [cameraReachable, setCameraReachable] = React.useState<boolean | null>(null);
-
 
     const handleJoystickMove = (position: React.SetStateAction<{ x: number; y: number; }>) => {
         setJoystickPosition(position);
@@ -29,71 +26,92 @@ export default function Controller() {
     };
 
     React.useEffect(() => {
+
+        checkIP();
         const lockOrientation = async () => {
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
             StatusBar.setHidden(true);
         };
 
-
-        const checkCameraReachable = async () => {
-            try {
-                const response = await fetch(`http://${CAMERA_IP}`);
-                if (response.ok) {
-                    setCameraReachable(true);
-                } else {
-                    setCameraReachable(false);
-                }
-            } catch (error) {
-                console.log('Camera unreachable:', error);
-                setCameraReachable(false);
-            }
-        };
-
         lockOrientation();
-        checkCameraReachable();
+        
         const revertBack = async () =>{
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
             StatusBar.setHidden(false);
         }   
 
         return () => {
-            // Unlock orientation when leaving the screen
             revertBack();
         };
     }, []);
 
-    return (
-        <View style={style.container}>
-            {cameraReachable === null ? (
-                <ActivityIndicator size="large" color="#0000ff" /> // Loading spinner while checking
-            ) : cameraReachable ? (
-                <WebView
-                    source={{ uri: `http://${CAMERA_IP}` }}
-                    style={style.video}
-                />
-            ) : (
-                <Text style={style.errorText}>Camera feed is unreachable.</Text> // Error message if unreachable
-            )}
+    const [isOverlayVisible, setIsOverlayVisible] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(true)
+    const fetchWithTimeout = (url: string, timeout = 3000) => {
+        return Promise.race([
+            fetch(url, { method: 'HEAD' }),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error(`Request to ${url} timed out`)), timeout)
+            ),
+        ]);
+    };
 
+    const checkIP = async () => {
+        try {
+            const [cameraResponse, controlResponse, readResponse, vcResponse] = await Promise.all([
+                fetchWithTimeout(CAMERA_IP, 3000),
+                fetchWithTimeout(CONTROL_IP, 3000),
+                fetchWithTimeout(READ_IP, 3000),
+                fetchWithTimeout(VC_IP, 3000),
+            ]);
+
+            if (
+                !cameraResponse.ok ||
+                !controlResponse.ok ||
+                !readResponse.ok ||
+                !vcResponse.ok
+            ) {
+                setIsOverlayVisible(true);
+            }
+        } catch (error) {
+            console.log("IP check failed:", error);
+            setIsOverlayVisible(true);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+    // if (isLoading) {
+    //     return (
+    //         <SafeAreaView style={style.loadingContainer}>
+    //             <ActivityIndicator size="large" color="#0000ff" />
+    //             <Text>Loading...</Text>
+    //         </SafeAreaView>
+    //     );
+    // }
+
+
+    return(
+        <SafeAreaView style={style.container}>
             <View style={style.joystick}>
-                <DPadv2 />
+                <DPadv2 IP={CONTROL_IP} />
             </View> 
 
             <View style={style.brakebtn}>
-                <Gear />
+                <Gear IP={CONTROL_IP}/>
                 
             </View>
 
             <View style={style.throttle}>
-                <ThrottleControl />
+                <ThrottleControl IP={CONTROL_IP} />
             </View>
-
-            <View style={style.gear}>
+           <View style={style.gear}>
                 <Brake />
             </View>
 
             <View style={style.dpad}>
-                <Joystick onMove={handleJoystickMove}/>
+                <CamMvt onMove={handleJoystickMove} wsURL={CAMERA_IP}/>
             </View> 
             
             <View style={style.btns}>
@@ -101,9 +119,9 @@ export default function Controller() {
             </View>
             
             <View style={style.details}>
-                <GPSTracker />
+                <GPSTracker GPSRead_IP={READ_IP} />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

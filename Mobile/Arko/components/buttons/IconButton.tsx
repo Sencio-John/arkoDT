@@ -5,7 +5,6 @@ import { ThemedView } from '../ThemedView';
 import { ThemedText } from '../ThemedText';
 
 
-
 export default function IconButton({ type, onPress=()=>{}}) {
 
     const [iconName, setIconName] = React.useState('');
@@ -24,13 +23,13 @@ export default function IconButton({ type, onPress=()=>{}}) {
 
         if(type === "map"){
             icon = "navigate";
-            name = "Track Location"
-        } else if(type === "camera"){
-            icon = "videocam"
-            name = "Live Camera Feed"
+            name = "Map"
+        } else if(type === "stats"){
+            icon = "stats-chart"
+            name = "Statistics"
         } else if(type === "control"){
             icon = "game-controller"
-            name = "Boat Controller"
+            name = "Controller"
         }
 
         setIconName(icon);
