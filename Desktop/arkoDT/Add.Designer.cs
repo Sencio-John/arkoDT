@@ -50,9 +50,10 @@ namespace arkoDT
             // 
             // textBox1
             // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(155, 81);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 20);
+            this.textBox1.Size = new System.Drawing.Size(220, 22);
             this.textBox1.TabIndex = 1;
             // 
             // lblBoatName
@@ -77,9 +78,10 @@ namespace arkoDT
             // 
             // textBox2
             // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(155, 123);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(220, 20);
+            this.textBox2.Size = new System.Drawing.Size(220, 22);
             this.textBox2.TabIndex = 3;
             // 
             // btnClose

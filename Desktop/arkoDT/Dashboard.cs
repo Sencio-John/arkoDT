@@ -13,9 +13,12 @@ namespace arkoDT
 {
     public partial class frmDashboard : Form
     {
-        public frmDashboard()
+        private frmLogin loginForm;  // Field to store the frmLogin instance
+
+        public frmDashboard(frmLogin login)
         {
             InitializeComponent();
+            loginForm = login;  // Store the frmLogin instance passed in the constructor
         }
 
         private void btnController_Click(object sender, EventArgs e)
@@ -37,7 +40,10 @@ namespace arkoDT
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
-
+            string user = loginForm.Username;
+            string role = loginForm.Role;
+            lblWelcome.Text = "Welcome, " + user;
+            lblRole.Text = role;
             // Set up the Timer
             Timer timer = new Timer();
             timer.Interval = 1000; // 1 second
@@ -47,6 +53,16 @@ namespace arkoDT
             lblGoWaterLevel.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             lblGoUsers.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             lblDevices.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+            if(role == "User")
+            {
+                pnlUsers.Visible = false;
+                pnlDeviceCount.Visible = false;
+            }
+            else
+            {
+                pnlUsers.Visible = true;
+                pnlDeviceCount.Visible = true;
+            }
         }
 
         private void UpdateLabel(object sender, EventArgs e)
@@ -58,22 +74,29 @@ namespace arkoDT
             lblPeriod.Text = DateTime.Now.ToString("tt");
         }
 
+        private void lblDevices_Click(object sender, EventArgs e)
+        {
+            frmDevices form2 = new frmDevices();
+            form2.Show();
+        }
+
+        private void lblGoUsers_Click(object sender, EventArgs e)
+        {
+            frmUsers form4 = new frmUsers();
+            form4.Show();
+        }
+
         private void lblGoWaterLevel_Click(object sender, EventArgs e)
         {
             frmGraph form3 = new frmGraph();
             form3.Show();
         }
 
-        private void lblGoUsers_Click(object sender, EventArgs e)
+        private void btnLogout_Click(object sender, EventArgs e)
         {
-            frmUC form4 = new frmUC();
-            form4.Show();
-        }
-
-        private void lblDevices_Click(object sender, EventArgs e)
-        {
-            frmDevices form2 = new frmDevices();
-            form2.Show();
+            frmLogin loginForm = new frmLogin(); // Create a new instance of frmLogin
+            loginForm.Show();                     // Show the new frmLogin form
+            this.Hide();
         }
     }
 }

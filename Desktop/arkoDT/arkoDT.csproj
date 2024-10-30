@@ -199,6 +199,7 @@
     <Compile Include="Devices.Designer.cs">
       <DependentUpon>Devices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Firebase_Config.cs" />
     <Compile Include="ForgotPass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -239,6 +240,12 @@
       <DependentUpon>UserCreation.cs</DependentUpon>
     </Compile>
     <Compile Include="UserRegistration.cs" />
+    <Compile Include="Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserCreation.resx">
       <DependentUpon>UserCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
