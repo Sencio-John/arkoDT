@@ -2,48 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { Ionicons } from '@expo/vector-icons';
+import WebSocketManager from '@/constants/controlsocket';
 
 interface DPadv2Props {
-    IP: string; 
+    address: string;
 }
 
-const DPadv2: React.FC<DPadv2Props> = ({ IP }) => {
+const DPadv2: React.FC<DPadv2Props> = ({ address }) => {
     const [isHoldingLeft, setIsHoldingLeft] = useState(false);
     const [isHoldingRight, setIsHoldingRight] = useState(false);
-    const [socket, setSocket] = useState<WebSocket | null>(null);
+    const wsManager = WebSocketManager.getInstance();
 
     useEffect(() => {
-        const ws = new WebSocket(IP);
-
-        ws.onopen = () => {
-            console.log('Connected to the server');
-            setSocket(ws);
-        };
-
-        ws.onclose = () => {
-            console.log('Disconnected from the server');
-            setSocket(null);
-        };
-
-        ws.onerror = (error) => {
-            console.error('WebSocket erro at DPAD:', error);
-            ws.close();
-            setSocket(null);
-        };
+        wsManager.connect(address);
 
         return () => {
-            ws.close();
+            wsManager.disconnect(address);
         };
-    }, [IP]);
+    }, [address]);
 
     useEffect(() => {
         let interval: NodeJS.Timeout | null = null;
 
         const sendMessage = (direction: string) => {
-            if (socket) {
-                const jsonMessage = JSON.stringify({ ctrlRudder: direction });
-                socket.send(jsonMessage);
-            }
+            wsManager.sendMessage(address, { rudder: direction });
         };
 
         if (isHoldingLeft) {
@@ -57,7 +39,7 @@ const DPadv2: React.FC<DPadv2Props> = ({ IP }) => {
                 clearInterval(interval);
             }
         };
-    }, [isHoldingLeft, isHoldingRight, socket]); 
+    }, [isHoldingLeft, isHoldingRight, address]); 
 
     return (
         <View style={styles.container}>

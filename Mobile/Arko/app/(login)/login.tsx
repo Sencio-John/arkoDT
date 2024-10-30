@@ -9,7 +9,7 @@ import Input from '@/components/inputs/input';
 
 import { ref, get, child, onValue, set } from 'firebase/database';
 import { database } from '@/constants/firebase';
-import CryptoJS from "crypto-js";
+import CryptoJS, { SHA256 } from "crypto-js";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ArkoIcon = require('../../assets/images/appImg/arko-logo.png');
@@ -79,7 +79,6 @@ const LoginScreen = () =>{
                     }
 
                     if (foundUser) {
-
                         if (foundUser.Password === password) {
                             SavedLogIn(foundUser.Email, foundUser.Name)
                             Alert.alert('Login Successfully', "Welcome to ARKO")

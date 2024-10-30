@@ -1,42 +1,58 @@
 import { CONTROL_IP } from "./config";
 
-class WebSocketService {
-    private socket: WebSocket | null = null;
-    private readonly ip: string;
+class WebSocketManager {
+    private static instance: WebSocketManager | null = null;
+    private sockets: { [address: string]: WebSocket } = {};
 
-    constructor(ip: string = CONTROL_IP) { 
-        this.ip = ip;
+    private constructor() {}
+
+    static getInstance(): WebSocketManager {
+        if (!WebSocketManager.instance) {
+            WebSocketManager.instance = new WebSocketManager();
+            WebSocketManager.instance.connect(CONTROL_IP); // Auto-connect to CONTROL_IP
+        }
+        return WebSocketManager.instance;
     }
 
-    connect(onOpen: () => void, onClose: () => void, onError: (error: any) => void) {
-        this.socket = new WebSocket(this.ip);
+    connect(address: string = CONTROL_IP): void { // Default to CONTROL_IP if no address provided
+        if (this.sockets[address]) {
+            console.log(`WebSocket is already connected to ${address}`);
+            return;
+        }
 
-        this.socket.onopen = () => {
-            console.log('Connected to the server at', this.ip);
-            onOpen();
+        const socket = new WebSocket(address);
+        this.sockets[address] = socket;
+
+        socket.onopen = () => console.log(`Connected to ${address}`);
+        socket.onclose = () => {
+            console.log(`Disconnected from ${address}`);
+            delete this.sockets[address];
         };
-
-        this.socket.onclose = () => {
-            console.log('Disconnected from the server');
-            onClose();
-        };
-
-        this.socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-            this.socket?.close();
-            onError(error);
+        socket.onerror = (error) => {
+            console.error(`WebSocket error on ${address}:`, error);
+            socket.close();
         };
     }
 
-    sendMessage(message: string) {
-        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-            this.socket.send(message);
+    disconnect(address: string = CONTROL_IP): void { // Default to CONTROL_IP if no address provided
+        const socket = this.sockets[address];
+        
+        if (socket) {
+            socket.close();
+            delete this.sockets[address];
+            console.log(`Disconnected from ${address}`);
         }
     }
 
-    close() {
-        this.socket?.close();
+    sendMessage(address: string = CONTROL_IP, message: object): void { // Default to CONTROL_IP if no address provided
+        const socket = this.sockets[address];
+
+        if (socket && socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify(message));
+        } else {
+            console.warn(`WebSocket ${address} is not connected`);
+        }
     }
 }
 
-export default WebSocketService;
+export default WebSocketManager;

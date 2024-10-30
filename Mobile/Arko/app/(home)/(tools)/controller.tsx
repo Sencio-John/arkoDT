@@ -12,6 +12,13 @@ import Gear from '@/components/controls/GearBtn';
 import Light from '@/components/controls/Light';
 import GPSTracker from '@/components/controls/GPStxt';
 
+interface FetchResponse {
+    ok: boolean;
+    // Add other properties if needed
+    // e.g. status: number, statusText: string, etc.
+}
+
+
 
 export default function Controller() {
     const [joystickPosition, setJoystickPosition] = React.useState({ x: 0, y: 0 });
@@ -58,19 +65,18 @@ export default function Controller() {
 
     const checkIP = async () => {
         try {
-            const [cameraResponse, controlResponse, readResponse, vcResponse] = await Promise.all([
+            const responses = await Promise.all([
                 fetchWithTimeout(CAMERA_IP, 3000),
                 fetchWithTimeout(CONTROL_IP, 3000),
                 fetchWithTimeout(READ_IP, 3000),
                 fetchWithTimeout(VC_IP, 3000),
             ]);
 
-            if (
-                !cameraResponse.ok ||
-                !controlResponse.ok ||
-                !readResponse.ok ||
-                !vcResponse.ok
-            ) {
+            // Destructure the responses
+            const [cameraResponse, controlResponse, readResponse, vcResponse] = responses as FetchResponse[];;
+
+            // Check if any response is not ok
+            if (!cameraResponse.ok || !controlResponse.ok || !readResponse.ok || !vcResponse.ok) {
                 setIsOverlayVisible(true);
             }
         } catch (error) {
@@ -80,6 +86,7 @@ export default function Controller() {
             setIsLoading(false);
         }
     };
+
 
 
     // if (isLoading) {
@@ -94,24 +101,29 @@ export default function Controller() {
 
     return(
         <SafeAreaView style={style.container}>
+            {/* {isOverlayVisible && (
+                <View style={style.overlay}>
+                    <Text style={style.errorText}>Connection is unavailable. Please try again.</Text>
+                </View>
+            )} */}
             <View style={style.joystick}>
-                <DPadv2 IP={CONTROL_IP} />
+                <DPadv2 address={CONTROL_IP} />
             </View> 
 
             <View style={style.brakebtn}>
-                <Gear IP={CONTROL_IP}/>
+                <Gear address={CONTROL_IP}/>
                 
             </View>
 
             <View style={style.throttle}>
-                <ThrottleControl IP={CONTROL_IP} />
+                <ThrottleControl address={CONTROL_IP} />
             </View>
            <View style={style.gear}>
                 <Brake />
             </View>
 
             <View style={style.dpad}>
-                <CamMvt onMove={handleJoystickMove} wsURL={CAMERA_IP}/>
+                <CamMvt onMove={handleJoystickMove} address={CONTROL_IP}/>
             </View> 
             
             <View style={style.btns}>
@@ -176,6 +188,12 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center"
-    }
-
+    },
+    overlay:{
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: '#212121',
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+    },
 })

@@ -1,22 +1,19 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import WebSocketManager from '@/constants/controlsocket';
 
 interface ThrottleControlProps {
-    IP: string; 
+    address: string;
 }
 
-const ThrottleControl: React.FC<ThrottleControlProps> = ({ IP }) => {
+const ThrottleControl: React.FC<ThrottleControlProps> = ({ address }) => {
     const [power, setPower] = useState(0);
     const throttleInterval = useRef<NodeJS.Timeout | null>(null);
-    const [socket, setSocket] = useState<WebSocket | null>(null);
+    const wsManager = WebSocketManager.getInstance();
 
     const sendPowerValue = (currentPower: number) => {
-        console.log(`Chosen Power: ${currentPower}%`);
-        if (socket) {
-            const jsonMessage = JSON.stringify({ ctrlSpeed: currentPower });
-            socket.send(jsonMessage);
-        }
+        wsManager.sendMessage(address, { speed: currentPower });
     };
 
     const handlePress = (isIncrease: boolean) => {
@@ -36,27 +33,11 @@ const ThrottleControl: React.FC<ThrottleControlProps> = ({ IP }) => {
     };
 
     useEffect(() => {
-        const ws = new WebSocket(IP);
-
-        ws.onopen = () => {
-            console.log('Connected to the server');
-            setSocket(ws);
-        };
-
-        ws.onclose = () => {
-            console.log('Disconnected from the server');
-            setSocket(null);
-        };
-        
-        ws.onerror = (error) => {
-            ws.close(); 
-            setSocket(null);
-        };
-
+        wsManager.connect(address);
         return () => {
-            ws.close();
+            wsManager.disconnect(address);
         };
-    }, [IP]); 
+    }, [address]);
 
     return (
         <View style={styles.container}>

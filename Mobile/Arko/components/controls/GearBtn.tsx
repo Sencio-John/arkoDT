@@ -1,45 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import WebSocketManager from '@/constants/controlsocket';
 
 interface GearProps {
-    IP: string;
+    address: string;
 }
 
-const Gear: React.FC<GearProps> = ({ IP }) => {
+const Gear: React.FC<GearProps> = ({ address }) => {
     const [gear, setGear] = React.useState("FORWARD");
-    const [socket, setSocket] = React.useState<WebSocket | null>(null);
+    const wsManager = WebSocketManager.getInstance();
 
     React.useEffect(() => {
-        const ws = new WebSocket(IP);
-
-        ws.onopen = () => {
-            console.log('Connected to the server');
-            setSocket(ws);
-        };
-
-        ws.onclose = () => {
-            console.log('Disconnected from the server');
-            setSocket(null);
-        };
-
-        ws.onerror = (error) => {
-            ws.close();
-            setSocket(null);
-        };
+        wsManager.connect(address);
 
         return () => {
-            ws.close();
+            wsManager.disconnect(address);
         };
-    }, [IP]);
+    }, [address]);
 
     const toggleGear = () => {
         const newGear = gear === "FORWARD" ? "REVERSE" : "FORWARD";
         setGear(newGear);
-
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({ gear: newGear }));
-        }
+        wsManager.sendMessage(address, { gear: newGear });
     };
 
     return (
