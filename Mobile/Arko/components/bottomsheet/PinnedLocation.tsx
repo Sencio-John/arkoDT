@@ -1,16 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView  } from 'react-native';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import { Ionicons } from '@expo/vector-icons'; // Use Ionicons for icons
-import { ThemedText } from '../ThemedText'; // Assuming you're using ThemedText for styled text
-
+import { View, StyleSheet, Dimensions } from 'react-native';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useColorScheme } from 'react-native';
+import { ThemedText } from '../ThemedText';
 import PinDetail from '../buttons/PinDetails';
 
-const PinnedLocation = ({ bottomSheetRef, snapPoints, pinnedLocations, index}) => {
+const PinnedLocation = ({ bottomSheetRef, snapPoints, pinnedLocations, onPress, index, onClose = () => {} }) => {
 
     const colorScheme = useColorScheme();
-
+    
     return (
         <BottomSheet
             ref={bottomSheetRef}
@@ -18,58 +16,46 @@ const PinnedLocation = ({ bottomSheetRef, snapPoints, pinnedLocations, index}) =
             handleStyle={[styles.handleStyle, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff'}]}
             handleIndicatorStyle={[styles.handleIndicator, {backgroundColor: colorScheme === 'dark' ? '#fff' : '#151718'}]}
             index={index}
-            enableHandlePanningGesture={false}
+            enablePanDownToClose={true}
+            onClose={onClose}
         >
-            <BottomSheetView style={[styles.contentContainer, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff'}]}>
-            {/* Header */}
+            <BottomSheetScrollView contentContainerStyle={[styles.contentContainer, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff'}]}>
+                
+                {/* Header */}
                 <View style={styles.header}>
                     <ThemedText type="subtitle">Pinned Locations</ThemedText>
                 </View>
 
-            {/* Content */}
+                {/* Pinned Locations List */}
+                {pinnedLocations.length === 0 ? (
+                    <ThemedText type="med">No pinned locations yet</ThemedText>
+                ) : (
+                    pinnedLocations.map((location) => (
+                        <PinDetail 
+                            key={location.id}
+                            icon_name="pin"
+                            title={location.title}
+                            subtitle={location.description}
+                            onPress={() => onPress(location.id)}
+                        />
+                    ))
+                )}
                 
-                <ScrollView contentContainerStyle={styles.info} style={styles.scrollView} nestedScrollEnabled>
-
-                    {pinnedLocations.length === 0 ? (
-                        <ThemedText type="title">No pinned locations yet</ThemedText>
-                        ) : (
-                            pinnedLocations.map((location: { id: React.Key | null | undefined; title: any; description: any; }) => (
-                                <PinDetail 
-                                    key={location.id}
-                                    icon_name="pin"
-                                    title={location.title}
-                                    subtitle={location.description}
-                                />
-                            ))
-                    )}
-                
-                </ScrollView>
-            </BottomSheetView>
+            </BottomSheetScrollView>
         </BottomSheet>
-  );
+    );
 };
 
 const styles = StyleSheet.create({
     contentContainer: {
-        flex: 1,
         padding: 16,
         justifyContent: "center",
-    },
-    scrollView: {
-        flexGrow: 1, 
+        alignContent: "center",
+        alignItems: "center"
     },
     header: {
         marginBottom: 16,
         alignItems: 'center',
-    },
-    info: {
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginVertical: 10,
-    },
-    infoSubtitle: {
-        fontSize: 14,
     },
     handleStyle: {
         borderTopLeftRadius: 12,
@@ -82,10 +68,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         alignSelf: 'center',
         marginTop: 6,
-    },
-    icon:{
-        fontSize: 24,
-        color: "#277CA5"
     },
 });
 

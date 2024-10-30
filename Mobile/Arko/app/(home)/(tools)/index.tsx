@@ -8,13 +8,17 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import MarkerModal from '@/components/modals/markerInsert';
 import PinnedLocation from '@/components/bottomsheet/PinnedLocation';
+import PinsBtn from '@/components/buttons/Iconbtn';
+import MarkerInfo from '@/components/bottomsheet/MarkerInfo';
 
 export default function Map() {
 
     const colorScheme = useColorScheme();
 
     const bottomSheetRef = React.useRef<BottomSheet>(null);
-    const snapPoints = React.useMemo(() => ["5%",'25%','50%'], []);
+    const MapInfoRef = React.useRef<BottomSheet>(null);
+    const snapPoints = React.useMemo(() => ["1%", "5%",'25%','35%'], []);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false);
     const [userLocation, setUserLocation] = React.useState(null);
     const [mapRegion, setMapRegion] =  React.useState({
         latitude: 14.6495,
@@ -44,8 +48,6 @@ export default function Map() {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
         });
-
-        console.log(location.coords.latitude, location.coords.longitude);
     };
 
     React.useEffect(() => {
@@ -64,7 +66,8 @@ export default function Map() {
     };
 
     const handleAddMarker = (title: string, description: string) => {
-        bottomSheetRef.current?.snapToIndex(-1);
+        bottomSheetRef.current?.close();
+        MapInfoRef.current?.close();;
         if (markerCoordinate) {
             setMarkers((currentMarkers) => [
                 ...currentMarkers,
@@ -77,13 +80,62 @@ export default function Map() {
             ]);
             
             setModalVisible(false);
-            bottomSheetRef.current?.snapToIndex(1);
+            bottomSheetRef.current?.snapToIndex(2);
         } else{
-            bottomSheetRef.current?.snapToIndex(1);
+            bottomSheetRef.current?.snapToIndex(2);
         }
     };
 
+    const toggleBottomSheet = () =>{
+        if (isBottomSheetOpen) {
+            bottomSheetRef.current?.close();
+        } else {
+            bottomSheetRef.current?.snapToIndex(2);
+        }
+        setIsBottomSheetOpen(!isBottomSheetOpen);
+    }
 
+    const getAddressFromCoordinates = async (latitude: any, longitude: any) => {
+        try {
+            const result = await Location.reverseGeocodeAsync({ latitude, longitude });
+            if (result.length > 0) {
+                const { street, city, region, country } = result[0];
+                return `${street}, ${city}, ${region}, ${country}`; // Format the address as needed
+            }
+            return null;
+        } catch (error) {
+            console.error("Error getting address:", error);
+            return null;
+        }
+    };
+
+    const seeMarkerInfo = async (markerId: any) => {
+    const marker = markers.find((m) => m.id === markerId);
+    if (marker) {
+        const address = await getAddressFromCoordinates(marker.coordinate.latitude, marker.coordinate.longitude);
+        
+        setSelectedMarker({ ...marker, address }); 
+
+        setMapRegion({
+            ...mapRegion,
+            latitude: marker.coordinate.latitude,
+            longitude: marker.coordinate.longitude,
+        });
+
+    
+        bottomSheetRef.current?.close();
+        MapInfoRef.current?.snapToIndex(3); 
+    }
+};
+
+
+    const [selectedMarker, setSelectedMarker] = React.useState(null);
+    const handleMarkerPress = async (marker: any) => {
+        const address = await getAddressFromCoordinates(marker.coordinate.latitude, marker.coordinate.longitude);
+        setSelectedMarker({ ...marker, address }); 
+        bottomSheetRef.current?.close(); 
+        MapInfoRef.current?.snapToIndex(3); 
+    };
 
     return (
         <GestureHandlerRootView>
@@ -100,26 +152,41 @@ export default function Map() {
                         coordinate={marker.coordinate}
                         title={marker.title}
                         description={marker.description}
+                        onPress={() => handleMarkerPress(marker)}
                         />
                     ))}
+                    
                 </MapView>
+                <View style={style.pinbtn}>
+                    <PinsBtn iconName='pin' onPress={toggleBottomSheet}/>
+                </View>
+                
                 
                     <MarkerModal 
                         modalVisible={modalVisible}
                         onClose={() => {
                             setModalVisible(false)
-                            bottomSheetRef.current?.snapToIndex(1);
+                            bottomSheetRef.current?.expand;
                         }}
                         onAddMarker={handleAddMarker}
                     />
 
                     <PinnedLocation 
                         bottomSheetRef={bottomSheetRef} 
-                        index={1}
                         snapPoints={snapPoints} 
                         pinnedLocations={markers}
+                        onPress={seeMarkerInfo}
+                        onClose={() => setIsBottomSheetOpen(false)}
+                        index={-1}
                     />
 
+                    <MarkerInfo 
+                        bottomSheetRef={MapInfoRef}
+                        snapPoints={snapPoints}
+                        index={-1}
+                        address={selectedMarker ? selectedMarker.address : null} // Use the physical address
+                        description={selectedMarker ? selectedMarker.description : ''} 
+                    />
                     
             </SafeAreaView>
         </GestureHandlerRootView>
@@ -138,6 +205,11 @@ const style = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    pinbtn:{
+        position: "absolute",
+        top: 75,
+        right: 10,
+    }
 })
 
 
@@ -162,3 +234,7 @@ const bottomSheet = StyleSheet.create({
 
     },
 })
+
+function getAddressFromCoordinates(latitude: any, longitude: any) {
+    throw new Error('Function not implemented.');
+}

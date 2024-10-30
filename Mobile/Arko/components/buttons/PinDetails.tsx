@@ -7,7 +7,12 @@ import { useColorScheme } from 'react-native';
 
 export default function PinDetail({icon_name, title, subtitle, onPress=() => {}}) {
 
-    const colorScheme = useColorScheme()
+    const colorScheme = useColorScheme();
+    const maxSubtitleLength = 28;
+
+    const truncatedSubtitle = subtitle.length > maxSubtitleLength
+        ? `${subtitle.substring(0, maxSubtitleLength)}...`
+        : subtitle;
 
     return(
         <TouchableOpacity style={style.container} onPress={onPress}>     
@@ -25,7 +30,7 @@ export default function PinDetail({icon_name, title, subtitle, onPress=() => {}}
                         {title}
                     </ThemedText>
                     <ThemedText type="fade">
-                        {subtitle}
+                        {truncatedSubtitle}
                     </ThemedText>
                 </View>
             </View>  

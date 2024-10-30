@@ -50,7 +50,7 @@ const Dashboard = () =>{
             <ThemedView style={style.header}>
                 <View style={style.profilegrp}>
                     <View style={style.profileContainer}>
-                        <Image style={style.profile} source={require('../../assets/images/profile.jpg')}/>
+                        <Image style={style.profile} source={require('../../assets/images/user-profile-icon.png')}/>
                     </View>
                     <ThemedText style={style.user}>Hi, {userData?.Name}</ThemedText>
                 </View>
@@ -69,15 +69,15 @@ const Dashboard = () =>{
                 <View style={dashboard.card}>
                     <WeatherCard/>
                 </View>
-                <ThemedText type='subtitle'>Device</ThemedText>
+                <ThemedText type='subtitle' style={dashboard.header}>Device</ThemedText>
                 <View style={dashboard.card}>
                     <DeviceStatusCard onPress={() => {router.navigate('/(home)/(device)/')}} />
                 </View>
-                <ThemedText type='subtitle'>Tools</ThemedText>
+                <ThemedText type='subtitle' style={dashboard.header}>Quick Access Tools</ThemedText>
                 <View style={dashboard.card}>
                     <View style={dashboard.buttons}>
                         <IconButton type="map" onPress={() => router.navigate('/(home)/(tools)/')}/>
-                        <IconButton type="camera" onPress={() => router.navigate('/(home)/(tools)/camera')}/>
+                        <IconButton type="stats" onPress={() => router.navigate('/(home)/(tools)/stats')}/>
                         <IconButton type="control" onPress={() => router.navigate('/(home)/(tools)/controller')}/>
                     </View>
                 </View>
@@ -138,6 +138,9 @@ const dashboard = StyleSheet.create({
         paddingVertical: 25,
         justifyContent: "center",
     },
+    header:{
+        marginVertical: 10,
+    },
     card:{
         marginBottom: 20,
         marginTop: 10,
@@ -145,7 +148,8 @@ const dashboard = StyleSheet.create({
     buttons:{
         flexDirection: "row",
         justifyContent: "space-between",
-        alignContent: "center"
+        alignContent: "center",
+        marginVertical: 10,
     },
 })
 

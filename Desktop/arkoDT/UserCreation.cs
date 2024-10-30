@@ -7,41 +7,33 @@ using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using System.Collections.Generic;
+using System.Drawing;
+using BCrypt.Net;
 
 namespace arkoDT
 {
     public partial class frmUC : Form
     {
-        IFirebaseConfig config = new FirebaseConfig
-        {
-            AuthSecret = "9LIEv3oM8IkGzdbhvL6949CXXFAD86pu2v2ISD1r",
-            BasePath = "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/"
-        };
-
-        IFirebaseClient client;
+        private IFirebaseClient client;
         private string generatedID;
+        private bool isFirstImage = true;
+        private frmUsers frmUsers;
 
-        public frmUC()
+        public frmUC(frmUsers frmUsersInstance)
         {
             InitializeComponent();
 
-            try
-            {
-                // Initialize Firebase Client with error handling
-                client = new FireSharp.FirebaseClient(config);
+            btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
 
-                if (client != null)
-                {
-                    MessageBox.Show("Connected to Firebase!");
-                }
-                else
-                {
-                    MessageBox.Show("Failed to connect to Firebase.");
-                }
-            }
-            catch (Exception ex)
+            frmUsers = frmUsersInstance;
+
+            Firebase_Config firebaseConfig = new Firebase_Config();
+            client = firebaseConfig.GetClient();
+
+            if (client == null)
             {
-                MessageBox.Show($"Error connecting to Firebase: {ex.Message}");
+                MessageBox.Show("Failed to connect to Database.");
             }
         }
 
@@ -55,7 +47,6 @@ namespace arkoDT
         public async void frmUC_Load(object sender, EventArgs e)
         {
             generatedID = await GenerateUniqueID();
-            MessageBox.Show("Generated Unique ID: " + generatedID);
         }
 
         // Generate the random ID and check for uniqueness
@@ -78,7 +69,7 @@ namespace arkoDT
             string newID;
             bool exists;
             int retryCount = 0;
-            const int maxRetries = 10;
+            const int maxRetries = 30;
 
             do
             {
@@ -153,7 +144,7 @@ namespace arkoDT
             {
                 if (client == null)
                 {
-                    MessageBox.Show("Firebase client is not initialized.");
+                    MessageBox.Show("Database client is not initialized.");
                     return false;
                 }
 
@@ -183,10 +174,6 @@ namespace arkoDT
             return false;
         }
 
-
-
-
-
         // Validate the email format
         private bool IsValidEmail(string email)
         {
@@ -194,16 +181,26 @@ namespace arkoDT
             return Regex.IsMatch(email, emailPattern);
         }
 
-        // Create user and store in Firebase
-        // Create user and store in Firebase
         private async void btnCreate_Click(object sender, EventArgs e)
         {
             try
             {
+                if(txtConfirmPass.Text != txtPassword.Text)
+                {
+                    MessageBox.Show("Password does not match");
+                    return;
+                }
+
                 // Basic validation for empty fields
                 if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtEmail.Text))
                 {
                     MessageBox.Show("Username and Email cannot be empty.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    MessageBox.Show("Password cannot be empty");
                     return;
                 }
 
@@ -230,22 +227,29 @@ namespace arkoDT
                     return;
                 }
 
+                //Password Hashing
+                string hashedPassword = PasswordHelper.HashPassword(txtPassword.Text);
+
                 // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
                     Name = txtName.Text,
                     Username = txtUsername.Text,
-                    Password = txtPassword.Text, // Consider encrypting this in a real application
+                    Password = hashedPassword,
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
-                    Status = "Active"
+                    Status = "Inactive"
                 };
 
-                // Save the user to Firebase with the generated ID
                 SetResponse response = await client.SetAsync("Users/" + generatedID, register);
 
-                MessageBox.Show($"User {register.Name} ({register.Username}) has been successfully inserted into the database with ID {generatedID}.");
+                MessageBox.Show($"New User has been successfully inserted into the database.");
                 this.Close();
+
+                frmUsers.UpdateUsersCards();
+
+                // Save the user to Firebase with the generated ID
+
 
             }
             catch (Exception ex)
@@ -255,5 +259,25 @@ namespace arkoDT
 
         }
 
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            if (isFirstImage)
+            {
+                txtPassword.PasswordChar = '\0';
+                txtConfirmPass.PasswordChar = '\0';
+                // Change to the second image
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
+            }
+            else
+            {
+                txtPassword.PasswordChar = '●';
+                txtConfirmPass.PasswordChar = '●';
+                // Revert to the first image
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            }
+
+            // Toggle the flag
+            isFirstImage = !isFirstImage;
+        }
     }
 }

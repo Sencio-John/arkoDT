@@ -1,7 +1,32 @@
-export const CAMERA_IP = "192.168.1.153:5000"
+import { getDatabase, ref, get } from "firebase/database";
+import { database } from "./firebase";
 
-export const CONTROL_IP = 'ws://192.168.1.153:443'
+export const fetchConfigValues = async () => {
+    try {
+        const configRef = ref(database, 'config/'); // Adjust path to your configuration data
+        const snapshot = await get(configRef);
+        
+        if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            console.log("No configuration data found");
+            return {};
+        }
+    } catch (error) {
+        console.error("Error fetching configuration values:", error);
+        return {};
+    }
+};
 
-export const VC_IP = 'ws://192.168.1.153:9999'
+// Fetch and export configuration values
+export let CAMERA_IP: string;
+export let CONTROL_IP: string;
+export let VC_IP: string;
+export let READ_IP: string;
 
-export const READ_IP = 'ws://192.168.1.153:8000'
+fetchConfigValues().then((config) => {
+    CAMERA_IP = config.CAM_IP;
+    CONTROL_IP = config.CONTROL_IP;
+    VC_IP = config.VC_IP;
+    READ_IP = config.READ_IP;
+});

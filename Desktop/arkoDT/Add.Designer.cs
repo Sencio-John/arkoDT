@@ -30,7 +30,7 @@ namespace arkoDT
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdd));
-            this.btn = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblBoatName = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
@@ -38,21 +38,22 @@ namespace arkoDT
             this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn
+            // btnAdd
             // 
-            this.btn.Location = new System.Drawing.Point(195, 192);
-            this.btn.Name = "btn";
-            this.btn.Size = new System.Drawing.Size(75, 23);
-            this.btn.TabIndex = 0;
-            this.btn.Text = "Add Device";
-            this.btn.UseVisualStyleBackColor = true;
-            this.btn.Click += new System.EventHandler(this.button1_Click);
+            this.btnAdd.Location = new System.Drawing.Point(195, 192);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "Add Device";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // textBox1
             // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(155, 81);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 20);
+            this.textBox1.Size = new System.Drawing.Size(220, 22);
             this.textBox1.TabIndex = 1;
             // 
             // lblBoatName
@@ -77,9 +78,10 @@ namespace arkoDT
             // 
             // textBox2
             // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(155, 123);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(220, 20);
+            this.textBox2.Size = new System.Drawing.Size(220, 22);
             this.textBox2.TabIndex = 3;
             // 
             // btnClose
@@ -105,7 +107,7 @@ namespace arkoDT
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.lblBoatName);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.btn);
+            this.Controls.Add(this.btnAdd);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmAdd";
@@ -118,7 +120,7 @@ namespace arkoDT
 
         #endregion
 
-        private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lblBoatName;
         private System.Windows.Forms.Label lblPassword;
