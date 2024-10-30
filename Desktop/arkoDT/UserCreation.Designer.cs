@@ -48,6 +48,7 @@ namespace arkoDT
             this.label7 = new System.Windows.Forms.Label();
             this.txtOTP = new System.Windows.Forms.TextBox();
             this.btnGetOTP = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -236,6 +237,18 @@ namespace arkoDT
             this.btnGetOTP.TabIndex = 20;
             this.btnGetOTP.Text = "Get Code";
             this.btnGetOTP.UseVisualStyleBackColor = true;
+            this.btnGetOTP.Click += new System.EventHandler(this.btnGetOTP_Click);
+            // 
+            // btnVerify
+            // 
+            this.btnVerify.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnVerify.Location = new System.Drawing.Point(343, 179);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(61, 20);
+            this.btnVerify.TabIndex = 21;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmUC
             // 
@@ -245,6 +258,7 @@ namespace arkoDT
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(451, 273);
             this.ControlBox = false;
+            this.Controls.Add(this.btnVerify);
             this.Controls.Add(this.btnGetOTP);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtOTP);
@@ -294,5 +308,6 @@ namespace arkoDT
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtOTP;
         private System.Windows.Forms.Button btnGetOTP;
+        private System.Windows.Forms.Button btnVerify;
     }
 }

@@ -9,6 +9,8 @@ using FireSharp.Response;
 using System.Collections.Generic;
 using System.Drawing;
 using BCrypt.Net;
+using System.Net;
+using System.Net.Mail;
 
 namespace arkoDT
 {
@@ -18,6 +20,7 @@ namespace arkoDT
         private string generatedID;
         private bool isFirstImage = true;
         private frmUsers frmUsers;
+        private string generatedOTP;
 
         public frmUC(frmUsers frmUsersInstance)
         {
@@ -46,6 +49,7 @@ namespace arkoDT
         // Generate a random unique ID when the form loads
         public async void frmUC_Load(object sender, EventArgs e)
         {
+            btnCreate.Enabled = false;
             generatedID = await GenerateUniqueID();
         }
 
@@ -278,6 +282,81 @@ namespace arkoDT
 
             // Toggle the flag
             isFirstImage = !isFirstImage;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (txtOTP.Text.Trim() == generatedOTP)
+            {
+                MessageBox.Show("OTP verified successfully!");
+                btnCreate.Enabled = true; // Enable the 'Create' button once OTP is verified
+            }
+            else
+            {
+                MessageBox.Show("Incorrect OTP. Please try again.");
+            }
+        }
+
+        private async void btnGetOTP_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(txtEmail.Text))
+
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return;
+            }
+
+            generatedOTP = GenerateRandomOTP(6); // Generate a 6-digit OTP
+            bool emailSent = await SendEmailOTP(txtEmail.Text, generatedOTP);
+
+            if (emailSent)
+            {
+                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to send OTP. Please check the email address and try again.");
+            }
+        }
+
+        private string GenerateRandomOTP(int length)
+        {
+            const string chars = "0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private async Task<bool> SendEmailOTP(string email, string otp)
+        {
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("renyama149@gmail.com", "deamigulhqhooojc"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("renyama149@gmail.com"),
+                    Subject = "Your OTP Code",
+                    Body = $"Your OTP for user creation is: {otp}",
+                    IsBodyHtml = false,
+                };
+
+                mailMessage.To.Add(email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to send OTP: {ex.Message}");
+                return false;
+            }
         }
     }
 }
