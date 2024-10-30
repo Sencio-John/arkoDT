@@ -25,6 +25,7 @@ namespace arkoDT
         public frmLogin()
         {
             InitializeComponent();
+            this.FormClosing += frmLogin_FormClosing;
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
 
@@ -141,6 +142,11 @@ namespace arkoDT
                 MessageBox.Show("An error occurred: " + ex.Message);
                 return (null, null);
             }
+        }
+
+        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
 
