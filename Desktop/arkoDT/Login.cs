@@ -15,26 +15,26 @@ namespace arkoDT
 {
     public partial class frmLogin : Form
     {
-        IFirebaseConfig config = new FirebaseConfig
-        {
-            AuthSecret = "9LIEv3oM8IkGzdbhvL6949CXXFAD86pu2v2ISD1r",
-            BasePath = "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/"
-        };
 
-        IFirebaseClient client;
+        public string Username { get; set; }
+        public string Role { get; set; }
+        private IFirebaseClient client;
 
 
         private bool isFirstImage = true;
         public frmLogin()
         {
             InitializeComponent();
+            this.FormClosing += frmLogin_FormClosing;
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
 
-            client = new FireSharp.FirebaseClient(config);
+            Firebase_Config firebaseConfig = new Firebase_Config();
+            client = firebaseConfig.GetClient();
+
             if (client == null)
             {
-                MessageBox.Show("Failed to connect to Firebase.");
+                MessageBox.Show("Failed to connect to Database.");
             }
         }
 
@@ -48,27 +48,29 @@ namespace arkoDT
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Username and password cannot be empty.");
                 return;
             }
 
-            bool isLoginSuccessful = await LoginUser(username, password);
+            var (Name, UserType) = await LoginUser(username, password);
 
-            if (isLoginSuccessful)
+            if (!string.IsNullOrEmpty(Name))
             {
+                Username = Name;
+                Role = UserType; // Set Username to the name from the database
                 this.Hide();
-                new frmDashboard().Show();
+                new frmDashboard(this).Show();
                 MessageBox.Show("Login successful!");
-                // Proceed to the next form or action
             }
             else
             {
                 MessageBox.Show("Login failed. Please check your credentials.");
             }
-            
         }
+
 
         private void btnShowPass_Click(object sender, EventArgs e)
         {
@@ -98,7 +100,7 @@ namespace arkoDT
 
         //Method for dehashing
 
-        private async Task<bool> LoginUser(string username, string password)
+        private async Task<(string username, string role)> LoginUser(string username, string password)
         {
             try
             {
@@ -109,7 +111,7 @@ namespace arkoDT
                 if (users == null)
                 {
                     MessageBox.Show("No users found.");
-                    return false;
+                    return (null, null);
                 }
 
                 // Find the user by username
@@ -119,20 +121,34 @@ namespace arkoDT
                     {
                         // If the username matches, verify the password
                         bool isPasswordValid = PasswordHelper.VerifyPassword(password, user.Password);
-                        return isPasswordValid; // Returns true or false based on password validation
+                        if (isPasswordValid)
+                        {
+                            return (user.Name, user.Role);// Returns the user's name if password is valid
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid password.");
+                            return (null, null);
+                        }
                     }
                 }
 
                 // If we finish the loop and find no match
                 MessageBox.Show("Username does not exist.");
-                return false;
+                return (null, null);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
-                return false;
+                return (null, null);
             }
         }
+
+        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
 
     }
 }

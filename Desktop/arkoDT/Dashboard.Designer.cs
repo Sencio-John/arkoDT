@@ -34,57 +34,58 @@ namespace arkoDT
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.pnlWater = new System.Windows.Forms.Panel();
-            this.lblWaterLevel = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pnlUserCount = new System.Windows.Forms.Panel();
-            this.lblUserCount = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pnlDeviceCount = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblDevices = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.lblDeviceCount = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lbl = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.lblGoWaterLevel = new System.Windows.Forms.Label();
-            this.lblGoUsers = new System.Windows.Forms.Label();
-            this.lblDevices = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.btnLogout = new System.Windows.Forms.Button();
             this.gbSidepanel = new System.Windows.Forms.GroupBox();
             this.btnMap = new System.Windows.Forms.Button();
             this.btnController = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.lblDay = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.lblDateNum = new System.Windows.Forms.Label();
-            this.lblTime = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.lblPeriod = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.lblDateNum = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblDay = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.pnlUsers = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.lblGoUsers = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.lblGoWaterLevel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblRole = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.pnlWater.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.pnlUserCount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.pnlDeviceCount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.gbSidepanel.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.panel5.SuspendLayout();
+            this.pnlUsers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -107,73 +108,6 @@ namespace arkoDT
             this.lblWelcome.TabIndex = 5;
             this.lblWelcome.Text = "Welcome, XXXX";
             // 
-            // pnlWater
-            // 
-            this.pnlWater.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pnlWater.Controls.Add(this.panel1);
-            this.pnlWater.Controls.Add(this.lblGoWaterLevel);
-            this.pnlWater.Controls.Add(this.label10);
-            this.pnlWater.Controls.Add(this.lblWaterLevel);
-            this.pnlWater.Controls.Add(this.pictureBox2);
-            this.pnlWater.Location = new System.Drawing.Point(380, 573);
-            this.pnlWater.Name = "pnlWater";
-            this.pnlWater.Size = new System.Drawing.Size(286, 227);
-            this.pnlWater.TabIndex = 6;
-            // 
-            // lblWaterLevel
-            // 
-            this.lblWaterLevel.AutoSize = true;
-            this.lblWaterLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWaterLevel.Location = new System.Drawing.Point(3, 12);
-            this.lblWaterLevel.Name = "lblWaterLevel";
-            this.lblWaterLevel.Size = new System.Drawing.Size(169, 31);
-            this.lblWaterLevel.TabIndex = 1;
-            this.lblWaterLevel.Text = "Water Level";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(3, 59);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(141, 150);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pnlUserCount
-            // 
-            this.pnlUserCount.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pnlUserCount.Controls.Add(this.panel11);
-            this.pnlUserCount.Controls.Add(this.panel2);
-            this.pnlUserCount.Controls.Add(this.lblGoUsers);
-            this.pnlUserCount.Controls.Add(this.lbl);
-            this.pnlUserCount.Controls.Add(this.lblUserCount);
-            this.pnlUserCount.Controls.Add(this.pictureBox3);
-            this.pnlUserCount.Location = new System.Drawing.Point(892, 573);
-            this.pnlUserCount.Name = "pnlUserCount";
-            this.pnlUserCount.Size = new System.Drawing.Size(286, 227);
-            this.pnlUserCount.TabIndex = 7;
-            // 
-            // lblUserCount
-            // 
-            this.lblUserCount.AutoSize = true;
-            this.lblUserCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserCount.Location = new System.Drawing.Point(3, 12);
-            this.lblUserCount.Name = "lblUserCount";
-            this.lblUserCount.Size = new System.Drawing.Size(162, 31);
-            this.lblUserCount.TabIndex = 2;
-            this.lblUserCount.Text = "User Count";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(3, 59);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(141, 150);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
-            // 
             // pnlDeviceCount
             // 
             this.pnlDeviceCount.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -187,6 +121,44 @@ namespace arkoDT
             this.pnlDeviceCount.Name = "pnlDeviceCount";
             this.pnlDeviceCount.Size = new System.Drawing.Size(286, 227);
             this.pnlDeviceCount.TabIndex = 7;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.Lime;
+            this.panel12.Location = new System.Drawing.Point(0, 215);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(286, 12);
+            this.panel12.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Lime;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(286, 12);
+            this.panel3.TabIndex = 5;
+            // 
+            // lblDevices
+            // 
+            this.lblDevices.AutoSize = true;
+            this.lblDevices.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDevices.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblDevices.Location = new System.Drawing.Point(214, 193);
+            this.lblDevices.Name = "lblDevices";
+            this.lblDevices.Size = new System.Drawing.Size(69, 16);
+            this.lblDevices.TabIndex = 5;
+            this.lblDevices.Text = "Go now   >";
+            this.lblDevices.Click += new System.EventHandler(this.lblDevices_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(150, 107);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(132, 25);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "0 Device(s)";
             // 
             // lblDeviceCount
             // 
@@ -208,96 +180,6 @@ namespace arkoDT
             this.pictureBox4.TabIndex = 2;
             this.pictureBox4.TabStop = false;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(150, 108);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 24);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Water Level";
-            // 
-            // lbl
-            // 
-            this.lbl.AutoSize = true;
-            this.lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl.Location = new System.Drawing.Point(161, 107);
-            this.lbl.Name = "lbl";
-            this.lbl.Size = new System.Drawing.Size(106, 25);
-            this.lbl.TabIndex = 3;
-            this.lbl.Text = "0 user(s)";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(150, 107);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(132, 25);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "0 Device(s)";
-            // 
-            // lblGoWaterLevel
-            // 
-            this.lblGoWaterLevel.AutoSize = true;
-            this.lblGoWaterLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGoWaterLevel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblGoWaterLevel.Location = new System.Drawing.Point(214, 193);
-            this.lblGoWaterLevel.Name = "lblGoWaterLevel";
-            this.lblGoWaterLevel.Size = new System.Drawing.Size(69, 16);
-            this.lblGoWaterLevel.TabIndex = 3;
-            this.lblGoWaterLevel.Text = "Go now   >";
-            this.lblGoWaterLevel.Click += new System.EventHandler(this.lblGoWaterLevel_Click);
-            // 
-            // lblGoUsers
-            // 
-            this.lblGoUsers.AutoSize = true;
-            this.lblGoUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGoUsers.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblGoUsers.Location = new System.Drawing.Point(214, 193);
-            this.lblGoUsers.Name = "lblGoUsers";
-            this.lblGoUsers.Size = new System.Drawing.Size(69, 16);
-            this.lblGoUsers.TabIndex = 4;
-            this.lblGoUsers.Text = "Go now   >";
-            this.lblGoUsers.Click += new System.EventHandler(this.lblGoUsers_Click);
-            // 
-            // lblDevices
-            // 
-            this.lblDevices.AutoSize = true;
-            this.lblDevices.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDevices.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblDevices.Location = new System.Drawing.Point(214, 193);
-            this.lblDevices.Name = "lblDevices";
-            this.lblDevices.Size = new System.Drawing.Size(69, 16);
-            this.lblDevices.TabIndex = 5;
-            this.lblDevices.Text = "Go now   >";
-            this.lblDevices.Click += new System.EventHandler(this.lblDevices_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 12);
-            this.panel1.TabIndex = 4;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(286, 12);
-            this.panel2.TabIndex = 5;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Lime;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(286, 12);
-            this.panel3.TabIndex = 5;
-            // 
             // btnLogout
             // 
             this.btnLogout.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -308,6 +190,7 @@ namespace arkoDT
             this.btnLogout.TabIndex = 3;
             this.btnLogout.Text = "Log Out";
             this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // gbSidepanel
             // 
@@ -363,6 +246,54 @@ namespace arkoDT
             this.panel4.Size = new System.Drawing.Size(355, 225);
             this.panel4.TabIndex = 8;
             // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panel7.Location = new System.Drawing.Point(0, 212);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(355, 13);
+            this.panel7.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(24, 161);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 24);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Caloocan City";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(18, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 55);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "30°";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(24, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 24);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Sunny";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(195, 19);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(157, 187);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 0;
+            this.pictureBox5.TabStop = false;
+            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -377,107 +308,15 @@ namespace arkoDT
             this.panel5.Size = new System.Drawing.Size(355, 225);
             this.panel5.TabIndex = 9;
             // 
-            // pictureBox5
+            // lblPeriod
             // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(195, 19);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(157, 187);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 0;
-            this.pictureBox5.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 24);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Sunny";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(18, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 55);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "30°";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(24, 161);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 24);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Caloocan City";
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel6.Location = new System.Drawing.Point(597, 236);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(355, 13);
-            this.panel6.TabIndex = 4;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel7.Location = new System.Drawing.Point(0, 212);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(355, 13);
-            this.panel7.TabIndex = 5;
-            // 
-            // panel8
-            // 
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.panel8.Location = new System.Drawing.Point(1118, 236);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(355, 13);
-            this.panel8.TabIndex = 5;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.panel9.Location = new System.Drawing.Point(0, 212);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(355, 13);
-            this.panel9.TabIndex = 10;
-            // 
-            // lblDay
-            // 
-            this.lblDay.AutoSize = true;
-            this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDay.Location = new System.Drawing.Point(37, 26);
-            this.lblDay.Name = "lblDay";
-            this.lblDay.Size = new System.Drawing.Size(15, 24);
-            this.lblDay.TabIndex = 6;
-            this.lblDay.Text = ".";
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.Location = new System.Drawing.Point(37, 161);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(15, 24);
-            this.lblDate.TabIndex = 12;
-            this.lblDate.Text = ".";
-            // 
-            // lblDateNum
-            // 
-            this.lblDateNum.AutoSize = true;
-            this.lblDateNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateNum.Location = new System.Drawing.Point(31, 80);
-            this.lblDateNum.Name = "lblDateNum";
-            this.lblDateNum.Size = new System.Drawing.Size(37, 55);
-            this.lblDateNum.TabIndex = 6;
-            this.lblDateNum.Text = ".";
+            this.lblPeriod.AutoSize = true;
+            this.lblPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPeriod.Location = new System.Drawing.Point(224, 112);
+            this.lblPeriod.Name = "lblPeriod";
+            this.lblPeriod.Size = new System.Drawing.Size(50, 73);
+            this.lblPeriod.TabIndex = 14;
+            this.lblPeriod.Text = ".";
             // 
             // lblTime
             // 
@@ -489,39 +328,212 @@ namespace arkoDT
             this.lblTime.TabIndex = 13;
             this.lblTime.Text = ".";
             // 
-            // lblPeriod
+            // lblDateNum
             // 
-            this.lblPeriod.AutoSize = true;
-            this.lblPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPeriod.Location = new System.Drawing.Point(224, 112);
-            this.lblPeriod.Name = "lblPeriod";
-            this.lblPeriod.Size = new System.Drawing.Size(50, 73);
-            this.lblPeriod.TabIndex = 14;
-            this.lblPeriod.Text = ".";
+            this.lblDateNum.AutoSize = true;
+            this.lblDateNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateNum.Location = new System.Drawing.Point(31, 80);
+            this.lblDateNum.Name = "lblDateNum";
+            this.lblDateNum.Size = new System.Drawing.Size(37, 55);
+            this.lblDateNum.TabIndex = 6;
+            this.lblDateNum.Text = ".";
             // 
-            // panel10
+            // lblDate
             // 
-            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.panel10.Location = new System.Drawing.Point(380, 788);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(286, 12);
-            this.panel10.TabIndex = 5;
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.Location = new System.Drawing.Point(37, 161);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(15, 24);
+            this.lblDate.TabIndex = 12;
+            this.lblDate.Text = ".";
             // 
-            // panel11
+            // lblDay
             // 
-            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel11.Location = new System.Drawing.Point(0, 215);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(286, 12);
-            this.panel11.TabIndex = 6;
+            this.lblDay.AutoSize = true;
+            this.lblDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDay.Location = new System.Drawing.Point(37, 26);
+            this.lblDay.Name = "lblDay";
+            this.lblDay.Size = new System.Drawing.Size(15, 24);
+            this.lblDay.TabIndex = 6;
+            this.lblDay.Text = ".";
             // 
-            // panel12
+            // panel9
             // 
-            this.panel12.BackColor = System.Drawing.Color.Lime;
-            this.panel12.Location = new System.Drawing.Point(0, 215);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(286, 12);
-            this.panel12.TabIndex = 6;
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.panel9.Location = new System.Drawing.Point(0, 212);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(355, 13);
+            this.panel9.TabIndex = 10;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panel6.Location = new System.Drawing.Point(597, 236);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(355, 13);
+            this.panel6.TabIndex = 4;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.panel8.Location = new System.Drawing.Point(1118, 236);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(355, 13);
+            this.panel8.TabIndex = 5;
+            // 
+            // pnlUsers
+            // 
+            this.pnlUsers.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlUsers.Controls.Add(this.panel14);
+            this.pnlUsers.Controls.Add(this.panel15);
+            this.pnlUsers.Controls.Add(this.lblGoUsers);
+            this.pnlUsers.Controls.Add(this.label5);
+            this.pnlUsers.Controls.Add(this.label6);
+            this.pnlUsers.Controls.Add(this.pictureBox6);
+            this.pnlUsers.Location = new System.Drawing.Point(380, 573);
+            this.pnlUsers.Name = "pnlUsers";
+            this.pnlUsers.Size = new System.Drawing.Size(286, 227);
+            this.pnlUsers.TabIndex = 8;
+            // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel14.Location = new System.Drawing.Point(0, 215);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(286, 12);
+            this.panel14.TabIndex = 6;
+            // 
+            // panel15
+            // 
+            this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel15.Location = new System.Drawing.Point(0, 0);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(286, 12);
+            this.panel15.TabIndex = 5;
+            // 
+            // lblGoUsers
+            // 
+            this.lblGoUsers.AutoSize = true;
+            this.lblGoUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGoUsers.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblGoUsers.Location = new System.Drawing.Point(214, 193);
+            this.lblGoUsers.Name = "lblGoUsers";
+            this.lblGoUsers.Size = new System.Drawing.Size(69, 16);
+            this.lblGoUsers.TabIndex = 4;
+            this.lblGoUsers.Text = "Go now   >";
+            this.lblGoUsers.Click += new System.EventHandler(this.lblGoUsers_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(161, 107);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 25);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "0 user(s)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(3, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(162, 31);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "User Count";
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(3, 59);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(141, 150);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox6.TabIndex = 1;
+            this.pictureBox6.TabStop = false;
+            // 
+            // panel16
+            // 
+            this.panel16.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panel16.Controls.Add(this.panel17);
+            this.panel16.Controls.Add(this.lblGoWaterLevel);
+            this.panel16.Controls.Add(this.label8);
+            this.panel16.Controls.Add(this.label9);
+            this.panel16.Controls.Add(this.pictureBox7);
+            this.panel16.Location = new System.Drawing.Point(884, 573);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(286, 227);
+            this.panel16.TabIndex = 7;
+            // 
+            // panel17
+            // 
+            this.panel17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel17.Location = new System.Drawing.Point(0, 0);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(286, 12);
+            this.panel17.TabIndex = 4;
+            // 
+            // lblGoWaterLevel
+            // 
+            this.lblGoWaterLevel.AutoSize = true;
+            this.lblGoWaterLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGoWaterLevel.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblGoWaterLevel.Location = new System.Drawing.Point(214, 193);
+            this.lblGoWaterLevel.Name = "lblGoWaterLevel";
+            this.lblGoWaterLevel.Size = new System.Drawing.Size(69, 16);
+            this.lblGoWaterLevel.TabIndex = 3;
+            this.lblGoWaterLevel.Text = "Go now   >";
+            this.lblGoWaterLevel.Click += new System.EventHandler(this.lblGoWaterLevel_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(150, 108);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(120, 24);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Water Level";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 12);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(169, 31);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Water Level";
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Location = new System.Drawing.Point(3, 59);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(141, 150);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox7.TabIndex = 0;
+            this.pictureBox7.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel1.Location = new System.Drawing.Point(884, 788);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(286, 12);
+            this.panel1.TabIndex = 5;
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.Location = new System.Drawing.Point(401, 95);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(88, 31);
+            this.lblRole.TabIndex = 10;
+            this.lblRole.Text = "ROLE";
             // 
             // frmDashboard
             // 
@@ -529,40 +541,41 @@ namespace arkoDT
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.panel10);
+            this.Controls.Add(this.lblRole);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel16);
+            this.Controls.Add(this.pnlUsers);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.pnlDeviceCount);
-            this.Controls.Add(this.pnlUserCount);
-            this.Controls.Add(this.pnlWater);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.gbSidepanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Dashboard";
+            this.Text = "S";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmDashboard_FormClosing);
             this.Load += new System.EventHandler(this.frmDashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.pnlWater.ResumeLayout(false);
-            this.pnlWater.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.pnlUserCount.ResumeLayout(false);
-            this.pnlUserCount.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.pnlDeviceCount.ResumeLayout(false);
             this.pnlDeviceCount.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.gbSidepanel.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.pnlUsers.ResumeLayout(false);
+            this.pnlUsers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -572,23 +585,11 @@ namespace arkoDT
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblWelcome;
-        private System.Windows.Forms.Panel pnlWater;
-        private System.Windows.Forms.Panel pnlUserCount;
         private System.Windows.Forms.Panel pnlDeviceCount;
-        private System.Windows.Forms.Label lblWaterLevel;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label lblUserCount;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label lblDeviceCount;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label lbl;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lblGoWaterLevel;
-        private System.Windows.Forms.Label lblGoUsers;
         private System.Windows.Forms.Label lblDevices;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.GroupBox gbSidepanel;
@@ -609,8 +610,21 @@ namespace arkoDT
         private System.Windows.Forms.Label lblDateNum;
         private System.Windows.Forms.Label lblPeriod;
         private System.Windows.Forms.Label lblTime;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel pnlUsers;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Label lblGoUsers;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Label lblGoWaterLevel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblRole;
     }
 }

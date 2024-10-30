@@ -42,14 +42,22 @@ namespace arkoDT
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.cbRole = new System.Windows.Forms.ComboBox();
+            this.txtConfirmPass = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnShowPass = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtOTP = new System.Windows.Forms.TextBox();
+            this.btnGetOTP = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
             // 
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(176, 47);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(162, 20);
+            this.txtUsername.Size = new System.Drawing.Size(162, 22);
             this.txtUsername.TabIndex = 0;
             // 
             // label1
@@ -76,7 +84,7 @@ namespace arkoDT
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(209, 198);
+            this.btnCreate.Location = new System.Drawing.Point(208, 244);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(50, 22);
@@ -89,7 +97,7 @@ namespace arkoDT
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(117, 106);
+            this.label3.Location = new System.Drawing.Point(117, 129);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
@@ -98,17 +106,18 @@ namespace arkoDT
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(176, 131);
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(176, 154);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(162, 20);
+            this.txtEmail.Size = new System.Drawing.Size(162, 22);
             this.txtEmail.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(117, 135);
+            this.label4.Location = new System.Drawing.Point(117, 158);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 13);
@@ -117,17 +126,18 @@ namespace arkoDT
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(176, 102);
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.Location = new System.Drawing.Point(176, 125);
             this.txtName.Margin = new System.Windows.Forms.Padding(2);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(162, 20);
+            this.txtName.Size = new System.Drawing.Size(162, 22);
             this.txtName.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(117, 164);
+            this.label5.Location = new System.Drawing.Point(117, 210);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
@@ -136,11 +146,12 @@ namespace arkoDT
             // 
             // txtPassword
             // 
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(176, 74);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(162, 20);
+            this.txtPassword.Size = new System.Drawing.Size(162, 22);
             this.txtPassword.TabIndex = 11;
             // 
             // btnBack
@@ -160,10 +171,84 @@ namespace arkoDT
             this.cbRole.Items.AddRange(new object[] {
             "Admin",
             "User"});
-            this.cbRole.Location = new System.Drawing.Point(176, 156);
+            this.cbRole.Location = new System.Drawing.Point(176, 207);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(162, 21);
             this.cbRole.TabIndex = 13;
+            // 
+            // txtConfirmPass
+            // 
+            this.txtConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPass.Location = new System.Drawing.Point(176, 101);
+            this.txtConfirmPass.Margin = new System.Windows.Forms.Padding(2);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.PasswordChar = '●';
+            this.txtConfirmPass.Size = new System.Drawing.Size(162, 22);
+            this.txtConfirmPass.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label6.Location = new System.Drawing.Point(79, 104);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(91, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Confirm Password";
+            // 
+            // btnShowPass
+            // 
+            this.btnShowPass.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnShowPass.BackgroundImage")));
+            this.btnShowPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnShowPass.Location = new System.Drawing.Point(343, 88);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(53, 20);
+            this.btnShowPass.TabIndex = 17;
+            this.btnShowPass.UseVisualStyleBackColor = true;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Location = new System.Drawing.Point(117, 184);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "OTP";
+            // 
+            // txtOTP
+            // 
+            this.txtOTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOTP.Location = new System.Drawing.Point(176, 180);
+            this.txtOTP.Margin = new System.Windows.Forms.Padding(2);
+            this.txtOTP.Name = "txtOTP";
+            this.txtOTP.Size = new System.Drawing.Size(162, 22);
+            this.txtOTP.TabIndex = 18;
+            // 
+            // btnGetOTP
+            // 
+            this.btnGetOTP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnGetOTP.Location = new System.Drawing.Point(343, 156);
+            this.btnGetOTP.Name = "btnGetOTP";
+            this.btnGetOTP.Size = new System.Drawing.Size(61, 20);
+            this.btnGetOTP.TabIndex = 20;
+            this.btnGetOTP.Text = "Get Code";
+            this.btnGetOTP.UseVisualStyleBackColor = true;
+            this.btnGetOTP.Click += new System.EventHandler(this.btnGetOTP_Click);
+            // 
+            // btnVerify
+            // 
+            this.btnVerify.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnVerify.Location = new System.Drawing.Point(343, 179);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(61, 20);
+            this.btnVerify.TabIndex = 21;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmUC
             // 
@@ -171,8 +256,15 @@ namespace arkoDT
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(451, 252);
+            this.ClientSize = new System.Drawing.Size(451, 273);
             this.ControlBox = false;
+            this.Controls.Add(this.btnVerify);
+            this.Controls.Add(this.btnGetOTP);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtOTP);
+            this.Controls.Add(this.btnShowPass);
+            this.Controls.Add(this.txtConfirmPass);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cbRole);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.txtPassword);
@@ -210,5 +302,12 @@ namespace arkoDT
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.ComboBox cbRole;
+        private System.Windows.Forms.TextBox txtConfirmPass;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnShowPass;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtOTP;
+        private System.Windows.Forms.Button btnGetOTP;
+        private System.Windows.Forms.Button btnVerify;
     }
 }

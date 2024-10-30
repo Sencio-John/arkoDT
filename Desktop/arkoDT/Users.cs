@@ -10,33 +10,27 @@ using System.Windows.Forms;
 
 namespace arkoDT
 {
-    public partial class frmDevices : Form
+    public partial class frmUsers : Form
     {
-        public frmDevices()
+        public frmUsers()
         {
             InitializeComponent();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            frmAdd form1 = new frmAdd(this);
-            form1.Show();
-        }
-
-        public void UpdateDeviceCards()
+        public void UpdateUsersCards()
         {
             Panel pnlCards = new Panel();
             Panel pnlHeader = new Panel();
             Label Title = new Label();
-            Label lblDeviceName = new Label();
-            Label lblStatus = new Label();
+            Label lblUserName = new Label();
+            Label lblRole = new Label();
 
             Title.Dock = System.Windows.Forms.DockStyle.Fill;
             Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             Title.Location = new System.Drawing.Point(0, 0);
             Title.Size = new System.Drawing.Size(310, 41);
             Title.TabIndex = 0;
-            Title.Text = "Devices";
+            Title.Text = "User";
             Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             pnlHeader.AutoScroll = true;
@@ -45,19 +39,19 @@ namespace arkoDT
             pnlHeader.Size = new System.Drawing.Size(310, 41);
             pnlHeader.TabIndex = 1;
 
-            lblStatus.AutoSize = true;
-            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStatus.Location = new System.Drawing.Point(215, 90);
-            lblStatus.Size = new System.Drawing.Size(92, 31);
-            lblStatus.TabIndex = 3;
-            lblStatus.Text = "Status";
+            lblRole.AutoSize = true;
+            lblRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblRole.Location = new System.Drawing.Point(215, 90);
+            lblRole.Size = new System.Drawing.Size(92, 31);
+            lblRole.TabIndex = 3;
+            lblRole.Text = "Role";
 
-            lblDeviceName.AutoSize = true;
-            lblDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblDeviceName.Location = new System.Drawing.Point(6, 90);
-            lblDeviceName.Size = new System.Drawing.Size(177, 31);
-            lblDeviceName.TabIndex = 2;
-            lblDeviceName.Text = "Device Name";
+            lblUserName.AutoSize = true;
+            lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblUserName.Location = new System.Drawing.Point(6, 90);
+            lblUserName.Size = new System.Drawing.Size(177, 31);
+            lblUserName.TabIndex = 2;
+            lblUserName.Text = "Username";
 
             pnlCards.AutoScroll = true;
             pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -66,10 +60,16 @@ namespace arkoDT
             pnlCards.TabIndex = 0;
 
             pnlHeader.Controls.Add(Title);
-            pnlCards.Controls.Add(lblStatus);
-            pnlCards.Controls.Add(lblDeviceName);
+            pnlCards.Controls.Add(lblRole);
+            pnlCards.Controls.Add(lblUserName);
             pnlCards.Controls.Add(pnlHeader);
-            flpDevices.Controls.Add(pnlCards);
+            flpUsers.Controls.Add(pnlCards);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            frmUC form1 = new frmUC(this);
+            form1.Show();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
