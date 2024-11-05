@@ -189,7 +189,7 @@ namespace arkoDT
         {
             try
             {
-                if(txtConfirmPass.Text != txtPassword.Text)
+                if (txtConfirmPass.Text != txtPassword.Text)
                 {
                     MessageBox.Show("Password does not match");
                     return;
@@ -231,15 +231,15 @@ namespace arkoDT
                     return;
                 }
 
-                //Password Hashing
-                string hashedPassword = PasswordHelper.HashPassword(txtPassword.Text);
+                // Encrypt the password
+                string encryptedPassword = PasswordHelper.EncryptPassword(txtPassword.Text);
 
                 // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
                     Name = txtName.Text,
                     Username = txtUsername.Text,
-                    Password = hashedPassword,
+                    Password = encryptedPassword, // Save the encrypted password
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
                     Status = "Inactive"
@@ -251,17 +251,13 @@ namespace arkoDT
                 this.Close();
 
                 frmUsers.UpdateUsersCards();
-
-                // Save the user to Firebase with the generated ID
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message); // Provide a meaningful error message
             }
-
         }
+
 
         private void btnShowPass_Click(object sender, EventArgs e)
         {

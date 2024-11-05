@@ -15,19 +15,17 @@ namespace arkoDT
 {
     public partial class frmLogin : Form
     {
-
         public string Username { get; set; }
         public string Role { get; set; }
         private IFirebaseClient client;
-
-
         private bool isFirstImage = true;
+
         public frmLogin()
         {
             InitializeComponent();
             this.FormClosing += frmLogin_FormClosing;
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
-            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
+            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
 
             Firebase_Config firebaseConfig = new Firebase_Config();
             client = firebaseConfig.GetClient();
@@ -60,7 +58,7 @@ namespace arkoDT
             if (!string.IsNullOrEmpty(Name))
             {
                 Username = Name;
-                Role = UserType; // Set Username to the name from the database
+                Role = UserType;
                 this.Hide();
                 new frmDashboard(this).Show();
                 MessageBox.Show("Login successful!");
@@ -71,34 +69,26 @@ namespace arkoDT
             }
         }
 
-
         private void btnShowPass_Click(object sender, EventArgs e)
         {
             if (isFirstImage)
             {
                 txtPassword.PasswordChar = '\0';
-                // Change to the second image
                 btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
             }
             else
             {
                 txtPassword.PasswordChar = '●';
-                // Revert to the first image
                 btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             }
 
-            // Toggle the flag
             isFirstImage = !isFirstImage;
-
-
         }
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            lblForgotPassword.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+            lblForgotPassword.Cursor = Cursors.Hand;
         }
-
-        //Method for dehashing
 
         private async Task<(string username, string role)> LoginUser(string username, string password)
         {
@@ -119,11 +109,13 @@ namespace arkoDT
                 {
                     if (user.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
                     {
-                        // If the username matches, verify the password
-                        bool isPasswordValid = PasswordHelper.VerifyPassword(password, user.Password);
-                        if (isPasswordValid)
+                        // Decrypt the stored password
+                        string decryptedPassword = PasswordHelper.DecryptPassword(user.Password);
+
+                        // Verify the password
+                        if (password == decryptedPassword)
                         {
-                            return (user.Name, user.Role);// Returns the user's name if password is valid
+                            return (user.Name, user.Role); // Returns the user's name if password is valid
                         }
                         else
                         {
@@ -148,7 +140,5 @@ namespace arkoDT
         {
             Application.Exit();
         }
-
-
     }
 }
