@@ -14,11 +14,7 @@ import GPSTracker from '@/components/controls/GPStxt';
 
 interface FetchResponse {
     ok: boolean;
-    // Add other properties if needed
-    // e.g. status: number, statusText: string, etc.
 }
-
-
 
 export default function Controller() {
     const [joystickPosition, setJoystickPosition] = React.useState({ x: 0, y: 0 });
@@ -54,6 +50,7 @@ export default function Controller() {
 
     const [isOverlayVisible, setIsOverlayVisible] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(true)
+
     const fetchWithTimeout = (url: string, timeout = 3000) => {
         return Promise.race([
             fetch(url, { method: 'HEAD' }),
@@ -72,10 +69,8 @@ export default function Controller() {
                 fetchWithTimeout(VC_IP, 3000),
             ]);
 
-            // Destructure the responses
             const [cameraResponse, controlResponse, readResponse, vcResponse] = responses as FetchResponse[];;
 
-            // Check if any response is not ok
             if (!cameraResponse.ok || !controlResponse.ok || !readResponse.ok || !vcResponse.ok) {
                 setIsOverlayVisible(true);
             }
@@ -89,15 +84,14 @@ export default function Controller() {
 
 
 
-    // if (isLoading) {
-    //     return (
-    //         <SafeAreaView style={style.loadingContainer}>
-    //             <ActivityIndicator size="large" color="#0000ff" />
-    //             <Text>Loading...</Text>
-    //         </SafeAreaView>
-    //     );
-    // }
-
+    if (isLoading) {
+        return (
+            <SafeAreaView style={style.loadingContainer}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <Text>Loading...</Text>
+            </SafeAreaView>
+        );
+    }
 
     return(
         <SafeAreaView style={style.container}>
@@ -106,6 +100,10 @@ export default function Controller() {
                     <Text style={style.errorText}>Connection is unavailable. Please try again.</Text>
                 </View>
             )} */}
+            <View>
+                <WebView />
+            </View>
+
             <View style={style.joystick}>
                 <DPadv2 address={CONTROL_IP} />
             </View> 
@@ -141,6 +139,12 @@ export default function Controller() {
 const style = StyleSheet.create({
     container:{
         flex: 1,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
     },
     joystick:{
         position: 'absolute',
