@@ -21,7 +21,6 @@ namespace arkoDT
             InitializeComponent();
             InitializeMap(); // Initialize map and overlay
             SetupWatcher(); // Setup GeoCoordinateWatcher
-            InitializeSidebar(); // Initialize sidebar
 
             this.FormClosing += frmMap_FormClosing;
             this.Load += frmMap_Load; // Link Load event
@@ -53,7 +52,7 @@ namespace arkoDT
             {
                 map.MapProvider = GMapProviders.GoogleMap;
                 map.MinZoom = 2;
-                map.MaxZoom = 17;
+                map.MaxZoom = 20;
                 map.Zoom = 18; // Adjust initial zoom level
 
                 // Set a default position for the map
@@ -129,52 +128,87 @@ namespace arkoDT
 
         private void ShowSidebar(object markerTag)
         {
-            // Example values; replace with actual values based on the pin clicked
-            string population = "Population: 5000";
-            string currentWaterLevel = "Current Water Level: 12m";
-            string averageWaterLevel = "Average Water Level: 10m";
+            Label lblType = new Label();
+            Label lblFamilyName = new Label();
+            Label lblWaterLevel = new Label();
+            Button btnClose = new Button();
+            Panel pnlType = new Panel();
+            Panel pnlFamilyName = new Panel();
+            Panel pnlWaterLevel = new Panel();
 
-            // Update pnlInfo with actual data
-            pnlInfo.Controls.Clear(); // Clear existing controls
-            pnlInfo.Controls.Add(new Label { Text = population, Dock = DockStyle.Top, Height = 30 });
-            pnlInfo.Controls.Add(new Label { Text = currentWaterLevel, Dock = DockStyle.Top, Height = 30 });
-            var lblAve = new Label { Text = averageWaterLevel, Dock = DockStyle.Top, Height = 30 };
-            lblAve.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
-            lblAve.Click += lblAve_Click; // Attach click event handler
-            pnlInfo.Controls.Add(lblAve);
 
-            // Ensure the close button is still present
-            pnlInfo.Controls.Add(new Button { Text = "Close", Dock = DockStyle.Top, Height = 30 });
+            btnClose.Location = new System.Drawing.Point(122, 3);
+            btnClose.Size = new System.Drawing.Size(75, 23);
+            btnClose.TabIndex = 3;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+
+            // Ensure the event is hooked up properly to btnClose
+            btnClose.Click += new EventHandler(btnClose_Click);
+
+            lblType.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblType.Location = new System.Drawing.Point(0, 0);
+            lblType.Size = new System.Drawing.Size(200, 43);
+            lblType.TabIndex = 0;
+            lblType.Text = "Type: Danger";
+            lblType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pnlType.Location = new System.Drawing.Point(0, 84);
+            pnlType.Size = new System.Drawing.Size(200, 43);
+            pnlType.TabIndex = 0;
+
+            lblFamilyName.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblFamilyName.Location = new System.Drawing.Point(0, 0);
+            lblFamilyName.Size = new System.Drawing.Size(200, 43);
+            lblFamilyName.TabIndex = 0;
+            lblFamilyName.Text = "Family Name: Sencio";
+            lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pnlFamilyName.Location = new System.Drawing.Point(0, 171);
+            pnlFamilyName.Size = new System.Drawing.Size(200, 43);
+            pnlFamilyName.TabIndex = 1;
+
+            lblWaterLevel.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblWaterLevel.Location = new System.Drawing.Point(0, 0);
+            lblWaterLevel.Size = new System.Drawing.Size(200, 43);
+            lblWaterLevel.TabIndex = 0;
+            lblWaterLevel.Text = "Water Level: 2m";
+            lblWaterLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pnlWaterLevel.Location = new System.Drawing.Point(0, 263);
+            pnlWaterLevel.Size = new System.Drawing.Size(200, 43);
+            pnlWaterLevel.TabIndex = 1;
+
+            pnlSide.Controls.Add(btnClose);
+            pnlType.Controls.Add(lblType);
+            pnlSide.Controls.Add(pnlType);
+            pnlFamilyName.Controls.Add(lblFamilyName);
+            pnlSide.Controls.Add(pnlFamilyName);
+            pnlWaterLevel.Controls.Add(lblWaterLevel);
+            pnlSide.Controls.Add(pnlWaterLevel);
 
             // Toggle pnlInfo visibility
-            pnlInfo.Visible = !pnlInfo.Visible; // Show or hide the panel
-            if (pnlInfo.Visible)
+            pnlSide.Visible = !pnlSide.Visible; // Show or hide the panel
+            if (pnlSide.Visible)
             {
-                pnlInfo.BringToFront(); // Bring panel to front when visible
+                pnlSide.BringToFront(); // Bring panel to front when visible
             }
-
-            // Wire the close button's click event to hide the panel
-            var closeButton = (Button)pnlInfo.Controls[pnlInfo.Controls.Count - 1]; // Get the last button added
-            closeButton.Click += (s, e) => { pnlInfo.Visible = false; isSidebarVisible = false; }; // Hide the panel on click
         }
 
-        private void InitializeSidebar()
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            // Ensure pnlInfo is set to the correct properties
-            pnlInfo.Width = 200; // Set the desired width for the sidebar
-            pnlInfo.Dock = DockStyle.Left; // Dock to the left side
-            pnlInfo.BackColor = Color.LightGray; // Set a background color if needed
-            pnlInfo.Visible = false; // Hide initially
-        }
-        private void lblAve_Click(object sender, EventArgs e)
-        {
-            frmGraph form1 = new frmGraph();
-            form1.Show();
+            // Close or hide the panel or perform any other action
+            pnlSide.Visible = false;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnPinned_Click(object sender, EventArgs e)
+        {
+            flpList.Visible = true;
         }
     }
 }

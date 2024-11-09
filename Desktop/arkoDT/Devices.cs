@@ -30,6 +30,8 @@ namespace arkoDT
             Label Title = new Label();
             Label lblDeviceName = new Label();
             Label lblStatus = new Label();
+            Button btnRemove = new Button();
+            Button btnChangeName = new Button();
 
             Title.Dock = System.Windows.Forms.DockStyle.Fill;
             Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -45,15 +47,27 @@ namespace arkoDT
             pnlHeader.Size = new System.Drawing.Size(310, 41);
             pnlHeader.TabIndex = 1;
 
+            btnRemove.Location = new System.Drawing.Point(3, 143);
+            btnRemove.Size = new System.Drawing.Size(75, 23);
+            btnRemove.TabIndex = 2;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
+
+            btnChangeName.Location = new System.Drawing.Point(221, 143);
+            btnChangeName.Size = new System.Drawing.Size(86, 23);
+            btnChangeName.TabIndex = 3;
+            btnChangeName.Text = "Change Name";
+            btnChangeName.UseVisualStyleBackColor = true;
+
             lblStatus.AutoSize = true;
-            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblStatus.Location = new System.Drawing.Point(215, 90);
             lblStatus.Size = new System.Drawing.Size(92, 31);
             lblStatus.TabIndex = 3;
             lblStatus.Text = "Status";
 
             lblDeviceName.AutoSize = true;
-            lblDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblDeviceName.Location = new System.Drawing.Point(6, 90);
             lblDeviceName.Size = new System.Drawing.Size(177, 31);
             lblDeviceName.TabIndex = 2;
@@ -66,6 +80,8 @@ namespace arkoDT
             pnlCards.TabIndex = 0;
 
             pnlHeader.Controls.Add(Title);
+            pnlCards.Controls.Add(btnRemove);
+            pnlCards.Controls.Add(btnChangeName);
             pnlCards.Controls.Add(lblStatus);
             pnlCards.Controls.Add(lblDeviceName);
             pnlCards.Controls.Add(pnlHeader);
