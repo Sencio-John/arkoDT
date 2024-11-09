@@ -6,10 +6,12 @@ import { useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "@/components/SplashScreen";
+import DeviceInfo from 'react-native-device-info';
 
 export default function RootLayout() {
   const router = useRouter();
-
+  const ip = DeviceInfo.getIpAddress()
+  console.log(ip)
   const [loading, setLoading] = React.useState(true);
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -24,10 +26,8 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     const checkLoginStatus = async () => {
-      const logKey = await AsyncStorage.getItem('log_key');
-      const storage = await AsyncStorage.getAllKeys();
-      console.log("AsyncStorage: ", storage)
-      
+      const logKey = await AsyncStorage.getItem('key');
+
       if (logKey) {
         setLoading(false)
         router.replace("/(home)/"); 
@@ -48,8 +48,43 @@ export default function RootLayout() {
   
   return (
     <Stack>
+      <Stack.Screen name="index" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
       <Stack.Screen name="(login)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
     </Stack>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

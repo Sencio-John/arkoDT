@@ -26,7 +26,7 @@ const Dashboard = () =>{
 
     React.useEffect(() => {
         const fetchData = async () => {
-            const key = await AsyncStorage.getItem('log_key');
+            const key = await AsyncStorage.getItem('key');
             if(key){
                 const data = await getData(key);
                 setUserData(data);

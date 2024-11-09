@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, ActivityIndicator, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { WebView } from 'react-native-webview';
 
@@ -11,13 +11,6 @@ import Brake from '@/components/controls/BrakeBtn';
 import Gear from '@/components/controls/GearBtn';
 import Light from '@/components/controls/Light';
 import GPSTracker from '@/components/controls/GPStxt';
-
-interface FetchResponse {
-    ok: boolean;
-    // Add other properties if needed
-    // e.g. status: number, statusText: string, etc.
-}
-
 
 
 export default function Controller() {
@@ -34,7 +27,6 @@ export default function Controller() {
 
     React.useEffect(() => {
 
-        checkIP();
         const lockOrientation = async () => {
             await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
             StatusBar.setHidden(true);
@@ -52,40 +44,39 @@ export default function Controller() {
         };
     }, []);
 
-    const [isOverlayVisible, setIsOverlayVisible] = React.useState(false);
-    const [isLoading, setIsLoading] = React.useState(true)
-    const fetchWithTimeout = (url: string, timeout = 3000) => {
-        return Promise.race([
-            fetch(url, { method: 'HEAD' }),
-            new Promise((_, reject) =>
-                setTimeout(() => reject(new Error(`Request to ${url} timed out`)), timeout)
-            ),
-        ]);
-    };
+    // const [isOverlayVisible, setIsOverlayVisible] = React.useState(false);
+    // const [isLoading, setIsLoading] = React.useState(true)
+    // const fetchWithTimeout = (url: string, timeout = 3000) => {
+    //     return Promise.race([
+    //         fetch(url, { method: 'HEAD' }),
+    //         new Promise((_, reject) =>
+    //             setTimeout(() => reject(new Error(`Request to ${url} timed out`)), timeout)
+    //         ),
+    //     ]);
+    // };
 
-    const checkIP = async () => {
-        try {
-            const responses = await Promise.all([
-                fetchWithTimeout(CAMERA_IP, 3000),
-                fetchWithTimeout(CONTROL_IP, 3000),
-                fetchWithTimeout(READ_IP, 3000),
-                fetchWithTimeout(VC_IP, 3000),
-            ]);
+    // const checkIP = async () => {
+    //     try {
+    //         const responses = await Promise.all([
+    //             fetchWithTimeout(CAMERA_IP, 3000),
+    //             fetchWithTimeout(CONTROL_IP, 3000),
+    //             fetchWithTimeout(READ_IP, 3000),
+    //             fetchWithTimeout(VC_IP, 3000),
+    //         ]);
 
-            // Destructure the responses
-            const [cameraResponse, controlResponse, readResponse, vcResponse] = responses as FetchResponse[];;
+    //         // Destructure the responses
+    //         const [cameraResponse, controlResponse, readResponse, vcResponse] = responses as FetchResponse[];;
 
-            // Check if any response is not ok
-            if (!cameraResponse.ok || !controlResponse.ok || !readResponse.ok || !vcResponse.ok) {
-                setIsOverlayVisible(true);
-            }
-        } catch (error) {
-            console.log("IP check failed:", error);
-            setIsOverlayVisible(true);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    //         // Check if any response is not ok
+    //         if (!cameraResponse.ok || !controlResponse.ok || !readResponse.ok || !vcResponse.ok) {
+    //             setIsOverlayVisible(true);
+    //         }
+    //     } catch (error) {
+    //         setIsOverlayVisible(true);
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // };
 
 
 
@@ -101,12 +92,8 @@ export default function Controller() {
 
     return(
         <SafeAreaView style={style.container}>
-            {/* {isOverlayVisible && (
-                <View style={style.overlay}>
-                    <Text style={style.errorText}>Connection is unavailable. Please try again.</Text>
-                </View>
-            )} */}
-            <View style={style.joystick}>
+
+            {/* <View style={style.joystick}>
                 <DPadv2 address={CONTROL_IP} />
             </View> 
 
@@ -117,14 +104,15 @@ export default function Controller() {
 
             <View style={style.throttle}>
                 <ThrottleControl address={CONTROL_IP} />
-            </View>
-           <View style={style.gear}>
+            </View> */}
+
+            <View style={style.gear}>
                 <Brake />
             </View>
 
-            <View style={style.dpad}>
+            {/* <View style={style.dpad}>
                 <CamMvt onMove={handleJoystickMove} address={CONTROL_IP}/>
-            </View> 
+            </View>  */}
             
             <View style={style.btns}>
                 <Light />

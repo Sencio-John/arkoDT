@@ -1,26 +1,20 @@
-import { child, Database, get, ref } from "firebase/database";
+
 import CryptoJS from "crypto-js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { database } from "./firebase";
 
-const getData = async(PASS_KEY: string) =>{
+const getData = async(key: string) =>{
 
-    const dbRef = ref(database);
-    console.log(PASS_KEY)
-    const snapshot = await get(child(dbRef, `appLog/${PASS_KEY}`));
-    console.log("snapshot:", snapshot)
-    if (snapshot.exists()){
-        const foundUser = snapshot.val();
-        const decryptedData = {
-            Email: CryptoJS.AES.decrypt(foundUser.Email, 'email').toString(CryptoJS.enc.Utf8),
-            Name: CryptoJS.AES.decrypt(foundUser.Name, 'name').toString(CryptoJS.enc.Utf8),
-            Username: CryptoJS.AES.decrypt(foundUser.Username, 'username').toString(CryptoJS.enc.Utf8),
-        };
+    const email = await AsyncStorage.getItem("encryptedEmail");
+    const name = await AsyncStorage.getItem("encryptedName");
+    const username = await AsyncStorage.getItem("encryptedUsername");
 
-        console.log(foundUser);
-        return decryptedData;
-    }
+    const decryptedData = {
+        Email: CryptoJS.AES.decrypt(email, key).toString(CryptoJS.enc.Utf8),
+        Name: CryptoJS.AES.decrypt(name, key).toString(CryptoJS.enc.Utf8),
+        Username: CryptoJS.AES.decrypt(username, key).toString(CryptoJS.enc.Utf8),
+    };
 
+    return decryptedData;
 }
 
 export default getData;
