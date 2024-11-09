@@ -15,8 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ArkoIcon = require('../../assets/images/appImg/arko-logo.png');
 
 const LoginScreen = () =>{
-
-
+    
     const router = useRouter();
     const colorScheme = useColorScheme();
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -62,6 +61,8 @@ const LoginScreen = () =>{
                 // FIREBASE
                 const username = inputs.username;
                 const password = inputs.password;
+                const key = CryptoJS.enc.Utf8.parse('MySecureKey12345'); 
+                const iv = CryptoJS.enc.Utf8.parse('MySecureIV123456'); 
 
                 const dbRef = ref(database);
                 const snapshot = await get(child(dbRef, 'Users'));
@@ -70,7 +71,7 @@ const LoginScreen = () =>{
                     const users = snapshot.val();
                     
                     let foundUser = null;
-
+                    
                     for (const userId in users) {
                         if (users[userId].Username === username) {
                             foundUser = users[userId];
@@ -79,7 +80,15 @@ const LoginScreen = () =>{
                     }
 
                     if (foundUser) {
-                        if (foundUser.Password === password) {
+                        const bytes = CryptoJS.AES.decrypt(foundUser.Password, key, {
+                            iv: iv,
+                            mode: CryptoJS.mode.CBC,
+                            padding: CryptoJS.pad.Pkcs7,
+                        });
+                        
+                        const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+                        if (decryptedPassword  === password) {
                             SavedLogIn(foundUser.Email, foundUser.Name)
                             Alert.alert('Login Successfully', "Welcome to ARKO")
                             LoginSuccess();
@@ -111,21 +120,16 @@ const LoginScreen = () =>{
     }
 
     const SavedLogIn = async(email: any, name: any) =>{
-
-        const NAME = CryptoJS.AES.encrypt(name, "name").toString();
-        const EMAIL = CryptoJS.AES.encrypt(email, "email").toString();
-        const USERNAME = CryptoJS.AES.encrypt(inputs.username, "username").toString();
-        const ENCRYPTED_KEY = CryptoJS.lib.WordArray.random(20).toString(CryptoJS.enc.Hex);
-        const LOG_KEY = CryptoJS.lib.WordArray.random(10).toString(CryptoJS.enc.Hex);
-
-        set(ref(database, 'appLog/' + LOG_KEY), {
-            Name: NAME,
-            Email: EMAIL,
-            Username: USERNAME,
-            CDN_KEY: ENCRYPTED_KEY,
-        })
-
-        await AsyncStorage.setItem("log_key", LOG_KEY)
+        const log_key = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
+        const encryptedEmail = CryptoJS.AES.encrypt(email, log_key).toString()
+        const encryptedName = CryptoJS.AES.encrypt(name, log_key).toString()
+        const encryptedUsername = CryptoJS.AES.encrypt(inputs.username, log_key).toString()
+        
+        await AsyncStorage.setItem("key", log_key)
+        await AsyncStorage.setItem("encryptedEmail", encryptedEmail);
+        await AsyncStorage.setItem("encryptedName", encryptedName);
+        await AsyncStorage.setItem("encryptedUsername", encryptedUsername);
+        
     }
 
     return(

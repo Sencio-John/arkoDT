@@ -23,14 +23,7 @@
       "favicon": "./assets/images/arko-logo.png"
     },
     "plugins": [
-      "expo-router",
-      [
-        "@config-plugins/react-native-webrtc",
-        {
-          "cameraPermission": "Allow ARKO app to access your camera",
-          "microphonePermission": "Allow ARKO app to access your microphone"
-        }
-      ]
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
