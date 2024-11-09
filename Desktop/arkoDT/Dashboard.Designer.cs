@@ -393,7 +393,7 @@ namespace arkoDT
             this.pnlUsers.Controls.Add(this.pictureBox6);
             this.pnlUsers.Location = new System.Drawing.Point(380, 573);
             this.pnlUsers.Name = "pnlUsers";
-            this.pnlUsers.Size = new System.Drawing.Size(286, 227);
+            this.pnlUsers.Size = new System.Drawing.Size(287, 227);
             this.pnlUsers.TabIndex = 8;
             // 
             // panel14
@@ -428,7 +428,7 @@ namespace arkoDT
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(161, 107);
+            this.label5.Location = new System.Drawing.Point(150, 107);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 25);
             this.label5.TabIndex = 3;
