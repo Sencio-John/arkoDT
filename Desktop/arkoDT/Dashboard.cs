@@ -8,17 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace arkoDT
 {
     public partial class frmDashboard : Form
     {
-        private frmLogin loginForm;  // Field to store the frmLogin instance
+        private frmLogin loginForm;
+        private IFirebaseClient client;// Field to store the frmLogin instance
 
         public frmDashboard(frmLogin login)
         {
             InitializeComponent();
-            loginForm = login;  // Store the frmLogin instance passed in the constructor
+            loginForm = login;
+            Firebase_Config firebaseConfig = new Firebase_Config();
+            client = firebaseConfig.GetClient();
+
+            if (client == null)
+            {
+                MessageBox.Show("Failed to connect to Database.");
+            }// Store the frmLogin instance passed in the constructor
+
         }
 
         private void btnController_Click(object sender, EventArgs e)
@@ -40,6 +52,7 @@ namespace arkoDT
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
+            CountUsers();
             string user = loginForm.Username;
             string role = loginForm.Role;
             lblWelcome.Text = "Welcome, " + user;
@@ -94,9 +107,33 @@ namespace arkoDT
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            frmLogin loginForm = new frmLogin(); // Create a new instance of frmLogin
-            loginForm.Show();                     // Show the new frmLogin form
+            frmLogin loginForm = new frmLogin();
+            loginForm.Show();                  
             this.Hide();
+        }
+
+        public void RefreshDashboard()
+        {
+            CountUsers(); // Update user count label
+                          // Any other updates needed for the dashboard
+        }
+
+        public async void CountUsers()
+        {
+            try
+            {
+                // Fetch all users from the database
+                FirebaseResponse response = await client.GetAsync("Users/");
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                // Get the count and update label5
+                int userCount = users?.Count ?? 0; // Use 0 if users is null
+                label5.Text = $"User(s): {userCount}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to count users: " + ex.Message);
+            }
         }
     }
 }

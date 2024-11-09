@@ -16,6 +16,7 @@ namespace arkoDT
 {
     public partial class frmUC : Form
     {
+        public event Action UserCreated;
         private IFirebaseClient client;
         private string generatedID;
         private bool isFirstImage = true;
@@ -28,7 +29,7 @@ namespace arkoDT
 
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
-
+            
             frmUsers = frmUsersInstance;
 
             Firebase_Config firebaseConfig = new Firebase_Config();
@@ -219,7 +220,7 @@ namespace arkoDT
                 // Check if email exists
                 bool emailExists = await IsEmailExists(txtEmail.Text);
                 if (emailExists)
-                {
+                { 
                     MessageBox.Show("Email already exists. Please choose another.");
                     return;
                 }
@@ -249,8 +250,9 @@ namespace arkoDT
 
                 MessageBox.Show($"New User has been successfully inserted into the database.");
                 this.Close();
-
-                frmUsers.UpdateUsersCards();
+                /*CountUsers();*/
+                UserCreated?.Invoke();
+                frmUsers.LoadUsers();
             }
             catch (Exception ex)
             {

@@ -7,17 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace arkoDT
 {
     public partial class frmUsers : Form
     {
+        private IFirebaseClient client;
+        private frmDashboard dashboard;
         public frmUsers()
         {
+            
             InitializeComponent();
+            Firebase_Config firebaseConfig = new Firebase_Config();
+            client = firebaseConfig.GetClient();
+
+            if (client == null)
+            {
+                MessageBox.Show("Failed to connect to Database.");
+            }
+            LoadUsers();
         }
 
-        public void UpdateUsersCards()
+        public void UpdateUsersCards(string username, string role)
         {
             Panel pnlCards = new Panel();
             Panel pnlHeader = new Panel();
@@ -25,44 +39,35 @@ namespace arkoDT
             Label lblUserName = new Label();
             Label lblRole = new Label();
 
-            Title.Dock = System.Windows.Forms.DockStyle.Fill;
-            Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            Title.Location = new System.Drawing.Point(0, 0);
-            Title.Size = new System.Drawing.Size(310, 41);
-            Title.TabIndex = 0;
+            Title.Dock = DockStyle.Fill;
+            Title.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold);
+            Title.Size = new Size(310, 41);
             Title.Text = "User";
-            Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            Title.TextAlign = ContentAlignment.MiddleCenter;
 
             pnlHeader.AutoScroll = true;
-            pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(310, 41);
-            pnlHeader.TabIndex = 1;
+            pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
+            pnlHeader.Size = new Size(310, 41);
 
             lblRole.AutoSize = true;
-            lblRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblRole.Location = new System.Drawing.Point(215, 90);
-            lblRole.Size = new System.Drawing.Size(92, 31);
-            lblRole.TabIndex = 3;
-            lblRole.Text = "Role";
+            lblRole.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Regular);
+            lblRole.Location = new Point(215, 90);
+            lblRole.Text = role; // Set role from parameter
 
             lblUserName.AutoSize = true;
-            lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblUserName.Location = new System.Drawing.Point(6, 90);
-            lblUserName.Size = new System.Drawing.Size(177, 31);
-            lblUserName.TabIndex = 2;
-            lblUserName.Text = "Username";
+            lblUserName.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Regular);
+            lblUserName.Location = new Point(6, 90);
+            lblUserName.Text = username; // Set username from parameter
 
             pnlCards.AutoScroll = true;
-            pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCards.Location = new System.Drawing.Point(3, 3);
-            pnlCards.Size = new System.Drawing.Size(310, 169);
-            pnlCards.TabIndex = 0;
+            pnlCards.BackColor = SystemColors.ControlLightLight;
+            pnlCards.Size = new Size(310, 169);
 
             pnlHeader.Controls.Add(Title);
             pnlCards.Controls.Add(lblRole);
             pnlCards.Controls.Add(lblUserName);
             pnlCards.Controls.Add(pnlHeader);
+
             flpUsers.Controls.Add(pnlCards);
         }
 
@@ -75,6 +80,37 @@ namespace arkoDT
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmUsers_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        public async void LoadUsers()
+        {
+            try
+            {
+                // Fetch all users from the database
+                FirebaseResponse response = await client.GetAsync("Users/");
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                flpUsers.Controls.Clear(); // Clear existing cards
+
+                if (users != null)
+                {
+                    foreach (var user in users.Values)
+                    {
+                        // Populate each card with the user's data
+                        UpdateUsersCards(user.Name, user.Role);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load users: " + ex.Message);
+            }
         }
     }
 }
