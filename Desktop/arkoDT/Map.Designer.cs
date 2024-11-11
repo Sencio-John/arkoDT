@@ -31,18 +31,19 @@ namespace arkoDT
         {
             this.btnPinLoc = new System.Windows.Forms.Button();
             this.map = new GMap.NET.WindowsForms.GMapControl();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.pnlInfo = new System.Windows.Forms.Panel();
             this.btnBack = new System.Windows.Forms.Button();
-            this.pnlInfo.SuspendLayout();
+            this.flpList = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlSide = new System.Windows.Forms.Panel();
+            this.btnPinned = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPinLoc
             // 
             this.btnPinLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPinLoc.Location = new System.Drawing.Point(890, 12);
+            this.btnPinLoc.Location = new System.Drawing.Point(1803, 8);
+            this.btnPinLoc.Margin = new System.Windows.Forms.Padding(2);
             this.btnPinLoc.Name = "btnPinLoc";
-            this.btnPinLoc.Size = new System.Drawing.Size(139, 32);
+            this.btnPinLoc.Size = new System.Drawing.Size(93, 21);
             this.btnPinLoc.TabIndex = 9;
             this.btnPinLoc.Text = "Pin Location";
             this.btnPinLoc.UseVisualStyleBackColor = true;
@@ -59,7 +60,8 @@ namespace arkoDT
             this.map.GrayScaleMode = false;
             this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemory = 5;
-            this.map.Location = new System.Drawing.Point(12, 47);
+            this.map.Location = new System.Drawing.Point(8, 31);
+            this.map.Margin = new System.Windows.Forms.Padding(2);
             this.map.MarkersEnabled = true;
             this.map.MaxZoom = 2;
             this.map.MinZoom = 2;
@@ -73,55 +75,71 @@ namespace arkoDT
             this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(1017, 330);
+            this.map.Size = new System.Drawing.Size(1888, 1002);
             this.map.TabIndex = 10;
             this.map.Visible = false;
             this.map.Zoom = 0D;
             // 
-            // btnClose
-            // 
-            this.btnClose.Location = new System.Drawing.Point(229, 3);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(35, 32);
-            this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "X";
-            this.btnClose.UseVisualStyleBackColor = true;
-            // 
-            // pnlInfo
-            // 
-            this.pnlInfo.Controls.Add(this.btnClose);
-            this.pnlInfo.Location = new System.Drawing.Point(12, 116);
-            this.pnlInfo.Name = "pnlInfo";
-            this.pnlInfo.Size = new System.Drawing.Size(267, 192);
-            this.pnlInfo.TabIndex = 11;
-            // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(12, 12);
+            this.btnBack.Location = new System.Drawing.Point(8, 11);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(2);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(75, 32);
+            this.btnBack.Size = new System.Drawing.Size(50, 21);
             this.btnBack.TabIndex = 12;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // flpList
+            // 
+            this.flpList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpList.Location = new System.Drawing.Point(1692, 122);
+            this.flpList.Name = "flpList";
+            this.flpList.Size = new System.Drawing.Size(200, 750);
+            this.flpList.TabIndex = 13;
+            this.flpList.Visible = false;
+            // 
+            // pnlSide
+            // 
+            this.pnlSide.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlSide.Location = new System.Drawing.Point(8, 292);
+            this.pnlSide.Name = "pnlSide";
+            this.pnlSide.Size = new System.Drawing.Size(200, 354);
+            this.pnlSide.TabIndex = 14;
+            this.pnlSide.Visible = false;
+            // 
+            // btnPinned
+            // 
+            this.btnPinned.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPinned.Location = new System.Drawing.Point(1803, 33);
+            this.btnPinned.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPinned.Name = "btnPinned";
+            this.btnPinned.Size = new System.Drawing.Size(93, 21);
+            this.btnPinned.TabIndex = 15;
+            this.btnPinned.Text = "Pinned Location";
+            this.btnPinned.UseVisualStyleBackColor = true;
+            this.btnPinned.Click += new System.EventHandler(this.btnPinned_Click);
+            // 
             // frmMap
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1041, 389);
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.ControlBox = false;
+            this.Controls.Add(this.btnPinned);
+            this.Controls.Add(this.pnlSide);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.pnlInfo);
+            this.Controls.Add(this.flpList);
             this.Controls.Add(this.map);
             this.Controls.Add(this.btnPinLoc);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Map";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMap_FormClosing);
             this.Load += new System.EventHandler(this.frmMap_Load);
-            this.pnlInfo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -130,8 +148,9 @@ namespace arkoDT
 
         private System.Windows.Forms.Button btnPinLoc;
         private GMap.NET.WindowsForms.GMapControl map;
-        private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Panel pnlInfo;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.FlowLayoutPanel flpList;
+        private System.Windows.Forms.Panel pnlSide;
+        private System.Windows.Forms.Button btnPinned;
     }
 }

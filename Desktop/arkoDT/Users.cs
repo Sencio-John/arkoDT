@@ -38,6 +38,9 @@ namespace arkoDT
             Label Title = new Label();
             Label lblUserName = new Label();
             Label lblRole = new Label();
+            Button btnEdit = new Button();
+            Button btnChangeStatus = new Button();
+            PictureBox pbProfile = new PictureBox();
 
             Title.Dock = DockStyle.Fill;
             Title.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold);
@@ -49,14 +52,52 @@ namespace arkoDT
             pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
             pnlHeader.Size = new Size(310, 41);
 
+            pbProfile.Image = Image.FromFile(@"C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\Resources\profile.jpg");
+            pbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pbProfile.Location = new System.Drawing.Point(36, 47);
+            pbProfile.Size = new System.Drawing.Size(80, 80);
+            pbProfile.TabIndex = 4;
+            pbProfile.TabStop = false;
+
+            pbProfile.Paint += (sender, e) =>
+            {
+                var pictureBox = sender as PictureBox;
+                if (pictureBox != null && pictureBox.Image != null)
+                {
+                    // Create a circular clipping region
+                    using (var path = new System.Drawing.Drawing2D.GraphicsPath())
+                    {
+                        path.AddEllipse(0, 0, pictureBox.Width, pictureBox.Height);
+                        pictureBox.Region = new Region(path); // Apply circular region to the PictureBox
+
+                        // Draw the image inside the circular region
+                        e.Graphics.SetClip(path); // Apply clipping
+                        e.Graphics.DrawImage(pictureBox.Image, 0, 0, pictureBox.Width, pictureBox.Height); // Draw image within the clipped region
+                    }
+                }
+            };
+
+
+            btnEdit.Location = new System.Drawing.Point(3, 143);
+            btnEdit.Size = new System.Drawing.Size(75, 23);
+            btnEdit.TabIndex = 2;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = true;
+
+            btnChangeStatus.Location = new System.Drawing.Point(221, 143);
+            btnChangeStatus.Size = new System.Drawing.Size(86, 23);
+            btnChangeStatus.TabIndex = 3;
+            btnChangeStatus.Text = "Change Status";
+            btnChangeStatus.UseVisualStyleBackColor = true;
+
             lblRole.AutoSize = true;
-            lblRole.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Regular);
-            lblRole.Location = new Point(215, 90);
+            lblRole.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
+            lblRole.Location = new Point(155, 93);
             lblRole.Text = role; // Set role from parameter
 
             lblUserName.AutoSize = true;
-            lblUserName.Font = new Font("Microsoft Sans Serif", 20.25F, FontStyle.Regular);
-            lblUserName.Location = new Point(6, 90);
+            lblUserName.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
+            lblUserName.Location = new Point(155, 59);
             lblUserName.Text = username; // Set username from parameter
 
             pnlCards.AutoScroll = true;
@@ -64,6 +105,9 @@ namespace arkoDT
             pnlCards.Size = new Size(310, 169);
 
             pnlHeader.Controls.Add(Title);
+            pnlCards.Controls.Add(pbProfile);
+            pnlCards.Controls.Add(btnChangeStatus);
+            pnlCards.Controls.Add(btnEdit);
             pnlCards.Controls.Add(lblRole);
             pnlCards.Controls.Add(lblUserName);
             pnlCards.Controls.Add(pnlHeader);
