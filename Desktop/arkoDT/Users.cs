@@ -38,6 +38,8 @@ namespace arkoDT
             Label Title = new Label();
             Label lblUserName = new Label();
             Label lblRole = new Label();
+            Label lblStatus = new Label();
+            Label lblActiveStatus = new Label();
             Button btnEdit = new Button();
             Button btnChangeStatus = new Button();
             PictureBox pbProfile = new PictureBox();
@@ -84,20 +86,40 @@ namespace arkoDT
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
 
+
+            // Ensure the event is hooked up properly to btnEdit
+            btnEdit.Click += new EventHandler(btnEdit_Click);
+
             btnChangeStatus.Location = new System.Drawing.Point(221, 143);
             btnChangeStatus.Size = new System.Drawing.Size(86, 23);
             btnChangeStatus.TabIndex = 3;
             btnChangeStatus.Text = "Change Status";
             btnChangeStatus.UseVisualStyleBackColor = true;
 
+            lblActiveStatus.AutoSize = true;
+            lblActiveStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblActiveStatus.ForeColor = System.Drawing.Color.LawnGreen;
+            lblActiveStatus.Location = new System.Drawing.Point(221, 120);
+            lblActiveStatus.Name = "label4";
+            lblActiveStatus.Size = new System.Drawing.Size(31, 24);
+            lblActiveStatus.TabIndex = 5;
+            lblActiveStatus.Text = "⚫";
+
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStatus.Location = new System.Drawing.Point(155, 120);
+            lblStatus.Size = new System.Drawing.Size(60, 24);
+            lblStatus.TabIndex = 4;
+            lblStatus.Text = "Status";
+
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
-            lblRole.Location = new Point(155, 93);
+            lblRole.Location = new Point(155, 87);
             lblRole.Text = role; // Set role from parameter
 
             lblUserName.AutoSize = true;
             lblUserName.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
-            lblUserName.Location = new Point(155, 59);
+            lblUserName.Location = new Point(155, 54);
             lblUserName.Text = username; // Set username from parameter
 
             pnlCards.AutoScroll = true;
@@ -131,6 +153,10 @@ namespace arkoDT
 
         }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         public async void LoadUsers()
         {
