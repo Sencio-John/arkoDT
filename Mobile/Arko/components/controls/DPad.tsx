@@ -1,62 +1,68 @@
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { ThemedText } from '../ThemedText';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-const DPad = ({ onDirectionChange }) => {
-  const handlePress = (direction) => {
-    onDirectionChange(direction);
-  };
+interface DPadv2Props {
+    onDataSend: (data: object) => void;
+}
 
-  return (
-    <View style={styles.dpadContainer}>
-      <TouchableOpacity style={[styles.button, styles.up]} onPress={() => handlePress('up')}> 
-        <Ionicons style={styles.icon} name="chevron-up" />
-      </TouchableOpacity>
-      <View style={styles.middleRow}>
-        <TouchableOpacity style={[styles.button, styles.left]} onPress={() => handlePress('left')}>
-          <Ionicons style={styles.icon} name="chevron-back" />
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.right]} onPress={() => handlePress('right')}>
-          <Ionicons style={styles.icon} name="chevron-forward" />
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity style={[styles.button, styles.down]} onPress={() => handlePress('down')}>
-        <Ionicons style={styles.icon} name="chevron-down" />
-      </TouchableOpacity>
-    </View>
-  );
+const DPadv2: React.FC<DPadv2Props> = ({ onDataSend }) => {
+    const [isHoldingLeft, setIsHoldingLeft] = useState(false);
+    const [isHoldingRight, setIsHoldingRight] = useState(false);
+
+    const handleDirection = (direction: 'left' | 'right') => {
+        onDataSend({ rudder: direction });
+    };
+
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.button}
+                onPressIn={() => {
+                    setIsHoldingLeft(true);
+                    handleDirection('left');
+                }}
+                onPressOut={() => setIsHoldingLeft(false)}
+            >
+                <ThemedText>
+                    <Ionicons style={styles.icon} name='chevron-back' />
+                </ThemedText>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPressIn={() => {
+                    setIsHoldingRight(true);
+                    handleDirection('right');
+                }}
+                onPressOut={() => setIsHoldingRight(false)}
+            >
+                <ThemedText>
+                    <Ionicons style={styles.icon} name='chevron-forward' />
+                </ThemedText>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  dpadContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    padding: 20,
-    backgroundColor: '#ccc',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  middleRow: {
-    flexDirection: 'row',
-  },
-  up: {
-    marginBottom: 5,
-  },
-  down: {
-    marginTop: 5,
-  },
-  left: {
-    marginRight: 20,
-  },
-  right: {
-    marginLeft: 20,
-  },
-  icon:{
-    fontSize: 20,
-  }
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 50,
+    },
+    button: {
+        backgroundColor: '#277CA5',
+        padding: 20,
+        borderRadius: 10,
+        margin: 10,
+    },
+    icon: {
+        fontSize: 24,
+        color: "#fff"
+    },
 });
 
-export default DPad;
+export default DPadv2;

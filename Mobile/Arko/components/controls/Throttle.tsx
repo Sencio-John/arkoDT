@@ -1,19 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import WebSocketManager from '@/constants/controlsocket';
 
 interface ThrottleControlProps {
-    address: string;
+    onDataSend: (data: object) => void;
 }
 
-const ThrottleControl: React.FC<ThrottleControlProps> = ({ address }) => {
+const ThrottleControl: React.FC<ThrottleControlProps> = ({ onDataSend }) => {
     const [power, setPower] = useState(0);
     const throttleInterval = useRef<NodeJS.Timeout | null>(null);
-    const wsManager = WebSocketManager.getInstance();
 
     const sendPowerValue = (currentPower: number) => {
-        wsManager.sendMessage(address, { speed: currentPower });
+        onDataSend({speed: currentPower})
     };
 
     const handlePress = (isIncrease: boolean) => {
@@ -31,13 +29,6 @@ const ThrottleControl: React.FC<ThrottleControlProps> = ({ address }) => {
         clearInterval(throttleInterval.current!);
         sendPowerValue(power);
     };
-
-    useEffect(() => {
-        wsManager.connect(address);
-        return () => {
-            wsManager.disconnect(address);
-        };
-    }, [address]);
 
     return (
         <View style={styles.container}>

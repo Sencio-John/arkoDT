@@ -4,11 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Button from '@/components/buttons/button';
-import SplashScreen from '@/components/SplashScreen';
 
 const ArkoIcon = require('../../assets/images/appImg/arko-logo.png');
 

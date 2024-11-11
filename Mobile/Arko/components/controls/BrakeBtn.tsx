@@ -1,13 +1,23 @@
-import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+interface BrakeProps {
+    onDataSend: (data: object) => void;
+}
 
-export default function Brake(){
+const BrakeBtn: React.FC<BrakeProps> = ({onDataSend}) => {
+
+    const toggleBrake = () => {
+        onDataSend({ brake: true });
+    };
+
+    const releasedBrake = () => {
+        onDataSend({ brake: true });
+    };
 
     return(
         <View style={style.container}>
-            <TouchableOpacity style={style.btn}>
+            <TouchableOpacity style={style.btn} onPressIn={toggleBrake} onPressOut={releasedBrake}>
                 <Text style={style.btnText}>BRAKE</Text>
             </TouchableOpacity>
         </View>
@@ -33,3 +43,5 @@ const style = StyleSheet.create({
         color: "#F0E0E0",
     },
 })
+
+export default BrakeBtn;

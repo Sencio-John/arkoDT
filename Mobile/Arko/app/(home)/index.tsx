@@ -78,7 +78,7 @@ const Dashboard = () =>{
                     <View style={dashboard.buttons}>
                         <IconButton type="map" onPress={() => router.navigate('/(home)/(tools)/')}/>
                         <IconButton type="stats" onPress={() => router.navigate('/(home)/(tools)/stats')}/>
-                        <IconButton type="control" onPress={() => router.navigate('/(home)/(tools)/controller')}/>
+                        <IconButton type="control" onPress={() => router.navigate('/(home)/(tools)/control')}/>
                     </View>
                 </View>
             </ThemedView>
