@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { useColorScheme } from "react-native";
 
 export default function Tools() {
@@ -23,7 +22,7 @@ export default function Tools() {
             backgroundColor: colorScheme === 'dark' ? '#151718' : '#fff', 
           }
           }}/>
-      <Stack.Screen name="controller" options={{headerShown: false}}/>
+      <Stack.Screen name="control" options={{headerShown: false}}/>
       <Stack.Screen 
         name="index" 
         options={{

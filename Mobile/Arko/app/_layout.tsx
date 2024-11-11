@@ -6,12 +6,11 @@ import { useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "@/components/SplashScreen";
-import DeviceInfo from 'react-native-device-info';
 
 export default function RootLayout() {
   const router = useRouter();
-  const ip = DeviceInfo.getIpAddress()
-  console.log(ip)
+
+  
   const [loading, setLoading] = React.useState(true);
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),

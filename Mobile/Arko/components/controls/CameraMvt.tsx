@@ -1,13 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, PanResponder, StyleSheet, Animated, Text } from 'react-native';
-import WebSocketManager from '@/constants/controlsocket';
+import React, { useState, useRef } from 'react';
+import { View, PanResponder, StyleSheet, Animated } from 'react-native';
 
 interface CamMvtProps {
-    address: string;
-    onMove: (movement: { x: number; y: number }) => void;
+    onDataSend: (data: object) => void;
 }
 
-const CamMvt: React.FC<CamMvtProps> = ({ onMove, address }) => {
+const CamMvt: React.FC<CamMvtProps> = ({ onDataSend }) => {
     const [horizontalAngle, setHorizontalAngle] = useState(90);
     const [verticalAngle, setVerticalAngle] = useState(90); 
     const radius = 50;
@@ -15,10 +13,9 @@ const CamMvt: React.FC<CamMvtProps> = ({ onMove, address }) => {
     const maxMoveDistance = radius - stickRadius;
 
     const pan = useRef(new Animated.ValueXY()).current;
-    const wsManager = WebSocketManager.getInstance();
 
     const sendJoystickData = (horizontal: number, vertical: number) => {
-        wsManager.sendMessage(address, { horizontal, vertical });
+        onDataSend({ horizontal, vertical });
     };
 
     const panResponder = useRef(
@@ -50,7 +47,6 @@ const CamMvt: React.FC<CamMvtProps> = ({ onMove, address }) => {
                 }
 
                 pan.setValue({ x: newX, y: newY });
-                onMove({ x: newX / maxMoveDistance, y: newY / maxMoveDistance });
                 sendJoystickData(horizontalAngle, verticalAngle);
             },
             onPanResponderRelease: () => {
@@ -58,18 +54,10 @@ const CamMvt: React.FC<CamMvtProps> = ({ onMove, address }) => {
                     toValue: { x: 0, y: 0 },
                     useNativeDriver: false,
                 }).start();
-                onMove({ x: 0, y: 0 });
                 sendJoystickData(horizontalAngle, verticalAngle);
             },
         })
     ).current;
-
-    useEffect(() => {
-        wsManager.connect(address);
-        return () => {
-            wsManager.disconnect(address);
-        };
-    }, [address]);
 
     return (
         <View style={styles.joystickContainer}>
@@ -102,14 +90,6 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 20,
         backgroundColor: '#333',
-    },
-    angleDisplay: {
-        marginTop: 15,
-        alignItems: 'center',
-    },
-    angleText: {
-        fontSize: 16,
-        color: "#000",
     },
 });
 
