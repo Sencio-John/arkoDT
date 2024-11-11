@@ -17,6 +17,7 @@ namespace arkoDT
     {
         public string Username { get; set; }
         public string Role { get; set; }
+        public string UserID { get; set; }
         private IFirebaseClient client;
         private bool isFirstImage = true;
 
@@ -43,7 +44,7 @@ namespace arkoDT
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
-        {
+{
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
@@ -53,21 +54,25 @@ namespace arkoDT
                 return;
             }
 
-            var (Name, UserType) = await LoginUser(username, password);
+            // Call LoginUser and destructure its result
+            var (userId, Name, UserType) = await LoginUser(username, password);
 
-            if (!string.IsNullOrEmpty(Name))
+            if (!string.IsNullOrEmpty(userId))
             {
                 Username = Name;
                 Role = UserType;
+                UserID = userId;
                 this.Hide();
                 new frmDashboard(this).Show();
                 MessageBox.Show("Login successful!");
+
             }
-            else
+                else
             {
                 MessageBox.Show("Login failed. Please check your credentials.");
             }
         }
+
 
         private void btnShowPass_Click(object sender, EventArgs e)
         {
@@ -90,7 +95,7 @@ namespace arkoDT
             lblForgotPassword.Cursor = Cursors.Hand;
         }
 
-        private async Task<(string username, string role)> LoginUser(string username, string password)
+        private async Task<(string userId, string username, string role)> LoginUser(string username, string password)
         {
             try
             {
@@ -101,40 +106,43 @@ namespace arkoDT
                 if (users == null)
                 {
                     MessageBox.Show("No users found.");
-                    return (null, null);
+                    return (null, null, null);
                 }
 
                 // Find the user by username
-                foreach (var user in users.Values)
+                foreach (var user in users)
                 {
-                    if (user.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
+                    string userId = user.Key; // This is the ID of the user
+                    UserRegistration userData = user.Value;
+
+                    if (userData.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
                     {
                         // Decrypt the stored password
-                        string decryptedPassword = PasswordHelper.DecryptPassword(user.Password);
+                        string decryptedPassword = PasswordHelper.DecryptPassword(userData.Password);
 
                         // Verify the password
                         if (password == decryptedPassword)
                         {
-                            return (user.Name, user.Role); // Returns the user's name if password is valid
+                            return (userId, userData.Name, userData.Role); // Return user ID, name, and role
                         }
                         else
                         {
                             MessageBox.Show("Invalid password.");
-                            return (null, null);
+                            return (null, null, null);
                         }
                     }
                 }
 
-                // If we finish the loop and find no match
                 MessageBox.Show("Username does not exist.");
-                return (null, null);
+                return (null, null, null);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
-                return (null, null);
+                return (null, null, null);
             }
         }
+
 
         private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
         {

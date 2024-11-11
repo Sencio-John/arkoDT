@@ -55,7 +55,8 @@ namespace arkoDT
             CountUsers();
             string user = loginForm.Username;
             string role = loginForm.Role;
-            lblWelcome.Text = "Welcome, " + user;
+            string user_ID = loginForm.UserID;
+            lblWelcome.Text = "Welcome, " + user + user_ID;
             lblRole.Text = role;
             // Set up the Timer
             Timer timer = new Timer();

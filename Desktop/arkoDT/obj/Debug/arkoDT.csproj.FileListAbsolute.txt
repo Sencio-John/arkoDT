@@ -348,3 +348,8 @@ C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Memory.x
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmUsers.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\arkoDT.exe.manifest
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\arkoDT.application
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.TrustInfo.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.exe.manifest
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.application
