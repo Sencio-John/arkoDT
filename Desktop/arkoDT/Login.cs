@@ -55,11 +55,11 @@ namespace arkoDT
             }
 
             // Call LoginUser and destructure its result
-            var (userId, Name, UserType) = await LoginUser(username, password);
+            var (userId, first_name, last_name, UserType) = await LoginUser(username, password);
 
             if (!string.IsNullOrEmpty(userId))
             {
-                Username = Name;
+                Username = first_name + " " + last_name;
                 Role = UserType;
                 UserID = userId;
                 this.Hide();
@@ -95,7 +95,7 @@ namespace arkoDT
             lblForgotPassword.Cursor = Cursors.Hand;
         }
 
-        private async Task<(string userId, string username, string role)> LoginUser(string username, string password)
+        private async Task<(string userId, string firstName, string Lastname, string role)> LoginUser(string username, string password)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace arkoDT
                 if (users == null)
                 {
                     MessageBox.Show("No users found.");
-                    return (null, null, null);
+                    return (null, null, null, null);
                 }
 
                 // Find the user by username
@@ -123,23 +123,23 @@ namespace arkoDT
                         // Verify the password
                         if (password == decryptedPassword)
                         {
-                            return (userId, userData.Name, userData.Role); // Return user ID, name, and role
+                            return (userId, userData.First_Name, userData.Last_Name, userData.Role); // Return user ID, name, and role
                         }
                         else
                         {
                             MessageBox.Show("Invalid password.");
-                            return (null, null, null);
+                            return (null, null, null, null);
                         }
                     }
                 }
 
                 MessageBox.Show("Username does not exist.");
-                return (null, null, null);
+                return (null, null, null, null);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);
-                return (null, null, null);
+                return (null, null, null, null);
             }
         }
 

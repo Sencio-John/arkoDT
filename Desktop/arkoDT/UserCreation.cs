@@ -240,7 +240,8 @@ namespace arkoDT
                 // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
-                    Name = txtName.Text,
+                    First_Name = txtFirstName.Text,
+                    Last_Name = txtLastName.Text,
                     Username = txtUsername.Text,
                     Password = encryptedPassword, // Save the encrypted password
                     Email = txtEmail.Text,

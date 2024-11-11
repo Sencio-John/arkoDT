@@ -75,6 +75,7 @@ namespace arkoDT
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblRole = new System.Windows.Forms.Label();
+            this.lblProfile = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlDeviceCount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -535,12 +536,25 @@ namespace arkoDT
             this.lblRole.TabIndex = 10;
             this.lblRole.Text = "ROLE";
             // 
+            // lblProfile
+            // 
+            this.lblProfile.AutoSize = true;
+            this.lblProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProfile.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblProfile.Location = new System.Drawing.Point(404, 147);
+            this.lblProfile.Name = "lblProfile";
+            this.lblProfile.Size = new System.Drawing.Size(100, 16);
+            this.lblProfile.TabIndex = 7;
+            this.lblProfile.Text = "Got to Profile   >";
+            this.lblProfile.Click += new System.EventHandler(this.lblProfile_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.lblProfile);
             this.Controls.Add(this.lblRole);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel16);
@@ -626,5 +640,6 @@ namespace arkoDT
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblRole;
+        private System.Windows.Forms.Label lblProfile;
     }
 }

@@ -378,3 +378,6 @@ C:\Users\Admin\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmUsers.
 C:\Users\Admin\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.TrustInfo.xml
 C:\Users\Admin\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.exe.manifest
 C:\Users\Admin\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.application
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmEdit.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmChangeName.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmProfile.resources

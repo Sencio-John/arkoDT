@@ -53,11 +53,17 @@ namespace arkoDT
             btnRemove.Text = "Remove";
             btnRemove.UseVisualStyleBackColor = true;
 
+            // Ensure the event is hooked up properly to btnRemove
+            btnRemove.Click += new EventHandler(btnRemove_Click);
+
             btnChangeName.Location = new System.Drawing.Point(221, 143);
             btnChangeName.Size = new System.Drawing.Size(86, 23);
             btnChangeName.TabIndex = 3;
             btnChangeName.Text = "Change Name";
             btnChangeName.UseVisualStyleBackColor = true;
+
+            // Ensure the event is hooked up properly to btnRemove
+            btnChangeName.Click += new EventHandler(btnChangeName_Click);
 
             lblStatus.AutoSize = true;
             lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -92,5 +98,32 @@ namespace arkoDT
         {
             this.Close();
         }
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+             "Are you sure you want to proceed?",  // Message text
+             "Confirmation",                      // Title
+             MessageBoxButtons.YesNo,             // Buttons
+             MessageBoxIcon.Question              // Icon
+             );
+
+            if (result == DialogResult.Yes)
+            {
+                // User clicked Yes
+                MessageBox.Show("You selected Yes.", "Result");
+            }
+            else
+            {
+                // User clicked No
+                MessageBox.Show("You selected No.", "Result");
+            }
+        }
+
+        private void btnChangeName_Click(object sender, EventArgs e)
+        {
+            frmEdit form1 = new frmEdit();
+            form1.Show();
+        }
+
     }
 }
