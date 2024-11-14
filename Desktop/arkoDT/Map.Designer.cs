@@ -33,9 +33,9 @@ namespace arkoDT
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.btnBack = new System.Windows.Forms.Button();
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnCloseFLP = new System.Windows.Forms.Button();
             this.pnlSide = new System.Windows.Forms.Panel();
             this.btnPinned = new System.Windows.Forms.Button();
-            this.btnCloseFLP = new System.Windows.Forms.Button();
             this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,6 +104,16 @@ namespace arkoDT
             this.flpList.TabIndex = 13;
             this.flpList.Visible = false;
             // 
+            // btnCloseFLP
+            // 
+            this.btnCloseFLP.Location = new System.Drawing.Point(3, 3);
+            this.btnCloseFLP.Name = "btnCloseFLP";
+            this.btnCloseFLP.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseFLP.TabIndex = 0;
+            this.btnCloseFLP.Text = "Close";
+            this.btnCloseFLP.UseVisualStyleBackColor = true;
+            this.btnCloseFLP.Click += new System.EventHandler(this.btnCloseFLP_Click);
+            // 
             // pnlSide
             // 
             this.pnlSide.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -125,16 +135,6 @@ namespace arkoDT
             this.btnPinned.UseVisualStyleBackColor = true;
             this.btnPinned.Click += new System.EventHandler(this.btnPinned_Click);
             // 
-            // btnCloseFLP
-            // 
-            this.btnCloseFLP.Location = new System.Drawing.Point(3, 3);
-            this.btnCloseFLP.Name = "btnCloseFLP";
-            this.btnCloseFLP.Size = new System.Drawing.Size(75, 23);
-            this.btnCloseFLP.TabIndex = 0;
-            this.btnCloseFLP.Text = "Close";
-            this.btnCloseFLP.UseVisualStyleBackColor = true;
-            this.btnCloseFLP.Click += new System.EventHandler(this.btnCloseFLP_Click);
-            // 
             // frmMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,7 +150,7 @@ namespace arkoDT
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Map";
+            this.Text = " ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMap_FormClosing);
             this.Load += new System.EventHandler(this.frmMap_Load);

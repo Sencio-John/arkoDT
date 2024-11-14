@@ -12,9 +12,17 @@ namespace arkoDT
 {
     public partial class frmInfo : Form
     {
-        public frmInfo()
+        private frmMap frmMap;
+        public frmInfo(frmMap frmMapInstance)
         {
             InitializeComponent();
+            frmMap = frmMapInstance;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            frmMap.UpdateLocationsCards();
+            this.Close();
         }
     }
 }

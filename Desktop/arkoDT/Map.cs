@@ -92,7 +92,7 @@ namespace arkoDT
                 // Check if frmInfo is already opened
                 if (infoForm == null || infoForm.IsDisposed || !infoForm.Visible)
                 {
-                    infoForm = new frmInfo(); // Create a new instance of frmInfo
+                    infoForm = new frmInfo(this); // Create a new instance of frmInfo
                     infoForm.Show(this); // Show the instance of frmInfo in front of frmMap
                 }
                 else
@@ -104,48 +104,6 @@ namespace arkoDT
             {
                 MessageBox.Show("Current location is unknown.");
             }
-
-            Panel pnlCards = new Panel();
-            Panel pnlHeader = new Panel();
-            Label title = new Label();
-            Label lblDirection = new Label();
-            Label lblFamilyName = new Label();
-
-            title.Dock = System.Windows.Forms.DockStyle.Fill;
-            title.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title.Location = new System.Drawing.Point(0, 0);
-            title.Size = new System.Drawing.Size(179, 27);
-            title.TabIndex = 1;
-            title.Text = "For Relief";
-            title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(179, 27);
-            pnlHeader.TabIndex = 0;
-
-            lblFamilyName.Location = new System.Drawing.Point(104, 30);
-            lblFamilyName.Size = new System.Drawing.Size(72, 60);
-            lblFamilyName.TabIndex = 2;
-            lblFamilyName.Text = "Sencio";
-            lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            lblDirection.Location = new System.Drawing.Point(3, 30);
-            lblDirection.Size = new System.Drawing.Size(72, 60);
-            lblDirection.TabIndex = 1;
-            lblDirection.Text = "Family Name";
-            lblDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCards.Location = new System.Drawing.Point(3, 32);
-            pnlCards.Size = new System.Drawing.Size(179, 100);
-            pnlCards.TabIndex = 1;
-
-            flpList.Controls.Add(pnlCards);
-            pnlCards.Controls.Add(lblFamilyName);
-            pnlCards.Controls.Add(lblDirection);
-            pnlCards.Controls.Add(pnlHeader);
-            pnlHeader.Controls.Add(title);
         }
 
         private void AddMarker(double latitude, double longitude)
@@ -256,6 +214,75 @@ namespace arkoDT
         private void btnCloseFLP_Click(object sender, EventArgs e)
         {
             flpList.Visible = false;
+        }
+
+        public void UpdateLocationsCards()
+        {
+            Panel pnlCards = new Panel();
+            Panel pnlHeader = new Panel();
+            Label title = new Label();
+            Label lblDirection = new Label();
+            Label lblFamilyName = new Label();
+
+            title.Dock = System.Windows.Forms.DockStyle.Fill;
+            title.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title.Location = new System.Drawing.Point(0, 0);
+            title.Size = new System.Drawing.Size(179, 27);
+            title.TabIndex = 1;
+            title.Text = "For Relief";
+            title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            pnlHeader.Location = new System.Drawing.Point(0, 0);
+            pnlHeader.Size = new System.Drawing.Size(179, 27);
+            pnlHeader.TabIndex = 0;
+
+            lblFamilyName.Location = new System.Drawing.Point(104, 30);
+            lblFamilyName.Size = new System.Drawing.Size(72, 60);
+            lblFamilyName.TabIndex = 2;
+            lblFamilyName.Text = "Sencio";
+            lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            lblDirection.Location = new System.Drawing.Point(3, 30);
+            lblDirection.Size = new System.Drawing.Size(72, 60);
+            lblDirection.TabIndex = 1;
+            lblDirection.Text = "Family Name";
+            lblDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            pnlCards.Location = new System.Drawing.Point(3, 32);
+            pnlCards.Size = new System.Drawing.Size(179, 100);
+            pnlCards.TabIndex = 1;
+
+            // Ensure the event is hooked up properly to btnRemove
+            pnlCards.Click += new EventHandler(pnlCards_Click);
+
+            flpList.Controls.Add(pnlCards);
+            pnlCards.Controls.Add(lblFamilyName);
+            pnlCards.Controls.Add(lblDirection);
+            pnlCards.Controls.Add(pnlHeader);
+            pnlHeader.Controls.Add(title);
+        }
+
+        private void pnlCards_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+             "Are you sure you want to proceed?",  // Message text
+             "Confirmation",                      // Title
+             MessageBoxButtons.YesNo,             // Buttons
+             MessageBoxIcon.Question              // Icon
+             );
+
+            if (result == DialogResult.Yes)
+            {
+                // User clicked Yes
+                MessageBox.Show("You selected Yes.", "Result");
+            }
+            else
+            {
+                // User clicked No
+                MessageBox.Show("You selected No.", "Result");
+            }
         }
     }
 }
