@@ -401,3 +401,4 @@ C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmUs
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.TrustInfo.xml
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.exe.manifest
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.application
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmServerHandler.resources

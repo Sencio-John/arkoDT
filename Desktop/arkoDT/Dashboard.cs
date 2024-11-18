@@ -139,10 +139,36 @@ namespace arkoDT
             }
         }
 
-        private void lblProfile_Click(object sender, EventArgs e)
+        private async void lblProfile_Click(object sender, EventArgs e)
         {
-            frmProfile form1 = new frmProfile();
-            form1.Show();
+            try
+            {
+                // Assuming the current user ID is stored as a class field or retrieved from login form
+                string userId = loginForm.UserID;
+
+                // Fetch user data from Firebase
+                FirebaseResponse response = await client.GetAsync($"Users/{userId}");
+                UserRegistration user = response.ResultAs<UserRegistration>();
+
+                if (user != null)
+                {
+                    frmProfile form1 = new frmProfile(
+                        user.First_Name,
+                        user.Last_Name,
+                        user.Email,
+                        user.Role
+                    );
+                    form1.Show();
+                }
+                else
+                {
+                    MessageBox.Show("User details could not be found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
     }
 }

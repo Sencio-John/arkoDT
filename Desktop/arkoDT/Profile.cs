@@ -13,9 +13,13 @@ namespace arkoDT
 {
     public partial class frmProfile : Form
     {
-        public frmProfile()
+        public frmProfile(string firstName, string lastName, string email, string role)
         {
             InitializeComponent();
+
+            // Populate the fields
+            txtFirstName.Text = firstName;
+            txtLastName.Text = lastName;
         }
 
         private void MakeCircularPictureBox(PictureBox pictureBox)
@@ -46,9 +50,9 @@ namespace arkoDT
 
         private void frmProfile_Load(object sender, EventArgs e)
         {
-            MakeRoundedPanel(pnlProfile, 100);
-            MakeRoundedPanel(pnlContacts, 100);
-            MakeRoundedPanel(panel1, 100);
+            MakeRoundedPanel(pnlProfile, 50);
+            MakeRoundedPanel(pnlContacts, 50);
+            MakeRoundedPanel(pnlLoginCred, 50);
             MakeCircularPictureBox(pbProfile);
         }
 
@@ -59,12 +63,62 @@ namespace arkoDT
 
         private void btnEditDetails_Click(object sender, EventArgs e)
         {
-            txtFirstName.Enabled = true;
-            txtLastName.Enabled = true;
-            txtEmail.Enabled = true;
-            txtOTP.Enabled = true;
-            txtGender.Enabled = true;
-            cmbRole.Enabled = true;
+            if (btnEditDetails.Text == "Edit Details")
+            {
+                // Enable text fields
+                txtFirstName.Enabled = true;
+                txtLastName.Enabled = true;
+                txtBirthDate.Enabled = true;
+                txtAddress.Enabled = true;
+                txtContactNum.Enabled = true;
+                btnSave.Enabled = true;
+
+                // Change button text to "Undo"
+                btnEditDetails.Text = "Undo";
+            }
+            else
+            {
+                // Disable text fields
+                txtFirstName.Enabled = false;
+                txtLastName.Enabled = false;
+                txtBirthDate.Enabled = false;
+                txtAddress.Enabled = false;
+                txtContactNum.Enabled = false;
+                btnSave.Enabled = false;
+
+                // Change button text back to "Edit Details"
+                btnEditDetails.Text = "Edit Details";
+            }
+        }
+
+        private void btnLoginCred_Click(object sender, EventArgs e)
+        {
+            if (btnLoginCred.Text == "Edit Credentials")
+            {
+                // Enable text fields
+                txtUsername.Enabled = true;
+                txtEmail.Enabled = true;
+                txtOTP.Enabled = true;
+                txtPassword.Enabled = true;
+                txtConfirmPass.Enabled = true;
+                btnSaveCred.Enabled = true;
+
+                // Change button text to "Undo"
+                btnLoginCred.Text = "Undo";
+            }
+            else
+            {
+                // Disable text fields
+                txtUsername.Enabled = false;
+                txtEmail.Enabled = false;
+                txtOTP.Enabled = false;
+                txtPassword.Enabled = false;
+                txtConfirmPass.Enabled = false;
+                btnSaveCred.Enabled = false;
+
+                // Change button text back to "Edit Credentials"
+                btnLoginCred.Text = "Edit Credentials";
+            }
         }
     }
 }

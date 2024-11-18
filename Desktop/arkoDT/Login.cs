@@ -115,7 +115,7 @@ namespace arkoDT
                     string userId = user.Key; // This is the ID of the user
                     UserRegistration userData = user.Value;
 
-                    if (userData.Username.Equals(username, StringComparison.OrdinalIgnoreCase))
+                    if (userData.Username.Equals(username, StringComparison.Ordinal))
                     {
                         // Decrypt the stored password
                         string decryptedPassword = PasswordHelper.DecryptPassword(userData.Password);

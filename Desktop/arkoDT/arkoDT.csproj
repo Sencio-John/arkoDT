@@ -204,6 +204,7 @@
     <Compile Include="ChangeName.Designer.cs">
       <DependentUpon>ChangeName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\ControlCenter.cs" />
     <Compile Include="Controls.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +253,12 @@
     </Compile>
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServerHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerHandler.Designer.cs">
+      <DependentUpon>ServerHandler.cs</DependentUpon>
     </Compile>
     <Compile Include="Map.cs">
       <SubType>Form</SubType>
@@ -311,6 +318,9 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ServerHandler.resx">
+      <DependentUpon>ServerHandler.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,6 +372,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="database\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
