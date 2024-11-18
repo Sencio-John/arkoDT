@@ -38,6 +38,7 @@ namespace arkoDT
             Label Title = new Label();
             Label lblUserName = new Label();
             Label lblRole = new Label();
+            Label lblStatus = new Label();
             Button btnEdit = new Button();
             Button btnChangeStatus = new Button();
             PictureBox pbProfile = new PictureBox();
@@ -84,20 +85,33 @@ namespace arkoDT
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
 
+            // Ensure the event is hooked up properly to btnEdit
+            btnEdit.Click += new EventHandler(btnEdit_Click);
+
             btnChangeStatus.Location = new System.Drawing.Point(221, 143);
             btnChangeStatus.Size = new System.Drawing.Size(86, 23);
             btnChangeStatus.TabIndex = 3;
             btnChangeStatus.Text = "Change Status";
             btnChangeStatus.UseVisualStyleBackColor = true;
 
+            // Ensure the event is hooked up properly to btnChangeStatus
+            btnChangeStatus.Click += new EventHandler(btnChangeStatus_Click);
+
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStatus.Location = new System.Drawing.Point(155, 120);
+            lblStatus.Size = new System.Drawing.Size(60, 24);
+            lblStatus.TabIndex = 4;
+            lblStatus.Text = "Status";
+
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
-            lblRole.Location = new Point(155, 93);
+            lblRole.Location = new Point(155, 87);
             lblRole.Text = role; // Set role from parameter
 
             lblUserName.AutoSize = true;
             lblUserName.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
-            lblUserName.Location = new Point(155, 59);
+            lblUserName.Location = new Point(155, 54);
             lblUserName.Text = username; // Set username from parameter
 
             pnlCards.AutoScroll = true;
@@ -108,6 +122,7 @@ namespace arkoDT
             pnlCards.Controls.Add(pbProfile);
             pnlCards.Controls.Add(btnChangeStatus);
             pnlCards.Controls.Add(btnEdit);
+            pnlCards.Controls.Add(lblStatus);
             pnlCards.Controls.Add(lblRole);
             pnlCards.Controls.Add(lblUserName);
             pnlCards.Controls.Add(pnlHeader);
@@ -131,6 +146,32 @@ namespace arkoDT
 
         }
 
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            frmEdit form1 = new frmEdit();
+            form1.Show();
+        }
+
+        private void btnChangeStatus_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+             "Are you sure you want to proceed?",  // Message text
+             "Confirmation",                      // Title
+             MessageBoxButtons.YesNo,             // Buttons
+             MessageBoxIcon.Question              // Icon
+             );
+
+            if (result == DialogResult.Yes)
+            {
+                // User clicked Yes
+                MessageBox.Show("You selected Yes.", "Result");
+            }
+            else
+            {
+                // User clicked No
+                MessageBox.Show("You selected No.", "Result");
+            }
+        }
 
         public async void LoadUsers()
         {
@@ -146,8 +187,9 @@ namespace arkoDT
                 {
                     foreach (var user in users.Values)
                     {
+                        string Name = user.First_Name + " " + user.Last_Name;
                         // Populate each card with the user's data
-                        UpdateUsersCards(user.Name, user.Role);
+                        UpdateUsersCards(Name, user.Role);
                     }
                 }
             }

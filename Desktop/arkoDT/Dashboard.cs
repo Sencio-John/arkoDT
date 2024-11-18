@@ -55,7 +55,8 @@ namespace arkoDT
             CountUsers();
             string user = loginForm.Username;
             string role = loginForm.Role;
-            lblWelcome.Text = "Welcome, " + user;
+            string user_ID = loginForm.UserID;
+            lblWelcome.Text = "Welcome, " + user + " " + user_ID;
             lblRole.Text = role;
             // Set up the Timer
             Timer timer = new Timer();
@@ -66,7 +67,9 @@ namespace arkoDT
             lblGoWaterLevel.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             lblGoUsers.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
             lblDevices.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
-            if(role == "User")
+            lblProfile.Cursor = Cursors.Hand; // Change the cursor to indicate it is clickable
+
+            if (role == "User")
             {
                 pnlUsers.Visible = false;
                 pnlDeviceCount.Visible = false;
@@ -134,6 +137,12 @@ namespace arkoDT
             {
                 MessageBox.Show("Failed to count users: " + ex.Message);
             }
+        }
+
+        private void lblProfile_Click(object sender, EventArgs e)
+        {
+            frmProfile form1 = new frmProfile();
+            form1.Show();
         }
     }
 }

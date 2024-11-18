@@ -10,18 +10,20 @@ using System.Windows.Forms;
 
 namespace arkoDT
 {
-    public partial class frmInfo : Form
+    public partial class frmChangeName : Form
     {
-        private frmMap frmMap;
-        public frmInfo(frmMap frmMapInstance)
+        public frmChangeName()
         {
             InitializeComponent();
-            frmMap = frmMapInstance;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            frmMap.UpdateLocationsCards();
             this.Close();
         }
     }

@@ -16,12 +16,14 @@ namespace arkoDT
 {
     public partial class frmUC : Form
     {
+        private string ID { get; set; }
         public event Action UserCreated;
         private IFirebaseClient client;
         private string generatedID;
         private bool isFirstImage = true;
         private frmUsers frmUsers;
         private string generatedOTP;
+
 
         public frmUC(frmUsers frmUsersInstance)
         {
@@ -238,7 +240,8 @@ namespace arkoDT
                 // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
-                    Name = txtName.Text,
+                    First_Name = txtFirstName.Text,
+                    Last_Name = txtLastName.Text,
                     Username = txtUsername.Text,
                     Password = encryptedPassword, // Save the encrypted password
                     Email = txtEmail.Text,

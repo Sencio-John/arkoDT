@@ -33,8 +33,10 @@ namespace arkoDT
             this.map = new GMap.NET.WindowsForms.GMapControl();
             this.btnBack = new System.Windows.Forms.Button();
             this.flpList = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnCloseFLP = new System.Windows.Forms.Button();
             this.pnlSide = new System.Windows.Forms.Panel();
             this.btnPinned = new System.Windows.Forms.Button();
+            this.flpList.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPinLoc
@@ -94,11 +96,23 @@ namespace arkoDT
             // flpList
             // 
             this.flpList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpList.AutoScroll = true;
+            this.flpList.Controls.Add(this.btnCloseFLP);
             this.flpList.Location = new System.Drawing.Point(1692, 122);
             this.flpList.Name = "flpList";
             this.flpList.Size = new System.Drawing.Size(200, 750);
             this.flpList.TabIndex = 13;
             this.flpList.Visible = false;
+            // 
+            // btnCloseFLP
+            // 
+            this.btnCloseFLP.Location = new System.Drawing.Point(3, 3);
+            this.btnCloseFLP.Name = "btnCloseFLP";
+            this.btnCloseFLP.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseFLP.TabIndex = 0;
+            this.btnCloseFLP.Text = "Close";
+            this.btnCloseFLP.UseVisualStyleBackColor = true;
+            this.btnCloseFLP.Click += new System.EventHandler(this.btnCloseFLP_Click);
             // 
             // pnlSide
             // 
@@ -136,10 +150,11 @@ namespace arkoDT
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmMap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Map";
+            this.Text = " ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMap_FormClosing);
             this.Load += new System.EventHandler(this.frmMap_Load);
+            this.flpList.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -152,5 +167,6 @@ namespace arkoDT
         private System.Windows.Forms.FlowLayoutPanel flpList;
         private System.Windows.Forms.Panel pnlSide;
         private System.Windows.Forms.Button btnPinned;
+        private System.Windows.Forms.Button btnCloseFLP;
     }
 }
