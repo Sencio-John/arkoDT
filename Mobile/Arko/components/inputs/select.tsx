@@ -69,7 +69,6 @@ const SelectBox: React.FC<InputProps> = ({
                 <Picker.Item style={style.item} label="Select Marking Title..." value=""/>
                 <Picker.Item style={style.item} label="Rescue" value="Rescue" />
                 <Picker.Item style={style.item}label="For Relief" value="For Relief" />
-                <Picker.Item style={style.item} label="Danger" value="Danger" />
             </Picker>
 
             

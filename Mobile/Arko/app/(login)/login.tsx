@@ -89,7 +89,7 @@ const LoginScreen = () =>{
                         const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
                         if (decryptedPassword  === password) {
-                            SavedLogIn(foundUser.Email, foundUser.Name)
+                            SavedLogIn(foundUser.Email, foundUser.First_Name, foundUser.Last_Name, foundUser.Address, foundUser.Phone, foundUser.BirthDate)
                             Alert.alert('Login Successfully', "Welcome to ARKO")
                             LoginSuccess();
 
@@ -119,16 +119,24 @@ const LoginScreen = () =>{
         setInputs({username: "", password: "",})
     }
 
-    const SavedLogIn = async(email: any, name: any) =>{
+    const SavedLogIn = async(email: any, fname: any, lname: any, address: any, phone: any, bdate: any) =>{
         const log_key = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
         const encryptedEmail = CryptoJS.AES.encrypt(email, log_key).toString()
-        const encryptedName = CryptoJS.AES.encrypt(name, log_key).toString()
+        const encryptedFName = CryptoJS.AES.encrypt(fname, log_key).toString()
+        const encryptedLName = CryptoJS.AES.encrypt(lname, log_key).toString()
+        const encryptedAddress = CryptoJS.AES.encrypt(address, log_key).toString()
+        const encryptedPhone = CryptoJS.AES.encrypt(phone, log_key).toString()
         const encryptedUsername = CryptoJS.AES.encrypt(inputs.username, log_key).toString()
+        const encryptedBirthDate = CryptoJS.AES.encrypt(bdate, log_key).toString()
         
         await AsyncStorage.setItem("key", log_key)
         await AsyncStorage.setItem("encryptedEmail", encryptedEmail);
-        await AsyncStorage.setItem("encryptedName", encryptedName);
+        await AsyncStorage.setItem("encryptedFName", encryptedFName);
+        await AsyncStorage.setItem("encryptedLName", encryptedLName);
+        await AsyncStorage.setItem("encryptedAddress", encryptedAddress);
+        await AsyncStorage.setItem("encryptedPhone", encryptedPhone);
         await AsyncStorage.setItem("encryptedUsername", encryptedUsername);
+        await AsyncStorage.setItem("encryptedBirthDate", encryptedBirthDate);
         
     }
 

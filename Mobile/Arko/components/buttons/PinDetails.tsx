@@ -17,19 +17,17 @@ export default function PinDetail({icon_name, title, subtitle, onPress=() => {}}
     return(
         <TouchableOpacity style={style.container} onPress={onPress}>     
             <View style={style.left}>  
-                <View style={[style.iconContainer, {backgroundColor: colorScheme === 'dark' ? style.light.backgroundColor : style.dark.backgroundColor }]}>
-                    <View>
-                        <Ionicons
-                            style={[style.icon, {color: colorScheme === 'dark' ? style.dark.color: style.light.color}]}
-                            name={icon_name}
-                            />
-                    </View>
+                <View style={style.iconContainer}>
+                    <Ionicons
+                        style={[style.icon, {color: title === 'Rescue' ? "#ff9933" : "#e3cd09"} ]}
+                        name={icon_name}
+                        />
                 </View>
                 <View style={style.textContainer}>
-                    <ThemedText type='med'>
+                    <ThemedText type='fade' style={style.title}>
                         {title}
                     </ThemedText>
-                    <ThemedText type="fade">
+                    <ThemedText type="fade" style={style.subtitle}>
                         {truncatedSubtitle}
                     </ThemedText>
                 </View>
@@ -37,7 +35,7 @@ export default function PinDetail({icon_name, title, subtitle, onPress=() => {}}
             <View style={style.right}>
                 <ThemedText>Go</ThemedText>
                 <ThemedText>
-                    <Ionicons style={style.icon} name="chevron-forward" />
+                    <Ionicons style={style.iconGo} name="chevron-forward" />
                 </ThemedText>
             </View>
         </TouchableOpacity>
@@ -54,17 +52,29 @@ const style = StyleSheet.create({
         borderColor:"black",
     },
     iconContainer:{
-        backgroundColor: "black",
-        borderRadius: 50,
-        padding: 10,
         justifyContent: "center",
+    },
+    title:{
+        fontWeight: "bold"
+    },
+    subtitle:{
+        fontSize: 14,
+        
     },
     icon:{
         fontSize: 24,
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
-        alignSelf: "center"
+        alignSelf: "center",
+        color: "#277CA5",
+    },
+    iconGo:{
+        fontSize: 24,
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
     },
     textContainer:{
         flex: 1,

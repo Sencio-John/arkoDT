@@ -11,14 +11,19 @@ import PinnedLocation from '@/components/bottomsheet/PinnedLocation';
 import PinsBtn from '@/components/buttons/Iconbtn';
 import MarkerInfo from '@/components/bottomsheet/MarkerInfo';
 
+import { database } from '@/constants/firebase';
+import { ref, get, child, set} from 'firebase/database';
+
 export default function Map() {
 
     const colorScheme = useColorScheme();
 
     const bottomSheetRef = React.useRef<BottomSheet>(null);
     const MapInfoRef = React.useRef<BottomSheet>(null);
-    const snapPoints = React.useMemo(() => ["1%", "5%",'25%','35%'], []);
+    const snapPoints = React.useMemo(() => ["1%", "5%",'25%','35%', '50%', '75%', '90%'], []);
+    const InfosnapPoints = React.useMemo(() => ["1%", "5%",'25%','35%', '50%', '75%'], []);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = React.useState(false);
+    const [detailBottomSheetOpen,  setDetailBottomSheetOpen] = React.useState(false);
     const [userLocation, setUserLocation] = React.useState(null);
     const [mapRegion, setMapRegion] =  React.useState({
         latitude: 14.6495,
@@ -26,6 +31,32 @@ export default function Map() {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     });
+
+    const [markers, setMarkers] = React.useState([]);
+
+    const fetchPinnedData = async() =>{
+        const dbRef = ref(database);
+        const snapshot = await get(child(dbRef, 'Pinned'));
+        
+        if(snapshot.exists()){
+            const data = snapshot.val();
+            const formattedMarkers = Object.keys(data).map(key => ({
+                id: key,
+                coordinate: {
+                    latitude: parseFloat(data[key].Latitude),
+                    longitude: parseFloat(data[key].Longitude),
+                },
+                title: data[key].Type, 
+                description: data[key].Description,
+                status: data[key].Status,
+                dateAdded: data[key].DateAdded,
+                name: data[key].Name,
+            }));
+
+            setMarkers(formattedMarkers)
+        }
+
+    }
 
     const getUserLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -37,25 +68,13 @@ export default function Map() {
 
         let location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
 
-        setMapRegion({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-        });
-
         setUserLocation({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
         });
     };
 
-    React.useEffect(() => {
-        getUserLocation();
-    }, []);
-    
 
-    const [markers, setMarkers] = React.useState([]);
     const [modalVisible, setModalVisible] = React.useState(false);
     const [markerCoordinate, setMarkerCoordinate] = React.useState(null);
     
@@ -63,36 +82,63 @@ export default function Map() {
         const coordinate = event.nativeEvent.coordinate;
         setMarkerCoordinate(coordinate);
         setModalVisible(true);
+        bottomSheetRef.current?.close();
+        MapInfoRef.current?.close();
     };
 
-    const handleAddMarker = (title: string, description: string) => {
-        bottomSheetRef.current?.close();
-        MapInfoRef.current?.close();;
-        if (markerCoordinate) {
-            setMarkers((currentMarkers) => [
-                ...currentMarkers,
-                {
-                    id: Math.random(), // Generate a unique ID
-                    coordinate: markerCoordinate,
-                    title,
-                    description,
-                },
-            ]);
-            
-            setModalVisible(false);
-            bottomSheetRef.current?.snapToIndex(2);
-        } else{
-            bottomSheetRef.current?.snapToIndex(2);
-        }
+    const handleAddMarker = async(title: string, description: string, fam_name: string) => {
+
+        const newMarkerId = "ARKO-" + Math.floor(Math.random() * 9999999);
+        const newMarker = {
+            id: newMarkerId,
+            Latitude: markerCoordinate.latitude,
+            Longitude: markerCoordinate.longitude,
+            Type: title,
+            Description: description,
+            Status: "Pending", 
+            DateAdded: new Date().toLocaleDateString('en-US', {
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric',
+            }),
+            Name: fam_name,
+        };
+
+
+        const markerRef = ref(database, `Pinned/${newMarkerId}`);
+
+        await set(markerRef, newMarker);
+
+        setMarkers(prevMarkers => [...prevMarkers, {
+            id: newMarkerId,
+            coordinate: markerCoordinate,
+            title,
+            description,
+            status: "Pending",
+            dateAdded: newMarker.DateAdded,
+            name: fam_name,
+        }]);
+
+        setModalVisible(false);
+        bottomSheetRef.current?.snapToIndex(2);
     };
 
     const toggleBottomSheet = () =>{
+        MapInfoRef.current?.close();
         if (isBottomSheetOpen) {
             bottomSheetRef.current?.close();
         } else {
-            bottomSheetRef.current?.snapToIndex(2);
+            bottomSheetRef.current?.snapToIndex(4);
         }
         setIsBottomSheetOpen(!isBottomSheetOpen);
+    }
+
+    const DetailtoggleBottomSheet = () =>{
+        bottomSheetRef.current?.close();
+        if (!detailBottomSheetOpen) {
+            MapInfoRef.current?.snapToIndex(5);
+        }   
+        setDetailBottomSheetOpen(!detailBottomSheetOpen);
     }
 
     const getAddressFromCoordinates = async (latitude: any, longitude: any) => {
@@ -110,23 +156,24 @@ export default function Map() {
     };
 
     const seeMarkerInfo = async (markerId: any) => {
-    const marker = markers.find((m) => m.id === markerId);
-    if (marker) {
-        const address = await getAddressFromCoordinates(marker.coordinate.latitude, marker.coordinate.longitude);
+        const marker = markers.find((m) => m.id === markerId);
+        if (marker) {
+            const address = await getAddressFromCoordinates(marker.coordinate.latitude, marker.coordinate.longitude);
+            
+            setSelectedMarker({ ...marker, address }); 
+
+            setMapRegion({
+                ...mapRegion,
+                latitude: marker.coordinate.latitude,
+                longitude: marker.coordinate.longitude,
+            });
+
         
-        setSelectedMarker({ ...marker, address }); 
-
-        setMapRegion({
-            ...mapRegion,
-            latitude: marker.coordinate.latitude,
-            longitude: marker.coordinate.longitude,
-        });
-
-    
-        bottomSheetRef.current?.close();
-        MapInfoRef.current?.snapToIndex(3); 
-    }
-};
+            bottomSheetRef.current?.close();
+            MapInfoRef.current?.snapToIndex(4); 
+            setModalVisible(false);
+        }
+    };
 
 
     const [selectedMarker, setSelectedMarker] = React.useState(null);
@@ -134,8 +181,15 @@ export default function Map() {
         const address = await getAddressFromCoordinates(marker.coordinate.latitude, marker.coordinate.longitude);
         setSelectedMarker({ ...marker, address }); 
         bottomSheetRef.current?.close(); 
-        MapInfoRef.current?.snapToIndex(3); 
+        DetailtoggleBottomSheet()
+        setModalVisible(false);
     };
+
+
+    React.useEffect(() => {
+        getUserLocation();
+        fetchPinnedData();
+    }, []);
 
     return (
         <GestureHandlerRootView>
@@ -148,11 +202,11 @@ export default function Map() {
                 >
                     {markers.map((marker) => (
                         <Marker
-                        key={marker.id}
-                        coordinate={marker.coordinate}
-                        title={marker.title}
-                        description={marker.description}
-                        onPress={() => handleMarkerPress(marker)}
+                            key={marker.id}
+                            coordinate={marker.coordinate}
+                            title={marker.title}
+                            description={marker.description}
+                            onPress={() => handleMarkerPress(marker)}
                         />
                     ))}
                     
@@ -166,7 +220,6 @@ export default function Map() {
                         modalVisible={modalVisible}
                         onClose={() => {
                             setModalVisible(false)
-                            bottomSheetRef.current?.expand;
                         }}
                         onAddMarker={handleAddMarker}
                     />
@@ -178,14 +231,22 @@ export default function Map() {
                         onPress={seeMarkerInfo}
                         onClose={() => setIsBottomSheetOpen(false)}
                         index={-1}
+
                     />
 
                     <MarkerInfo 
                         bottomSheetRef={MapInfoRef}
-                        snapPoints={snapPoints}
+                        snapPoints={InfosnapPoints}
                         index={-1}
-                        address={selectedMarker ? selectedMarker.address : null} // Use the physical address
-                        description={selectedMarker ? selectedMarker.description : ''} 
+                        address={selectedMarker ? selectedMarker.address : ""} // Use the physical address
+                        description={selectedMarker ? selectedMarker.description : ""} 
+                        name={selectedMarker ? selectedMarker.name : "" }
+                        dateAdded={selectedMarker ? selectedMarker.dateAdded : ""}
+                        type={selectedMarker ? selectedMarker.title : ""}
+                        onClose={() => {
+                            MapInfoRef.current?.close(); 
+                            setDetailBottomSheetOpen(false);
+                        }}
                     />
                     
             </SafeAreaView>
@@ -235,6 +296,3 @@ const bottomSheet = StyleSheet.create({
     },
 })
 
-function getAddressFromCoordinates(latitude: any, longitude: any) {
-    throw new Error('Function not implemented.');
-}

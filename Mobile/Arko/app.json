@@ -15,7 +15,8 @@
         "foregroundImage": "./assets/images/arko_icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ucc_bsit_4b.ARKO"
+      "package": "com.ucc_bsit_4b.ARKO",
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "bundler": "metro",

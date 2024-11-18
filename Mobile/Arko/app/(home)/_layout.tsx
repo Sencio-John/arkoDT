@@ -16,6 +16,7 @@ export default function Home() {
         headerShown: false,
       }}>
       <Stack.Screen name="index" />
+      <Stack.Screen name="(profile)" />
       <Stack.Screen name="(tools)" />
       <Stack.Screen name="(settings)" />
       <Stack.Screen name="(device)" />
