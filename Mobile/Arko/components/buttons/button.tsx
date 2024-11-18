@@ -12,6 +12,7 @@ const Button = ({ title, onPress = () => {}, type = 'primary', disabled = false 
                 style.button,
                 type === 'primary' && style.primary,
                 type === 'secondary' && style.secondary,
+                type === 'danger' && style.danger,
                 disabled && style.disabled
             ]}
             onPress={onPress}
@@ -43,6 +44,9 @@ const style = StyleSheet.create({
         color: "white",
         fontSize: 16,
         fontFamily: "CeraPro_Medium",
+    },
+    danger:{
+        backgroundColor: "#cc0000"
     },
 
     disabled: {

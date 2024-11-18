@@ -1,11 +1,13 @@
 import { Stack } from "expo-router";
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "@/components/SplashScreen";
+import * as Location from "expo-location";
+import * as Permissions from 'expo-permissions'; 
 
 export default function RootLayout() {
   const router = useRouter();
@@ -24,6 +26,17 @@ export default function RootLayout() {
   });
 
   React.useEffect(() => {
+
+    const requestPermissions = async () => {
+      if (Platform.OS === 'android') {
+        await Promise.all([
+          Location.requestForegroundPermissionsAsync(),
+          Permissions.askAsync(Permissions.AUDIO_RECORDING),
+        ]);
+      }
+    };
+
+
     const checkLoginStatus = async () => {
       const logKey = await AsyncStorage.getItem('key');
 
@@ -38,6 +51,7 @@ export default function RootLayout() {
 
       if (loaded) {
         checkLoginStatus();
+        requestPermissions();
       }
   }, [loaded]);
 
@@ -47,7 +61,7 @@ export default function RootLayout() {
   
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
+      {/* <Stack.Screen name="index" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} /> */}
       <Stack.Screen name="(login)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerBackButtonMenuEnabled: false, headerShown: false }} />
     </Stack>

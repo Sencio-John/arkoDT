@@ -6,30 +6,27 @@ import { ThemedText } from '../ThemedText';
 
 import Input from '../inputs/input';
 import Button from '../buttons/button';
-import BigInput from '../inputs/bigInput';
-import ComboBox from '../inputs/select';
 import SelectBox from '../inputs/select';
 
 
 interface MarkerModalProps {
     modalVisible: boolean;
     onClose: () => void;
-    onAddMarker: (title: string, description: string) => void;
+    onAddMarker: (title: string, description: string, fam_name: string) => void;
 }
 
 const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMarker}) =>{
 
-    const [markerTitle, setMarkerTitle] = React.useState('');
-    const [markerDescription, setMarkerDescription] = React.useState('');
-
     const [inputs, setInputs] = React.useState({
         title: "",
         description: "",
+        fam_name: "",
     })
 
     const [error, setError] = React.useState({
         title: '',
         description: '',
+        fam_name: "",
     });
 
     const handleAddMarker = () => {
@@ -47,9 +44,16 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
             handleError('', 'description');
         }
 
+        if(!inputs.fam_name){
+            handleError("Name is required!", "fam_name");
+            hasError = true;
+        } else{
+            handleError('', 'fam_name');
+        }
+
         if (!hasError) {
-            onAddMarker(inputs.title, inputs.description);
-            setInputs({ title: '', description: '' }); // Reset inputs
+            onAddMarker(inputs.title, inputs.description, inputs.fam_name);
+            setInputs({ title: '', description: '' , fam_name: ''}); // Reset inputs
         }
     };
     
@@ -63,7 +67,7 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
     };
 
     const CloseModal =() =>{
-        setInputs({title: "", description: ""});
+        setInputs({title: "", description: "", fam_name: ""});
         onClose();
     }
 
@@ -75,40 +79,51 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
             onRequestClose={onClose}
         >
             <View style={style.modalOverlay}>
-            <ThemedView style={style.modalContainer}>
-                <ThemedText style={style.modalTitle}>Add Marker</ThemedText>
-                <View style={style.form}>
-                    <View style={style.input}>
-                        <SelectBox 
-                            iconName='pin' 
-                            changeAccount={(value) => handleOnChange(value, "title")} 
-                            onFocus={() => handleError(null, "title")}
-                            error={error.title}
-                            value={inputs.title}
-                            />
-                    </View>
-                    <View style={style.input}>
-                        <Input 
-                            placeholder='Description' 
-                            iconName='chatbox-ellipses-outline' 
-                            onChangeText={(text) => handleOnChange(text, "description")}
-                            onFocus={() => handleError(null, "description")}
-                            error={error.description}
-                            value={inputs.description}
-                            />
-                    </View>
-                </View>
-                
-                <View style={style.buttons}>
-                    <View style={style.btn}>
-                        <Button title="Add Marker" onPress={handleAddMarker}/>
+                <ThemedView style={style.modalContainer}>
+                    <ThemedText style={style.modalTitle}>Add Marker</ThemedText>
+                    <View style={style.form}>
+                        <View style={style.input}>
+                            <SelectBox 
+                                iconName='pin' 
+                                changeAccount={(value) => handleOnChange(value, "title")} 
+                                onFocus={() => handleError(null, "title")}
+                                error={error.title}
+                                value={inputs.title}
+                                />
+                        </View>
+                        <View style={style.input}>
+                            <Input 
+                                placeholder='Name (e.g  Surname, Nickname)' 
+                                iconName='people-outline' 
+                                onChangeText={(text) => handleOnChange(text, "fam_name")}
+                                onFocus={() => handleError(null, "fam_name")}
+                                error={error.fam_name}
+                                value={inputs.fam_name}
+                                />
+                        </View>
+
+                        <View style={style.input}>
+                            <Input 
+                                placeholder='Description' 
+                                iconName='chatbox-ellipses-outline' 
+                                onChangeText={(text) => handleOnChange(text, "description")}
+                                onFocus={() => handleError(null, "description")}
+                                error={error.description}
+                                value={inputs.description}
+                                />
+                        </View>
                     </View>
                     
-                    <View style={style.btn} >
-                        <Button title="Cancel" type='secondary' onPress={CloseModal} />
+                    <View style={style.buttons}>
+                        <View style={style.btn}>
+                            <Button title="Add Marker" onPress={handleAddMarker}/>
+                        </View>
+                        
+                        <View style={style.btn} >
+                            <Button title="Cancel" type='secondary' onPress={CloseModal} />
+                        </View>
                     </View>
-                </View>
-            </ThemedView>
+                </ThemedView>
             </View>
         </Modal>
     )
@@ -124,7 +139,7 @@ const style = StyleSheet.create({
     },
     modalContainer: {
         width: "90%",
-        height: 300,
+        paddingVertical: 30,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,

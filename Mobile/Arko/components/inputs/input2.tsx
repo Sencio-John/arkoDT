@@ -25,7 +25,7 @@ interface InputProps extends TextInputProps {
   onFocus?: () => void;
 }
 
-const Input: React.FC<InputProps> = ({
+const InputV2: React.FC<InputProps> = ({
     label,
     iconName,
     error,
@@ -46,7 +46,9 @@ const Input: React.FC<InputProps> = ({
     return (
     <View style={style.container}>
         <View style={[style.formcontainer, isFocused && style.focus, error && style.error,]}>
-            
+            <ThemedText style={[style.label, error && style.error, isFocused && style.focusColor ,{ backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6' }]}>
+                {label}
+            </ThemedText>
             <Icon name={iconName} style={[style.iconHead, error && style.error, {color: colorScheme === 'dark' ? '#D3D3D3' : '#545454'}]} />
             <TextInput
                 style={[style.textInput, {color: colorScheme === 'dark' ? '#D3D3D3' : '#545454'}]}
@@ -118,6 +120,7 @@ const style = StyleSheet.create({
     focus: {
         borderColor: "#0B60B0",
         borderWidth: 2,
+        fontFamily: "CeraPro_Medium",
     },
     errorBG: {
         borderColor: "red",
@@ -136,18 +139,20 @@ const style = StyleSheet.create({
     label: {
         position: "absolute",
         backgroundColor: "white",
-        left: 12,
-        top: -10,
+        left: 25,
+        top: -15,
         zIndex: 999,
         paddingHorizontal: 8,
         fontSize: 14,
-        fontFamily: "CeraPro",
-        color: "#537FE7",
+        fontFamily: "CeraPro_Medium",
     },
     error: {
         borderColor: "red",
         color: "red",
     },
+    focusColor:{
+        color: "#277CA5"
+    }
 });
 
-export default Input;
+export default InputV2;

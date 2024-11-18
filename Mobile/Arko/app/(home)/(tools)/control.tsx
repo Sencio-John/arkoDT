@@ -13,7 +13,7 @@ import BrakeBtn from '@/components/controls/BrakeBtn';
 import { WebView } from 'react-native-webview';
 import CamMvt from '@/components/controls/CameraMvt';
 
-import { CAMERA_IP } from '@/constants/config';
+import { CAMERA_IP, CONTROL_IP, READ_IP } from '@/constants/config';
 
 export default function Controller() {
 
@@ -40,7 +40,7 @@ export default function Controller() {
     const [websocket, setWebSocket] = React.useState<WebSocket | null>(null);
     
     React.useEffect(() => {
-        const controlWS = new WebSocket('ws://192.168.1.4');
+        const controlWS = new WebSocket(`ws://${CONTROL_IP}`);
         setWebSocket(controlWS);
 
         controlWS.onopen = () => console.log('WebSocket connected');
@@ -62,7 +62,7 @@ export default function Controller() {
     const [gpsData, setGpsData] = React.useState({ latitude: null, longitude: null });
 
     React.useEffect(() => {
-        const gpsWS = new WebSocket('ws://192.168.1.4');
+        const gpsWS = new WebSocket(`ws://${READ_IP}`);
         gpsWS.onopen = () => console.log("Connected to GPS WebSocket");
 
         gpsWS.onmessage = (event) => {

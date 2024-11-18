@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler, Touchable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
@@ -30,6 +30,7 @@ const Dashboard = () =>{
             if(key){
                 const data = await getData(key);
                 setUserData(data);
+                console.log(data)
             } else{
                 router.replace("/(login)/");
             }
@@ -49,10 +50,10 @@ const Dashboard = () =>{
             {/* TOP BAR */}
             <ThemedView style={style.header}>
                 <View style={style.profilegrp}>
-                    <View style={style.profileContainer}>
+                    <TouchableOpacity style={style.profileContainer} onPress={() => {router.navigate("/(profile)/")}}>
                         <Image style={style.profile} source={require('../../assets/images/user-profile-icon.png')}/>
-                    </View>
-                    <ThemedText style={style.user}>Hi, {userData?.Name}</ThemedText>
+                    </TouchableOpacity>
+                    <ThemedText style={style.user}>Hi, {userData?.First_Name}</ThemedText>
                 </View>
                 <View>
                     <TouchableOpacity onPress={() => router.push('/(home)/(settings)')}>
