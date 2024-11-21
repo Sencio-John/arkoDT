@@ -11,6 +11,5 @@ namespace arkoDT.Classes
         public string ccName { get; set; }
         public string ccPass { get; set; }
         public string ccIP { get; set; }
-        public string ccAddress{ get; set; }
     }
 }

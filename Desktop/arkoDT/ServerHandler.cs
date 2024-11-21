@@ -37,7 +37,6 @@ namespace arkoDT
             ControlCenter newCC = new ControlCenter{
                 ccName = txtCCID.Text,
                 ccPass = txtCCPassword.Text,
-                ccAddress = txtAddress.Text,
                 ccIP = my_ip
             };
             SetResponse response = await client.SetAsync("Controls_Center/" + "testingID", newCC);
