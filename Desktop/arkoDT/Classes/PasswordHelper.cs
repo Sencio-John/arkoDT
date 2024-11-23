@@ -8,8 +8,8 @@ namespace arkoDT
     class PasswordHelper
     {
         // Constant 16-byte key and IV for AES-128
-        private static readonly byte[] Key = Encoding.UTF8.GetBytes("MySecureKey12345");  // 16 bytes for AES-128
-        private static readonly byte[] IV = Encoding.UTF8.GetBytes("MySecureIV123456");  // 16 bytes IV (fixed)
+        private static readonly byte[] Key = Encoding.UTF8.GetBytes("gtSZlG2ljzJjB5pu");  // 16 bytes for AES-128
+        private static readonly byte[] IV = Encoding.UTF8.GetBytes("gtSZlG2ljzJjB5pu");  // 16 bytes IV (fixed)
 
         // Method to encrypt a password
         public static string EncryptPassword(string password)

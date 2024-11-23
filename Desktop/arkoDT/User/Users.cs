@@ -193,7 +193,7 @@ namespace arkoDT
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show("Failed to load users: " + ex.Message);
                 RetryLoadUsers(); // Trigger a retry mechanism
@@ -204,7 +204,7 @@ namespace arkoDT
         private void RetryLoadUsers()
         {
             Timer retryTimer = new Timer();
-            retryTimer.Interval = 1000; // Retry every 5 seconds
+            retryTimer.Interval = 1000;
             retryTimer.Tick += async (sender, e) =>
             {
                 try

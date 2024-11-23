@@ -402,3 +402,15 @@ C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.Trust
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.exe.manifest
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.application
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmServerHandler.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.IO.Pipelines.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Json.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.ValueTuple.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.IO.Pipelines.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Json.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.ValueTuple.xml
