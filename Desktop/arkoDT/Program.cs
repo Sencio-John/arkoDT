@@ -16,7 +16,7 @@ namespace arkoDT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmServerHandler());
+            Application.Run(new frmLogin());
         }
     }
 }

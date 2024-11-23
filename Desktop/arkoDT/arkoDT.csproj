@@ -192,10 +192,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Add.cs">
+    <Compile Include="Devices\Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add.Designer.cs">
+    <Compile Include="Devices\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
     </Compile>
     <Compile Include="ChangeName.cs">
@@ -205,53 +205,53 @@
       <DependentUpon>ChangeName.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\ControlCenter.cs" />
-    <Compile Include="Controls.cs">
+    <Compile Include="Controller\Controls.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls.Designer.cs">
+    <Compile Include="Controller\Controls.Designer.cs">
       <DependentUpon>Controls.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dashboard.cs">
+    <Compile Include="Dashboard\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dashboard.Designer.cs">
+    <Compile Include="Dashboard\Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devices.cs">
+    <Compile Include="Devices\Devices.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devices.Designer.cs">
+    <Compile Include="Devices\Devices.Designer.cs">
       <DependentUpon>Devices.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditUser.cs">
+    <Compile Include="User\EditUser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditUser.Designer.cs">
+    <Compile Include="User\EditUser.Designer.cs">
       <DependentUpon>EditUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Firebase_Config.cs" />
-    <Compile Include="ForgotPass.cs">
+    <Compile Include="Config\Firebase_Config.cs" />
+    <Compile Include="Login\ForgotPass.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ForgotPass.Designer.cs">
+    <Compile Include="Login\ForgotPass.Designer.cs">
       <DependentUpon>ForgotPass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graph.cs">
+    <Compile Include="Graph\Graph.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graph.Designer.cs">
+    <Compile Include="Graph\Graph.Designer.cs">
       <DependentUpon>Graph.cs</DependentUpon>
     </Compile>
-    <Compile Include="Info.cs">
+    <Compile Include="Map\Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Info.Designer.cs">
+    <Compile Include="Map\Info.Designer.cs">
       <DependentUpon>Info.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="Login\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="ServerHandler.cs">
@@ -260,71 +260,71 @@
     <Compile Include="ServerHandler.Designer.cs">
       <DependentUpon>ServerHandler.cs</DependentUpon>
     </Compile>
-    <Compile Include="Map.cs">
+    <Compile Include="Map\Map.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Map.Designer.cs">
+    <Compile Include="Map\Map.Designer.cs">
       <DependentUpon>Map.cs</DependentUpon>
     </Compile>
-    <Compile Include="PasswordHelper.cs" />
-    <Compile Include="Profile.cs">
+    <Compile Include="Classes\PasswordHelper.cs" />
+    <Compile Include="Profile\Profile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Profile.Designer.cs">
+    <Compile Include="Profile\Profile.Designer.cs">
       <DependentUpon>Profile.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserCreation.cs">
+    <Compile Include="User\UserCreation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserCreation.Designer.cs">
+    <Compile Include="User\UserCreation.Designer.cs">
       <DependentUpon>UserCreation.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserRegistration.cs" />
-    <Compile Include="Users.cs">
+    <Compile Include="Classes\UserRegistration.cs" />
+    <Compile Include="User\Users.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Users.Designer.cs">
+    <Compile Include="User\Users.Designer.cs">
       <DependentUpon>Users.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Add.resx">
+    <EmbeddedResource Include="Devices\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeName.resx">
       <DependentUpon>ChangeName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls.resx">
+    <EmbeddedResource Include="Controller\Controls.resx">
       <DependentUpon>Controls.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dashboard.resx">
+    <EmbeddedResource Include="Dashboard\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Devices.resx">
+    <EmbeddedResource Include="Devices\Devices.resx">
       <DependentUpon>Devices.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditUser.resx">
+    <EmbeddedResource Include="User\EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ForgotPass.resx">
+    <EmbeddedResource Include="Login\ForgotPass.resx">
       <DependentUpon>ForgotPass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graph.resx">
+    <EmbeddedResource Include="Graph\Graph.resx">
       <DependentUpon>Graph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Info.resx">
+    <EmbeddedResource Include="Map\Info.resx">
       <DependentUpon>Info.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServerHandler.resx">
       <DependentUpon>ServerHandler.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Map.resx">
+    <EmbeddedResource Include="Map\Map.resx">
       <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Profile.resx">
+    <EmbeddedResource Include="Profile\Profile.resx">
       <DependentUpon>Profile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -332,10 +332,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserCreation.resx">
+    <EmbeddedResource Include="User\UserCreation.resx">
       <DependentUpon>UserCreation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Users.resx">
+    <EmbeddedResource Include="User\Users.resx">
       <DependentUpon>Users.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="arkoDT_TemporaryKey.pfx" />
@@ -374,6 +374,7 @@
   <ItemGroup>
     <Folder Include="database\" />
     <Folder Include="Resources\" />
+    <Folder Include="User\Login\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

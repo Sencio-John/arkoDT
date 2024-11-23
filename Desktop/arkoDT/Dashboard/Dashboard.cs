@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using arkoDT.Classes;
 
 namespace arkoDT
 {
@@ -55,8 +56,8 @@ namespace arkoDT
             CountUsers();
             string user = loginForm.Username;
             string role = loginForm.Role;
-            string user_ID = loginForm.UserID;
-            lblWelcome.Text = "Welcome, " + user + " " + user_ID;
+            //string user_ID = loginForm.UserID;
+            lblWelcome.Text = "Welcome, " + user;
             lblRole.Text = role;
             // Set up the Timer
             Timer timer = new Timer();

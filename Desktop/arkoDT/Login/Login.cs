@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using arkoDT.Classes;
 
 namespace arkoDT
 {
