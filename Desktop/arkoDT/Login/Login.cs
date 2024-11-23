@@ -34,7 +34,7 @@ namespace arkoDT
 
             if (client == null)
             {
-                MessageBox.Show("Failed to connect to Database.");
+                //MessageBox.Show("Failed to connect to Database.");
             }
         }
 
@@ -137,9 +137,9 @@ namespace arkoDT
                 MessageBox.Show("Username does not exist.");
                 return (null, null, null, null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                //MessageBox.Show("Login Failed");
                 return (null, null, null, null);
             }
         }

@@ -195,8 +195,44 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load users: " + ex.Message);
+                //MessageBox.Show("Failed to load users: " + ex.Message);
+                RetryLoadUsers(); // Trigger a retry mechanism
             }
         }
+
+
+        private void RetryLoadUsers()
+        {
+            Timer retryTimer = new Timer();
+            retryTimer.Interval = 1000; // Retry every 5 seconds
+            retryTimer.Tick += async (sender, e) =>
+            {
+                try
+                {
+                    // Attempt to fetch users again
+                    FirebaseResponse response = await client.GetAsync("Users/");
+                    var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                    flpUsers.Controls.Clear(); // Clear existing cards
+
+                    if (users != null)
+                    {
+                        foreach (var user in users.Values)
+                        {
+                            string Name = user.First_Name + " " + user.Last_Name;
+                            UpdateUsersCards(Name, user.Role);
+                        }
+
+                        ((Timer)sender).Stop(); // Stop the timer on success
+                    }
+                }
+                catch
+                {
+                    // Do nothing; the timer will keep retrying
+                }
+            };
+            retryTimer.Start();
+        }
+
     }
 }

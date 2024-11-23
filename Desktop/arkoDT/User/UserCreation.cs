@@ -11,6 +11,7 @@ using System.Drawing;
 using BCrypt.Net;
 using System.Net;
 using System.Net.Mail;
+using arkoDT.Classes;
 
 namespace arkoDT
 {
@@ -353,9 +354,9 @@ namespace arkoDT
                 await smtpClient.SendMailAsync(mailMessage);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Failed to send OTP: {ex.Message}");
+                //MessageBox.Show($"Failed to send OTP: {ex.Message}");
                 return false;
             }
         }

@@ -134,9 +134,10 @@ namespace arkoDT
                 int userCount = users?.Count ?? 0; // Use 0 if users is null
                 label5.Text = $"User(s): {userCount}";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Failed to count users: " + ex.Message);
+                //MessageBox.Show("Failed to count users: " + ex.Message);
+                RetryFetchUserCount(); // Trigger a retry
             }
         }
 
@@ -171,5 +172,31 @@ namespace arkoDT
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
+
+        private void RetryFetchUserCount()
+        {
+            Timer retryTimer = new Timer();
+            retryTimer.Interval = 1000; // Retry every 5 seconds
+            retryTimer.Tick += async (sender, e) =>
+            {
+                try
+                {
+                    // Attempt to fetch the user count again
+                    FirebaseResponse response = await client.GetAsync("Users/");
+                    var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                    // Update the count and stop the timer if successful
+                    int userCount = users?.Count ?? 0; // Use 0 if users is null
+                    label5.Text = $"User(s): {userCount}";
+                    ((Timer)sender).Stop(); // Stop retrying after success
+                }
+                catch
+                {
+                    // If it fails, do nothing; the timer will try again
+                }
+            };
+            retryTimer.Start();
+        }
+
     }
 }

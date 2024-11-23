@@ -374,7 +374,6 @@
   <ItemGroup>
     <Folder Include="database\" />
     <Folder Include="Resources\" />
-    <Folder Include="User\Login\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
