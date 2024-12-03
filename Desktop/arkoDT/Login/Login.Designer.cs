@@ -45,10 +45,10 @@ namespace arkoDT
             // pbLogin
             // 
             this.pbLogin.Image = ((System.Drawing.Image)(resources.GetObject("pbLogin.Image")));
-            this.pbLogin.Location = new System.Drawing.Point(0, 0);
+            this.pbLogin.Location = new System.Drawing.Point(-2, -2);
             this.pbLogin.Margin = new System.Windows.Forms.Padding(2);
             this.pbLogin.Name = "pbLogin";
-            this.pbLogin.Size = new System.Drawing.Size(637, 1042);
+            this.pbLogin.Size = new System.Drawing.Size(637, 864);
             this.pbLogin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbLogin.TabIndex = 0;
             this.pbLogin.TabStop = false;
@@ -60,7 +60,7 @@ namespace arkoDT
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLogin.AutoSize = true;
             this.lblLogin.Font = new System.Drawing.Font("Nirmala UI", 36F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogin.Location = new System.Drawing.Point(1190, 148);
+            this.lblLogin.Location = new System.Drawing.Point(1038, 143);
             this.lblLogin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(167, 65);
@@ -76,7 +76,7 @@ namespace arkoDT
             this.txtUsername.Location = new System.Drawing.Point(990, 339);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(615, 29);
+            this.txtUsername.Size = new System.Drawing.Size(295, 29);
             this.txtUsername.TabIndex = 3;
             // 
             // txtPassword
@@ -89,7 +89,7 @@ namespace arkoDT
             this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(550, 29);
+            this.txtPassword.Size = new System.Drawing.Size(230, 29);
             this.txtPassword.TabIndex = 4;
             // 
             // lblForgotPassword
@@ -133,7 +133,7 @@ namespace arkoDT
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(1201, 539);
+            this.btnLogin.Location = new System.Drawing.Point(1049, 586);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(155, 39);
@@ -147,7 +147,7 @@ namespace arkoDT
             this.btnShowPass.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnShowPass.BackgroundImage")));
             this.btnShowPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnShowPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowPass.Location = new System.Drawing.Point(1563, 411);
+            this.btnShowPass.Location = new System.Drawing.Point(1224, 411);
             this.btnShowPass.Margin = new System.Windows.Forms.Padding(2);
             this.btnShowPass.Name = "btnShowPass";
             this.btnShowPass.Size = new System.Drawing.Size(61, 28);
@@ -160,7 +160,7 @@ namespace arkoDT
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1584, 861);
             this.Controls.Add(this.btnShowPass);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.label2);
@@ -172,8 +172,8 @@ namespace arkoDT
             this.Controls.Add(this.pbLogin);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
             this.ResumeLayout(false);
