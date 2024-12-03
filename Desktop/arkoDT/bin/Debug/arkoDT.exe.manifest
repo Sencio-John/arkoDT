@@ -90,22 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-<<<<<<< Updated upstream
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="3350960">
-=======
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="3414960">
->>>>>>> Stashed changes
       <assemblyIdentity name="arkoDT" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-<<<<<<< Updated upstream
-        <dsig:DigestValue>YHdBhnw1eOl8LwToNpf+6RA/xYqfebjEo154vBO5HkA=</dsig:DigestValue>
-=======
-        <dsig:DigestValue>yFlJHQwe3TPFZv18XFJT1bGhVhSHPVmtzHRYwPBClRc=</dsig:DigestValue>
->>>>>>> Stashed changes
+        <dsig:DigestValue>wiPuUtqLwesZbpwcqiy11t88tBzfhg6vfO0cpH/v1AQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

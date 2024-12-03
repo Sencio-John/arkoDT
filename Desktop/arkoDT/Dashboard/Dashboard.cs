@@ -54,7 +54,7 @@ namespace arkoDT
         private void frmDashboard_Load(object sender, EventArgs e)
         {
             CountUsers();
-            string Username = loginForm.Username;
+            string Username = loginForm.Name;
             string user = loginForm.Name;
             string role = loginForm.Role;
             //string user_ID = loginForm.UserID;
