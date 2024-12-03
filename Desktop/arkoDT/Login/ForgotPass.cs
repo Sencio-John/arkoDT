@@ -1,40 +1,246 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using BCrypt.Net;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace arkoDT
 {
     public partial class frmForgot : Form
     {
+        private IFirebaseClient client;
+        private string generatedOTP; // Stores the generated OTP for validation
+        private string enteredEmail; // Stores the email entered by the user
+        private bool isFirstImage = true;
+
         public frmForgot()
         {
             InitializeComponent();
+            txtPassword.Visible = true; // Show password field
+            txtConfirm.Visible = true; // Show confirm password field
+            btnChange.Visible = true; // Show change password button
+            lblPassword.Visible = true;
+            lblConfirmPass.Visible = true;
+            btnShowPass.Visible = true;
+            Firebase_Config firebaseConfig = new Firebase_Config();
+            client = firebaseConfig.GetClient();
+
+            btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
+            //btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
+
+            if (client == null)
+            {
+                MessageBox.Show("Failed to connect to Database.");
+            }
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private void btnSubmit_Click(object sender, EventArgs e)
         {
-            // Define the correct code
-            string correctCode = "1234"; // Replace with your desired code
+            // Not required in the current context; can be removed or repurposed.
+        }
 
-            // Check if the entered code is correct
-            if (txtOTP.Text == correctCode)
+        // Email validation using regex
+        private bool IsValidEmail(string email)
+        {
+            var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
+        }
+
+        // Generate a random OTP
+        private string GenerateRandomOTP(int length)
+        {
+            const string chars = "0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        // Send OTP email
+        private async Task<bool> SendEmailOTP(string email, string otp)
+        {
+            try
             {
-                // Unhide the controls
-                lblPassword.Visible = true;
-                txtPassword.Visible = true;
-                btnSubmit.Visible = true;
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential("arkoVessel@gmail.com", "jtcz lyxq gwjt qcuo"),
+                    EnableSsl = true,
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress("arkoVessel@gmail.com"),
+                    Subject = "Your OTP Code",
+                    Body = $"Your OTP for password reset is: {otp}",
+                    IsBodyHtml = false,
+                };
+
+                mailMessage.To.Add(email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        // Handle Get OTP Button Click
+        private async void btnSendOTP_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Please enter an email address.");
+                return;
+            }
+
+            if (!IsValidEmail(txtEmail.Text))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return;
+            }
+
+            enteredEmail = txtEmail.Text.Trim(); // Store the entered email
+
+            // Check if the entered email exists in the database
+            bool emailExists = await CheckIfEmailExists(enteredEmail);
+
+            if (!emailExists)
+            {
+                MessageBox.Show("The entered email does not exist in the system.");
+                return;
+            }
+
+            generatedOTP = GenerateRandomOTP(6); // Generate a 6-digit OTP
+
+            bool emailSent = await SendEmailOTP(enteredEmail, generatedOTP);
+
+            if (emailSent)
+            {
+                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.");
+                btnVerify.Enabled = true;
+
             }
             else
             {
-                // Optionally inform the user the code is incorrect
-                MessageBox.Show("Incorrect code. Please try again.", "Invalid Code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Failed to send OTP. Please check the email address and try again.");
             }
+        }
+
+
+        // Handle Verify OTP Button Click
+        private void btnVerify_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtOTP.Text))
+            {
+                MessageBox.Show("Please enter the OTP sent to your email.");
+                return;
+            }
+
+            if (txtOTP.Text == generatedOTP)
+            {
+                MessageBox.Show("OTP verified successfully.");
+                txtPassword.Visible = true; // Show password field
+                txtConfirm.Visible = true; // Show confirm password field
+                btnChange.Visible = true; // Show change password button
+                lblPassword.Visible = true;
+                lblConfirmPass.Visible = true;
+                btnShowPass.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Invalid OTP. Please try again.");
+            }
+        }
+
+        // Handle Change Password Button Click
+        private async void btnChange_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtPassword.Text) || string.IsNullOrWhiteSpace(txtConfirm.Text))
+            {
+                MessageBox.Show("Password fields cannot be empty.");
+                return;
+            }
+
+            if (txtPassword.Text != txtConfirm.Text)
+            {
+                MessageBox.Show("Passwords do not match. Please try again.");
+                return;
+            }
+
+            string newPassword = txtPassword.Text;
+
+            try
+            {
+                // Fetch user from Firebase using the email as key
+                FirebaseResponse response = await client.GetAsync($"Users/");
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                var userKey = users.FirstOrDefault(u => u.Value.Email == enteredEmail).Key;
+
+                if (string.IsNullOrEmpty(userKey))
+                {
+                    MessageBox.Show("No user found with the specified email address.");
+                    return;
+                }
+
+                // Update the user's password
+                users[userKey].Password = PasswordHelper.EncryptPassword(newPassword);
+
+                await client.UpdateAsync($"Users/{userKey}", users[userKey]);
+                MessageBox.Show("Password has been changed successfully.");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
+        }
+
+        private async Task<bool> CheckIfEmailExists(string email)   
+        {
+            try
+            {
+                // Get all users from Firebase
+                FirebaseResponse response = await client.GetAsync("Users/");
+                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+
+                // Check if any user has the entered email
+                return users.Any(u => u.Value.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error checking email: {ex.Message}");
+                return false;  // Consider the email as not found in case of an error
+            }
+        }
+
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            if (isFirstImage)
+            {
+                txtPassword.PasswordChar = '\0';
+                txtConfirm.PasswordChar = '\0';
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/view.png");
+            }
+            else
+            {
+                txtPassword.PasswordChar = '●';
+                txtConfirm.PasswordChar = '●';
+                btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
+            }
+
+            isFirstImage = !isFirstImage;
         }
     }
 }

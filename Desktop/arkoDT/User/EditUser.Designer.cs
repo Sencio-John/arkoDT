@@ -31,7 +31,7 @@ namespace arkoDT
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEdit));
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbRole = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -46,13 +46,16 @@ namespace arkoDT
             this.label1.TabIndex = 0;
             this.label1.Text = "Role:";
             // 
-            // comboBox1
+            // cmbRole
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(103, 74);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 1;
+            this.cmbRole.FormattingEnabled = true;
+            this.cmbRole.Items.AddRange(new object[] {
+            "Admin",
+            "User"});
+            this.cmbRole.Location = new System.Drawing.Point(103, 74);
+            this.cmbRole.Name = "cmbRole";
+            this.cmbRole.Size = new System.Drawing.Size(121, 21);
+            this.cmbRole.TabIndex = 1;
             // 
             // btnSave
             // 
@@ -84,12 +87,13 @@ namespace arkoDT
             this.ControlBox = false;
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbRole);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "frmEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit User";
+            this.Load += new System.EventHandler(this.frmEdit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,7 +102,7 @@ namespace arkoDT
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbRole;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnBack;
     }

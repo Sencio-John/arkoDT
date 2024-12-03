@@ -23,10 +23,12 @@ namespace arkoDT
         private string generatedID;
         private bool isFirstImage = true;
         private frmUsers frmUsers;
+        private frmDashboard frmDashboard;
         private string generatedOTP;
 
 
-        public frmUC(frmUsers frmUsersInstance)
+
+        public frmUC(frmUsers frmUsersInstance, frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
 
@@ -34,6 +36,7 @@ namespace arkoDT
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
             
             frmUsers = frmUsersInstance;
+            frmDashboard = frmDashboardInstance;
 
             Firebase_Config firebaseConfig = new Firebase_Config();
             client = firebaseConfig.GetClient();
@@ -123,25 +126,22 @@ namespace arkoDT
         {
             try
             {
-                FirebaseResponse response = await client.GetAsync("Users/");
+                // Query the specific user directly using their username as the key
+                FirebaseResponse response = await client.GetAsync($"Users/{username}");
+
+                // If the response body is "null", the username does not exist in the database
                 if (response == null || response.Body == "null")
                 {
-                    MessageBox.Show("No data found under 'Users' in Firebase.");
-                    return false;
+                    return false; // Username does not exist
                 }
 
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-                if (users != null && users.Values.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
-                {
-                    return true;
-                }
+                return true; // Username exists
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while checking username existence: {ex.Message}");
+                return false;
             }
-
-            return false;
         }
 
         // Check if the email already exists in Firebase
@@ -242,28 +242,41 @@ namespace arkoDT
                 UserRegistration register = new UserRegistration
                 {
                     First_Name = txtFirstName.Text,
-                    Last_Name = txtLastName.Text,
                     Username = txtUsername.Text,
+                    Last_Name = txtLastName.Text,
                     Password = encryptedPassword, // Save the encrypted password
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
-                    Status = "Inactive"
+                    Status = "Active",
+                    UserID = generatedID
                 };
 
-                SetResponse response = await client.SetAsync("Users/" + generatedID, register);
+                var registerWithoutUsername = new UserRegistration
+                {
+                    First_Name = register.First_Name,
+                    Last_Name = register.Last_Name,
+                    Password = register.Password,
+                    Email = register.Email,
+                    Role = register.Role,
+                    Status = register.Status,
+                    UserID = register.UserID
+                };
+
+                SetResponse response = await client.SetAsync($"Users/" + register.Username, registerWithoutUsername);
+
 
                 MessageBox.Show($"New User has been successfully inserted into the database.");
                 this.Close();
                 /*CountUsers();*/
                 UserCreated?.Invoke();
                 frmUsers.LoadUsers();
+                frmDashboard.CountUsers();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message); // Provide a meaningful error message
             }
         }
-
 
         private void btnShowPass_Click(object sender, EventArgs e)
         {
@@ -337,7 +350,7 @@ namespace arkoDT
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
-                    Credentials = new NetworkCredential("renyama149@gmail.com", "deamigulhqhooojc"),
+                    Credentials = new NetworkCredential("arkoVessel@gmail.com", "jtcz lyxq gwjt qcuo"),
                     EnableSsl = true,
                 };
 
