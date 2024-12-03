@@ -12,11 +12,11 @@ namespace arkoDT
         private IFirebaseClient client;
         private frmUsers Users;
 
-        public frmEdit(string username, frmUsers frmUsersInstance)
+        public frmEdit(/*string username, frmUsers frmUsersInstance*/)
         {
             InitializeComponent();
             this.username = username;
-            Users = frmUsersInstance;
+            //Users = frmUsersInstance;
 
             // Initialize Firebase client
             Firebase_Config firebaseConfig = new Firebase_Config();

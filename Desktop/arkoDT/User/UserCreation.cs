@@ -22,21 +22,21 @@ namespace arkoDT
         private IFirebaseClient client;
         private string generatedID;
         private bool isFirstImage = true;
-        private frmUsers frmUsers;
-        private frmDashboard frmDashboard;
+        //private frmUsers frmUsers;
+        //private frmDashboard frmDashboard;
         private string generatedOTP;
 
 
 
-        public frmUC(frmUsers frmUsersInstance, frmDashboard frmDashboardInstance)
+        public frmUC(/*frmUsers frmUsersInstance, frmDashboard frmDashboardInstance*/)
         {
             InitializeComponent();
 
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
             
-            frmUsers = frmUsersInstance;
-            frmDashboard = frmDashboardInstance;
+            //frmUsers = frmUsersInstance;
+            //frmDashboard = frmDashboardInstance;
 
             Firebase_Config firebaseConfig = new Firebase_Config();
             client = firebaseConfig.GetClient();
@@ -269,8 +269,8 @@ namespace arkoDT
                 this.Close();
                 /*CountUsers();*/
                 UserCreated?.Invoke();
-                frmUsers.LoadUsers();
-                frmDashboard.CountUsers();
+                //frmUsers.LoadUsers();
+                //frmDashboard.CountUsers();
             }
             catch (Exception ex)
             {

@@ -139,7 +139,7 @@ namespace arkoDT
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmUC form1 = new frmUC(this);
+            frmUC form1 = new frmUC();
             form1.Show();
         }
 

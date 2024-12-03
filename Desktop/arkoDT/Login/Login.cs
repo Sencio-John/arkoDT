@@ -25,12 +25,9 @@ namespace arkoDT
         private const string LockoutFilePath = "lockout.json"; // File to store lockout info
         private const int MaxLoginAttempts = 5;               // Maximum allowed attempts
         private const int LockoutDurationMinutes = 3;         // Lockout duration in minutes
-
         private Timer lockoutTimer;
         private bool isFirstImage = true;
-
         private readonly string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
-
         public frmLogin()
         {
             InitializeComponent();
@@ -176,47 +173,47 @@ namespace arkoDT
 
         private UserRegistration AuthenticateUser(string username, string password)
         {
-            MySqlConnection connection = null;
-
             try
             {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
-                string query = @"
-                    SELECT 
-                        user_ID, username, password, role, status
-                    FROM 
-                        users
-                    WHERE 
-                        username = @username";
-
-                using (var command = new MySqlCommand(query, connection))
+                using (var connection = new MySqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@username", username);
+                    connection.Open();
+                    string query = @"
+                SELECT 
+                    user_ID, username, password, role, status
+                FROM 
+                    users
+                WHERE 
+                    BINARY username = @username";
 
-                    using (var reader = command.ExecuteReader())
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@username", username);
+
+                        using (var reader = command.ExecuteReader())
                         {
-                            // Fetch the data from the reader
-                            string dbPassword = reader.GetString("password");
-                            string userId = reader.GetString("user_ID");
-                            string role = reader.GetString("role");
-                            string status = reader.GetString("status");
-
-                            // Decrypt the password stored in the database
-                            string decryptedPassword = PasswordHelper.DecryptPassword(dbPassword);
-
-                            // Check if the decrypted password matches the entered password
-                            if (password == decryptedPassword)
+                            if (reader.Read())
                             {
-                                return new UserRegistration
+                                // Fetch the data from the reader
+                                string dbPassword = reader.GetString("password");
+                                string userId = reader.GetString("user_ID");
+                                string role = reader.GetString("role");
+                                string status = reader.GetString("status");
+
+                                // Decrypt the password stored in the database
+                                string decryptedPassword = PasswordHelper.DecryptPassword(dbPassword);
+
+                                // Check if the decrypted password matches the entered password
+                                if (password == decryptedPassword)
                                 {
-                                    UserID = userId,
-                                    Username = username,  // Save username in the returned user object
-                                    Role = role,
-                                    Status = status
-                                };
+                                    return new UserRegistration
+                                    {
+                                        UserID = userId,
+                                        Username = username,  // Save username in the returned user object
+                                        Role = role,
+                                        Status = status
+                                    };
+                                }
                             }
                         }
                     }
@@ -225,14 +222,6 @@ namespace arkoDT
             catch (Exception ex)
             {
                 MessageBox.Show($"Login failed: {ex.Message}");
-            }
-            finally
-            {
-                // Ensure the connection is always closed
-                if (connection != null && connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
             }
 
             return null;
