@@ -74,6 +74,7 @@ namespace arkoDT
             this.Name = "frmUsers";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Users";
+            this.Load += new System.EventHandler(this.frmUsers_Load_1);
             this.ResumeLayout(false);
 
         }
