@@ -54,7 +54,8 @@ namespace arkoDT
         private void frmDashboard_Load(object sender, EventArgs e)
         {
             CountUsers();
-            string user = loginForm.Username;
+            string Username = loginForm.Username;
+            string user = loginForm.Name;
             string role = loginForm.Role;
             //string user_ID = loginForm.UserID;
             lblWelcome.Text = "Welcome, " + user;
@@ -99,7 +100,7 @@ namespace arkoDT
 
         private void lblGoUsers_Click(object sender, EventArgs e)
         {
-            frmUsers form4 = new frmUsers();
+            frmUsers form4 = new frmUsers(this);
             form4.Show();
         }
 

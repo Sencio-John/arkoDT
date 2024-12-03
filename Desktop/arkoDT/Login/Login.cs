@@ -19,8 +19,9 @@ namespace arkoDT
     public partial class frmLogin : Form
     {
         public string ID { get; set; }
-        public string Username { get; set; }
+        public string Name { get; set; }
         public string Role { get; set; }
+        public string Username { get; set; }
         public string UserID { get; set; }
         private IFirebaseClient client;
         private bool isFirstImage = true;
@@ -143,9 +144,17 @@ namespace arkoDT
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text;
 
+            var (userId, first_name, last_name, userType, Status) = await LoginUser(username, password);
+
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Username and password cannot be empty.");
+                return;
+            }
+
+            if (Status == "Inactive")
+            {
+                MessageBox.Show("Account Inactive");
                 return;
             }
 
@@ -156,14 +165,15 @@ namespace arkoDT
             }
 
             // Validate the login
-            var (userId, first_name, last_name, UserType) = await LoginUser(username, password);
+            
 
             if (!string.IsNullOrEmpty(userId))
             {
                 ResetFailedAttempts();
                 UnlockUI();
-                Username = first_name + " " + last_name;
-                Role = UserType;
+                Username = username;
+                Name = first_name + " " + last_name;
+                Role = userType;
                 UserID = userId;
                 this.Hide();
                 new frmDashboard(this).Show();
@@ -172,7 +182,6 @@ namespace arkoDT
             else
             {
                 IncrementFailedAttempts();
-                MessageBox.Show("Invalid username or password.");
             }
         }
 
@@ -223,53 +232,44 @@ namespace arkoDT
             form1.Show();
         }
 
-        private async Task<(string userId, string firstName, string Lastname, string role)> LoginUser(string username, string password)
+        private async Task<(string username, string firstName, string lastName, string role, string status)> LoginUser(string username, string password)
+{
+    try
+    {
+        // Fetch the user data directly using the username as the key
+        FirebaseResponse response = await client.GetAsync($"Users/{username}");
+
+        if (response == null || response.Body == "null")
         {
-            try
-            {
-                // Fetch all users from Firebase
-                FirebaseResponse response = await client.GetAsync("Users/");
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-                if (users == null)
-                {
-                    MessageBox.Show("No users found.");
-                    return (null, null, null, null);
-                }
-
-                // Find the user by username
-                foreach (var user in users)
-                {
-                    string userId = user.Key; // This is the ID of the user
-                    UserRegistration userData = user.Value;
-
-                    if (userData.Username.Equals(username, StringComparison.Ordinal))
-                    {
-                        // Decrypt the stored password
-                        string decryptedPassword = PasswordHelper.DecryptPassword(userData.Password);
-
-                        // Verify the password
-                        if (password == decryptedPassword)
-                        {
-                            return (userId, userData.First_Name, userData.Last_Name, userData.Role);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Invalid username/password.");
-                            return (null, null, null, null);
-                        }
-                    }
-                }
-
-                //MessageBox.Show("Username does not exist.");
-                return (null, null, null, null);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Login Failed.");
-                return (null, null, null, null);
-            }
+            MessageBox.Show("Username does not exist.");
+            return (null, null, null, null, null);
         }
+
+        // Parse the response into a UserRegistration object
+        UserRegistration userData = response.ResultAs<UserRegistration>();
+
+        // Decrypt the stored password
+        string decryptedPassword = PasswordHelper.DecryptPassword(userData.Password);
+
+        // Verify the password
+        if (password == decryptedPassword)
+        {
+            // Return user details
+            return (username, userData.First_Name, userData.Last_Name, userData.Role, userData.Status);
+        }
+        else
+        {
+            MessageBox.Show("Invalid username or password.");
+            return (null, null, null, null, null);
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Login Failed: {ex.Message}");
+        return (null, null, null, null, null);
+    }
+}
+
 
         private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
         {

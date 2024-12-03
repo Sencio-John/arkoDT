@@ -33,13 +33,16 @@ namespace arkoDT
             this.label1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblCode = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtOTP = new System.Windows.Forms.TextBox();
-            this.btnGetOTP = new System.Windows.Forms.Button();
-            this.btnSend = new System.Windows.Forms.Button();
+            this.btnSendOTP = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.btnSubmit = new System.Windows.Forms.Button();
+            this.btnChange = new System.Windows.Forms.Button();
+            this.txtConfirm = new System.Windows.Forms.TextBox();
+            this.lblConfirmPass = new System.Windows.Forms.Label();
+            this.btnShowPass = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -63,12 +66,12 @@ namespace arkoDT
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(77, 67);
+            this.lblUsername.Location = new System.Drawing.Point(103, 67);
             this.lblUsername.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(77, 17);
+            this.lblUsername.Size = new System.Drawing.Size(46, 17);
             this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username:";
+            this.lblUsername.Text = "Email:";
             // 
             // lblCode
             // 
@@ -84,16 +87,16 @@ namespace arkoDT
             this.lblCode.TabIndex = 2;
             this.lblCode.Text = "Code:";
             // 
-            // txtUsername
+            // txtEmail
             // 
-            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsername.Location = new System.Drawing.Point(153, 68);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(166, 20);
-            this.txtUsername.TabIndex = 3;
+            this.txtEmail.Location = new System.Drawing.Point(153, 68);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(181, 20);
+            this.txtEmail.TabIndex = 3;
             // 
             // txtOTP
             // 
@@ -101,47 +104,46 @@ namespace arkoDT
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOTP.Location = new System.Drawing.Point(153, 108);
-            this.txtOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtOTP.Margin = new System.Windows.Forms.Padding(2);
             this.txtOTP.Name = "txtOTP";
-            this.txtOTP.Size = new System.Drawing.Size(166, 20);
+            this.txtOTP.Size = new System.Drawing.Size(181, 20);
             this.txtOTP.TabIndex = 4;
             // 
-            // btnGetOTP
+            // btnSendOTP
             // 
-            this.btnGetOTP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGetOTP.Location = new System.Drawing.Point(322, 66);
-            this.btnGetOTP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnGetOTP.Name = "btnGetOTP";
-            this.btnGetOTP.Size = new System.Drawing.Size(66, 20);
-            this.btnGetOTP.TabIndex = 5;
-            this.btnGetOTP.Text = "Get Code";
-            this.btnGetOTP.UseVisualStyleBackColor = true;
+            this.btnSendOTP.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSendOTP.Location = new System.Drawing.Point(338, 67);
+            this.btnSendOTP.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSendOTP.Name = "btnSendOTP";
+            this.btnSendOTP.Size = new System.Drawing.Size(66, 20);
+            this.btnSendOTP.TabIndex = 5;
+            this.btnSendOTP.Text = "Get Code";
+            this.btnSendOTP.UseVisualStyleBackColor = true;
+            this.btnSendOTP.Click += new System.EventHandler(this.btnSendOTP_Click);
             // 
-            // btnSend
+            // btnVerify
             // 
-            this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSend.Location = new System.Drawing.Point(189, 141);
-            this.btnSend.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(87, 21);
-            this.btnSend.TabIndex = 6;
-            this.btnSend.Text = "Send";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.btnVerify.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnVerify.Enabled = false;
+            this.btnVerify.Location = new System.Drawing.Point(196, 142);
+            this.btnVerify.Margin = new System.Windows.Forms.Padding(2);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(87, 21);
+            this.btnVerify.TabIndex = 6;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
             // txtPassword
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(153, 186);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Location = new System.Drawing.Point(153, 182);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(166, 20);
+            this.txtPassword.PasswordChar = '●';
+            this.txtPassword.Size = new System.Drawing.Size(181, 20);
             this.txtPassword.TabIndex = 8;
             this.txtPassword.Visible = false;
             // 
@@ -152,7 +154,7 @@ namespace arkoDT
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.Location = new System.Drawing.Point(77, 185);
+            this.lblPassword.Location = new System.Drawing.Point(76, 182);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(73, 17);
@@ -160,19 +162,62 @@ namespace arkoDT
             this.lblPassword.Text = "Password:";
             this.lblPassword.Visible = false;
             // 
-            // btnSubmit
+            // btnChange
             // 
-            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnChange.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnChange.Location = new System.Drawing.Point(174, 268);
+            this.btnChange.Margin = new System.Windows.Forms.Padding(2);
+            this.btnChange.Name = "btnChange";
+            this.btnChange.Size = new System.Drawing.Size(138, 24);
+            this.btnChange.TabIndex = 9;
+            this.btnChange.Text = "Change Password";
+            this.btnChange.UseVisualStyleBackColor = true;
+            this.btnChange.Visible = false;
+            this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
+            // 
+            // txtConfirm
+            // 
+            this.txtConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubmit.Location = new System.Drawing.Point(189, 216);
-            this.btnSubmit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(87, 24);
-            this.btnSubmit.TabIndex = 9;
-            this.btnSubmit.Text = "Submit";
-            this.btnSubmit.UseVisualStyleBackColor = true;
-            this.btnSubmit.Visible = false;
+            this.txtConfirm.Location = new System.Drawing.Point(153, 215);
+            this.txtConfirm.Margin = new System.Windows.Forms.Padding(2);
+            this.txtConfirm.Name = "txtConfirm";
+            this.txtConfirm.PasswordChar = '●';
+            this.txtConfirm.Size = new System.Drawing.Size(181, 20);
+            this.txtConfirm.TabIndex = 11;
+            this.txtConfirm.Visible = false;
+            // 
+            // lblConfirmPass
+            // 
+            this.lblConfirmPass.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblConfirmPass.AutoSize = true;
+            this.lblConfirmPass.BackColor = System.Drawing.Color.Transparent;
+            this.lblConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmPass.Location = new System.Drawing.Point(24, 218);
+            this.lblConfirmPass.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblConfirmPass.Name = "lblConfirmPass";
+            this.lblConfirmPass.Size = new System.Drawing.Size(125, 17);
+            this.lblConfirmPass.TabIndex = 10;
+            this.lblConfirmPass.Text = "Confirm Password:";
+            this.lblConfirmPass.Visible = false;
+            // 
+            // btnShowPass
+            // 
+            this.btnShowPass.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnShowPass.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnShowPass.BackgroundImage")));
+            this.btnShowPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnShowPass.Location = new System.Drawing.Point(338, 199);
+            this.btnShowPass.Margin = new System.Windows.Forms.Padding(2);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(66, 20);
+            this.btnShowPass.TabIndex = 12;
+            this.btnShowPass.Text = "7";
+            this.btnShowPass.UseVisualStyleBackColor = true;
+            this.btnShowPass.Visible = false;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
             // 
             // frmForgot
             // 
@@ -181,19 +226,22 @@ namespace arkoDT
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(460, 263);
-            this.Controls.Add(this.btnSubmit);
+            this.ClientSize = new System.Drawing.Size(475, 333);
+            this.Controls.Add(this.btnShowPass);
+            this.Controls.Add(this.txtConfirm);
+            this.Controls.Add(this.lblConfirmPass);
+            this.Controls.Add(this.btnChange);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.btnGetOTP);
+            this.Controls.Add(this.btnVerify);
+            this.Controls.Add(this.btnSendOTP);
             this.Controls.Add(this.txtOTP);
-            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.lblCode);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmForgot";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Forgot Password";
@@ -207,12 +255,15 @@ namespace arkoDT
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblCode;
-        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtOTP;
-        private System.Windows.Forms.Button btnGetOTP;
-        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Button btnSendOTP;
+        private System.Windows.Forms.Button btnVerify;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.TextBox txtConfirm;
+        private System.Windows.Forms.Label lblConfirmPass;
+        private System.Windows.Forms.Button btnShowPass;
     }
 }

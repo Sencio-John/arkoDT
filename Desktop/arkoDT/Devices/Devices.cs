@@ -121,7 +121,7 @@ namespace arkoDT
 
         private void btnChangeName_Click(object sender, EventArgs e)
         {
-            frmEdit form1 = new frmEdit();
+            frmChangeName form1 = new frmChangeName();
             form1.Show();
         }
 

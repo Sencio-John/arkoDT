@@ -17,6 +17,7 @@ namespace arkoDT
             BasePath = "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
 
+
         private IFirebaseClient client;
 
         // Public method to get the Firebase client

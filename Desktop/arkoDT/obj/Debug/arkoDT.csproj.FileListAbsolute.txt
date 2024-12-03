@@ -414,6 +414,7 @@ C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Enc
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Json.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.ValueTuple.xml
+<<<<<<< Updated upstream
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.IO.Pipelines.dll
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.Encodings.Web.dll
@@ -427,3 +428,24 @@ C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Text.
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.ValueTuple.xml
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmServerHandler.resources
+=======
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\BouncyCastle.Cryptography.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Google.Protobuf.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Compression.LZ4.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Hash.xxHash.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\MySql.Data.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\ZstdSharp.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\BouncyCastle.Cryptography.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Google.Protobuf.pdb
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\Google.Protobuf.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Compression.LZ4.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Compression.LZ4.Streams.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\K4os.Hash.xxHash.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\MySql.Data.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.User.frmSQL.resources
+>>>>>>> Stashed changes

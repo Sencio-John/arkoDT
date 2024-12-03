@@ -17,12 +17,19 @@ namespace arkoDT
     {
         private IFirebaseClient client;
         private frmDashboard dashboard;
-        public frmUsers()
+        string username;
+        string firstName;
+        string lastName;
+        string role;
+        string status;
+        public frmUsers(frmDashboard frmDashboardInstance)
         {
+
             
             InitializeComponent();
             Firebase_Config firebaseConfig = new Firebase_Config();
             client = firebaseConfig.GetClient();
+            dashboard = frmDashboardInstance;
 
             if (client == null)
             {
@@ -31,7 +38,8 @@ namespace arkoDT
             LoadUsers();
         }
 
-        public void UpdateUsersCards(string username, string role)
+        // This method updates user cards
+        public void UpdateUsersCards(string username, string firstName, string lastName, string role, string status)
         {
             Panel pnlCards = new Panel();
             Panel pnlHeader = new Panel();
@@ -46,12 +54,20 @@ namespace arkoDT
             Title.Dock = DockStyle.Fill;
             Title.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold);
             Title.Size = new Size(310, 41);
-            Title.Text = "User";
+            Title.Text = username;
             Title.TextAlign = ContentAlignment.MiddleCenter;
 
             pnlHeader.AutoScroll = true;
-            pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
             pnlHeader.Size = new Size(310, 41);
+            if(status == "Active")
+            {
+                pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
+            }
+            else
+            {
+                pnlHeader.BackColor = Color.FromArgb(255, 192, 192);
+            }
+            
 
             pbProfile.Image = Image.FromFile(@"C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\Resources\profile.jpg");
             pbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -78,15 +94,18 @@ namespace arkoDT
                 }
             };
 
-
             btnEdit.Location = new System.Drawing.Point(3, 143);
             btnEdit.Size = new System.Drawing.Size(75, 23);
             btnEdit.TabIndex = 2;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
 
-            // Ensure the event is hooked up properly to btnEdit
+            btnEdit.Tag = username;  // Store the username here, do not display it
             btnEdit.Click += new EventHandler(btnEdit_Click);
+
+            btnChangeStatus.Tag = username; // Store only the username
+
+
 
             btnChangeStatus.Location = new System.Drawing.Point(221, 143);
             btnChangeStatus.Size = new System.Drawing.Size(86, 23);
@@ -102,7 +121,7 @@ namespace arkoDT
             lblStatus.Location = new System.Drawing.Point(155, 120);
             lblStatus.Size = new System.Drawing.Size(60, 24);
             lblStatus.TabIndex = 4;
-            lblStatus.Text = "Status";
+            lblStatus.Text = status;
 
             lblRole.AutoSize = true;
             lblRole.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
@@ -112,7 +131,7 @@ namespace arkoDT
             lblUserName.AutoSize = true;
             lblUserName.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular);
             lblUserName.Location = new Point(155, 54);
-            lblUserName.Text = username; // Set username from parameter
+            lblUserName.Text = firstName + " " + lastName; // Display first and last name, NOT username
 
             pnlCards.AutoScroll = true;
             pnlCards.BackColor = SystemColors.ControlLightLight;
@@ -130,46 +149,74 @@ namespace arkoDT
             flpUsers.Controls.Add(pnlCards);
         }
 
+        // Method for adding a new user
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmUC form1 = new frmUC(this);
+            frmUC form1 = new frmUC(this, dashboard);
             form1.Show();
         }
 
+        // Button for adding new user
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void frmUsers_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        // Editing user Role
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            frmEdit form1 = new frmEdit();
+            // Get the username from the Tag property of the button
+            Button clickedButton = sender as Button;
+            string username = clickedButton.Tag.ToString(); // Get username from Tag property
+
+            // You can now pass the username to the next form for editing
+            frmEdit form1 = new frmEdit(username, this);  // Passing username to edit the user's details
             form1.Show();
         }
 
-        private void btnChangeStatus_Click(object sender, EventArgs e)
+        private async void btnChangeStatus_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-             "Are you sure you want to proceed?",  // Message text
-             "Confirmation",                      // Title
-             MessageBoxButtons.YesNo,             // Buttons
-             MessageBoxIcon.Question              // Icon
-             );
+            // Ensure this is triggered only once per button click
+            Button btnChangeStatus = sender as Button;
+            if (btnChangeStatus?.Tag is string username)
+            {
+                try
+                {
+                    DialogResult result = MessageBox.Show(
+                        "Are you sure you want to change the status?",  // Message text
+                        "Confirmation",                                 // Title
+                        MessageBoxButtons.YesNo,                       // Buttons
+                        MessageBoxIcon.Question                        // Icon
+                    );
 
-            if (result == DialogResult.Yes)
-            {
-                // User clicked Yes
-                MessageBox.Show("You selected Yes.", "Result");
-            }
-            else
-            {
-                // User clicked No
-                MessageBox.Show("You selected No.", "Result");
+                    if (result == DialogResult.Yes)
+                    {
+                        // FETCH MUNA NG DATA
+                        FirebaseResponse response = await client.GetAsync($"Users/{username}");
+                        var user = response.ResultAs<UserRegistration>();
+
+                        if (user != null)
+                        {
+                            // Status Toggler
+                            string newStatus = user.Status == "Active" ? "Inactive" : "Active";
+
+                            // UPDATE
+                            await client.SetAsync($"Users/{username}/Status", newStatus);
+
+
+                            MessageBox.Show($"Status changed successfully to {newStatus}!", "Success");
+                            LoadUsers();
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.", "Error");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                }
             }
         }
 
@@ -183,28 +230,40 @@ namespace arkoDT
 
                 flpUsers.Controls.Clear(); // Clear existing cards
 
-                if (users != null)
+                if (users != null && users.Count > 0)
                 {
-                    foreach (var user in users.Values)
+                    foreach (var user in users)
                     {
-                        string Name = user.First_Name + " " + user.Last_Name;
+                        username = user.Key;                  // Username is the key
+                        firstName = user.Value.First_Name;
+                        lastName = user.Value.Last_Name;
+                        role = user.Value.Role;
+                        status = user.Value.Status;
+
                         // Populate each card with the user's data
-                        UpdateUsersCards(Name, user.Role);
+                        UpdateUsersCards(username, firstName, lastName, role, status);
                     }
                 }
+                else
+                {
+                    // No users found
+                    flpUsers.Controls.Clear(); // Clear cards if no data
+                    MessageBox.Show("No users found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            catch (Exception)
+            catch
             {
-                //MessageBox.Show("Failed to load users: " + ex.Message);
-                RetryLoadUsers(); // Trigger a retry mechanism
+                RetryLoadUsers(); // Retry in case of failure
             }
         }
 
-
         private void RetryLoadUsers()
         {
-            Timer retryTimer = new Timer();
-            retryTimer.Interval = 1000;
+            Timer retryTimer = new Timer
+            {
+                Interval = 5000 // Retry every 5 seconds
+            };
+
             retryTimer.Tick += async (sender, e) =>
             {
                 try
@@ -215,15 +274,26 @@ namespace arkoDT
 
                     flpUsers.Controls.Clear(); // Clear existing cards
 
-                    if (users != null)
+                    if (users != null && users.Count > 0)
                     {
-                        foreach (var user in users.Values)
+                        foreach (var user in users)
                         {
-                            string Name = user.First_Name + " " + user.Last_Name;
-                            UpdateUsersCards(Name, user.Role);
+                            username = user.Key;                  // Username is the key
+                            firstName = user.Value.First_Name;
+                            lastName = user.Value.Last_Name;
+                            role = user.Value.Role;
+                            status = user.Value.Status;
+
+                            // Populate each card with the user's data
+                            UpdateUsersCards(username, firstName, lastName, role, status);
                         }
 
-                        ((Timer)sender).Stop(); // Stop the timer on success
+                        ((Timer)sender).Stop();     // Stop the timer on success
+                    }
+                    else
+                    {
+                        // Handle case where no users are found
+                        MessageBox.Show("No users found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch
@@ -231,6 +301,7 @@ namespace arkoDT
                     // Do nothing; the timer will keep retrying
                 }
             };
+
             retryTimer.Start();
         }
 
