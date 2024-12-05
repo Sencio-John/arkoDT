@@ -15,7 +15,6 @@ namespace arkoDT.User
 {
     public partial class frmSQL : Form
     {
-        private string ID { get; set; }
         public event Action UserCreated;
         private MySqlConnection connection;
         private string generatedID;

@@ -8,18 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using arkoDT.Profile;
 
 namespace arkoDT
 {
     public partial class frmProfile : Form
     {
-        public frmProfile(string firstName, string lastName, string email, string role)
+        private frmDashboard dashboard;
+        public frmProfile(frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
-
-            // Populate the fields
-            txtFirstName.Text = firstName;
-            txtLastName.Text = lastName;
+            dashboard = frmDashboardInstance;
+            txtFirstName.Text = dashboard.userID;
         }
 
         private void MakeCircularPictureBox(PictureBox pictureBox)
@@ -52,7 +52,6 @@ namespace arkoDT
         {
             MakeRoundedPanel(pnlProfile, 50);
             MakeRoundedPanel(pnlContacts, 50);
-            MakeRoundedPanel(pnlLoginCred, 50);
             MakeCircularPictureBox(pbProfile);
         }
 
@@ -91,34 +90,16 @@ namespace arkoDT
             }
         }
 
-        private void btnLoginCred_Click(object sender, EventArgs e)
+        private void btnChangeEmail_Click(object sender, EventArgs e)
         {
-            if (btnLoginCred.Text == "Edit Credentials")
-            {
-                // Enable text fields
-                txtUsername.Enabled = true;
-                txtEmail.Enabled = true;
-                txtOTP.Enabled = true;
-                txtPassword.Enabled = true;
-                txtConfirmPass.Enabled = true;
-                btnSaveCred.Enabled = true;
+            frmChangeEmail form1 = new frmChangeEmail();
+            form1.Show();
+        }
 
-                // Change button text to "Undo"
-                btnLoginCred.Text = "Undo";
-            }
-            else
-            {
-                // Disable text fields
-                txtUsername.Enabled = false;
-                txtEmail.Enabled = false;
-                txtOTP.Enabled = false;
-                txtPassword.Enabled = false;
-                txtConfirmPass.Enabled = false;
-                btnSaveCred.Enabled = false;
-
-                // Change button text back to "Edit Credentials"
-                btnLoginCred.Text = "Edit Credentials";
-            }
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            frmChangePassword form2 = new frmChangePassword();
+            form2.Show();
         }
     }
 }

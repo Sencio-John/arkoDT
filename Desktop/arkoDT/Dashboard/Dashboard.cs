@@ -16,11 +16,13 @@ namespace arkoDT
     {
         private frmLogin loginForm;
         private MySqlConnection connection; // MySQL connection object
+        public string userID;
 
         public frmDashboard(frmLogin login)
         {
             InitializeComponent();
             loginForm = login;
+            userID = loginForm.UserID;
 
             // Set up MySQL connection
             string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
@@ -116,7 +118,7 @@ namespace arkoDT
                 }
 
                 // Create and show the frmUsers form
-                frmUsers form4 = new frmUsers();
+                frmUsers form4 = new frmUsers(this);
                 form4.Show();
             }
             catch (Exception ex)
@@ -138,24 +140,33 @@ namespace arkoDT
             this.Hide();
         }
 
-        public void RefreshDashboard()
-        {
-            CountUsers(); // Update user count label
-        }
-
         public void CountUsers()
         {
             try
             {
-                // Fetch user count from MySQL database
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open(); // Ensure the connection is open
+                }
+
                 string query = "SELECT COUNT(*) FROM users";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                int userCount = Convert.ToInt32(cmd.ExecuteScalar());
-                label5.Text = $"User(s): {userCount}";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    int userCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    label5.Text = $"User(s): {userCount}";
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                RetryFetchUserCount(); // Trigger a retry
+                MessageBox.Show("Failed to count users: " + ex.Message);
+                RetryFetchUserCount(); // Trigger retry logic
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close(); // Ensure the connection is closed
+                }
             }
         }
 
@@ -182,48 +193,10 @@ namespace arkoDT
             retryTimer.Start();
         }
 
-        private async void lblProfile_Click(object sender, EventArgs e)
+        private void lblProfile_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Assuming the current user ID is stored as a class field or retrieved from login form
-                string userId = loginForm.UserID;
-
-                // Fetch user data from MySQL database
-                string query = "SELECT first_Name, last_Name, email, role FROM users_info WHERE user_ID = @userId";
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@userId", userId);
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        string firstName = reader.GetString("first_Name");
-                        string lastName = reader.GetString("last_Name");
-                        string email = reader.GetString("email");
-                        string role = reader.GetString("role");
-
-                        frmProfile form1 = new frmProfile(firstName, lastName, email, role);
-                        form1.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("User details could not be found.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}");
-            }
-            finally
-            {
-                // Close the connection if open
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
+            frmProfile form1 = new frmProfile(this);
+            form1.Show();
         }
     }
 }

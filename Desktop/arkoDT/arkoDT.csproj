@@ -271,6 +271,18 @@
     <Compile Include="Devices\Devices.Designer.cs">
       <DependentUpon>Devices.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profile\Change Email.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profile\Change Email.Designer.cs">
+      <DependentUpon>Change Email.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profile\Change Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profile\Change Password.Designer.cs">
+      <DependentUpon>Change Password.cs</DependentUpon>
+    </Compile>
     <Compile Include="User\EditUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -356,6 +368,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devices\Devices.resx">
       <DependentUpon>Devices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profile\Change Email.resx">
+      <DependentUpon>Change Email.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profile\Change Password.resx">
+      <DependentUpon>Change Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User\EditUser.resx">
       <DependentUpon>EditUser.cs</DependentUpon>

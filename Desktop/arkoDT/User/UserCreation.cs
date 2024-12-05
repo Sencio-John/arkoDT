@@ -3,47 +3,47 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FireSharp.Config;
-using FireSharp.Interfaces;
-using FireSharp.Response;
 using System.Collections.Generic;
 using System.Drawing;
 using BCrypt.Net;
 using System.Net;
 using System.Net.Mail;
 using arkoDT.Classes;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace arkoDT
 {
     public partial class frmUC : Form
     {
-        private string ID { get; set; }
         public event Action UserCreated;
-        private IFirebaseClient client;
+        private MySqlConnection connection;
         private string generatedID;
         private bool isFirstImage = true;
-        //private frmUsers frmUsers;
-        //private frmDashboard frmDashboard;
+        private frmUsers frmUsers;
+        private frmDashboard frmDashboard;
         private string generatedOTP;
 
-
-
-        public frmUC(/*frmUsers frmUsersInstance, frmDashboard frmDashboardInstance*/)
+        public frmUC(frmUsers frmUsersInstance, frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
 
             btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;  // Optional: to stretch the image to fit the button
-            
-            //frmUsers = frmUsersInstance;
-            //frmDashboard = frmDashboardInstance;
 
-            Firebase_Config firebaseConfig = new Firebase_Config();
-            client = firebaseConfig.GetClient();
+            frmUsers = frmUsersInstance;
+            frmDashboard = frmDashboardInstance;
 
-            if (client == null)
+            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            connection = new MySqlConnection(connectionString);
+
+            try
             {
-                MessageBox.Show("Failed to connect to Database.");
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to connect to the database. " + ex.Message);
             }
         }
 
@@ -112,8 +112,12 @@ namespace arkoDT
         {
             try
             {
-                FirebaseResponse response = await client.GetAsync("Users/" + id);
-                return response.Body != "null"; // If response body is not "null", the ID exists
+                string query = "SELECT COUNT(*) FROM users WHERE user_id = @user_id";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@user_id", id);
+
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result) > 0; // If count > 0, ID exists
             }
             catch (Exception)
             {
@@ -126,16 +130,12 @@ namespace arkoDT
         {
             try
             {
-                // Query the specific user directly using their username as the key
-                FirebaseResponse response = await client.GetAsync($"Users/{username}");
+                string query = "SELECT COUNT(*) FROM users WHERE username = @username";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@username", username);
 
-                // If the response body is "null", the username does not exist in the database
-                if (response == null || response.Body == "null")
-                {
-                    return false; // Username does not exist
-                }
-
-                return true; // Username exists
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result) > 0; // If count > 0, username exists
             }
             catch (Exception ex)
             {
@@ -145,41 +145,22 @@ namespace arkoDT
         }
 
         // Check if the email already exists in Firebase
-        // Check if the email already exists in Firebase
         private async Task<bool> IsEmailExists(string email)
         {
             try
             {
-                if (client == null)
-                {
-                    MessageBox.Show("Database client is not initialized.");
-                    return false;
-                }
+                string query = "SELECT COUNT(*) FROM users WHERE email = @email";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@email", email);
 
-                FirebaseResponse response = await client.GetAsync("Users/");
-
-                // Log the raw response for debugging
-                if (response == null || response.Body == "null")
-                {
-                    // No data exists under "Users" in Firebase
-                    return false;
-                }
-
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-                // Check if users dictionary is not null and contains valid UserRegistration instances
-                if (users != null && users.Values.Any(u => u?.Email != null && u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                {
-                    return true; // Email exists
-                }
+                object result = cmd.ExecuteScalar();
+                return Convert.ToInt32(result) > 0; // If count > 0, email exists
             }
             catch (Exception ex)
             {
-                // Log more details about the error
-                MessageBox.Show($"An error occurred while checking email existence: {ex.Message}\n{ex.StackTrace}");
+                MessageBox.Show($"An error occurred while checking email existence: {ex.Message}");
+                return false;
             }
-
-            return false;
         }
 
         // Validate the email format
@@ -223,7 +204,7 @@ namespace arkoDT
                 // Check if email exists
                 bool emailExists = await IsEmailExists(txtEmail.Text);
                 if (emailExists)
-                { 
+                {
                     MessageBox.Show("Email already exists. Please choose another.");
                     return;
                 }
@@ -238,43 +219,54 @@ namespace arkoDT
                 // Encrypt the password
                 string encryptedPassword = PasswordHelper.EncryptPassword(txtPassword.Text);
 
-                // Create a new user registration object
                 UserRegistration register = new UserRegistration
                 {
-                    First_Name = txtFirstName.Text,
+                    UserID = "ARKO-" + generatedID,
                     Username = txtUsername.Text,
-                    Last_Name = txtLastName.Text,
-                    Password = encryptedPassword, // Save the encrypted password
+                    Password = encryptedPassword,  // Use the encrypted password
                     Email = txtEmail.Text,
                     Role = cbRole.Text,
                     Status = "Active",
-                    UserID = generatedID
+                    First_Name = txtFirstName.Text,
+                    Last_Name = txtLastName.Text,
                 };
+                // Insert into `users` table
+                string userQuery = "INSERT INTO users (user_ID, username, password, email, status, role) " +
+                                   "VALUES (@user_ID, @username, @password, @email, @status, @role)";
 
-                var registerWithoutUsername = new UserRegistration
-                {
-                    First_Name = register.First_Name,
-                    Last_Name = register.Last_Name,
-                    Password = register.Password,
-                    Email = register.Email,
-                    Role = register.Role,
-                    Status = register.Status,
-                    UserID = register.UserID
-                };
+                MySqlCommand userCmd = new MySqlCommand(userQuery, connection);
+                userCmd.Parameters.AddWithValue("@user_ID", register.UserID);
+                userCmd.Parameters.AddWithValue("@username", register.Username);
+                userCmd.Parameters.AddWithValue("@password", register.Password);
+                userCmd.Parameters.AddWithValue("@email", register.Email);
+                userCmd.Parameters.AddWithValue("@status", "Active");
+                userCmd.Parameters.AddWithValue("@role", register.Role);
 
-                SetResponse response = await client.SetAsync($"Users/" + register.Username, registerWithoutUsername);
+                userCmd.ExecuteNonQuery(); // Execute the insert query for users
+
+                // Insert into `users_info` table
+                string userInfoQuery = "INSERT INTO users_info (first_Name, last_Name, user_ID) " +
+                                       "VALUES (@first_Name, @last_Name, @user_ID)";
+
+                MySqlCommand userInfoCmd = new MySqlCommand(userInfoQuery, connection);
+                userInfoCmd.Parameters.AddWithValue("@first_Name", register.First_Name);
+                userInfoCmd.Parameters.AddWithValue("@last_Name", register.Last_Name);
+                userInfoCmd.Parameters.AddWithValue("@user_ID", register.UserID);
+
+                userInfoCmd.ExecuteNonQuery(); // Execute the insert query for user info
+
+                MessageBox.Show("New User has been successfully inserted into the database.");
 
 
-                MessageBox.Show($"New User has been successfully inserted into the database.");
-                this.Close();
-                /*CountUsers();*/
+                
                 UserCreated?.Invoke();
-                //frmUsers.LoadUsers();
-                //frmDashboard.CountUsers();
+                frmUsers.LoadUsers();
+                frmDashboard.CountUsers();
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message); // Provide a meaningful error message
+                MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
 
@@ -314,62 +306,52 @@ namespace arkoDT
 
         private async void btnGetOTP_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtEmail.Text))
-
-            if (!IsValidEmail(txtEmail.Text))
+            if (string.IsNullOrEmpty(txtEmail.Text))
             {
                 MessageBox.Show("Please enter a valid email address.");
                 return;
             }
 
-            generatedOTP = GenerateRandomOTP(6); // Generate a 6-digit OTP
-            bool emailSent = await SendEmailOTP(txtEmail.Text, generatedOTP);
-
-            if (emailSent)
+            bool emailExists = await IsEmailExists(txtEmail.Text);
+            if (emailExists)
             {
-                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.");
+                MessageBox.Show("Email already exists. Please choose another.");
+                return;
+            }
+
+            generatedOTP = GenerateRandomOTP();
+            if (await SendEmailAsync(txtEmail.Text, "Your OTP Code", $"Your OTP code is {generatedOTP}"))
+            {
+                MessageBox.Show("OTP sent to your email.");
             }
             else
             {
-                MessageBox.Show("Failed to send OTP. Please check the email address and try again.");
+                MessageBox.Show("Failed to send OTP. Please check your email address.");
             }
         }
 
-        private string GenerateRandomOTP(int length)
+        private string GenerateRandomOTP()
         {
-            const string chars = "0123456789";
-            Random random = new Random();
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
+            Random rand = new Random();
+            return rand.Next(100000, 999999).ToString(); // 6-digit OTP
         }
 
-        private async Task<bool> SendEmailOTP(string email, string otp)
+        private async Task<bool> SendEmailAsync(string toEmail, string subject, string body)
         {
             try
             {
-                var smtpClient = new SmtpClient("smtp.gmail.com")
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
-                    Port = 587,
                     Credentials = new NetworkCredential("arkoVessel@gmail.com", "jtcz lyxq gwjt qcuo"),
-                    EnableSsl = true,
+                    EnableSsl = true
                 };
-
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress("renyama149@gmail.com"),
-                    Subject = "Your OTP Code",
-                    Body = $"Your OTP for user creation is: {otp}",
-                    IsBodyHtml = false,
-                };
-
-                mailMessage.To.Add(email);
-
-                await smtpClient.SendMailAsync(mailMessage);
+                MailMessage mail = new MailMessage("youremail@gmail.com", toEmail, subject, body);
+                await smtp.SendMailAsync(mail);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //MessageBox.Show($"Failed to send OTP: {ex.Message}");
+                MessageBox.Show("Failed to send email: " + ex.Message);
                 return false;
             }
         }

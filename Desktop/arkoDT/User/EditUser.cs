@@ -1,82 +1,102 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
+using MySql.Data.MySqlClient;
 
 namespace arkoDT
 {
     public partial class frmEdit : Form
     {
-        private string username; // To store the username passed from the previous form
-        private IFirebaseClient client;
+        private string userID; // To store the user_ID passed from the previous form
+        private MySqlConnection connection; // MySQL connection
         private frmUsers Users;
 
-        public frmEdit(/*string username, frmUsers frmUsersInstance*/)
+        public frmEdit(string userID, frmUsers frmUsersInstance)
         {
             InitializeComponent();
-            this.username = username;
-            //Users = frmUsersInstance;
+            this.userID = userID;
+            Users = frmUsersInstance;
 
-            // Initialize Firebase client
-            Firebase_Config firebaseConfig = new Firebase_Config();
-            client = firebaseConfig.GetClient();
+            // Initialize MySQL connection
+            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            connection = new MySqlConnection(connectionString);
 
-            if (client == null)
+            try
             {
-                MessageBox.Show("Failed to connect to Database.");
+                connection.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to connect to the database.");
             }
         }
 
         // When the form loads, fetch the user's current role and other data
-        private async void frmEdit_Load(object sender, EventArgs e)
+        private void frmEdit_Load(object sender, EventArgs e)
         {
             try
             {
-                // Fetch the user data from Firebase using the username
-                FirebaseResponse response = await client.GetAsync($"Users/{username}");
-                var user = response.ResultAs<UserRegistration>();
-
-                if (user != null)
+                if (connection.State == ConnectionState.Closed)
                 {
-                    // Display the current role in the ComboBox (or TextBox)
-                    cmbRole.Text = user.Role; // Assuming there's a ComboBox named cmbRole
+                    connection.Open();
                 }
-                else
+
+                string query = "SELECT role FROM users WHERE user_ID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
-                    MessageBox.Show("User not found.");
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Display the current role in the ComboBox
+                            cmbRole.Text = reader["role"].ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.");
+                        }
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error loading user data.");
+                MessageBox.Show("Error loading user data: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
-        // Save the updated role to Firebase when the user clicks 'Save'
-        private async void btnSave_Click(object sender, EventArgs e)
+        // Save the updated role to MySQL when the user clicks 'Save'
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                // Get the new role from the ComboBox
                 string newRole = cmbRole.Text;
 
-                // Fetch the current user data (to retain other fields)
-                FirebaseResponse response = await client.GetAsync($"Users/{username}");
-                var user = response.ResultAs<UserRegistration>();
-
-                if (user != null)
+                if (connection.State == ConnectionState.Closed)
                 {
-                    // Update only the role, leaving other data unchanged
-                    user.Role = newRole;
+                    connection.Open();
+                }
 
-                    // Save the updated user object back to Firebase
-                    SetResponse updateResponse = await client.SetAsync($"Users/{username}", user);
+                string query = "UPDATE users SET role = @role WHERE user_ID = @userID";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@role", newRole);
+                    cmd.Parameters.AddWithValue("@userID", userID);
 
-                    if (updateResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
                         MessageBox.Show("Role updated successfully!");
-                        Users.LoadUsers();
+                        Users.LoadUsers(); // Refresh the users list in frmUsers
                         this.Close(); // Close the form after updating the role
                     }
                     else
@@ -84,14 +104,14 @@ namespace arkoDT
                         MessageBox.Show("Failed to update the role.");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("User not found.");
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error updating the role: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 

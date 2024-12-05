@@ -22,12 +22,17 @@ namespace arkoDT
         string lastName;
         string fullName;
         string status;
+        string currentUserID;
 
-        public frmUsers()
+        public frmUsers(frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
             string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
+            dashboard = frmDashboardInstance;
+
+            currentUserID = dashboard.userID;
+
 
             try
             {
@@ -41,7 +46,7 @@ namespace arkoDT
             LoadUsers();
         }
 
-        public void UpdateUsersCards(string username, string role, string Name, string status)
+        public void UpdateUsersCards(string username, string role, string Name, string status, string userID)
         {
             Panel pnlCards = new Panel();
             Panel pnlHeader = new Panel();
@@ -59,9 +64,19 @@ namespace arkoDT
             Title.Text = username;
             Title.TextAlign = ContentAlignment.MiddleCenter;
 
-            pnlHeader.AutoScroll = true;
-            pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
-            pnlHeader.Size = new Size(310, 41);
+            if (status == "Inactive")
+            {
+                pnlHeader.AutoScroll = true;
+                pnlHeader.BackColor = Color.FromArgb(255, 128, 128);
+                pnlHeader.Size = new Size(310, 41);
+            }
+            else
+            {
+                pnlHeader.AutoScroll = true;
+                pnlHeader.BackColor = Color.FromArgb(192, 255, 192);
+                pnlHeader.Size = new Size(310, 41);
+            }
+            
 
             pbProfile.Image = Image.FromFile(@"C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\Resources\profile.jpg");
             pbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -94,7 +109,8 @@ namespace arkoDT
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
 
-            btnEdit.Click += new EventHandler(btnEdit_Click);
+            btnEdit.Tag = userID;
+            btnEdit.Click += btnEdit_Click;
 
             btnChangeStatus.Location = new System.Drawing.Point(221, 143);
             btnChangeStatus.Size = new System.Drawing.Size(86, 23);
@@ -103,6 +119,13 @@ namespace arkoDT
             btnChangeStatus.UseVisualStyleBackColor = true;
 
             btnChangeStatus.Click += new EventHandler(btnChangeStatus_Click);
+            btnChangeStatus.Tag = userID;
+
+            if (currentUserID == userID)
+            {
+                btnEdit.Visible = false;
+                btnChangeStatus.Visible = false;
+            }
 
             lblStatus.AutoSize = true;
             lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,7 +162,7 @@ namespace arkoDT
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmUC form1 = new frmUC();
+            frmUC form1 = new frmUC(this, dashboard);
             form1.Show();
         }
 
@@ -159,67 +182,123 @@ namespace arkoDT
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            frmEdit form1 = new frmEdit();
-            form1.Show();
+            Button btn = sender as Button;
+            if (btn != null && btn.Tag != null)
+            {
+                string selectedUserID = btn.Tag.ToString();
+
+                // Pass the user_ID to the frmEdit form
+                frmEdit editForm = new frmEdit(selectedUserID, this);
+                editForm.Show();
+            }
         }
 
         private void btnChangeStatus_Click(object sender, EventArgs e)
         {
+            Button btn = sender as Button;
+            if (btn == null || btn.Tag == null)
+                return;
+
+            string selectedUserID = btn.Tag.ToString();
+
             DialogResult result = MessageBox.Show(
-             "Are you sure you want to proceed?",  // Message text
-             "Confirmation",                      // Title
-             MessageBoxButtons.YesNo,             // Buttons
-             MessageBoxIcon.Question              // Icon
-             );
+                "Are you sure you want to proceed?",  // Message text
+                "Confirmation",                      // Title
+                MessageBoxButtons.YesNo,             // Buttons
+                MessageBoxIcon.Question              // Icon
+            );
 
             if (result == DialogResult.Yes)
             {
-                // User clicked Yes
-                MessageBox.Show("You selected Yes.", "Result");
-            }
-            else
-            {
-                // User clicked No
-                MessageBox.Show("You selected No.", "Result");
+                try
+                {
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open(); // Ensure the connection is open
+
+                    // Retrieve the current status of the selected user
+                    string currentStatusQuery = "SELECT status FROM users WHERE user_ID = @userID";
+                    using (MySqlCommand getStatusCmd = new MySqlCommand(currentStatusQuery, connection))
+                    {
+                        getStatusCmd.Parameters.AddWithValue("@userID", selectedUserID);
+                        string currentStatus = getStatusCmd.ExecuteScalar()?.ToString();
+
+                        // Toggle the status
+                        string newStatus = currentStatus == "Active" ? "Inactive" : "Active";
+
+                        // Update the status in the database
+                        string updateStatusQuery = "UPDATE users SET status = @newStatus WHERE user_ID = @userID";
+                        using (MySqlCommand updateStatusCmd = new MySqlCommand(updateStatusQuery, connection))
+                        {
+                            updateStatusCmd.Parameters.AddWithValue("@newStatus", newStatus);
+                            updateStatusCmd.Parameters.AddWithValue("@userID", selectedUserID);
+                            updateStatusCmd.ExecuteNonQuery();
+                        }
+
+                        MessageBox.Show($"User status changed to {newStatus}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while updating the status: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close(); // Ensure the connection is closed
+                }
+
+                // Refresh the user list
+                LoadUsers();
             }
         }
+
 
         public void LoadUsers()
         {
             try
             {
-                // Use a single query to join users and users_info table
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open(); // Ensure the connection is open
+                }
+
                 string query = @"
                                 SELECT u.user_ID, u.username, u.role, u.status, ui.first_Name, ui.last_Name
                                 FROM users u
                                 INNER JOIN users_info ui ON u.user_ID = ui.user_ID";
 
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                flpUsers.Controls.Clear(); // Clear existing cards
-
-                while (reader.Read())
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    userID = reader["user_ID"].ToString();
-                    username = reader["username"].ToString();
-                    role = reader["role"].ToString();
-                    firstName = reader["first_Name"].ToString();
-                    lastName = reader["last_Name"].ToString();
-                    status = reader["status"].ToString();
+                    flpUsers.Controls.Clear(); // Clear existing cards
 
-                    fullName = firstName + " " + lastName;
+                    while (reader.Read())
+                    {
+                        userID = reader["user_ID"].ToString();
+                        username = reader["username"].ToString();
+                        role = reader["role"].ToString();
+                        firstName = reader["first_Name"].ToString();
+                        lastName = reader["last_Name"].ToString();
+                        status = reader["status"].ToString();
 
-                    // Populate each card with the user's data
-                    UpdateUsersCards(username, role, fullName, status);
+                        fullName = $"{firstName} {lastName}";
+
+                        // Populate each card with the user's data
+                        UpdateUsersCards(username, role, fullName, status, userID);
+                    }
                 }
-
-                reader.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to load users: " + ex.Message);
-                RetryLoadUsers(); // Retry loading users in case of failure
+                RetryLoadUsers(); // Trigger retry logic
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close(); // Ensure the connection is closed
+                }
             }
         }
 
@@ -262,7 +341,7 @@ namespace arkoDT
                         infoReader.Close();
 
                         // Populate each card with the user's data
-                        UpdateUsersCards(username, role, fullName, status);
+                        UpdateUsersCards(username, role, fullName, status, userID);
                     }
 
                     reader.Close();

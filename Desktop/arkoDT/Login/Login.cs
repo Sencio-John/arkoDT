@@ -17,7 +17,7 @@ namespace arkoDT
     public partial class frmLogin : Form
     {
         public string UserID { get; set; }
-        public string Name { get; set; }
+        public new string Name { get; set; }
         public string Role { get; set; }
         public string Status { get; set; }
         public string Username { get; set; }  // Added property to store the username
