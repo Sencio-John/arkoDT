@@ -90,14 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="3418544">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="3428272">
       <assemblyIdentity name="arkoDT" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Aa8Qq/20LP4DySWp5sgL5d6lvu5NY3i7KLRrtVJvLQ4=</dsig:DigestValue>
+        <dsig:DigestValue>BmAMzgZZiVnNYa6/NfSlQFOCiHVu0BpmnbGXuc0DDUI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

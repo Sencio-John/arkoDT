@@ -64,7 +64,7 @@ namespace arkoDT
             this.pnlProfile.Controls.Add(this.pbProfile);
             this.pnlProfile.Location = new System.Drawing.Point(58, 169);
             this.pnlProfile.Name = "pnlProfile";
-            this.pnlProfile.Size = new System.Drawing.Size(438, 334);
+            this.pnlProfile.Size = new System.Drawing.Size(438, 357);
             this.pnlProfile.TabIndex = 0;
             // 
             // btnChangePassword
@@ -182,7 +182,7 @@ namespace arkoDT
             // 
             this.txtContactNum.Enabled = false;
             this.txtContactNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactNum.Location = new System.Drawing.Point(143, 251);
+            this.txtContactNum.Location = new System.Drawing.Point(143, 288);
             this.txtContactNum.Name = "txtContactNum";
             this.txtContactNum.Size = new System.Drawing.Size(271, 29);
             this.txtContactNum.TabIndex = 17;
@@ -192,7 +192,7 @@ namespace arkoDT
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label5.Location = new System.Drawing.Point(36, 256);
+            this.label5.Location = new System.Drawing.Point(47, 293);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 24);
             this.label5.TabIndex = 16;
@@ -203,8 +203,9 @@ namespace arkoDT
             this.txtAddress.Enabled = false;
             this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress.Location = new System.Drawing.Point(143, 205);
+            this.txtAddress.Multiline = true;
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(271, 29);
+            this.txtAddress.Size = new System.Drawing.Size(271, 63);
             this.txtAddress.TabIndex = 15;
             // 
             // label3
@@ -212,7 +213,7 @@ namespace arkoDT
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(36, 165);
+            this.label3.Location = new System.Drawing.Point(45, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 24);
             this.label3.TabIndex = 12;
@@ -223,7 +224,7 @@ namespace arkoDT
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label4.Location = new System.Drawing.Point(36, 210);
+            this.label4.Location = new System.Drawing.Point(57, 225);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 24);
             this.label4.TabIndex = 13;
@@ -258,7 +259,7 @@ namespace arkoDT
             this.pnlContacts.Controls.Add(this.label2);
             this.pnlContacts.Location = new System.Drawing.Point(519, 169);
             this.pnlContacts.Name = "pnlContacts";
-            this.pnlContacts.Size = new System.Drawing.Size(456, 334);
+            this.pnlContacts.Size = new System.Drawing.Size(456, 357);
             this.pnlContacts.TabIndex = 1;
             // 
             // dtpBirthdate

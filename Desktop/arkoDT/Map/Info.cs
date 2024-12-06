@@ -24,5 +24,25 @@ namespace arkoDT
             frmMap.UpdateLocationsCards();
             this.Close();
         }
+
+        private void lblPopulation_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAve_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCurrent_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
