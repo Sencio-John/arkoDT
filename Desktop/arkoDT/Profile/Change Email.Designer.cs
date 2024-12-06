@@ -31,9 +31,9 @@ namespace arkoDT.Profile
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChangeEmail));
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtOTP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSendCode = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,13 +51,13 @@ namespace arkoDT.Profile
             this.label1.TabIndex = 0;
             this.label1.Text = "Email";
             // 
-            // textBox1
+            // txtEmail
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(60, 59);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(149, 22);
-            this.textBox1.TabIndex = 1;
+            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(60, 59);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(149, 22);
+            this.txtEmail.TabIndex = 1;
             // 
             // btnBack
             // 
@@ -69,13 +69,13 @@ namespace arkoDT.Profile
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // textBox2
+            // txtOTP
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(60, 96);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(149, 22);
-            this.textBox2.TabIndex = 4;
+            this.txtOTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOTP.Location = new System.Drawing.Point(60, 96);
+            this.txtOTP.Name = "txtOTP";
+            this.txtOTP.Size = new System.Drawing.Size(149, 22);
+            this.txtOTP.TabIndex = 4;
             // 
             // label2
             // 
@@ -96,24 +96,29 @@ namespace arkoDT.Profile
             this.btnSendCode.TabIndex = 5;
             this.btnSendCode.Text = "Send Code";
             this.btnSendCode.UseVisualStyleBackColor = true;
+            this.btnSendCode.Click += new System.EventHandler(this.btnSendCode_Click);
             // 
             // button2
             // 
+            this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(215, 96);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 23);
             this.button2.TabIndex = 6;
             this.button2.Text = "Verify";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(124, 142);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(70, 23);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // frmChangeEmail
             // 
@@ -126,10 +131,10 @@ namespace arkoDT.Profile
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnSendCode);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtOTP);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtEmail);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "frmChangeEmail";
@@ -143,9 +148,9 @@ namespace arkoDT.Profile
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtOTP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSendCode;
         private System.Windows.Forms.Button button2;

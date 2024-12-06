@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using BCrypt.Net;
-using FireSharp.Config;
-using FireSharp.Interfaces;
-using FireSharp.Response;
+using MySql.Data.MySqlClient;
 
 namespace arkoDT
 {
     public partial class frmForgot : Form
     {
-        private IFirebaseClient client;
+        private MySqlConnection connection;
         private string generatedOTP; // Stores the generated OTP for validation
         private string enteredEmail; // Stores the email entered by the user
         private bool isFirstImage = true;
@@ -24,20 +22,21 @@ namespace arkoDT
         public frmForgot()
         {
             InitializeComponent();
-            txtPassword.Visible = true; // Show password field
-            txtConfirm.Visible = true; // Show confirm password field
-            btnChange.Visible = true; // Show change password button
-            lblPassword.Visible = true;
-            lblConfirmPass.Visible = true;
-            btnShowPass.Visible = true;
-            Firebase_Config firebaseConfig = new Firebase_Config();
-            client = firebaseConfig.GetClient();
+            txtPassword.Visible = false; // Show password field
+            txtConfirm.Visible = false; // Show confirm password field
+            btnChange.Visible = false; // Show change password button
+            lblPassword.Visible = false;
+            lblConfirmPass.Visible = false;
+            btnShowPass.Visible = false;
+
+            // Set up MySQL connection
+            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            connection = new MySqlConnection(connectionString);
 
             btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
-            //btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
 
-            if (client == null)
+            if (connection == null)
             {
                 MessageBox.Show("Failed to connect to Database.");
             }
@@ -137,7 +136,6 @@ namespace arkoDT
             }
         }
 
-
         // Handle Verify OTP Button Click
         private void btnVerify_Click(object sender, EventArgs e)
         {
@@ -182,24 +180,44 @@ namespace arkoDT
 
             try
             {
-                // Fetch user from Firebase using the email as key
-                FirebaseResponse response = await client.GetAsync($"Users/");
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+                // Fetch user from MySQL using the email as key
+                string query = "SELECT * FROM users WHERE email = @Email";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Email", enteredEmail);
 
-                var userKey = users.FirstOrDefault(u => u.Value.Email == enteredEmail).Key;
+                connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (string.IsNullOrEmpty(userKey))
+                if (!reader.HasRows)
                 {
                     MessageBox.Show("No user found with the specified email address.");
+                    connection.Close();
                     return;
                 }
 
-                // Update the user's password
-                users[userKey].Password = PasswordHelper.EncryptPassword(newPassword);
+                reader.Read();
+                string userId = reader["user_ID"].ToString(); // Assuming UserID is the primary key
+                connection.Close();
 
-                await client.UpdateAsync($"Users/{userKey}", users[userKey]);
-                MessageBox.Show("Password has been changed successfully.");
-                this.Close();
+                // Update the user's password
+                string updateQuery = "UPDATE users SET password = @Password WHERE user_ID = @UserID";
+                MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
+                updateCmd.Parameters.AddWithValue("@Password", PasswordHelper.EncryptPassword(newPassword)); // Encrypt the password
+                updateCmd.Parameters.AddWithValue("@UserID", userId);
+
+                connection.Open();
+                int rowsAffected = updateCmd.ExecuteNonQuery();
+                connection.Close();
+
+                if (rowsAffected > 0)
+                {
+                    MessageBox.Show("Password has been changed successfully.");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to change the password.");
+                }
             }
             catch (Exception ex)
             {
@@ -207,16 +225,19 @@ namespace arkoDT
             }
         }
 
-        private async Task<bool> CheckIfEmailExists(string email)   
+        private async Task<bool> CheckIfEmailExists(string email)
         {
             try
             {
-                // Get all users from Firebase
-                FirebaseResponse response = await client.GetAsync("Users/");
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
+                string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Email", email);
 
-                // Check if any user has the entered email
-                return users.Any(u => u.Value.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                connection.Open();
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                connection.Close();
+
+                return count > 0;
             }
             catch (Exception ex)
             {

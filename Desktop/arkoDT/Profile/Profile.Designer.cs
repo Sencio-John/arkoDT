@@ -31,10 +31,12 @@ namespace arkoDT
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProfile));
             this.pnlProfile = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnEditDetails = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.btnChangeEmail = new System.Windows.Forms.Button();
             this.btnEditPicture = new System.Windows.Forms.Button();
             this.pbProfile = new System.Windows.Forms.PictureBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnEditDetails = new System.Windows.Forms.Button();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,13 +45,11 @@ namespace arkoDT
             this.txtContactNum = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.txtBirthDate = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnChangeEmail = new System.Windows.Forms.Button();
-            this.btnChangePassword = new System.Windows.Forms.Button();
             this.pnlDetails = new System.Windows.Forms.Label();
             this.pnlContacts = new System.Windows.Forms.Panel();
+            this.dtpBirthdate = new System.Windows.Forms.DateTimePicker();
             this.pnlProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbProfile)).BeginInit();
             this.pnlContacts.SuspendLayout();
@@ -67,25 +67,25 @@ namespace arkoDT
             this.pnlProfile.Size = new System.Drawing.Size(438, 334);
             this.pnlProfile.TabIndex = 0;
             // 
-            // btnSave
+            // btnChangePassword
             // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(324, 13);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(90, 23);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Location = new System.Drawing.Point(109, 245);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(108, 23);
+            this.btnChangePassword.TabIndex = 10;
+            this.btnChangePassword.Text = "Change Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
-            // btnEditDetails
+            // btnChangeEmail
             // 
-            this.btnEditDetails.Location = new System.Drawing.Point(210, 13);
-            this.btnEditDetails.Name = "btnEditDetails";
-            this.btnEditDetails.Size = new System.Drawing.Size(108, 23);
-            this.btnEditDetails.TabIndex = 4;
-            this.btnEditDetails.Text = "Edit Details";
-            this.btnEditDetails.UseVisualStyleBackColor = true;
-            this.btnEditDetails.Click += new System.EventHandler(this.btnEditDetails_Click);
+            this.btnChangeEmail.Location = new System.Drawing.Point(223, 245);
+            this.btnChangeEmail.Name = "btnChangeEmail";
+            this.btnChangeEmail.Size = new System.Drawing.Size(108, 23);
+            this.btnChangeEmail.TabIndex = 9;
+            this.btnChangeEmail.Text = "Change Email";
+            this.btnChangeEmail.UseVisualStyleBackColor = true;
+            this.btnChangeEmail.Click += new System.EventHandler(this.btnChangeEmail_Click);
             // 
             // btnEditPicture
             // 
@@ -106,6 +106,27 @@ namespace arkoDT
             this.pbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbProfile.TabIndex = 0;
             this.pbProfile.TabStop = false;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(324, 13);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(90, 23);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnEditDetails
+            // 
+            this.btnEditDetails.Location = new System.Drawing.Point(210, 13);
+            this.btnEditDetails.Name = "btnEditDetails";
+            this.btnEditDetails.Size = new System.Drawing.Size(108, 23);
+            this.btnEditDetails.TabIndex = 4;
+            this.btnEditDetails.Text = "Edit Details";
+            this.btnEditDetails.UseVisualStyleBackColor = true;
+            this.btnEditDetails.Click += new System.EventHandler(this.btnEditDetails_Click);
             // 
             // txtLastName
             // 
@@ -186,15 +207,6 @@ namespace arkoDT
             this.txtAddress.Size = new System.Drawing.Size(271, 29);
             this.txtAddress.TabIndex = 15;
             // 
-            // txtBirthDate
-            // 
-            this.txtBirthDate.Enabled = false;
-            this.txtBirthDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBirthDate.Location = new System.Drawing.Point(143, 160);
-            this.txtBirthDate.Name = "txtBirthDate";
-            this.txtBirthDate.Size = new System.Drawing.Size(271, 29);
-            this.txtBirthDate.TabIndex = 14;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -217,26 +229,6 @@ namespace arkoDT
             this.label4.TabIndex = 13;
             this.label4.Text = "Address";
             // 
-            // btnChangeEmail
-            // 
-            this.btnChangeEmail.Location = new System.Drawing.Point(223, 245);
-            this.btnChangeEmail.Name = "btnChangeEmail";
-            this.btnChangeEmail.Size = new System.Drawing.Size(108, 23);
-            this.btnChangeEmail.TabIndex = 9;
-            this.btnChangeEmail.Text = "Change Email";
-            this.btnChangeEmail.UseVisualStyleBackColor = true;
-            this.btnChangeEmail.Click += new System.EventHandler(this.btnChangeEmail_Click);
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.Location = new System.Drawing.Point(109, 245);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(108, 23);
-            this.btnChangePassword.TabIndex = 10;
-            this.btnChangePassword.Text = "Change Password";
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
-            // 
             // pnlDetails
             // 
             this.pnlDetails.AutoSize = true;
@@ -251,12 +243,12 @@ namespace arkoDT
             // pnlContacts
             // 
             this.pnlContacts.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnlContacts.Controls.Add(this.dtpBirthdate);
             this.pnlContacts.Controls.Add(this.txtContactNum);
             this.pnlContacts.Controls.Add(this.btnSave);
             this.pnlContacts.Controls.Add(this.label5);
             this.pnlContacts.Controls.Add(this.btnEditDetails);
             this.pnlContacts.Controls.Add(this.txtAddress);
-            this.pnlContacts.Controls.Add(this.txtBirthDate);
             this.pnlContacts.Controls.Add(this.label3);
             this.pnlContacts.Controls.Add(this.label4);
             this.pnlContacts.Controls.Add(this.pnlDetails);
@@ -268,6 +260,16 @@ namespace arkoDT
             this.pnlContacts.Name = "pnlContacts";
             this.pnlContacts.Size = new System.Drawing.Size(456, 334);
             this.pnlContacts.TabIndex = 1;
+            // 
+            // dtpBirthdate
+            // 
+            this.dtpBirthdate.Enabled = false;
+            this.dtpBirthdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpBirthdate.Location = new System.Drawing.Point(143, 160);
+            this.dtpBirthdate.Name = "dtpBirthdate";
+            this.dtpBirthdate.Size = new System.Drawing.Size(271, 29);
+            this.dtpBirthdate.TabIndex = 18;
+            this.dtpBirthdate.Value = new System.DateTime(2024, 12, 5, 0, 0, 0, 0);
             // 
             // frmProfile
             // 
@@ -307,12 +309,12 @@ namespace arkoDT
         private System.Windows.Forms.TextBox txtContactNum;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.TextBox txtBirthDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnChangeEmail;
         private System.Windows.Forms.Button btnChangePassword;
         private System.Windows.Forms.Label pnlDetails;
         private System.Windows.Forms.Panel pnlContacts;
+        private System.Windows.Forms.DateTimePicker dtpBirthdate;
     }
 }
