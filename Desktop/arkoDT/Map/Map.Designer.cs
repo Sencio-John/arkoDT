@@ -102,7 +102,6 @@ namespace arkoDT
             this.flpList.Name = "flpList";
             this.flpList.Size = new System.Drawing.Size(200, 750);
             this.flpList.TabIndex = 13;
-            this.flpList.Visible = false;
             // 
             // btnCloseFLP
             // 

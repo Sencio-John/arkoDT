@@ -6,6 +6,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using MySql.Data.MySqlClient;
 
 namespace arkoDT
 {
@@ -15,6 +16,8 @@ namespace arkoDT
         private GMapOverlay markersOverlay; // Overlay to hold markers
         private bool isSidebarVisible = false; // Track sidebar visibility
         private frmInfo infoForm; // Declare an instance variable for frmInfo
+        private MySqlConnection connection;
+        private Panel _currentSelectedPanel = null;
 
         public frmMap()
         {
@@ -27,6 +30,18 @@ namespace arkoDT
             btnPinLoc.Click += btnPinLoc_Click; // Button click event
 
             map.OnMarkerClick += Map_OnMarkerClick; // Subscribe to marker click event
+
+            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            connection = new MySqlConnection(connectionString);
+
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to connect to Database.");
+            }
         }
 
         private void InitializeMap()
@@ -63,6 +78,7 @@ namespace arkoDT
             {
                 MessageBox.Show($"Error loading map: {ex.Message}");
             }
+            UpdateLocationsCards();
         }
 
         private void Watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -85,9 +101,9 @@ namespace arkoDT
             // Get the current location from the watcher
             if (!watcher.Position.Location.IsUnknown)
             {
-                double latitude = watcher.Position.Location.Latitude;
-                double longitude = watcher.Position.Location.Longitude;
-                AddMarker(latitude, longitude); // Add marker at current location
+                //double latitude = watcher.Position.Location.Latitude;
+                //double longitude = watcher.Position.Location.Longitude;
+                //AddMarker(latitude, longitude); // Add marker at current location
 
                 // Check if frmInfo is already opened
                 if (infoForm == null || infoForm.IsDisposed || !infoForm.Visible)
@@ -106,7 +122,7 @@ namespace arkoDT
             }
         }
 
-        private void AddMarker(double latitude, double longitude)
+        public void AddMarker(double latitude, double longitude, string pinnedID, string type, string residentName, string description)
         {
             var markerPosition = new PointLatLng(latitude, longitude);
             var marker = new GMarkerGoogle(markerPosition, GMarkerGoogleType.red_dot); // Use GMarkerGoogle
@@ -115,84 +131,109 @@ namespace arkoDT
             map.Refresh(); // Refresh the map to display the marker
 
             // Store additional info in marker's Tag
-            marker.Tag = new { Latitude = latitude, Longitude = longitude };
+            marker.Tag = new { PinnedID = pinnedID, Type = type, ResidentName = residentName, Description = description };
         }
 
         private void Map_OnMarkerClick(GMapMarker marker, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) // Check if left mouse button was clicked
             {
-                ShowSidebar(marker.Tag); // Show sidebar with marker info
+                // Retrieve the data stored in the marker's Tag
+                var markerData = (dynamic)marker.Tag;
+                string pinnedID = markerData.PinnedID;
+                string type = markerData.Type;
+                string residentName = markerData.ResidentName;
+                string description = markerData.Description;
+
+                // Show the sidebar with the marker's details
+                ShowSidebar(type, residentName, description);
+
+                // Show the FlipList
+                flpList.Visible = true;
+
+                // Highlight the card in the FlipList that matches the clicked marker
+                HighlightCard(pinnedID);
             }
         }
 
-        private void ShowSidebar(object markerTag)
+        private void HighlightCard(string pinnedID)
         {
+            foreach (Control control in flpList.Controls)
+            {
+                if (control is Panel pnlCard && pnlCard.Tag != null)
+                {
+                    var cardData = (dynamic)pnlCard.Tag;
+                    if (cardData.PinnedID == pinnedID)
+                    {
+                        // Highlight the card by changing its background color or other visual cues
+                        pnlCard.BackColor = Color.Yellow; // Change background color as an example
+                    }
+                    else
+                    {
+                        pnlCard.BackColor = SystemColors.ControlLightLight; // Reset background color for non-matching cards
+                    }
+                }
+            }
+        }
+
+        private void ShowSidebar(string type, string residentName, string description)
+        {
+            pnlSide.Visible = true;
             Label lblType = new Label();
             Label lblFamilyName = new Label();
-            Label lblWaterLevel = new Label();
+            Label lblDescription = new Label();
             Button btnClose = new Button();
             Panel pnlType = new Panel();
             Panel pnlFamilyName = new Panel();
+            Panel pnlDescription = new Panel(); // New panel for description
             Panel pnlWaterLevel = new Panel();
 
-
-            btnClose.Location = new System.Drawing.Point(122, 3);
-            btnClose.Size = new System.Drawing.Size(75, 23);
-            btnClose.TabIndex = 3;
+            btnClose.Location = new Point(122, 3);
+            btnClose.Size = new Size(75, 23);
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
 
-            // Ensure the event is hooked up properly to btnClose
             btnClose.Click += new EventHandler(btnClose_Click);
 
-            lblType.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblType.Location = new System.Drawing.Point(0, 0);
-            lblType.Size = new System.Drawing.Size(200, 43);
-            lblType.TabIndex = 0;
-            lblType.Text = "Type: Danger";
-            lblType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // Set the values of the labels based on the passed parameters
+            lblType.Dock = DockStyle.Fill;
+            lblType.Text = type;
+            lblType.TextAlign = ContentAlignment.MiddleCenter;
 
-            pnlType.Location = new System.Drawing.Point(0, 84);
-            pnlType.Size = new System.Drawing.Size(200, 43);
-            pnlType.TabIndex = 0;
-
-            lblFamilyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblFamilyName.Location = new System.Drawing.Point(0, 0);
-            lblFamilyName.Size = new System.Drawing.Size(200, 43);
-            lblFamilyName.TabIndex = 0;
-            lblFamilyName.Text = "Family Name: Sencio";
-            lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            pnlFamilyName.Location = new System.Drawing.Point(0, 171);
-            pnlFamilyName.Size = new System.Drawing.Size(200, 43);
-            pnlFamilyName.TabIndex = 1;
-
-            lblWaterLevel.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblWaterLevel.Location = new System.Drawing.Point(0, 0);
-            lblWaterLevel.Size = new System.Drawing.Size(200, 43);
-            lblWaterLevel.TabIndex = 0;
-            lblWaterLevel.Text = "Water Level: 2m";
-            lblWaterLevel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            pnlWaterLevel.Location = new System.Drawing.Point(0, 263);
-            pnlWaterLevel.Size = new System.Drawing.Size(200, 43);
-            pnlWaterLevel.TabIndex = 1;
-
-            pnlSide.Controls.Add(btnClose);
+            pnlType.Location = new Point(0, 84);
+            pnlType.Size = new Size(200, 43);
             pnlType.Controls.Add(lblType);
-            pnlSide.Controls.Add(pnlType);
+
+            lblFamilyName.Dock = DockStyle.Fill;
+            lblFamilyName.Text = residentName;
+            lblFamilyName.TextAlign = ContentAlignment.MiddleCenter;
+
+            pnlFamilyName.Location = new Point(0, 171);
+            pnlFamilyName.Size = new Size(200, 43);
             pnlFamilyName.Controls.Add(lblFamilyName);
+
+            lblDescription.Dock = DockStyle.Fill;
+            lblDescription.Text = "Description: " + description; // Set description text
+            lblDescription.TextAlign = ContentAlignment.MiddleCenter;
+
+            pnlDescription.Location = new Point(0, 257); // Adjust the position of the new panel
+            pnlDescription.Size = new Size(200, 43);
+            pnlDescription.Controls.Add(lblDescription);
+
+            // Adding everything to the sidebar panel
+            pnlSide.Controls.Clear();
+            pnlSide.Controls.Add(btnClose);
+            pnlSide.Controls.Add(pnlType);
             pnlSide.Controls.Add(pnlFamilyName);
-            pnlWaterLevel.Controls.Add(lblWaterLevel);
+            pnlSide.Controls.Add(pnlDescription); // Add description panel to the sidebar
             pnlSide.Controls.Add(pnlWaterLevel);
 
-            // Toggle pnlInfo visibility
-            pnlSide.Visible = !pnlSide.Visible; // Show or hide the panel
-            if (pnlSide.Visible)
-            {
-                pnlSide.BringToFront(); // Bring panel to front when visible
-            }
+            //pnlSide.Visible = !pnlSide.Visible; // Toggle visibility
+            //if (pnlSide.Visible)
+            //{
+            //    pnlSide.BringToFront(); // Bring panel to front when visible
+            //}
+            pnlSide.BringToFront(); // Bring panel to front when visible
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -218,71 +259,141 @@ namespace arkoDT
 
         public void UpdateLocationsCards()
         {
-            Panel pnlCards = new Panel();
-            Panel pnlHeader = new Panel();
-            Label title = new Label();
-            Label lblDirection = new Label();
-            Label lblFamilyName = new Label();
+            try
+            {
+                // Ensure the connection is open before executing the query
+                if (connection.State != System.Data.ConnectionState.Open)
+                {
+                    connection.Open();
+                }
 
-            title.Dock = System.Windows.Forms.DockStyle.Fill;
-            title.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title.Location = new System.Drawing.Point(0, 0);
-            title.Size = new System.Drawing.Size(179, 27);
-            title.TabIndex = 1;
-            title.Text = "For Relief";
-            title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                flpList.Controls.Clear();
 
-            pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(179, 27);
-            pnlHeader.TabIndex = 0;
+                // Query to retrieve data from the database for both active and inactive records
+                string query = "SELECT pinned_ID, type, resident_Name, latitude, longitude, status, description FROM pinned";
 
-            lblFamilyName.Location = new System.Drawing.Point(104, 30);
-            lblFamilyName.Size = new System.Drawing.Size(72, 60);
-            lblFamilyName.TabIndex = 2;
-            lblFamilyName.Text = "Sencio";
-            lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
-            lblDirection.Location = new System.Drawing.Point(3, 30);
-            lblDirection.Size = new System.Drawing.Size(72, 60);
-            lblDirection.TabIndex = 1;
-            lblDirection.Text = "Family Name";
-            lblDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                    while (reader.Read())
+                    {
+                        // Retrieve data from database
+                        string pinnedID = reader["pinned_ID"].ToString();
+                        string type = reader["type"].ToString();
+                        string residentName = reader["resident_Name"].ToString();
+                        double latitude = Convert.ToDouble(reader["latitude"]);
+                        double longitude = Convert.ToDouble(reader["longitude"]);
+                        string status = reader["status"].ToString();
+                        string description = reader["description"].ToString();
 
-            pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCards.Location = new System.Drawing.Point(3, 32);
-            pnlCards.Size = new System.Drawing.Size(179, 100);
-            pnlCards.TabIndex = 1;
+                        // Create and configure the new card panel
+                        Panel pnlCards = new Panel();
+                        Panel pnlHeader = new Panel();
+                        Label title = new Label();
+                        Label lblDirection = new Label();
+                        Label lblFamilyName = new Label();
 
-            // Ensure the event is hooked up properly to btnRemove
-            pnlCards.Click += new EventHandler(pnlCards_Click);
+                        title.Dock = System.Windows.Forms.DockStyle.Fill;
+                        title.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+                        title.Location = new System.Drawing.Point(0, 0);
+                        title.Size = new System.Drawing.Size(179, 27);
+                        title.TabIndex = 1;
+                        title.Text = type;
+                        title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-            flpList.Controls.Add(pnlCards);
-            pnlCards.Controls.Add(lblFamilyName);
-            pnlCards.Controls.Add(lblDirection);
-            pnlCards.Controls.Add(pnlHeader);
-            pnlHeader.Controls.Add(title);
+                        pnlHeader.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
+                        pnlHeader.Location = new System.Drawing.Point(0, 0);
+                        pnlHeader.Size = new System.Drawing.Size(179, 27);
+                        pnlHeader.TabIndex = 0;
+
+                        lblFamilyName.Location = new System.Drawing.Point(104, 30);
+                        lblFamilyName.Size = new System.Drawing.Size(72, 60);
+                        lblFamilyName.TabIndex = 2;
+                        lblFamilyName.Text = residentName;
+                        lblFamilyName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+                        lblDirection.Location = new System.Drawing.Point(3, 30);
+                        lblDirection.Size = new System.Drawing.Size(72, 60);
+                        lblDirection.TabIndex = 1;
+                        lblDirection.Text = "Resident Name";
+                        lblDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+                        pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
+                        pnlCards.Location = new System.Drawing.Point(3, 32);
+                        pnlCards.Size = new System.Drawing.Size(179, 100);
+                        pnlCards.TabIndex = 1;
+
+                        pnlCards.Tag = new { PinnedID = pinnedID, Type = type, ResidentName = residentName, Description = description };
+
+                        pnlCards.Click += (sender, e) => pnlCards_Click(sender, e, type, residentName, description);
+
+                        flpList.Controls.Add(pnlCards);
+                        pnlCards.Controls.Add(lblFamilyName);
+                        pnlCards.Controls.Add(lblDirection);
+                        pnlCards.Controls.Add(pnlHeader);
+                        pnlHeader.Controls.Add(title);
+
+                        // Add marker to map and pass necessary data for later identification
+                        AddMarker(latitude, longitude, pinnedID, type, residentName, description);
+                    }
+
+                    if (!reader.HasRows)
+                    {
+                        MessageBox.Show("No data returned from database.");
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading location cards: {ex.Message}");
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close(); // Close the connection after use
+                }
+            }
         }
 
-        private void pnlCards_Click(object sender, EventArgs e)
+        private void pnlCards_Click(object sender, EventArgs e, string type, string residentName, string description)
         {
-            DialogResult result = MessageBox.Show(
-             "Are you sure you want to proceed?",  // Message text
-             "Confirmation",                      // Title
-             MessageBoxButtons.YesNo,             // Buttons
-             MessageBoxIcon.Question              // Icon
-             );
+            Panel clickedPanel = sender as Panel;
 
-            if (result == DialogResult.Yes)
+            // Check if the clicked panel is the same as the previously selected panel
+            if (_currentSelectedPanel == clickedPanel)
             {
-                // User clicked Yes
-                MessageBox.Show("You selected Yes.", "Result");
+                // Close the sidebar if the same panel is clicked again
+                CloseSidebar();
+                _currentSelectedPanel = null; // Reset the current selected panel
+                return;
             }
-            else
+
+            // Reset background color for all panels in the flpList
+            foreach (Control control in flpList.Controls)
             {
-                // User clicked No
-                MessageBox.Show("You selected No.", "Result");
+                if (control is Panel pnlCard)
+                {
+                    pnlCard.BackColor = System.Drawing.SystemColors.ControlLightLight; // Reset to default color
+                }
             }
+
+            // Highlight the clicked panel
+            clickedPanel.BackColor = Color.Yellow; // Change to highlight color
+
+            // Show or update the sidebar with the new details
+            ShowSidebar(type, residentName, description);
+
+            // Set the clicked panel as the current selected panel
+            _currentSelectedPanel = clickedPanel;
+        }
+
+        private void CloseSidebar()
+        {
+            pnlSide.Visible = false;
         }
     }
 }
