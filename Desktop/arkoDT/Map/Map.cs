@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Device.Location;
 using System.Drawing;
 using System.Windows.Forms;
@@ -31,7 +32,7 @@ namespace arkoDT
 
             map.OnMarkerClick += Map_OnMarkerClick; // Subscribe to marker click event
 
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             try
@@ -40,7 +41,8 @@ namespace arkoDT
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to connect to Database.");
+                MessageBox.Show("Failed to connect to Database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -76,7 +78,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading map: {ex.Message}");
+                MessageBox.Show($"Error loading map: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             UpdateLocationsCards();
         }
@@ -118,7 +121,8 @@ namespace arkoDT
             }
             else
             {
-                MessageBox.Show("Current location is unknown.");
+                MessageBox.Show("Current location is unknown.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -145,11 +149,12 @@ namespace arkoDT
                 string residentName = markerData.ResidentName;
                 string description = markerData.Description;
 
+                // Center the map on the marker's position
+                map.Position = marker.Position;
+                map.Zoom = 18; // Optionally adjust the zoom level
+
                 // Show the sidebar with the marker's details
                 ShowSidebar(type, residentName, description);
-
-                // Show the FlipList
-                flpList.Visible = true;
 
                 // Highlight the card in the FlipList that matches the clicked marker
                 HighlightCard(pinnedID);
@@ -166,7 +171,7 @@ namespace arkoDT
                     if (cardData.PinnedID == pinnedID)
                     {
                         // Highlight the card by changing its background color or other visual cues
-                        pnlCard.BackColor = Color.Yellow; // Change background color as an example
+                        pnlCard.BackColor = System.Drawing.Color.FromArgb(255, 255, 192); // Change background color as an example
                     }
                     else
                     {
@@ -188,7 +193,7 @@ namespace arkoDT
             Panel pnlDescription = new Panel(); // New panel for description
             Panel pnlWaterLevel = new Panel();
 
-            btnClose.Location = new Point(122, 3);
+            btnClose.Location = new Point(105, 3);
             btnClose.Size = new Size(75, 23);
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -200,7 +205,7 @@ namespace arkoDT
             lblType.Text = type;
             lblType.TextAlign = ContentAlignment.MiddleCenter;
 
-            pnlType.Location = new Point(0, 84);
+            pnlType.Location = new Point(-5, 50);
             pnlType.Size = new Size(200, 43);
             pnlType.Controls.Add(lblType);
 
@@ -208,7 +213,7 @@ namespace arkoDT
             lblFamilyName.Text = residentName;
             lblFamilyName.TextAlign = ContentAlignment.MiddleCenter;
 
-            pnlFamilyName.Location = new Point(0, 171);
+            pnlFamilyName.Location = new Point(-5, 130);
             pnlFamilyName.Size = new Size(200, 43);
             pnlFamilyName.Controls.Add(lblFamilyName);
 
@@ -216,7 +221,7 @@ namespace arkoDT
             lblDescription.Text = "Description: " + description; // Set description text
             lblDescription.TextAlign = ContentAlignment.MiddleCenter;
 
-            pnlDescription.Location = new Point(0, 257); // Adjust the position of the new panel
+            pnlDescription.Location = new Point(-10, 220); // Adjust the position of the new panel
             pnlDescription.Size = new Size(200, 43);
             pnlDescription.Controls.Add(lblDescription);
 
@@ -293,6 +298,7 @@ namespace arkoDT
                         Label title = new Label();
                         Label lblDirection = new Label();
                         Label lblFamilyName = new Label();
+                        Button btnMarkAsDone = new Button();
 
                         title.Dock = System.Windows.Forms.DockStyle.Fill;
                         title.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
@@ -302,10 +308,22 @@ namespace arkoDT
                         title.Text = type;
                         title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
-                        pnlHeader.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
-                        pnlHeader.Location = new System.Drawing.Point(0, 0);
-                        pnlHeader.Size = new System.Drawing.Size(179, 27);
-                        pnlHeader.TabIndex = 0;
+                        if (type == "Relief")
+                        {
+                            pnlHeader.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
+                            pnlHeader.Location = new System.Drawing.Point(0, 0);
+                            pnlHeader.Size = new System.Drawing.Size(179, 27);
+                            pnlHeader.TabIndex = 0;
+                        }
+                        else
+                        {
+                            pnlHeader.BackColor = System.Drawing.Color.FromArgb(255, 128, 128);
+                            pnlHeader.Location = new System.Drawing.Point(0, 0);
+                            pnlHeader.Size = new System.Drawing.Size(179, 27);
+                            pnlHeader.TabIndex = 0;
+                        }
+
+                        
 
                         lblFamilyName.Location = new System.Drawing.Point(104, 30);
                         lblFamilyName.Size = new System.Drawing.Size(72, 60);
@@ -319,16 +337,25 @@ namespace arkoDT
                         lblDirection.Text = "Resident Name";
                         lblDirection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
+                        btnMarkAsDone.Location = new System.Drawing.Point(52, 91);
+                        btnMarkAsDone.Name = "btnMarkAsDone";
+                        btnMarkAsDone.Size = new System.Drawing.Size(83, 23);
+                        btnMarkAsDone.TabIndex = 0;
+                        btnMarkAsDone.Text = "Mark as Done";
+                        btnMarkAsDone.UseVisualStyleBackColor = true;
+
                         pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
                         pnlCards.Location = new System.Drawing.Point(3, 32);
-                        pnlCards.Size = new System.Drawing.Size(179, 100);
+                        pnlCards.Size = new System.Drawing.Size(179, 117);
                         pnlCards.TabIndex = 1;
+                        pnlCards.Margin = new Padding(0, 0, 0, 20);
 
                         pnlCards.Tag = new { PinnedID = pinnedID, Type = type, ResidentName = residentName, Description = description };
 
                         pnlCards.Click += (sender, e) => pnlCards_Click(sender, e, type, residentName, description);
 
                         flpList.Controls.Add(pnlCards);
+                        pnlCards.Controls.Add(btnMarkAsDone);
                         pnlCards.Controls.Add(lblFamilyName);
                         pnlCards.Controls.Add(lblDirection);
                         pnlCards.Controls.Add(pnlHeader);
@@ -340,7 +367,8 @@ namespace arkoDT
 
                     if (!reader.HasRows)
                     {
-                        MessageBox.Show("No data returned from database.");
+                        MessageBox.Show("No data returned from database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
 
                     reader.Close();
@@ -382,7 +410,25 @@ namespace arkoDT
             }
 
             // Highlight the clicked panel
-            clickedPanel.BackColor = Color.Yellow; // Change to highlight color
+            clickedPanel.BackColor = System.Drawing.Color.FromArgb(255, 255, 192); // Change to highlight color
+
+            // Find the corresponding marker for the clicked panel using its PinnedID
+            var cardData = (dynamic)clickedPanel.Tag;
+            string pinnedID = cardData.PinnedID;
+
+            var matchingMarker = markersOverlay.Markers
+                .FirstOrDefault(marker =>
+                {
+                    var markerData = (dynamic)marker.Tag;
+                    return markerData.PinnedID == pinnedID;
+                });
+
+            if (matchingMarker != null)
+            {
+                // Center the map on the marker's position
+                map.Position = matchingMarker.Position;
+                map.Zoom = 18; // Optionally adjust the zoom level
+            }
 
             // Show or update the sidebar with the new details
             ShowSidebar(type, residentName, description);

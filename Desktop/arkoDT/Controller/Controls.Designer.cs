@@ -38,8 +38,7 @@ namespace arkoDT
             this.lblObjOut = new System.Windows.Forms.Label();
             this.lblWaterLevel = new System.Windows.Forms.Label();
             this.lblWaterlvlOut = new System.Windows.Forms.Label();
-            this.btnPinnedLoc = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnMap = new System.Windows.Forms.Button();
             this.btnW = new System.Windows.Forms.Button();
             this.btnS = new System.Windows.Forms.Button();
             this.btnD = new System.Windows.Forms.Button();
@@ -54,6 +53,7 @@ namespace arkoDT
             this.label1 = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnFlash = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,31 +153,17 @@ namespace arkoDT
             this.lblWaterlvlOut.TabIndex = 7;
             this.lblWaterlvlOut.Text = "label2";
             // 
-            // btnPinnedLoc
+            // btnMap
             // 
-            this.btnPinnedLoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPinnedLoc.Location = new System.Drawing.Point(1803, 21);
-            this.btnPinnedLoc.Margin = new System.Windows.Forms.Padding(2);
-            this.btnPinnedLoc.Name = "btnPinnedLoc";
-            this.btnPinnedLoc.Size = new System.Drawing.Size(93, 21);
-            this.btnPinnedLoc.TabIndex = 9;
-            this.btnPinnedLoc.Text = "Pinned Locations";
-            this.btnPinnedLoc.UseVisualStyleBackColor = true;
-            this.btnPinnedLoc.Click += new System.EventHandler(this.btnPinnedLoc_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1905, 1045);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.btnMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMap.Location = new System.Drawing.Point(1803, 21);
+            this.btnMap.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMap.Name = "btnMap";
+            this.btnMap.Size = new System.Drawing.Size(93, 21);
+            this.btnMap.TabIndex = 9;
+            this.btnMap.Text = "Map";
+            this.btnMap.UseVisualStyleBackColor = true;
+            this.btnMap.Click += new System.EventHandler(this.btnPinnedLoc_Click);
             // 
             // btnW
             // 
@@ -336,6 +322,20 @@ namespace arkoDT
             this.btnFlash.TabIndex = 25;
             this.btnFlash.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1905, 1045);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,7 +364,7 @@ namespace arkoDT
             this.Controls.Add(this.btnD);
             this.Controls.Add(this.btnS);
             this.Controls.Add(this.btnW);
-            this.Controls.Add(this.btnPinnedLoc);
+            this.Controls.Add(this.btnMap);
             this.Controls.Add(this.pictureBox1);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -392,8 +392,7 @@ namespace arkoDT
         private System.Windows.Forms.Label lblObjOut;
         private System.Windows.Forms.Label lblWaterLevel;
         private System.Windows.Forms.Label lblWaterlvlOut;
-        private System.Windows.Forms.Button btnPinnedLoc;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnMap;
         private System.Windows.Forms.Button btnW;
         private System.Windows.Forms.Button btnS;
         private System.Windows.Forms.Button btnD;
@@ -408,6 +407,7 @@ namespace arkoDT
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnFlash;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

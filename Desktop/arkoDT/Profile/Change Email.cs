@@ -25,7 +25,7 @@ namespace arkoDT.Profile
             InitializeComponent();
             profile = frmProfileInstance;
             userID = profile.userID;
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             if(connection.State == ConnectionState.Open)
@@ -70,14 +70,16 @@ namespace arkoDT.Profile
                 {
                     // Commit the transaction if the query is successful
                     transaction.Commit();
-                    MessageBox.Show("Email has been changed successfully.");
+                    MessageBox.Show("Email has been changed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     this.Close();
                 }
                 else
                 {
                     // Rollback if no rows were affected
                     transaction.Rollback();
-                    MessageBox.Show("Failed to change the Email.");
+                    MessageBox.Show("Failed to change the Email.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
             catch (Exception ex)
@@ -103,13 +105,15 @@ namespace arkoDT.Profile
         {
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Please enter an email address.");
+                MessageBox.Show("Please enter an email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
             if (!IsValidEmail(txtEmail.Text))
             {
-                MessageBox.Show("Please enter a valid email address.");
+                MessageBox.Show("Please enter a valid email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -118,7 +122,8 @@ namespace arkoDT.Profile
 
             if (emailExists)
             {
-                MessageBox.Show("The entered email is an existing email in the system.");
+                MessageBox.Show("The entered email is an existing email in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -128,13 +133,15 @@ namespace arkoDT.Profile
 
             if (emailSent)
             {
-                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.");
-                button2.Enabled = true;
+                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                btnVerify.Enabled = true;
 
             }
             else
             {
-                MessageBox.Show("Failed to send OTP. Please check the email address and try again.");
+                MessageBox.Show("Failed to send OTP. Please check the email address and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -142,18 +149,21 @@ namespace arkoDT.Profile
         {
             if (string.IsNullOrWhiteSpace(txtOTP.Text))
             {
-                MessageBox.Show("Please enter the OTP sent to your email.");
+                MessageBox.Show("Please enter the OTP sent to your email.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return;
             }
 
             if (txtOTP.Text == generatedOTP)
             {
-                MessageBox.Show("OTP verified successfully.");
+                MessageBox.Show("OTP verified successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 btnSave.Enabled = true;
             }
             else
             {
-                MessageBox.Show("Invalid OTP. Please try again.");
+                MessageBox.Show("Invalid OTP. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -223,7 +233,8 @@ namespace arkoDT.Profile
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error checking email: {ex.Message}");
+                MessageBox.Show($"Error checking email: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return false;  // Consider the email as not found in case of an error
             }
         }

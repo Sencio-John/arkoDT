@@ -30,7 +30,7 @@ namespace arkoDT
             btnShowPass.Visible = false;
 
             // Set up MySQL connection
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
@@ -38,7 +38,7 @@ namespace arkoDT
 
             if (connection == null)
             {
-                MessageBox.Show("Failed to connect to Database.");
+                MessageBox.Show("Failed to connect to Database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -99,13 +99,15 @@ namespace arkoDT
         {
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Please enter an email address.");
+                MessageBox.Show("Please enter an email address.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return;
             }
 
             if (!IsValidEmail(txtEmail.Text))
             {
-                MessageBox.Show("Please enter a valid email address.");
+                MessageBox.Show("Please enter a valid email address.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return;
             }
 
@@ -116,7 +118,8 @@ namespace arkoDT
 
             if (!emailExists)
             {
-                MessageBox.Show("The entered email does not exist in the system.");
+                MessageBox.Show("The entered email does not exist in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -126,13 +129,15 @@ namespace arkoDT
 
             if (emailSent)
             {
-                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.");
+                MessageBox.Show("OTP has been sent to the specified email address. Please check your inbox.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 btnVerify.Enabled = true;
 
             }
             else
             {
-                MessageBox.Show("Failed to send OTP. Please check the email address and try again.");
+                MessageBox.Show("Failed to send OTP. Please check the email address and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -141,13 +146,15 @@ namespace arkoDT
         {
             if (string.IsNullOrWhiteSpace(txtOTP.Text))
             {
-                MessageBox.Show("Please enter the OTP sent to your email.");
+                MessageBox.Show("Please enter the OTP sent to your email.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return;
             }
 
             if (txtOTP.Text == generatedOTP)
             {
-                MessageBox.Show("OTP verified successfully.");
+                MessageBox.Show("OTP verified successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 txtPassword.Visible = true; // Show password field
                 txtConfirm.Visible = true; // Show confirm password field
                 btnChange.Visible = true; // Show change password button
@@ -157,7 +164,8 @@ namespace arkoDT
             }
             else
             {
-                MessageBox.Show("Invalid OTP. Please try again.");
+                MessageBox.Show("Invalid OTP. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -166,13 +174,14 @@ namespace arkoDT
         {
             if (string.IsNullOrWhiteSpace(txtPassword.Text) || string.IsNullOrWhiteSpace(txtConfirm.Text))
             {
-                MessageBox.Show("Password fields cannot be empty.");
+                MessageBox.Show("Password fields cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
             if (txtPassword.Text != txtConfirm.Text)
             {
-                MessageBox.Show("Passwords do not match. Please try again.");
+                MessageBox.Show("Passwords do not match. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -190,7 +199,8 @@ namespace arkoDT
 
                 if (!reader.HasRows)
                 {
-                    MessageBox.Show("No user found with the specified email address.");
+                    MessageBox.Show("No user found with the specified email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     connection.Close();
                     return;
                 }
@@ -211,17 +221,20 @@ namespace arkoDT
 
                 if (rowsAffected > 0)
                 {
-                    MessageBox.Show("Password has been changed successfully.");
+                    MessageBox.Show("Password has been changed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Failed to change the password.");
+                    MessageBox.Show("Failed to change the password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -241,7 +254,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error checking email: {ex.Message}");
+                MessageBox.Show($"Error checking email: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return false;  // Consider the email as not found in case of an error
             }
         }

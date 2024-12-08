@@ -24,7 +24,7 @@ namespace arkoDT.Profile
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
             profile = frmProfileInstance;
             userID = profile.userID;
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
             try
             {
@@ -32,7 +32,8 @@ namespace arkoDT.Profile
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Failed to connect to Database: " + ex.Message);
+                MessageBox.Show("Failed to connect to Database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 

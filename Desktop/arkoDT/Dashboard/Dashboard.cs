@@ -25,7 +25,7 @@ namespace arkoDT
             userID = loginForm.UserID;
 
             // Set up MySQL connection
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             // Check connection to the database
@@ -35,7 +35,7 @@ namespace arkoDT
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to connect to Database.");
+                MessageBox.Show("Failed to connect to Database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -158,7 +158,7 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to count users: " + ex.Message);
+                MessageBox.Show("Failed to count users: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RetryFetchUserCount(); // Trigger retry logic
             }
             finally

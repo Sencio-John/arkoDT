@@ -27,7 +27,7 @@ namespace arkoDT
         private const int LockoutDurationMinutes = 3;         // Lockout duration in minutes
         private Timer lockoutTimer;
         private bool isFirstImage = true;
-        private readonly string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+        string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
         public frmLogin()
         {
             InitializeComponent();
@@ -129,7 +129,8 @@ namespace arkoDT
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username and password cannot be empty.");
+                MessageBox.Show("Username and password cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -144,7 +145,8 @@ namespace arkoDT
             {
                 if (userInfo.Status == "Inactive")
                 {
-                    MessageBox.Show("Account is inactive. Please contact the administrator.");
+                    MessageBox.Show("Account is inactive. Please contact the administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
@@ -160,14 +162,14 @@ namespace arkoDT
                 var name = await Task.Run(() => GetUserFullName(userInfo.UserID));
                 Name = name;
 
-                MessageBox.Show("Login successful!");
                 this.Hide();
                 new frmDashboard(this).Show();
             }
             else
             {
                 IncrementFailedAttempts();
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -221,7 +223,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Login failed: {ex.Message}");
+                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
 
             return null;
@@ -260,7 +263,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to fetch user info: {ex.Message}");
+                MessageBox.Show($"Failed to fetch user info: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             finally
             {

@@ -23,7 +23,7 @@ namespace arkoDT
             InitializeComponent();
             dashboard = frmDashboardInstance;
             userID = dashboard.userID;
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             try
@@ -170,6 +170,12 @@ namespace arkoDT
                     connection.Open(); // Ensure the connection is open
                 }
 
+                if (!txtContactNum.Text.StartsWith("09"))
+                {
+                    MessageBox.Show("Phone number must start with 09.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Begin a transaction
                 transaction = connection.BeginTransaction();
 
@@ -195,7 +201,8 @@ namespace arkoDT
                 // Commit the transaction
                 transaction.Commit();
 
-                MessageBox.Show("User information updated successfully!");
+                MessageBox.Show("User information updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
                 // Additional actions
                 Disabled();

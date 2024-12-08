@@ -36,7 +36,7 @@ namespace arkoDT.Profile
             this.txtOTP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSendCode = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -98,16 +98,16 @@ namespace arkoDT.Profile
             this.btnSendCode.UseVisualStyleBackColor = true;
             this.btnSendCode.Click += new System.EventHandler(this.btnSendCode_Click);
             // 
-            // button2
+            // btnVerify
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(215, 96);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Verify";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnVerify.Enabled = false;
+            this.btnVerify.Location = new System.Drawing.Point(215, 96);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(70, 23);
+            this.btnVerify.TabIndex = 6;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnSave
             // 
@@ -129,7 +129,7 @@ namespace arkoDT.Profile
             this.ClientSize = new System.Drawing.Size(297, 177);
             this.ControlBox = false;
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnVerify);
             this.Controls.Add(this.btnSendCode);
             this.Controls.Add(this.txtOTP);
             this.Controls.Add(this.label2);
@@ -153,7 +153,7 @@ namespace arkoDT.Profile
         private System.Windows.Forms.TextBox txtOTP;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSendCode;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnVerify;
         private System.Windows.Forms.Button btnSave;
     }
 }

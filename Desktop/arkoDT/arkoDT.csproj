@@ -120,6 +120,9 @@
     <Reference Include="Google.Protobuf, Version=3.26.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.26.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="InTheHand.Net.Personal, Version=3.5.605.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL">
+      <HintPath>..\packages\32feet.NET.3.5.0.0\lib\net\InTheHand.Net.Personal.dll</HintPath>
+    </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
@@ -240,6 +243,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bluetooth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bluetooth.Designer.cs">
+      <DependentUpon>Bluetooth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Devices\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +357,9 @@
     <Compile Include="User\Users.Designer.cs">
       <DependentUpon>Users.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Bluetooth.resx">
+      <DependentUpon>Bluetooth.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Devices\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>

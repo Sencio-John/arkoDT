@@ -20,7 +20,7 @@ namespace arkoDT
         {
             InitializeComponent();
             frmMap = frmMapInstance;
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             try
@@ -45,7 +45,7 @@ namespace arkoDT
                 string.IsNullOrWhiteSpace(residentName) ||
                 string.IsNullOrWhiteSpace(type))
             {
-                MessageBox.Show("All fields must be filled in before saving.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("All fields must be filled in before saving.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

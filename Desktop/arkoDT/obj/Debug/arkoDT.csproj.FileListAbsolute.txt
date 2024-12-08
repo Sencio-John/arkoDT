@@ -467,3 +467,6 @@ C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Confi
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.Profile.frmChangeEmail.resources
 C:\Users\Windows10\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.Profile.frmChangePassword.resources
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\InTheHand.Net.Personal.dll
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\bin\Debug\InTheHand.Net.Personal.xml
+C:\Users\SENCIO\Documents\GitHub\arkoDT\Desktop\arkoDT\obj\Debug\arkoDT.frmBluetooth.resources

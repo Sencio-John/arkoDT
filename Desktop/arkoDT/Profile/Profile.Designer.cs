@@ -183,6 +183,7 @@ namespace arkoDT
             this.txtContactNum.Enabled = false;
             this.txtContactNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContactNum.Location = new System.Drawing.Point(143, 288);
+            this.txtContactNum.MaxLength = 11;
             this.txtContactNum.Name = "txtContactNum";
             this.txtContactNum.Size = new System.Drawing.Size(271, 29);
             this.txtContactNum.TabIndex = 17;
