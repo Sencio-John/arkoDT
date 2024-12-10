@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="arkoDT.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="arkoDT.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="arkoDT" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -90,14 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="3442608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="arkoDT.exe" size="4099504">
       <assemblyIdentity name="arkoDT" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VwR/6R0VZF6C6QMrxOrjEdqHFtD1aNIzqEpcSWNETRw=</dsig:DigestValue>
+        <dsig:DigestValue>A7PH8NFuq1TBSRhWGe/o5/xtrxIYbQPH/dgMMt/H94E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -612,141 +612,6 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>5nyemuBoE2F4xvQMi4Su2ERlOCk73xXlztTyPqhmIws=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\devicecount.jpg" size="10961">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>9/wQ5KS3mOuBMB8u0E0n+xFJvDkmiXOvr1SvrTUXpQo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\edit.png" size="8017">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>X1hHQYblR3iaApEKMr56LstSlFo3WUoqU8fVQoDOCEw=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\flashoff.png" size="7824">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>5f09j7TKe1s7yt8ZK8jWnWigfKnB6RUepylAP2EKMdE=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\flashon.png" size="10472">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>aMNkgpXLXtQ+FrgbxScDjjt4dwL1EwsAaNGF5kgGzpU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\hide.png" size="14714">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>2jRuHmqx6bScSlC81y2aX7CaXBLw+YhbChuslkvMkg8=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\login.png" size="1050800">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>zS+AtN4JoNtmLIAgsRwhUOSoR/OOeMcqExjJsjtusdo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\login1.png" size="1199797">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>qbjJNh008HeaI7NdelFnUGHRJH2gRjZoVGb1woIdr8E=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\no-connection.png" size="21188">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Tf9KrNHMVs4br7P/w5ijCmYrvGM5OO9eUCUjW6MSL+k=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\profile.jpg" size="2745">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6iHXfqBDKmUZUtJ7eiuLewpoWwCnP+d8HkVOOdMGp94=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\Screenshot 2024-10-14 173736.png" size="9467">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6fFCKcfxMDhtHhNtQKqrxWGqptXb2M49d6QhKROdAaM=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\sun.png" size="21178">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>nYp6AdGA1H5aphmRGEhQiW97geHPGqQcX4TDJQDoUWo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\usercount.jpg" size="20861">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>pdII+Rwxy5jxNIReNIhCLL2V2ZODK8GDwr+UOMDfXE8=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\usercount1.jpg" size="10449">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>XEtQ6GMCu3c5fo960LNiFO6IxLRYo4FwlJrWYX8vFEY=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\view.png" size="18935">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>iLFPC0w2F163EWDYqOhCia4Esj2RCdUdjS1VDI0X8Io=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Resources\Water drop.jpg" size="36024">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>d0m9/25T83RnpypqrS2UoNb/Ub6MM2W08cWz3kIpAYc=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

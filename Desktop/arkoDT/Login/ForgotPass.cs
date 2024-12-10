@@ -114,7 +114,7 @@ namespace arkoDT
             enteredEmail = txtEmail.Text.Trim(); // Store the entered email
 
             // Check if the entered email exists in the database
-            bool emailExists = await CheckIfEmailExists(enteredEmail);
+            bool emailExists = CheckIfEmailExists(enteredEmail);
 
             if (!emailExists)
             {
@@ -170,7 +170,7 @@ namespace arkoDT
         }
 
         // Handle Change Password Button Click
-        private async void btnChange_Click(object sender, EventArgs e)
+        private void btnChange_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtPassword.Text) || string.IsNullOrWhiteSpace(txtConfirm.Text))
             {
@@ -238,7 +238,7 @@ namespace arkoDT
             }
         }
 
-        private async Task<bool> CheckIfEmailExists(string email)
+        private bool CheckIfEmailExists(string email)
         {
             try
             {

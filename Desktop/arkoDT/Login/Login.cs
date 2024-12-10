@@ -16,6 +16,7 @@ namespace arkoDT
 {
     public partial class frmLogin : Form
     {
+        private const string LogFilePath = @"C:\Users\SENCIO\Documents\app_log.txt";
         public string UserID { get; set; }
         public new string Name { get; set; }
         public string Role { get; set; }
@@ -32,8 +33,27 @@ namespace arkoDT
         {
             InitializeComponent();
             this.FormClosing += frmLogin_FormClosing;
-            btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
+            string imagePath = Path.Combine(Application.StartupPath, @"Resources\hide.png");
+
+            if (File.Exists(imagePath))
+            {
+                btnShowPass.BackgroundImage = Image.FromFile(imagePath);
+            }
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
+        private void LogMessage(string message)
+        {
+            try
+            {
+                string logMessage = $"{DateTime.Now}: {message}{Environment.NewLine}";
+                File.AppendAllText(LogFilePath, logMessage);
+            }
+            catch (Exception ex)
+            {
+                // If logging fails, show an error message but continue execution
+                MessageBox.Show($"Error writing to log file: {ex.Message}", "Logging Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private class LockoutInfo
@@ -305,27 +325,31 @@ namespace arkoDT
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            // Initialize the timer
-            lockoutTimer = new Timer();
-            lockoutTimer.Interval = 1000; // Check every second
-            lockoutTimer.Tick += LockoutTimer_Tick; // Event handler for tick
-            lockoutTimer.Start(); // Start the timer
-
-            // Check if the user is locked out on form load
-            LockoutInfo info = LoadLockoutInfo();
-            if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+            try
             {
-                // Lock UI initially if the user is locked out
-                LockUI(info.LockoutUntil.Value);
-            }
-            else
-            {
-                // If lockout expired, reset failed attempts and unlock UI
-                ResetFailedAttempts();
-                UnlockUI();
-            }
+                LogMessage("frmLogin_Load started.");
 
-            lblForgotPassword.Cursor = Cursors.Hand;
+                // Simulate checking lockout or other initial operations
+                LockoutInfo info = LoadLockoutInfo();
+                if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+                {
+                    // Lock UI initially if the user is locked out
+                    LockUI(info.LockoutUntil.Value);
+                    LogMessage($"User locked out until {info.LockoutUntil.Value}");
+                }
+                else
+                {
+                    // If lockout expired, reset failed attempts and unlock UI
+                    ResetFailedAttempts();
+                    UnlockUI();
+                }
+
+                LogMessage("frmLogin_Load completed.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error in frmLogin_Load: {ex.Message}");
+            }
         }
 
         private void lblForgotPassword_Click(object sender, EventArgs e)
