@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, StatusBar, SafeAreaView, Button, Dimensions } from 'react-native';
-import { Video } from 'expo-av';
+
 import * as ScreenOrientation from 'expo-screen-orientation';
 import * as Location from 'expo-location'
 

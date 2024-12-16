@@ -3,7 +3,7 @@
     "project_number": "823968137794",
     "firebase_url": "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "arko-uno",
-    "storage_bucket": "arko-uno.appspot.com"
+    "storage_bucket": "arko-uno.firebasestorage.app"
   },
   "client": [
     {

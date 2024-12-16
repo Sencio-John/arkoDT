@@ -19,7 +19,7 @@ export default function PinDetail({icon_name, title, subtitle, onPress=() => {}}
             <View style={style.left}>  
                 <View style={style.iconContainer}>
                     <Ionicons
-                        style={[style.icon, {color: title === 'Rescue' ? "#ff9933" : "#e3cd09"} ]}
+                        style={[style.icon,{ color: icon_name === 'checkmark-circle' ? "#00ff00" : title === 'Rescue' ? "#ff9933": "#e3cd09"}]}
                         name={icon_name}
                         />
                 </View>

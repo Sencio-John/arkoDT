@@ -3,16 +3,25 @@ import { StyleSheet, Text, View } from 'react-native';
 
 interface GPSProps {
     gpsData: { latitude: number | null; longitude: number | null };
+    waterLvl: number,
+    infrared: string,
 }
 
-const GPSTracker: React.FC<GPSProps> = ({ gpsData }) => (
+const Readings: React.FC<GPSProps> = ({ gpsData, waterLvl, infrared }) => (
     <View style={styles.container}>
         <Text style={styles.text}>
-            Latitude: {gpsData.latitude !== null ? gpsData.latitude : 'Loading...'}
+            Latitude: {gpsData.latitude !== null ? gpsData.latitude : 'Connecting...'}
         </Text>
         <Text style={styles.text}>
-            Longitude: {gpsData.longitude !== null ? gpsData.longitude : 'Loading...'}
+            Longitude: {gpsData.longitude !== null ? gpsData.longitude : 'Connecting...'}
         </Text>
+        <Text style={styles.text}>
+            Water Level: {waterLvl !== null ? waterLvl : 'Connecting...'}
+        </Text>
+        <Text style={styles.text}>
+            Infrared: {infrared !== null ? infrared : 'Connecting...'}
+        </Text>
+        
     </View>
 );
 
@@ -28,7 +37,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         margin: 10,
         color: "#fff",
+        fontFamily: "CeraPro_Bold"
     },
 });
 
-export default GPSTracker;
+export default Readings;

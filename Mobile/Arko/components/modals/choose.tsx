@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import * as React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '../ThemedText';
@@ -7,28 +7,34 @@ import { ThemedView } from '../ThemedView';
 interface EditProfileModalProps {
     modalVisible: boolean;
     onClose: () => void;
+    openGallery: () => void;
+    openCamera: () => void;
 }
 
-const EditProfileModal: React.FC<EditProfileModalProps> = ({ modalVisible }) => {
+const EditProfileModal: React.FC<EditProfileModalProps> = ({ modalVisible, onClose, openGallery, openCamera }) => {
     return (
         <Modal
             transparent={true}
             animationType="slide"
             visible={modalVisible}
         >
-            <View style={style.modalOverlay}>
-                <ThemedView style={style.modalContainer}>
-                    <ThemedText style={style.modalTitle}>Update your Profile Picture</ThemedText>
-                    <View style={style.buttonsContainer}>
-                        <TouchableOpacity style={style.iconButton}>
-                            <Ionicons name="image" style={style.icon} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={style.iconButton}>
-                            <Ionicons name="camera" style={style.icon} />
-                        </TouchableOpacity>
-                    </View>
-                </ThemedView>
-            </View>
+            <TouchableWithoutFeedback onPress={onClose}>
+                <View style={style.modalOverlay}>
+                    <TouchableWithoutFeedback>
+                        <ThemedView style={style.modalContainer}>
+                            <ThemedText style={style.modalTitle}>Update your Profile Picture</ThemedText>
+                            <View style={style.buttonsContainer}>
+                                <TouchableOpacity style={style.iconButton} onPress={openGallery}>
+                                    <Ionicons name="image" style={style.icon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={style.iconButton} onPress={openCamera}>
+                                    <Ionicons name="camera" style={style.icon} />
+                                </TouchableOpacity>
+                            </View>
+                        </ThemedView>
+                    </TouchableWithoutFeedback>
+                </View>
+            </TouchableWithoutFeedback>
         </Modal>
     );
 };

@@ -6,48 +6,43 @@ import { ThemedText } from '../ThemedText';
 
 import Input from '../inputs/input';
 import Button from '../buttons/button';
-import SelectBox from '../inputs/select';
 
-
-interface MarkerModalProps {
+interface DeviceCredProps {
     modalVisible: boolean;
-    onClose: () => void;
-    onAddMarker: (title: string, description: string, fam_name: string) => void;
+    onClose: () => {};
+    onVerify: (ssid: string, password: string) => void;
 }
 
-const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMarker}) =>{
+const VerifyDeviceCred: React.FC<DeviceCredProps> = ({modalVisible, onClose, onVerify}) =>{
 
     const [inputs, setInputs] = React.useState({
-        title: "",
-        description: "",
-        fam_name: "",
+        key: "",
+        password: "",
     })
 
     const [error, setError] = React.useState({
-        title: '',
-        description: '',
-        fam_name: "",
+        key: "",
+        password: "",
     });
 
-    const handleAddMarker = () => {
+    const handleVerify = () => {
         let hasError = false;
-        if(!inputs.title){
-            handleError("Title is required!", "title");
+        if(!inputs.key){
+            handleError("SSID is required!", "key");
             hasError = true;
         } else{
-            handleError('', 'title');
+            handleError('', 'key');
         }
-
-        if(!inputs.fam_name){
-            handleError("Name is required!", "fam_name");
+        if(!inputs.password){
+            handleError("Password is required!", "password");
             hasError = true;
         } else{
-            handleError('', 'fam_name');
+            handleError('', 'password');
         }
 
         if (!hasError) {
-            onAddMarker(inputs.title, inputs.description, inputs.fam_name);
-            setInputs({ title: '', description: '' , fam_name: ''}); // Reset inputs
+            onVerify(inputs.key, inputs.password)
+            setInputs({ key: '', password: ''}); // Reset inputs
         }
     };
     
@@ -61,8 +56,8 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
     };
 
     const CloseModal =() =>{
-        setInputs({title: "", description: "", fam_name: ""});
         onClose();
+        setInputs({ key: '', password: ''});
     }
 
     return(
@@ -74,43 +69,35 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
         >
             <View style={style.modalOverlay}>
                 <ThemedView style={style.modalContainer}>
-                    <ThemedText style={style.modalTitle}>Add Marker</ThemedText>
+                    <ThemedText style={style.modalTitle}>Verify ARKO Device</ThemedText>
                     <View style={style.form}>
                         <View style={style.input}>
-                            <SelectBox 
-                                iconName='pin' 
-                                changeAccount={(value) => handleOnChange(value, "title")} 
-                                onFocus={() => handleError(null, "title")}
-                                error={error.title}
-                                value={inputs.title}
-                                />
-                        </View>
-                        <View style={style.input}>
                             <Input 
-                                placeholder='Name (e.g  Surname, Nickname)' 
-                                iconName='people-outline' 
-                                onChangeText={(text) => handleOnChange(text, "fam_name")}
-                                onFocus={() => handleError(null, "fam_name")}
-                                error={error.fam_name}
-                                value={inputs.fam_name}
+                                placeholder='Key' 
+                                iconName='key-outline' 
+                                onChangeText={(text) => handleOnChange(text, "key")}
+                                onFocus={() => handleError(null, "key")}
+                                error={error.key}
+                                value={inputs.key}
                                 />
                         </View>
 
                         <View style={style.input}>
                             <Input 
-                                placeholder='Description' 
-                                iconName='chatbox-ellipses-outline' 
-                                onChangeText={(text) => handleOnChange(text, "description")}
-                                onFocus={() => handleError(null, "description")}
-                                error={error.description}
-                                value={inputs.description}
+                                placeholder='Password' 
+                                iconName='ellipsis-horizontal-outline' 
+                                onChangeText={(text) => handleOnChange(text, "password")}
+                                onFocus={() => handleError(null, "password")}
+                                error={error.password}
+                                value={inputs.password}
+                                password
                                 />
                         </View>
                     </View>
                     
                     <View style={style.buttons}>
                         <View style={style.btn}>
-                            <Button title="Add Marker" onPress={handleAddMarker}/>
+                            <Button title="Verify" onPress={handleVerify}/>
                         </View>
                         
                         <View style={style.btn} >
@@ -166,4 +153,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default MarkerModal;
+export default VerifyDeviceCred;

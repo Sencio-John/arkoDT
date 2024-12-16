@@ -4,9 +4,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface ThrottleControlProps {
     onDataSend: (data: object) => void;
+    isBraking: boolean;
 }
 
-const ThrottleControl: React.FC<ThrottleControlProps> = ({ onDataSend }) => {
+const ThrottleControl: React.FC<ThrottleControlProps> = ({ onDataSend, isBraking }) => {
     const [power, setPower] = useState(0);
     const throttleInterval = useRef<NodeJS.Timeout | null>(null);
 
@@ -14,10 +15,28 @@ const ThrottleControl: React.FC<ThrottleControlProps> = ({ onDataSend }) => {
         onDataSend({speed: currentPower})
     };
 
+    useEffect(() => {
+        if (isBraking) {
+            // Start reducing power while brake is active
+            throttleInterval.current = setInterval(() => {
+                setPower((prevPower) => {
+                    let newPower = prevPower - 10;
+                    if (newPower < 0) newPower = 0;
+                    return newPower;
+                });
+            }, 50);
+        } else {
+            clearInterval(throttleInterval.current!); // Stop reducing power when brake is released
+            sendPowerValue(power);
+        }
+
+        return () => clearInterval(throttleInterval.current!); // Clean up on component unmount
+    }, [isBraking]);
+
     const handlePress = (isIncrease: boolean) => {
         throttleInterval.current = setInterval(() => {
             setPower((prevPower) => {
-                let newPower = isIncrease ? prevPower + 1 : prevPower - 1;
+                let newPower = isIncrease ? prevPower + 10 : prevPower - 10;
                 if (newPower > 100) newPower = 100; 
                 if (newPower < 0) newPower = 0; 
                 return newPower;
@@ -92,7 +111,8 @@ const styles = StyleSheet.create({
     },
     powerText: {
         fontSize: 24,
-        fontWeight: 'bold',
+        color: "#64C2EC",
+        fontFamily: "CeraPro_Bold"
     },
 });
 

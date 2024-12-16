@@ -12,9 +12,6 @@ import {
 } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { useColorScheme } from "react-native";
-import { RichEditor } from "react-native-pell-rich-editor";
-
-
 
 interface InputProps extends TextInputProps {
   label?: string;

@@ -15,8 +15,7 @@
         "foregroundImage": "./assets/images/arko_icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ucc_bsit_4b.ARKO",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "package": "com.ucc_bsit_4b.ARKO"
     },
     "web": {
       "bundler": "metro",
@@ -24,7 +23,15 @@
       "favicon": "./assets/images/arko-logo.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": ["peripheral", "central"],
+          "bluetoothAlwaysPermission": "Allow ARKO to connect to bluetooth devices"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

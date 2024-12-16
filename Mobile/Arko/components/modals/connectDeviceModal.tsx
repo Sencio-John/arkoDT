@@ -6,48 +6,52 @@ import { ThemedText } from '../ThemedText';
 
 import Input from '../inputs/input';
 import Button from '../buttons/button';
-import SelectBox from '../inputs/select';
 
-
-interface MarkerModalProps {
+interface DeviceCredProps {
     modalVisible: boolean;
-    onClose: () => void;
-    onAddMarker: (title: string, description: string, fam_name: string) => void;
+    onClose: () => {};
+    onVerify: (pin: string, ssid: string, password: string) => void;
 }
 
-const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMarker}) =>{
+const ConnectDeviceModal: React.FC<DeviceCredProps> = ({modalVisible, onClose, onVerify}) =>{
 
     const [inputs, setInputs] = React.useState({
-        title: "",
-        description: "",
-        fam_name: "",
+        pin: "",
+        ssid: "",
+        password: "",
     })
 
     const [error, setError] = React.useState({
-        title: '',
-        description: '',
-        fam_name: "",
+        pin: "",
+        ssid: "",
+        password: "",
     });
 
-    const handleAddMarker = () => {
+    const handleVerify = () => {
         let hasError = false;
-        if(!inputs.title){
-            handleError("Title is required!", "title");
+        if(!inputs.pin){
+            handleError("OTP is required!", "pin");
             hasError = true;
         } else{
-            handleError('', 'title');
+            handleError('', 'pin');
         }
 
-        if(!inputs.fam_name){
-            handleError("Name is required!", "fam_name");
+        if(!inputs.ssid){
+            handleError("SSID is required!", "ssid");
             hasError = true;
         } else{
-            handleError('', 'fam_name');
+            handleError('', 'ssid');
+        }
+        if(!inputs.password){
+            handleError("Password is required!", "password");
+            hasError = true;
+        } else{
+            handleError('', 'password');
         }
 
         if (!hasError) {
-            onAddMarker(inputs.title, inputs.description, inputs.fam_name);
-            setInputs({ title: '', description: '' , fam_name: ''}); // Reset inputs
+            onVerify(inputs.pin, inputs.ssid, inputs.password)
+            setInputs({ pin: '', ssid: '', password: ''}); // Reset inputs
         }
     };
     
@@ -61,8 +65,8 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
     };
 
     const CloseModal =() =>{
-        setInputs({title: "", description: "", fam_name: ""});
         onClose();
+        setInputs({ pin: '', ssid: '', password: ''});
     }
 
     return(
@@ -74,43 +78,46 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
         >
             <View style={style.modalOverlay}>
                 <ThemedView style={style.modalContainer}>
-                    <ThemedText style={style.modalTitle}>Add Marker</ThemedText>
+                    <ThemedText style={style.modalTitle}>Connect ARKO Device</ThemedText>
                     <View style={style.form}>
                         <View style={style.input}>
-                            <SelectBox 
-                                iconName='pin' 
-                                changeAccount={(value) => handleOnChange(value, "title")} 
-                                onFocus={() => handleError(null, "title")}
-                                error={error.title}
-                                value={inputs.title}
-                                />
-                        </View>
-                        <View style={style.input}>
                             <Input 
-                                placeholder='Name (e.g  Surname, Nickname)' 
-                                iconName='people-outline' 
-                                onChangeText={(text) => handleOnChange(text, "fam_name")}
-                                onFocus={() => handleError(null, "fam_name")}
-                                error={error.fam_name}
-                                value={inputs.fam_name}
+                                placeholder='One-Time Pin Code' 
+                                iconName='keypad-outline' 
+                                onChangeText={(text) => handleOnChange(text, "pin")}
+                                onFocus={() => handleError(null, "pin")}
+                                error={error.pin}
+                                value={inputs.pin}
                                 />
                         </View>
 
                         <View style={style.input}>
                             <Input 
-                                placeholder='Description' 
-                                iconName='chatbox-ellipses-outline' 
-                                onChangeText={(text) => handleOnChange(text, "description")}
-                                onFocus={() => handleError(null, "description")}
-                                error={error.description}
-                                value={inputs.description}
+                                placeholder='Wi-Fi SSID' 
+                                iconName='key-outline' 
+                                onChangeText={(text) => handleOnChange(text, "ssid")}
+                                onFocus={() => handleError(null, "ssid")}
+                                error={error.ssid}
+                                value={inputs.ssid}
+                                />
+                        </View>
+
+                        <View style={style.input}>
+                            <Input 
+                                placeholder='Wi-Fi Password' 
+                                iconName='ellipsis-horizontal-outline' 
+                                onChangeText={(text) => handleOnChange(text, "password")}
+                                onFocus={() => handleError(null, "password")}
+                                error={error.password}
+                                value={inputs.password}
+                                password
                                 />
                         </View>
                     </View>
                     
                     <View style={style.buttons}>
                         <View style={style.btn}>
-                            <Button title="Add Marker" onPress={handleAddMarker}/>
+                            <Button title="Next" onPress={handleVerify}/>
                         </View>
                         
                         <View style={style.btn} >
@@ -166,4 +173,4 @@ const style = StyleSheet.create({
     }
 })
 
-export default MarkerModal;
+export default ConnectDeviceModal;

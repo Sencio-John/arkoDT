@@ -7,16 +7,31 @@ import { ThemedText } from '../ThemedText'; // Assuming you're using ThemedText 
 import { useColorScheme } from 'react-native';
 import Button from '../buttons/button';
 
-const MarkerInfo = ({ bottomSheetRef, snapPoints, address, description, index, dateAdded, name, type, onClose = () => {}}) => {
+interface MarkerInfoProps {
+    bottomSheetRef: React.RefObject<BottomSheet>;
+    snapPoints: number[];
+    address: string;
+    description: string;
+    index: number;
+    dateAdded: string;
+    name: string;
+    type: string;
+    doneMarker: () => void;
+    delMarker: () => void;
+    onClose?: () => void;
+}
+
+const MarkerInfo: React.FC<MarkerInfoProps> = ({ bottomSheetRef, snapPoints, address, description, index, dateAdded, name, type, status, doneMarker, delMarker, onClose = () => {}}) => {
 
     const colorScheme = useColorScheme();
 
     const handleClose = () => {
         if (bottomSheetRef.current) {
-            bottomSheetRef.current.close(); // Manually close the BottomSheet
+            bottomSheetRef.current.close();
         }
-        onClose(); // Call the onClose callback passed in as a prop
+        onClose(); 
     };
+
 
     return (
         <BottomSheet
@@ -94,15 +109,14 @@ const MarkerInfo = ({ bottomSheetRef, snapPoints, address, description, index, d
                         </View>
                     </View>
                 </View>
-                <View style={styles.btnContainer}>
+                {status != "Completed" ? (<View style={styles.btnContainer}>
                     <View style={styles.btn}>
-                        <Button title="Complete Task or Mission"/>
+                        <Button title="Complete Task or Mission" onPress={doneMarker}/>
                     </View>
                     <View style={styles.btn}>
-                        <Button title="Remove Marker" type='danger'/>
+                        <Button title="Remove Marker" type='danger' onPress={delMarker}/>
                     </View>
-                    
-                </View>
+                </View>) : null}
             </BottomSheetView>
         </BottomSheet>
   );

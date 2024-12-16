@@ -1,24 +1,26 @@
 import * as React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 interface BrakeProps {
     onDataSend: (data: object) => void;
+    onBrakeChange: (isBraking: boolean) => void;
 }
 
-const BrakeBtn: React.FC<BrakeProps> = ({onDataSend}) => {
+
+const BrakeBtn: React.FC<BrakeProps> = ({onDataSend, onBrakeChange }) => {
 
     const toggleBrake = () => {
-        onDataSend({ brake: true });
+        onBrakeChange(true)
     };
 
     const releasedBrake = () => {
-        onDataSend({ brake: true });
+        onBrakeChange(false)
     };
 
     return(
         <View style={style.container}>
             <TouchableOpacity style={style.btn} onPressIn={toggleBrake} onPressOut={releasedBrake}>
-                <Text style={style.btnText}>BRAKE</Text>
+                <Image style={style.image} source={require("@/assets/images/disc-brake.png")}/>
             </TouchableOpacity>
         </View>
     )
@@ -27,20 +29,16 @@ const BrakeBtn: React.FC<BrakeProps> = ({onDataSend}) => {
 
 const style = StyleSheet.create({
     container:{
-        width: 175,
         justifyContent: "center"
     },
     btn:{
-        padding: 10,
+        padding: 15,
         backgroundColor: "#AA3333",
         borderRadius: 10,
     },
-    btnText:{
-        textAlign: "center",
-        textAlignVertical: 'center',
-        fontSize: 18,
-        fontFamily: "CeraPro",
-        color: "#F0E0E0",
+    image:{
+        width: 24,
+        height: 24,
     },
 })
 
