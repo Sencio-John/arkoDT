@@ -47,9 +47,46 @@ namespace ARKODesktop.Controller.DAO
             }
         }
 
-        public List<Vessel> SelectVessel()
+        public List<Vessel> SelectAllVessel()
         {
-            
+            List<Vessel> vesselList = new List<Vessel>(); // Create a list to store vessels
+
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(connectionString))
+                {
+                    con.Open();
+                    string query = @"SELECT * FROM Vessel";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Vessel vessel = new Vessel()
+                                {
+                                    Vessel_id = int.Parse(reader["vessel_id"].ToString()),
+                                    Vessel_name = reader["vessel_name"].ToString(),
+                                    Ip_address = reader["ip_address"].ToString(),
+                                    Network_name = reader["network_name"].ToString(),
+                                    Date_created = reader["date_created"].ToString(),
+                                    Time_created = reader["time_created"].ToString()
+                                };
+
+                                vesselList.Add(vessel);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Failed to Fetch Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            return vesselList;
         }
 
     }

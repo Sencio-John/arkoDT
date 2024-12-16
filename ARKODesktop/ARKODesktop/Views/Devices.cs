@@ -3,8 +3,10 @@ using System.Windows.Forms;
 using InTheHand.Net.Sockets;
 using ARKODesktop.Controller;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using ARKODesktop.Views.JsonDataAccess;
 using ARKODesktop.Controller.DAO;
+using ARKODesktop.Models;
 
 namespace ARKODesktop.Views
 {
@@ -17,6 +19,7 @@ namespace ARKODesktop.Views
             InitializeComponent();
             btComms = new BluetoothComms();
             vesselDAO = new VesselDataAccess();
+            setDevices();
         }
 
         void addCardBluetooth(BluetoothDeviceInfo device)
@@ -51,8 +54,9 @@ namespace ARKODesktop.Views
             fplBluetoothDevices.Controls.Add(panel);
         }
 
-        public void addCardDevices()
+        public void AddCardDevices(Vessel vessel)
         {
+
             Panel pnlCard = new Panel();
             Label lblVesselName = new Label();
             Label lblNetworkName = new Label();
@@ -62,16 +66,16 @@ namespace ARKODesktop.Views
             Button btnManage = new Button();
 
             btnControl.Location = new System.Drawing.Point(273, 117);
-            btnControl.Name = "btnControl";
             btnControl.Size = new System.Drawing.Size(75, 23);
             btnControl.TabIndex = 4;
-            btnControl.Text = "Control";
+            btnControl.Text = "Operate";
+            btnControl.Tag = vessel;
             btnControl.UseVisualStyleBackColor = true;
 
             btnManage.Location = new System.Drawing.Point(192, 117);
-            btnManage.Name = "btnManage";
             btnManage.Size = new System.Drawing.Size(75, 23);
             btnManage.TabIndex = 3;
+            btnManage.Tag = vessel;
             btnManage.Text = "Manage";
             btnManage.UseVisualStyleBackColor = true;
 
@@ -90,17 +94,16 @@ namespace ARKODesktop.Views
             lblNetworkName.AutoSize = true;
             lblNetworkName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblNetworkName.Location = new System.Drawing.Point(3, 38);
-            lblNetworkName.Name = "lblNetworkName";
             lblNetworkName.Size = new System.Drawing.Size(97, 16);
             lblNetworkName.TabIndex = 1;
-            lblNetworkName.Text = "Network Name";
+            lblNetworkName.Text = vessel.Network_name;
 
             lblVesselName.AutoSize = true;
             lblVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblVesselName.Location = new System.Drawing.Point(3, 5);
             lblVesselName.Size = new System.Drawing.Size(123, 24);
             lblVesselName.TabIndex = 0;
-            lblVesselName.Text = "Vessel Name";
+            lblVesselName.Text = vessel.Vessel_name;
 
             pnlCard.BackColor = System.Drawing.SystemColors.ControlLightLight;
             pnlCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -116,6 +119,16 @@ namespace ARKODesktop.Views
             pnlCard.Controls.Add(lblNetworkName);
             pnlCard.Controls.Add(lblVesselName);
             flpDevices.Controls.Add(pnlCard);
+        }
+
+        public void setDevices()
+        {
+            List<Vessel> vesselList = vesselDAO.SelectAllVessel();
+            flpDevices.Controls.Clear();
+            foreach (Vessel vessel in vesselList)
+            {
+                AddCardDevices(vessel);
+            }
         }
 
         public void setVesselInfo()
@@ -224,5 +237,7 @@ namespace ARKODesktop.Views
             }
             
         }
+    
+    
     }
 }
