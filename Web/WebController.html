@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Controller</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             height: 100vh;
@@ -65,6 +63,9 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             transition: background-color 0.2s ease;
+            background-color: #343a40;
+            color: white;
+            border: none;
         }
 
         .btn-custom:hover {
@@ -76,8 +77,8 @@
             color: white !important;
         }
 
-         /* Map and Mic buttons container */
-         .top-buttons {
+        /* Map and Mic buttons container */
+        .top-buttons {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -229,8 +230,6 @@
         .flashlight-button.active .flashlight-off {
             opacity: 0;
         }
-
-
     </style>
 </head>
 <body>
@@ -240,19 +239,19 @@
     <div class="controller">
         <!-- Button groups for controls -->
         <div class="button-group left">
-            <button id="btn-w" class="btn btn-dark btn-custom">W</button>
+            <button id="btn-w" class="btn-custom">W</button>
             <div>
-                <button id="btn-a" class="btn btn-dark btn-custom">A</button>
-                <button id="btn-s" class="btn btn-dark btn-custom">S</button>
-                <button id="btn-d" class="btn btn-dark btn-custom">D</button>
+                <button id="btn-a" class="btn-custom">A</button>
+                <button id="btn-s" class="btn-custom">S</button>
+                <button id="btn-d" class="btn-custom">D</button>
             </div>
         </div>
         <div class="button-group right">
-            <button id="btn-i" class="btn btn-dark btn-custom">I</button>
+            <button id="btn-i" class="btn-custom">I</button>
             <div>
-                <button id="btn-j" class="btn btn-dark btn-custom">J</button>
-                <button id="btn-k" class="btn btn-dark btn-custom">K</button>
-                <button id="btn-l" class="btn btn-dark btn-custom">L</button>
+                <button id="btn-j" class="btn-custom">J</button>
+                <button id="btn-k" class="btn-custom">K</button>
+                <button id="btn-l" class="btn-custom">L</button>
             </div>
         </div>
 
@@ -291,12 +290,9 @@
         </div>
 
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript -->
+    
     <script>
+        // JavaScript functions for handling UI behavior
         const video = document.getElementById('camera-view');
 
         // Check if the browser supports WebRTC
@@ -312,15 +308,9 @@
             alert('Your browser does not support camera access.');
         }
 
-        // Function to handle map button click
-        function openMap() {
-            alert('Map button clicked! Add your map logic here.');
-        }
-
-        // Function to handle map button click
         function toggleMic() {
-            const micButton = document.getElementById("mic-button");
-            micButton.classList.toggle("active");
+            const micButton = document.getElementById('mic-button');
+            micButton.classList.toggle('active');
         }
 
         let flashlightActive = false;
@@ -345,7 +335,12 @@
                 toggleFlashlight();
             }
         });
-        
+
+         // Function to handle map button click
+         function openMap() {
+            alert('Map button clicked! Add your map logic here.');
+        }
+
         // Function to change button color on key press
         document.addEventListener('keydown', function(event) {
             switch (event.key) {
