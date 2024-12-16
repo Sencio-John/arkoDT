@@ -31,14 +31,15 @@ namespace ARKODesktop
         {
             this.SuspendLayout();
             // 
-            // Controller
+            // Operations
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1600, 900);
+            this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Controller";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "Operations";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Controller";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
