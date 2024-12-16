@@ -4,16 +4,19 @@ using InTheHand.Net.Sockets;
 using ARKODesktop.Controller;
 using Newtonsoft.Json;
 using ARKODesktop.Views.JsonDataAccess;
+using ARKODesktop.Controller.DAO;
 
 namespace ARKODesktop.Views
 {
     public partial class Devices : Form
     {
         private BluetoothComms btComms;
+        private VesselDataAccess vesselDAO;
         public Devices()
         {
             InitializeComponent();
             btComms = new BluetoothComms();
+            vesselDAO = new VesselDataAccess();
         }
 
         void addCardBluetooth(BluetoothDeviceInfo device)
@@ -224,8 +227,11 @@ namespace ARKODesktop.Views
                         MessageBox.Show($"Verified Successfuly", "Verification Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         setVesselInfo();
                     }
-
-                    MessageBox.Show($"Invalid Credentials", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                    {
+                        MessageBox.Show($"Invalid Credentials", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -238,7 +244,19 @@ namespace ARKODesktop.Views
 
         private void btnAddDevice_Click(object sender, EventArgs e)
         {
+<<<<<<< Updated upstream
             addCardDevices();
+=======
+            if (vesselDAO.AddVessel(btComms))
+            {
+                MessageBox.Show($"New Device Successfuly Added", "Insertion Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show($"Failed to Insert Device", "Insertion Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+>>>>>>> Stashed changes
         }
     }
 }

@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+<<<<<<< Updated upstream
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using System.Device.Location;
+=======
+>>>>>>> Stashed changes
 
 namespace ARKODesktop.Views
 {
@@ -20,6 +23,7 @@ namespace ARKODesktop.Views
         public Operation()
         {
             InitializeComponent();
+<<<<<<< Updated upstream
             InitializeMap();
         }
 
@@ -170,6 +174,8 @@ namespace ARKODesktop.Views
         {
             // Dynamically get the device's location
             GetDeviceLocation();
+=======
+>>>>>>> Stashed changes
         }
     }
 }

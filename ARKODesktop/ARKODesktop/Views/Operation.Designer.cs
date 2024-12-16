@@ -29,6 +29,7 @@ namespace ARKODesktop.Views
         /// </summary>
         private void InitializeComponent()
         {
+<<<<<<< Updated upstream
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -117,15 +118,30 @@ namespace ARKODesktop.Views
             this.Text = "Operations";
             this.Load += new System.EventHandler(this.Operation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chrtWaterLevel)).EndInit();
+=======
+            this.SuspendLayout();
+            // 
+            // Operations
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1134, 660);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "Operations";
+            this.Text = "Operations";
+>>>>>>> Stashed changes
             this.ResumeLayout(false);
 
         }
 
         #endregion
+<<<<<<< Updated upstream
 
         private System.Windows.Forms.FlowLayoutPanel flpOperations;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrtWaterLevel;
         private GMap.NET.WindowsForms.GMapControl gMap;
         private System.Windows.Forms.ComboBox comboBox1;
+=======
+>>>>>>> Stashed changes
     }
 }
