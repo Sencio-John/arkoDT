@@ -16,6 +16,7 @@ namespace arkoDT
 {
     public partial class frmLogin : Form
     {
+        private const string LogFilePath = @"C:\Users\SENCIO\Documents\app_log.txt";
         public string UserID { get; set; }
         public new string Name { get; set; }
         public string Role { get; set; }
@@ -27,13 +28,32 @@ namespace arkoDT
         private const int LockoutDurationMinutes = 3;         // Lockout duration in minutes
         private Timer lockoutTimer;
         private bool isFirstImage = true;
-        private readonly string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+        string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
         public frmLogin()
         {
             InitializeComponent();
             this.FormClosing += frmLogin_FormClosing;
-            btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
+            string imagePath = Path.Combine(Application.StartupPath, @"Resources\hide.png");
+
+            if (File.Exists(imagePath))
+            {
+                btnShowPass.BackgroundImage = Image.FromFile(imagePath);
+            }
             btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
+        private void LogMessage(string message)
+        {
+            try
+            {
+                string logMessage = $"{DateTime.Now}: {message}{Environment.NewLine}";
+                File.AppendAllText(LogFilePath, logMessage);
+            }
+            catch (Exception ex)
+            {
+                // If logging fails, show an error message but continue execution
+                MessageBox.Show($"Error writing to log file: {ex.Message}", "Logging Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private class LockoutInfo
@@ -129,7 +149,8 @@ namespace arkoDT
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username and password cannot be empty.");
+                MessageBox.Show("Username and password cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -144,7 +165,8 @@ namespace arkoDT
             {
                 if (userInfo.Status == "Inactive")
                 {
-                    MessageBox.Show("Account is inactive. Please contact the administrator.");
+                    MessageBox.Show("Account is inactive. Please contact the administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
@@ -160,14 +182,14 @@ namespace arkoDT
                 var name = await Task.Run(() => GetUserFullName(userInfo.UserID));
                 Name = name;
 
-                MessageBox.Show("Login successful!");
                 this.Hide();
                 new frmDashboard(this).Show();
             }
             else
             {
                 IncrementFailedAttempts();
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -221,7 +243,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Login failed: {ex.Message}");
+                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
 
             return null;
@@ -260,7 +283,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to fetch user info: {ex.Message}");
+                MessageBox.Show($"Failed to fetch user info: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             finally
             {
@@ -301,27 +325,31 @@ namespace arkoDT
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            // Initialize the timer
-            lockoutTimer = new Timer();
-            lockoutTimer.Interval = 1000; // Check every second
-            lockoutTimer.Tick += LockoutTimer_Tick; // Event handler for tick
-            lockoutTimer.Start(); // Start the timer
-
-            // Check if the user is locked out on form load
-            LockoutInfo info = LoadLockoutInfo();
-            if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+            try
             {
-                // Lock UI initially if the user is locked out
-                LockUI(info.LockoutUntil.Value);
-            }
-            else
-            {
-                // If lockout expired, reset failed attempts and unlock UI
-                ResetFailedAttempts();
-                UnlockUI();
-            }
+                LogMessage("frmLogin_Load started.");
 
-            lblForgotPassword.Cursor = Cursors.Hand;
+                // Simulate checking lockout or other initial operations
+                LockoutInfo info = LoadLockoutInfo();
+                if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+                {
+                    // Lock UI initially if the user is locked out
+                    LockUI(info.LockoutUntil.Value);
+                    LogMessage($"User locked out until {info.LockoutUntil.Value}");
+                }
+                else
+                {
+                    // If lockout expired, reset failed attempts and unlock UI
+                    ResetFailedAttempts();
+                    UnlockUI();
+                }
+
+                LogMessage("frmLogin_Load completed.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error in frmLogin_Load: {ex.Message}");
+            }
         }
 
         private void lblForgotPassword_Click(object sender, EventArgs e)

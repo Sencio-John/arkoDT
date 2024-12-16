@@ -21,7 +21,7 @@ namespace arkoDT
             Users = frmUsersInstance;
 
             // Initialize MySQL connection
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             try
@@ -30,7 +30,8 @@ namespace arkoDT
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to connect to the database.");
+                MessageBox.Show("Failed to connect to the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -58,14 +59,17 @@ namespace arkoDT
                         }
                         else
                         {
-                            MessageBox.Show("User not found.");
+                            MessageBox.Show("");
+                            MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading user data: " + ex.Message);
+                MessageBox.Show("Error loading user data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             finally
             {
@@ -95,19 +99,22 @@ namespace arkoDT
 
                     if (rowsAffected > 0)
                     {
-                        MessageBox.Show("Role updated successfully!");
+                        MessageBox.Show("Role updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                         Users.LoadUsers(); // Refresh the users list in frmUsers
                         this.Close(); // Close the form after updating the role
                     }
                     else
                     {
-                        MessageBox.Show("Failed to update the role.");
+                        MessageBox.Show("Failed to update the role.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error updating the role: " + ex.Message);
+                MessageBox.Show("Error updating the role: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             finally
             {

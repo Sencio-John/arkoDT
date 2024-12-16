@@ -34,7 +34,7 @@ namespace arkoDT
             frmUsers = frmUsersInstance;
             frmDashboard = frmDashboardInstance;
 
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
 
             try
@@ -43,7 +43,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to connect to the database. " + ex.Message);
+                MessageBox.Show("Failed to connect to the database. " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -91,7 +92,8 @@ namespace arkoDT
 
             if (retryCount >= maxRetries)
             {
-                MessageBox.Show("Failed to generate a unique ID after multiple attempts.");
+                MessageBox.Show("Failed to generate a unique ID after multiple attempts.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return null;
             }
 
@@ -139,7 +141,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while checking username existence: {ex.Message}");
+                MessageBox.Show($"An error occurred while checking username existence: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return false;
             }
         }
@@ -158,7 +161,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while checking email existence: {ex.Message}");
+                MessageBox.Show($"An error occurred while checking email existence: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return false;
             }
         }
@@ -176,20 +180,23 @@ namespace arkoDT
             {
                 if (txtConfirmPass.Text != txtPassword.Text)
                 {
-                    MessageBox.Show("Password does not match");
+                    MessageBox.Show("Password does not match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
                 // Basic validation for empty fields
                 if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtEmail.Text))
                 {
-                    MessageBox.Show("Username and Email cannot be empty.");
+                    MessageBox.Show("Username and Email cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
                 if (string.IsNullOrEmpty(txtPassword.Text))
                 {
-                    MessageBox.Show("Password cannot be empty");
+                    MessageBox.Show("Password cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
@@ -197,7 +204,8 @@ namespace arkoDT
                 bool usernameExists = await IsUsernameExists(txtUsername.Text);
                 if (usernameExists)
                 {
-                    MessageBox.Show("Username already exists. Please choose another.");
+                    MessageBox.Show("Username already exists. Please choose another.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
@@ -205,14 +213,16 @@ namespace arkoDT
                 bool emailExists = await IsEmailExists(txtEmail.Text);
                 if (emailExists)
                 {
-                    MessageBox.Show("Email already exists. Please choose another.");
+                    MessageBox.Show("Email already exists. Please choose another.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
                 // Validate email format
                 if (!IsValidEmail(txtEmail.Text))
                 {
-                    MessageBox.Show("Invalid email format.");
+                    MessageBox.Show("Invalid email format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     return;
                 }
 
@@ -255,10 +265,11 @@ namespace arkoDT
 
                 userInfoCmd.ExecuteNonQuery(); // Execute the insert query for user info
 
-                MessageBox.Show("New User has been successfully inserted into the database.");
+                MessageBox.Show("New User has been successfully inserted into the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                
+
+
                 UserCreated?.Invoke();
                 frmUsers.LoadUsers();
                 frmDashboard.CountUsers();
@@ -266,7 +277,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred: " + ex.Message);
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -308,25 +320,29 @@ namespace arkoDT
         {
             if (string.IsNullOrEmpty(txtEmail.Text))
             {
-                MessageBox.Show("Please enter a valid email address.");
+                MessageBox.Show("Please enter a valid email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
             bool emailExists = await IsEmailExists(txtEmail.Text);
             if (emailExists)
             {
-                MessageBox.Show("Email already exists. Please choose another.");
+                MessageBox.Show("Email already exists. Please choose another.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
             generatedOTP = GenerateRandomOTP();
             if (await SendEmailAsync(txtEmail.Text, "Your OTP Code", $"Your OTP code is {generatedOTP}"))
             {
-                MessageBox.Show("OTP sent to your email.");
+                MessageBox.Show("OTP sent to your email.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             else
             {
-                MessageBox.Show("Failed to send OTP. Please check your email address.");
+                MessageBox.Show("Failed to send OTP. Please check your email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -351,7 +367,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to send email: " + ex.Message);
+                MessageBox.Show("Failed to send email: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return false;
             }
         }

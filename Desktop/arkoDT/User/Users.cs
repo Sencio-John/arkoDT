@@ -27,7 +27,7 @@ namespace arkoDT
         public frmUsers(frmDashboard frmDashboardInstance)
         {
             InitializeComponent();
-            string connectionString = "Server=localhost;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
             connection = new MySqlConnection(connectionString);
             dashboard = frmDashboardInstance;
 
@@ -40,7 +40,8 @@ namespace arkoDT
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Failed to connect to Database: " + ex.Message);
+                MessageBox.Show("Failed to connect to Database: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
 
             LoadUsers();
@@ -252,7 +253,6 @@ namespace arkoDT
             }
         }
 
-
         public void LoadUsers()
         {
             try
@@ -290,7 +290,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load users: " + ex.Message);
+                MessageBox.Show("Failed to load users: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 RetryLoadUsers(); // Trigger retry logic
             }
             finally
@@ -377,7 +378,8 @@ namespace arkoDT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
     }
