@@ -40,6 +40,7 @@ namespace ARKODesktop.Views
             this.label1 = new System.Windows.Forms.Label();
             this.txtKey = new System.Windows.Forms.TextBox();
             this.gbNetConfigure = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnConnectNet = new System.Windows.Forms.Button();
             this.txtSSID = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,13 +49,12 @@ namespace ARKODesktop.Views
             this.readTimerBT = new System.Windows.Forms.Timer(this.components);
             this.pnlAddDevice = new System.Windows.Forms.Panel();
             this.gbVesselInfo = new System.Windows.Forms.GroupBox();
+            this.lblIP = new System.Windows.Forms.Label();
+            this.lblNetwork = new System.Windows.Forms.Label();
+            this.lblVesselName = new System.Windows.Forms.Label();
             this.btnAddDevice = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.flpDevices = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblVesselName = new System.Windows.Forms.Label();
-            this.lblNetwork = new System.Windows.Forms.Label();
-            this.lblIP = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.gbVerify.SuspendLayout();
             this.gbNetConfigure.SuspendLayout();
             this.pnlAddDevice.SuspendLayout();
@@ -164,6 +164,16 @@ namespace ARKODesktop.Views
             this.gbNetConfigure.TabStop = false;
             this.gbNetConfigure.Text = "Network Configuration";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(29, 38);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(166, 15);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Change or set vessel network";
+            // 
             // btnConnectNet
             // 
             this.btnConnectNet.Location = new System.Drawing.Point(319, 109);
@@ -240,6 +250,36 @@ namespace ARKODesktop.Views
             this.gbVesselInfo.TabStop = false;
             this.gbVesselInfo.Text = "Vessel Information";
             // 
+            // lblIP
+            // 
+            this.lblIP.AutoSize = true;
+            this.lblIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIP.Location = new System.Drawing.Point(23, 95);
+            this.lblIP.Name = "lblIP";
+            this.lblIP.Size = new System.Drawing.Size(71, 15);
+            this.lblIP.TabIndex = 8;
+            this.lblIP.Text = "IP Address: ";
+            // 
+            // lblNetwork
+            // 
+            this.lblNetwork.AutoSize = true;
+            this.lblNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNetwork.Location = new System.Drawing.Point(23, 67);
+            this.lblNetwork.Name = "lblNetwork";
+            this.lblNetwork.Size = new System.Drawing.Size(58, 15);
+            this.lblNetwork.TabIndex = 7;
+            this.lblNetwork.Text = "Network: ";
+            // 
+            // lblVesselName
+            // 
+            this.lblVesselName.AutoSize = true;
+            this.lblVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVesselName.Location = new System.Drawing.Point(23, 36);
+            this.lblVesselName.Name = "lblVesselName";
+            this.lblVesselName.Size = new System.Drawing.Size(86, 15);
+            this.lblVesselName.TabIndex = 6;
+            this.lblVesselName.Text = "Vessel Name: ";
+            // 
             // btnAddDevice
             // 
             this.btnAddDevice.Location = new System.Drawing.Point(194, 134);
@@ -248,6 +288,7 @@ namespace ARKODesktop.Views
             this.btnAddDevice.TabIndex = 6;
             this.btnAddDevice.Text = "Add to Devices";
             this.btnAddDevice.UseVisualStyleBackColor = true;
+            this.btnAddDevice.Click += new System.EventHandler(this.btnAddDevice_Click);
             // 
             // label3
             // 
@@ -266,46 +307,6 @@ namespace ARKODesktop.Views
             this.flpDevices.Name = "flpDevices";
             this.flpDevices.Size = new System.Drawing.Size(1150, 321);
             this.flpDevices.TabIndex = 5;
-            // 
-            // lblVesselName
-            // 
-            this.lblVesselName.AutoSize = true;
-            this.lblVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVesselName.Location = new System.Drawing.Point(23, 36);
-            this.lblVesselName.Name = "lblVesselName";
-            this.lblVesselName.Size = new System.Drawing.Size(86, 15);
-            this.lblVesselName.TabIndex = 6;
-            this.lblVesselName.Text = "Vessel Name: ";
-            // 
-            // lblNetwork
-            // 
-            this.lblNetwork.AutoSize = true;
-            this.lblNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNetwork.Location = new System.Drawing.Point(23, 67);
-            this.lblNetwork.Name = "lblNetwork";
-            this.lblNetwork.Size = new System.Drawing.Size(58, 15);
-            this.lblNetwork.TabIndex = 7;
-            this.lblNetwork.Text = "Network: ";
-            // 
-            // lblIP
-            // 
-            this.lblIP.AutoSize = true;
-            this.lblIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIP.Location = new System.Drawing.Point(23, 95);
-            this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(71, 15);
-            this.lblIP.TabIndex = 8;
-            this.lblIP.Text = "IP Address: ";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(29, 38);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(166, 15);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Change or set vessel network";
             // 
             // Devices
             // 

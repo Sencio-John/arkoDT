@@ -53,7 +53,7 @@ namespace ARKODesktop
 
         private void btnOperations_Click(object sender, EventArgs e)
         {
-            loadForm(new Operations());
+            loadForm(new Operation());
         }
     }
 }

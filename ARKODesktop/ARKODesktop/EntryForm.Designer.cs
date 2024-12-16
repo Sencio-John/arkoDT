@@ -35,10 +35,10 @@ namespace ARKODesktop
             this.flpSideBar = new System.Windows.Forms.FlowLayoutPanel();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnDashboard = new System.Windows.Forms.Button();
-            this.btnDevices = new System.Windows.Forms.Button();
-            this.btnOperations = new System.Windows.Forms.Button();
             this.dashTime = new System.Windows.Forms.Timer(this.components);
             this.pnlLoadForm = new System.Windows.Forms.Panel();
+            this.btnDevices = new System.Windows.Forms.Button();
+            this.btnOperations = new System.Windows.Forms.Button();
             this.pnlTopBar.SuspendLayout();
             this.flpSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
@@ -100,6 +100,20 @@ namespace ARKODesktop
             this.btnDashboard.UseVisualStyleBackColor = true;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
+            // dashTime
+            // 
+            this.dashTime.Enabled = true;
+            this.dashTime.Interval = 1000;
+            this.dashTime.Tick += new System.EventHandler(this.dashTime_Tick);
+            // 
+            // pnlLoadForm
+            // 
+            this.pnlLoadForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLoadForm.Location = new System.Drawing.Point(200, 30);
+            this.pnlLoadForm.Name = "pnlLoadForm";
+            this.pnlLoadForm.Size = new System.Drawing.Size(1150, 699);
+            this.pnlLoadForm.TabIndex = 2;
+            // 
             // btnDevices
             // 
             this.btnDevices.Location = new System.Drawing.Point(5, 181);
@@ -115,24 +129,10 @@ namespace ARKODesktop
             this.btnOperations.Location = new System.Drawing.Point(5, 259);
             this.btnOperations.Name = "btnOperations";
             this.btnOperations.Size = new System.Drawing.Size(189, 72);
-            this.btnOperations.TabIndex = 2;
-            this.btnOperations.Text = "Operations";
+            this.btnOperations.TabIndex = 4;
+            this.btnOperations.Text = "Operation";
             this.btnOperations.UseVisualStyleBackColor = true;
             this.btnOperations.Click += new System.EventHandler(this.btnOperations_Click);
-            // 
-            // dashTime
-            // 
-            this.dashTime.Enabled = true;
-            this.dashTime.Interval = 1000;
-            this.dashTime.Tick += new System.EventHandler(this.dashTime_Tick);
-            // 
-            // pnlLoadForm
-            // 
-            this.pnlLoadForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLoadForm.Location = new System.Drawing.Point(200, 30);
-            this.pnlLoadForm.Name = "pnlLoadForm";
-            this.pnlLoadForm.Size = new System.Drawing.Size(1150, 699);
-            this.pnlLoadForm.TabIndex = 2;
             // 
             // EntryForm
             // 
@@ -161,8 +161,8 @@ namespace ARKODesktop
         private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Button btnDashboard;
         private System.Windows.Forms.Panel pnlLoadForm;
-        private System.Windows.Forms.Button btnOperations;
         private System.Windows.Forms.Button btnDevices;
+        private System.Windows.Forms.Button btnOperations;
     }
 }
 

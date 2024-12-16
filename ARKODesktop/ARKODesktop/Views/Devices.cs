@@ -64,6 +64,7 @@ namespace ARKODesktop.Views
             btnControl.TabIndex = 4;
             btnControl.Text = "Control";
             btnControl.UseVisualStyleBackColor = true;
+            btnControl.Click += new System.EventHandler(this.BtnControl_Click);
 
             btnManage.Location = new System.Drawing.Point(192, 117);
             btnManage.Name = "btnManage";
@@ -71,14 +72,30 @@ namespace ARKODesktop.Views
             btnManage.TabIndex = 3;
             btnManage.Text = "Manage";
             btnManage.UseVisualStyleBackColor = true;
+            btnManage.Click += new System.EventHandler(this.BtnManage_Click);
 
             lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
             lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblStatus.Location = new System.Drawing.Point(0, 0);
             lblStatus.Size = new System.Drawing.Size(130, 29);
             lblStatus.TabIndex = 2;
-            lblStatus.Text = "●   Connected";
+            lblStatus.Text = "●   Status";
             lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            if (lblStatus.Text.Contains("Online"))
+            {
+                lblStatus.ForeColor = System.Drawing.Color.Green;
+                lblStatus.Text = "●   Online";
+            }
+            else if (lblStatus.Text.Contains("Connected"))
+            {
+                lblStatus.ForeColor = System.Drawing.Color.Gray;
+                lblStatus.Text = "●   Connected";
+            }
+            else if (lblStatus.Text.Contains("Offline"))
+            {
+                lblStatus.ForeColor = System.Drawing.Color.Red;
+                lblStatus.Text = "●   Offline";
+            }
 
             pnlPlacer.Location = new System.Drawing.Point(216, 3);
             pnlPlacer.Size = new System.Drawing.Size(130, 29);
@@ -174,6 +191,19 @@ namespace ARKODesktop.Views
             }
         }
 
+        private void BtnControl_Click(object sender, EventArgs e)
+        {
+            // Add logic for btnControl's click event
+            MessageBox.Show("Control button clicked!");
+        }
+
+        private void BtnManage_Click(object sender, EventArgs e)
+        {
+            // Add logic for btnManage's click event
+            MessageBox.Show("Manage button clicked!");
+        }
+
+
         private async void readTimerBT_Tick(object sender, EventArgs e)
         {
             String rMessage = await btComms.ReceiveDataAsync();
@@ -204,6 +234,11 @@ namespace ARKODesktop.Views
                
             }
             
+        }
+
+        private void btnAddDevice_Click(object sender, EventArgs e)
+        {
+            addCardDevices();
         }
     }
 }
