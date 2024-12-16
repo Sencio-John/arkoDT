@@ -1,0 +1,140 @@
+/* Base styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('bg1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #2d4d63;
+    padding: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: #87CEEB;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Main Section */
+.main-section {
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.logo img {
+    width: 360px; /* Default logo width */
+    height: auto;
+    margin-bottom: 5px;
+}
+
+/* Buttons */
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; /* Space between buttons */
+}
+
+.btn {
+    display: inline-flex; /* Align text and image horizontally */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    padding: 5px 50px; /* Adjust padding for better proportions */
+    font-size: 18px; /* Text size */
+    color: white;
+    background-color: #1e88e5; /* Button background color */
+    text-decoration: none;
+    border-radius: 50px; /* Rounded corners */
+    transition: background-color 0.3s;
+    text-align: center;
+    gap: 10px; /* Space between logo and text */
+    line-height: 1; /* Ensures text alignment */
+}
+
+.btn-logo {
+    width: 50px; /* Match logo size to text size */
+    height: 50px; /* Keep the logo square */
+}
+
+.btn:hover {
+    background-color: #1565c0; /* Darker blue on hover */
+}
+
+
+/* ARKO Description */
+.arko-description {
+    margin-top: 15px; /* Consistent spacing from buttons */
+    font-size: 12px; /* Clear and balanced font size */
+    color: #333; /* Dark gray text for readability */
+    max-width: 500px; /* Clean width limit */
+    text-align: center; /* Centered alignment */
+    line-height: 1.3; /* Neat line spacing */
+    padding: 10px; /* Internal spacing for structure */
+    border-radius: 6px; /* Subtle rounded corners */
+}
+
+/* Mobile and tablet responsiveness */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .logo img {
+        width: 250px; /* Smaller logo for tablets */
+    }
+
+    .btn {
+        font-size: 18px;
+        padding: 15px 20px; /* Adjust button padding */
+    }
+}
+
+@media (max-width: 480px) {
+    /* On smaller mobile devices */
+    .logo img {
+        width: 200px; /* Even smaller logo for mobile */
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 10px 20px; /* Adjust button padding */
+    }
+
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px; /* Reduced space between buttons */
+    }
+
+    nav ul li a {
+        font-size: 14px; /* Smaller text in the navigation */
+    }
+}
