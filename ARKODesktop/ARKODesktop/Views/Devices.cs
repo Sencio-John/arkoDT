@@ -138,12 +138,12 @@ namespace ARKODesktop.Views
             lblVesselName.Text = "Vessel Name: " + btComms.DeviceName;
             lblNetwork.Text = "Network: " + btComms.DeviceNetwork;
             lblIP.Text = "IP Address: " + btComms.IpAddress;
-            
+
         }
 
         private async void btnScanBT_Click(object sender, EventArgs e)
         {
-            BluetoothDeviceInfo[] deviceList =  await btComms.DiscoverDevicesAsync();
+            BluetoothDeviceInfo[] deviceList = await btComms.DiscoverDevicesAsync();
 
             foreach (var device in deviceList)
             {
@@ -167,7 +167,7 @@ namespace ARKODesktop.Views
             {
                 MessageBox.Show($"{ex}", "Error Sending Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
@@ -178,7 +178,7 @@ namespace ARKODesktop.Views
 
             if (result)
             {
-                lblBTConnection.Text = $"Connected to: {device.DeviceName}" ;
+                lblBTConnection.Text = $"Connected to: {device.DeviceName}";
                 gbVerify.Enabled = true;
                 MessageBox.Show($"Bluetooth successfully connected to: {device.DeviceName}", "Bluetooth Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -186,15 +186,15 @@ namespace ARKODesktop.Views
             {
                 lblBTConnection.Text = $"Connected to: ";
                 gbVerify.Enabled = false;
-                MessageBox.Show($"Cannot connect to : {device.DeviceName}" , "Bluetooth Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Cannot connect to : {device.DeviceName}", "Bluetooth Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private async void readTimerBT_Tick(object sender, EventArgs e)
         {
             String rMessage = await btComms.ReceiveDataAsync();
-            
-            
+
+
             if (!string.IsNullOrEmpty(rMessage))
             {
                 try
@@ -214,15 +214,15 @@ namespace ARKODesktop.Views
                     {
                         MessageBox.Show($"Invalid Credentials", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"{ex}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-               
+
             }
-            
+
         }
 
         private void btnAddDevice_Click(object sender, EventArgs e)
@@ -235,9 +235,9 @@ namespace ARKODesktop.Views
             {
                 MessageBox.Show($"Failed to Insert Device", "Insertion Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
-    
-    
+
+
     }
 }
