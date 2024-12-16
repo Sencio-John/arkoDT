@@ -9,6 +9,8 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using MySql.Data.MySqlClient;
 
+
+
 namespace arkoDT
 {
     public partial class frmMap : Form
