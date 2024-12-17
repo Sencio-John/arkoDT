@@ -8,10 +8,69 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using ARKODesktop.Views.Components;
 
 namespace ARKODesktop
 {
+    public class ThrottleControl : Control
+    {
+        private int throttleValue = 0;
+        public int ThrottleValue
+        {
+            get { return throttleValue; }
+            set
+            {
+                throttleValue = Math.Max(0, Math.Min(value, 100));
+                Invalidate(); // Redraw control
+            }
+        }
+
+        public ThrottleControl()
+        {
+            this.Size = new Size(300, 60);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint, true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            Rectangle bounds = this.ClientRectangle;
+
+            // Draw border (optional for better UI appearance)
+            using (Pen borderPen = new Pen(Color.Gray, 2))
+            {
+                g.DrawRectangle(borderPen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+
+            // Draw background
+            using (SolidBrush bgBrush = new SolidBrush(Color.FromArgb(255, 39, 124, 165)))
+            {
+                g.FillRectangle(bgBrush, bounds);
+            }
+
+            // Draw the throttle fill (starting from bottom)
+            int fillHeight = (int)(ThrottleValue / 100.0 * bounds.Height);
+            using (SolidBrush fillBrush = new SolidBrush(Color.FromArgb(200, 17, 53, 71)))
+            {
+                g.FillRectangle(fillBrush, new Rectangle(bounds.X, bounds.Bottom - fillHeight, bounds.Width, fillHeight));
+            }
+
+            // Draw throttle percentage text at the center
+            string label = $"{ThrottleValue}%";
+            using (Font font = new Font("Microsoft Sans Serif", 14, FontStyle.Bold))
+            using (Brush textBrush = new SolidBrush(Color.White))
+            {
+                SizeF textSize = g.MeasureString(label, font);
+                PointF textPos = new PointF(
+                    bounds.X + (bounds.Width - textSize.Width) / 2,
+                    bounds.Y + (bounds.Height - textSize.Height) / 2);
+                g.DrawString(label, font, textBrush, textPos);
+            }
+        }
+    }
+
 
     public partial class Operations : Form
     {
@@ -27,9 +86,6 @@ namespace ARKODesktop
             this.KeyDown += Operations_KeyDown;
             btnControls = new Dictionary<string, Button>();
             btnToggleState = new Dictionary<string, bool>();
-
-   
-            
 
             string rootPath = GetProjectRootPath();
 
@@ -54,13 +110,12 @@ namespace ARKODesktop
 
             //Throttle
             CreateThrottleControl();
-            pcbCam.SendToBack();
         }
 
 
         private void Operations_KeyDown(object sender, KeyEventArgs e)
         {
-            //pressable
+
             if (e.KeyCode == Keys.A)
             {
                 HighlightButton("A");
@@ -79,21 +134,18 @@ namespace ARKODesktop
                 HighlightButton("S");
                 DecreaseThrottle();
             }
-            else if (e.KeyCode == Keys.P)
-            {
-                HighlightButton("btnPin");
-            }
-
-            //Toggle
             else if (e.KeyCode == Keys.M)
             {
-                ToggleButtonState("btnMic");
+                ToggleButtonState("btnMic");  // Toggle microphone button
             }
             else if (e.KeyCode == Keys.L)
             {
-                ToggleButtonState("btnLight");
+                ToggleButtonState("btnLight");  // Toggle light button
             }
-            
+            else if (e.KeyCode == Keys.P)  // Triggering highlight for Pin via key
+            {
+                HighlightButton("btnPin");
+            }
             else if (e.KeyCode == Keys.N)
             {
                 ToggleButtonState("btnAudio");
@@ -106,54 +158,6 @@ namespace ARKODesktop
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.D || e.KeyCode == Keys.W || e.KeyCode == Keys.S || e.KeyCode == Keys.P)
             {
                 ResetButtonStyles();
-            }
-        }
-
-        private void ToggleButtonState(string btnName)
-        {
-            string rootPath = GetProjectRootPath();
-            if (btnToggleState.ContainsKey(btnName))
-            {
-                bool currentState = btnToggleState[btnName];
-                btnToggleState[btnName] = !currentState;
-
-                Button btn = btnControls[btnName];
-
-                // Toggle the image and background color based on the button state
-                if (btnToggleState[btnName])
-                {
-                    if (btnName == "btnMic")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_on_white.png");
-                    }
-                    else if (btnName == "btnLight")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_on.png");
-                    }
-                    else if (btnName == "btnAudio")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_on.png");
-                    }
-
-                    btn.BackColor = Color.FromArgb(255, HexToColor("#113547"));  // On state (active)
-                }
-                else
-                {
-                    if (btnName == "btnMic")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_off_white.png");
-                    }
-                    else if (btnName == "btnLight")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_off.png");
-                    }
-                    else if (btnName == "btnAudio")
-                    {
-                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_off.png");
-                    }
-
-                    btn.BackColor = Color.FromArgb(150, HexToColor("#277CA5"));  // Off state (inactive)
-                }
             }
         }
 
@@ -323,6 +327,54 @@ namespace ARKODesktop
                 if (btn.Name != "btnMic" && btn.Name != "btnLight" && btn.Name != "btnAudio")
                 {
                     btn.BackColor = Color.FromArgb(100, HexToColor("#277CA5"));  // Reset to semi-transparent background color
+                }
+            }
+        }
+
+        private void ToggleButtonState(string btnName)
+        {
+            string rootPath = GetProjectRootPath();
+            if (btnToggleState.ContainsKey(btnName))
+            {
+                bool currentState = btnToggleState[btnName];
+                btnToggleState[btnName] = !currentState;  // Toggle the state
+
+                Button btn = btnControls[btnName];
+
+                // Toggle the image and background color based on the button state
+                if (btnToggleState[btnName])
+                {
+                    if (btnName == "btnMic")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_on_white.png");
+                    }
+                    else if (btnName == "btnLight")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_on.png");
+                    }
+                    else if (btnName == "btnAudio")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_on.png");
+                    }
+
+                    btn.BackColor = Color.FromArgb(255, HexToColor("#113547"));  // On state (active)
+                }
+                else
+                {
+                    if (btnName == "btnMic")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_off_white.png");
+                    }
+                    else if (btnName == "btnLight")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_off.png");
+                    }
+                    else if (btnName == "btnAudio")
+                    {
+                        btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_off.png");
+                    }
+
+                    btn.BackColor = Color.FromArgb(150, HexToColor("#277CA5"));  // Off state (inactive)
                 }
             }
         }

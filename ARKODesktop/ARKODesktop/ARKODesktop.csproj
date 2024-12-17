@@ -150,7 +150,6 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Vessel.cs" />
     <Compile Include="Models\water_level.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Views\Components\ChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,13 +163,7 @@
       <DependentUpon>ManageWifi.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Controller.cs">
-=======
-    <Compile Include="Views\Components\ThrottleControl.cs">
->>>>>>> Stashed changes
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Views\Controller.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Controller.Designer.cs">
       <DependentUpon>Controller.cs</DependentUpon>
