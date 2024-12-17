@@ -141,7 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\BluetoothComms.cs" />
+    <Compile Include="Controller\DAO\UserDataAccess.cs" />
     <Compile Include="Controller\DAO\VesselDataAccess.cs" />
+    <Compile Include="EncryptDecrypt.cs" />
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Strandeds.cs" />
     <Compile Include="Models\Users.cs" />
