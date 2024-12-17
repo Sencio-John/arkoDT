@@ -237,7 +237,5 @@ namespace ARKODesktop.Views
             }
 
         }
-
-
     }
 }

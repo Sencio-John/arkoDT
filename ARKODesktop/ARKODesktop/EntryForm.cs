@@ -38,14 +38,6 @@ namespace ARKODesktop
             form.Tag = form;
             form.Show();
         }
-
-
-
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            loadForm(new Dashboard());
-        }
-
         private void btnDevices_Click(object sender, EventArgs e)
         {
             loadForm(new Devices());
@@ -54,6 +46,11 @@ namespace ARKODesktop
         private void btnOperations_Click(object sender, EventArgs e)
         {
             loadForm(new Operation());
+        }
+
+        private void btnUserCreation_Click(object sender, EventArgs e)
+        {
+            loadForm(new UserCreation());
         }
     }
 }

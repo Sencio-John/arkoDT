@@ -34,7 +34,7 @@ namespace ARKODesktop
             this.lblTime = new System.Windows.Forms.Label();
             this.flpSideBar = new System.Windows.Forms.FlowLayoutPanel();
             this.picLogo = new System.Windows.Forms.PictureBox();
-            this.btnDashboard = new System.Windows.Forms.Button();
+            this.btnUserCreation = new System.Windows.Forms.Button();
             this.btnDevices = new System.Windows.Forms.Button();
             this.btnOperations = new System.Windows.Forms.Button();
             this.dashTime = new System.Windows.Forms.Timer(this.components);
@@ -70,7 +70,7 @@ namespace ARKODesktop
             // 
             this.flpSideBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.flpSideBar.Controls.Add(this.picLogo);
-            this.flpSideBar.Controls.Add(this.btnDashboard);
+            this.flpSideBar.Controls.Add(this.btnUserCreation);
             this.flpSideBar.Controls.Add(this.btnDevices);
             this.flpSideBar.Controls.Add(this.btnOperations);
             this.flpSideBar.Dock = System.Windows.Forms.DockStyle.Left;
@@ -90,15 +90,15 @@ namespace ARKODesktop
             this.picLogo.TabIndex = 0;
             this.picLogo.TabStop = false;
             // 
-            // btnDashboard
+            // btnUserCreation
             // 
-            this.btnDashboard.Location = new System.Drawing.Point(5, 103);
-            this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(189, 72);
-            this.btnDashboard.TabIndex = 1;
-            this.btnDashboard.Text = "Dashboard";
-            this.btnDashboard.UseVisualStyleBackColor = true;
-            this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
+            this.btnUserCreation.Location = new System.Drawing.Point(5, 103);
+            this.btnUserCreation.Name = "btnUserCreation";
+            this.btnUserCreation.Size = new System.Drawing.Size(189, 72);
+            this.btnUserCreation.TabIndex = 1;
+            this.btnUserCreation.Text = "User Creation";
+            this.btnUserCreation.UseVisualStyleBackColor = true;
+            this.btnUserCreation.Click += new System.EventHandler(this.btnUserCreation_Click);
             // 
             // btnDevices
             // 
@@ -159,7 +159,7 @@ namespace ARKODesktop
         private System.Windows.Forms.FlowLayoutPanel flpSideBar;
         private System.Windows.Forms.Timer dashTime;
         private System.Windows.Forms.PictureBox picLogo;
-        private System.Windows.Forms.Button btnDashboard;
+        private System.Windows.Forms.Button btnUserCreation;
         private System.Windows.Forms.Panel pnlLoadForm;
         private System.Windows.Forms.Button btnOperations;
         private System.Windows.Forms.Button btnDevices;
