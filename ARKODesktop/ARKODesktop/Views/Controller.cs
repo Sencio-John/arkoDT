@@ -78,7 +78,7 @@ namespace ARKODesktop
         private Dictionary<string, Button> btnControls;
         private Dictionary<string, bool> btnToggleState;
         private ThrottleControl customThrottleControl;
-        public Operations()
+        public Operations(String IpAdress)
         {
             InitializeComponent();
             KeyPreview = true;

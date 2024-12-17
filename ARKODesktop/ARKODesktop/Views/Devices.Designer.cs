@@ -60,6 +60,7 @@ namespace ARKODesktop.Views
             this.pnlDevicesBackground = new System.Windows.Forms.Panel();
             this.pnlDeviceHeader = new System.Windows.Forms.Panel();
             this.lblDeviceHeaderTitle = new System.Windows.Forms.Label();
+            this.pingTimer = new System.Windows.Forms.Timer(this.components);
             this.gbVerify.SuspendLayout();
             this.gbNetConfigure.SuspendLayout();
             this.pnlAddDevice.SuspendLayout();
@@ -374,6 +375,12 @@ namespace ARKODesktop.Views
             this.lblDeviceHeaderTitle.Text = "Device List";
             this.lblDeviceHeaderTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // pingTimer
+            // 
+            this.pingTimer.Enabled = true;
+            this.pingTimer.Interval = 1000;
+            this.pingTimer.Tick += new System.EventHandler(this.pingTimer_Tick);
+            // 
             // Devices
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -431,5 +438,6 @@ namespace ARKODesktop.Views
         private System.Windows.Forms.Label lblDeviceHeaderTitle;
         private System.Windows.Forms.Panel pnlHeaderAddDevice;
         private System.Windows.Forms.Label lblAddDeviceHeaderTitle;
+        private System.Windows.Forms.Timer pingTimer;
     }
 }

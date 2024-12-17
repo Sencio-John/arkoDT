@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using InTheHand.Net.Sockets;
-using ARKODesktop.Controller;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using ARKODesktop.Views.JsonDataAccess;
 using ARKODesktop.Controller.DAO;
+using ARKODesktop.Controller;
 using ARKODesktop.Models;
 
 namespace ARKODesktop.Views
@@ -14,11 +14,15 @@ namespace ARKODesktop.Views
     {
         private BluetoothComms btComms;
         private VesselDataAccess vesselDAO;
+        private List<Vessel> vesselList;
+        private List<Label> lblStatus;
+
         public Devices()
         {
             InitializeComponent();
             btComms = new BluetoothComms();
             vesselDAO = new VesselDataAccess();
+            lblStatus = new List<Label>();
             setDevices();
         }
 
@@ -64,6 +68,7 @@ namespace ARKODesktop.Views
             Label lblStatus = new Label();
             Button btnControl = new Button();
             Button btnManage = new Button();
+            ServerComms server = new ServerComms(vessel.Ip_address);
 
             btnControl.Location = new System.Drawing.Point(273, 117);
             btnControl.Size = new System.Drawing.Size(75, 23);
@@ -84,7 +89,7 @@ namespace ARKODesktop.Views
             lblStatus.Location = new System.Drawing.Point(0, 0);
             lblStatus.Size = new System.Drawing.Size(130, 29);
             lblStatus.TabIndex = 2;
-            lblStatus.Text = "●   Connected";
+            lblStatus.Tag = server;
             lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             pnlPlacer.Location = new System.Drawing.Point(216, 3);
@@ -118,12 +123,14 @@ namespace ARKODesktop.Views
             pnlCard.Controls.Add(btnManage);
             pnlCard.Controls.Add(lblNetworkName);
             pnlCard.Controls.Add(lblVesselName);
+
             flpDevices.Controls.Add(pnlCard);
+            this.lblStatus.Add(lblStatus);
         }
 
         public void setDevices()
         {
-            List<Vessel> vesselList = vesselDAO.SelectAllVessel();
+            this.vesselList = vesselDAO.SelectAllVessel();
             flpDevices.Controls.Clear();
             foreach (Vessel vessel in vesselList)
             {
@@ -234,5 +241,39 @@ namespace ARKODesktop.Views
             }
 
         }
+
+        private void pingTimer_Tick(object sender, EventArgs e)
+        {
+            if (lblStatus.Count > 0)
+            {
+                foreach (Label lbl in lblStatus)
+                {
+                    ServerComms server = lbl.Tag as ServerComms;
+
+                    // Update label based on server ping status
+                    if (server != null && server.PingStatus())
+                    {
+                        string status = server.GetStatus();
+                        if (status == "●   Connected")
+                        {
+                            lbl.ForeColor = System.Drawing.Color.Gray;
+                        }
+                        else
+                        {
+                             lbl.ForeColor = System.Drawing.Color.Green;
+                        }
+                        lbl.Text = $"{status}";
+                        
+                    }
+                    else
+                    {
+
+                        lbl.Text = $"● Offline";
+                        lbl.ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+            }
+        }
+
     }
 }
