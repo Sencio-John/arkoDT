@@ -11,12 +11,73 @@ using System.IO;
 
 namespace ARKODesktop
 {
+    public class ThrottleControl : Control
+    {
+        private int throttleValue = 0;
+        public int ThrottleValue
+        {
+            get { return throttleValue; }
+            set
+            {
+                throttleValue = Math.Max(0, Math.Min(value, 100));
+                Invalidate(); // Redraw control
+            }
+        }
+
+        public ThrottleControl()
+        {
+            this.Size = new Size(300, 60);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                          ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint, true);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            Rectangle bounds = this.ClientRectangle;
+
+            // Draw border (optional for better UI appearance)
+            using (Pen borderPen = new Pen(Color.Gray, 2))
+            {
+                g.DrawRectangle(borderPen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+
+            // Draw background
+            using (SolidBrush bgBrush = new SolidBrush(Color.FromArgb(255, 39, 124, 165)))
+            {
+                g.FillRectangle(bgBrush, bounds);
+            }
+
+            // Draw the throttle fill (starting from bottom)
+            int fillHeight = (int)(ThrottleValue / 100.0 * bounds.Height);
+            using (SolidBrush fillBrush = new SolidBrush(Color.FromArgb(200, 17, 53, 71)))
+            {
+                g.FillRectangle(fillBrush, new Rectangle(bounds.X, bounds.Bottom - fillHeight, bounds.Width, fillHeight));
+            }
+
+            // Draw throttle percentage text at the center
+            string label = $"{ThrottleValue}%";
+            using (Font font = new Font("Microsoft Sans Serif", 14, FontStyle.Bold))
+            using (Brush textBrush = new SolidBrush(Color.White))
+            {
+                SizeF textSize = g.MeasureString(label, font);
+                PointF textPos = new PointF(
+                    bounds.X + (bounds.Width - textSize.Width) / 2,
+                    bounds.Y + (bounds.Height - textSize.Height) / 2);
+                g.DrawString(label, font, textBrush, textPos);
+            }
+        }
+    }
+
+
     public partial class Operations : Form
     {
 
         private Dictionary<string, Button> btnControls;
         private Dictionary<string, bool> btnToggleState;
-
+        private ThrottleControl customThrottleControl;
         public Operations()
         {
             InitializeComponent();
@@ -39,6 +100,16 @@ namespace ARKODesktop
             createToggleControls(rootPath + @"Resources\control_icons\audio_off.png", 1525, 160, "btnAudio");
             createToggleControls(rootPath + @"Resources\control_icons\light_off.png", 1525, 220, "btnLight");
             createButtonAction(rootPath + @"Resources\control_icons\pin.png", 1525, 280, "btnPin", Keys.P);
+
+            //Time Panel
+            createPanelTime("pnlTime", 1375, 12);
+            lblIRSensor.ForeColor = Color.FromArgb(225, HexToColor("#113547"));
+            lblLatitude.ForeColor = Color.FromArgb(225, HexToColor("#113547"));
+            lblLongitude.ForeColor = Color.FromArgb(225, HexToColor("#113547"));
+            lblWaterLvl.ForeColor = Color.FromArgb(225, HexToColor("#113547"));
+
+            //Throttle
+            CreateThrottleControl();
         }
 
 
@@ -56,10 +127,12 @@ namespace ARKODesktop
             else if (e.KeyCode == Keys.W)
             {
                 HighlightButton("W");
+                IncreaseThrottle();
             }
             else if (e.KeyCode == Keys.S)
             {
                 HighlightButton("S");
+                DecreaseThrottle();
             }
             else if (e.KeyCode == Keys.M)
             {
@@ -184,6 +257,56 @@ namespace ARKODesktop
             Controls.Add(btn);
 
         }
+
+        private void createPanelTime(string pnlName, int x, int y)
+        {
+            Panel panel = new Panel
+            {
+                Name = pnlName,
+                Size = new Size(200, 50),
+                Location = new Point(x, y),
+                BackColor = Color.FromArgb(150, HexToColor("#113547")),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                TabStop = true,
+            };
+
+            Label timeLabel = new Label
+            {
+                Name = pnlName + "_TimeLabel",
+                AutoSize = false,
+                Size = new Size(panel.Width, panel.Height),
+                ForeColor = Color.White,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Microsoft Sans Serif", 16, FontStyle.Bold),
+
+            };
+
+            timeLabel.Location = new Point(
+                (panel.Width - timeLabel.Width) / 2, // Center horizontally
+                (panel.Height - timeLabel.Height) / 2 // Center vertically
+            );
+
+
+
+            Timer timer = new Timer
+            {
+                Interval = 1000
+            };
+
+            // Update the Label text every tick
+            timer.Tick += (sender, args) =>
+            {
+                timeLabel.Text = DateTime.Now.ToString("hh:mm tt");
+            };
+
+            // Start the Timer
+            timer.Start();
+            panel.Controls.Add(timeLabel);
+            this.Controls.Add(panel);
+
+        }
+
+
         #endregion
 
         #region Behaviors
@@ -256,6 +379,34 @@ namespace ARKODesktop
             }
         }
 
+        private void CreateThrottleControl()
+        {
+            customThrottleControl = new ThrottleControl
+            {
+                Location = new Point(50, 300),
+                Size = new Size(50, 300),
+                Dock = DockStyle.Left,
+                Anchor = AnchorStyles.Left,
+            };
+            Controls.Add(customThrottleControl);
+        }
+
+        private void IncreaseThrottle()
+        {
+            if (customThrottleControl.ThrottleValue < 100)
+            {
+                customThrottleControl.ThrottleValue += 10;
+            }
+        }
+
+        private void DecreaseThrottle()
+        {
+            if (customThrottleControl.ThrottleValue > 0)
+            {
+                customThrottleControl.ThrottleValue -= 10;
+            }
+        }
+
         #endregion
 
 
@@ -273,5 +424,8 @@ namespace ARKODesktop
         #endregion
 
         #endregion
+
     }
 }
+
+
