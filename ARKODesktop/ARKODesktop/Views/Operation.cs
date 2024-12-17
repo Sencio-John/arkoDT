@@ -12,6 +12,8 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using System.Device.Location;
+using System.Windows.Forms.DataVisualization.Charting;
+
 
 namespace ARKODesktop.Views
 {
@@ -21,6 +23,7 @@ namespace ARKODesktop.Views
         {
             InitializeComponent();
             InitializeMap();
+            LoadLineChart();
         }
         public void addCardOperations()
         {
@@ -107,7 +110,47 @@ namespace ARKODesktop.Views
             pnlOperations.Controls.Add(lblOperationID);
             flpOperations.Controls.Add(pnlOperations);
         }
+        private void LoadLineChart()
+        {
+            // Clear existing chart settings
+            chrtWaterLevel.Series.Clear();
+            chrtWaterLevel.ChartAreas.Clear();
 
+            // Add a ChartArea
+            ChartArea chartArea = new ChartArea("WaterLevelArea");
+            chrtWaterLevel.ChartAreas.Add(chartArea);
+
+            // Configure chart axes
+            chartArea.AxisX.Title = "Time (Minutes)";
+            chartArea.AxisY.Title = "Water Level (Meters)";
+            chartArea.AxisY.Minimum = 0;
+            chartArea.AxisY.Maximum = 3;
+
+            // Create a line series
+            Series series = new Series("WaterLevel");
+            series.ChartType = SeriesChartType.Line;
+
+            // Mock data (Time in minutes and corresponding water levels in meters)
+            series.Points.AddXY(0, 0.5);
+            series.Points.AddXY(1, 0.8);
+            series.Points.AddXY(2, 1.2);
+            series.Points.AddXY(3, 1.5);
+            series.Points.AddXY(4, 1.8);
+            series.Points.AddXY(5, 2.1);
+            series.Points.AddXY(6, 2.5);
+            series.Points.AddXY(7, 2.7);
+            series.Points.AddXY(8, 3.0);
+
+            // Add series to the chart
+            chrtWaterLevel.Series.Add(series);
+
+            // Customize series appearance (optional)
+            series.BorderWidth = 3;
+            series.Color = System.Drawing.Color.Blue;
+
+            // Refresh chart
+            chrtWaterLevel.Invalidate();
+        }
         private void btnShow_Click(object sender, EventArgs e)
         {
 
