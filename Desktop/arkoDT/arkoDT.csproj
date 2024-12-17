@@ -508,6 +508,7 @@
     <EmbeddedResource Include="Resources\login1.png" />
     <EmbeddedResource Include="Resources\no-connection.png" />
     <EmbeddedResource Include="Resources\profile.jpg" />
+    <EmbeddedResource Include="Resources\Screenshot 2024-10-14 173736.png" />
     <EmbeddedResource Include="Resources\sun.png" />
     <EmbeddedResource Include="Resources\usercount.jpg" />
     <EmbeddedResource Include="Resources\usercount1.jpg" />
