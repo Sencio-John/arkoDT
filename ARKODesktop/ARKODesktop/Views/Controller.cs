@@ -35,10 +35,10 @@ namespace ARKODesktop
             createBtnControls("S", 170, 720, "btnThrottleDown");
 
             // Toggle Controls
-            createToggleControls(rootPath + @"Resources\control_icons\mic_off_white.png", 1350, 100, "btnMic");
-            createToggleControls(rootPath + @"Resources\control_icons\audio_off.png", 1350, 160, "btnAudio");
-            createToggleControls(rootPath + @"Resources\control_icons\light_off.png", 1350, 220, "btnLight");
-            createButtonAction(rootPath + @"Resources\control_icons\pin.png", 1350, 280, "btnPin", Keys.P);
+            createToggleControls(rootPath + @"Resources\control_icons\mic_off_white.png", 1525, 100, "btnMic");
+            createToggleControls(rootPath + @"Resources\control_icons\audio_off.png", 1525, 160, "btnAudio");
+            createToggleControls(rootPath + @"Resources\control_icons\light_off.png", 1525, 220, "btnLight");
+            createButtonAction(rootPath + @"Resources\control_icons\pin.png", 1525, 280, "btnPin", Keys.P);
         }
 
 
