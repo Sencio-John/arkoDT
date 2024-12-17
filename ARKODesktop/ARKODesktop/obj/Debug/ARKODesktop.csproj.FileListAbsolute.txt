@@ -282,7 +282,6 @@ C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\Syste
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.csproj.AssemblyReference.cache
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.EntryForm.resources
-C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Operations.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Properties.Resources.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Devices.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Operation.resources
@@ -294,3 +293,4 @@ C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKOD
 C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
 C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.ThrottleControl.resources
