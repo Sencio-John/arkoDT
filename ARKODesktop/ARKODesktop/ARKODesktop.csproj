@@ -150,6 +150,18 @@
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\Vessel.cs" />
     <Compile Include="Models\water_level.cs" />
+    <Compile Include="Views\Components\ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Components\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\ManageWifi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Components\ManageWifi.Designer.cs">
+      <DependentUpon>ManageWifi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -185,6 +197,12 @@
     </Compile>
     <EmbeddedResource Include="EntryForm.resx">
       <DependentUpon>EntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Components\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Components\ManageWifi.resx">
+      <DependentUpon>ManageWifi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Controller.resx">
       <DependentUpon>Controller.cs</DependentUpon>
@@ -228,11 +246,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
-    <Folder Include="Views\Components\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\ARKODesktop.exe" />
     <Content Include="bin\Debug\ARKODesktop.pdb" />
+    <Content Include="Resources\BgDefault.png" />
     <Content Include="Resources\control_icons\audio_off.png" />
     <Content Include="Resources\control_icons\audio_on.png" />
     <Content Include="Resources\control_icons\light_off.png" />
