@@ -128,11 +128,11 @@ namespace ARKODesktop.Controller.DAO
             return Regex.IsMatch(email, emailPattern);
         }
 
-        private string GenerateRandomOTP()
-        {
-            Random rand = new Random();
-            return rand.Next(100000, 999999).ToString(); // 6-digit OTP
-        }
+        //private string GenerateRandomOTP()
+        //{
+        //    Random rand = new Random();
+        //    return rand.Next(100000, 999999).ToString(); // 6-digit OTP
+        //}
 
         private async void btnGetOTP_Click(object sender, EventArgs e)
         {
