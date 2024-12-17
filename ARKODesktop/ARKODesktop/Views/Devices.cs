@@ -214,6 +214,7 @@ namespace ARKODesktop.Views
                 {
 
                     MessageBox.Show($"Error: {ex} \nData:{rMessage}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error: {ex} \nData:{rMessage}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
