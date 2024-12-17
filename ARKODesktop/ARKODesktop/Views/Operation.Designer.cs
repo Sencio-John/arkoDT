@@ -36,8 +36,8 @@ namespace ARKODesktop.Views
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.chrtWaterLevel = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chrtWaterLevel)).BeginInit();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // flpOperations
@@ -94,30 +94,30 @@ namespace ARKODesktop.Views
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chrtWaterLevel
+            // chart1
             // 
             chartArea1.Name = "ChartArea1";
-            this.chrtWaterLevel.ChartAreas.Add(chartArea1);
+            this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Water Level";
             legend1.Title = "Water Level";
-            this.chrtWaterLevel.Legends.Add(legend1);
-            this.chrtWaterLevel.Location = new System.Drawing.Point(306, 389);
-            this.chrtWaterLevel.Name = "chrtWaterLevel";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(306, 389);
+            this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Water Level";
             series1.Name = "Series1";
-            this.chrtWaterLevel.Series.Add(series1);
-            this.chrtWaterLevel.Size = new System.Drawing.Size(816, 299);
-            this.chrtWaterLevel.TabIndex = 4;
-            this.chrtWaterLevel.Text = "chart1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(816, 299);
+            this.chart1.TabIndex = 4;
+            this.chart1.Text = "chart1";
             // 
             // Operation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 700);
-            this.Controls.Add(this.chrtWaterLevel);
+            this.Controls.Add(this.chart1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.gMap);
@@ -126,7 +126,7 @@ namespace ARKODesktop.Views
             this.Name = "Operation";
             this.Text = "Operations";
             this.Load += new System.EventHandler(this.Operation_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chrtWaterLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -137,6 +137,6 @@ namespace ARKODesktop.Views
         private GMap.NET.WindowsForms.GMapControl gMap;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chrtWaterLevel;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

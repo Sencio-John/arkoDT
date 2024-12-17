@@ -47,22 +47,22 @@ namespace ARKODesktop.Views
             this.lblOTP = new System.Windows.Forms.Label();
             this.txtOTP = new System.Windows.Forms.TextBox();
             this.pnlUserBackground = new System.Windows.Forms.Panel();
-            this.pnlUserHeader = new System.Windows.Forms.Panel();
-            this.lblUsers = new System.Windows.Forms.Label();
             this.pnlAddUserBackground = new System.Windows.Forms.Panel();
-            this.grpUserInformation = new System.Windows.Forms.GroupBox();
-            this.btnAddUser = new System.Windows.Forms.Button();
+            this.pnlUserHeader = new System.Windows.Forms.Panel();
+            this.pnlAddUserHeader = new System.Windows.Forms.Panel();
+            this.btnOTP = new System.Windows.Forms.Button();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.lblConfirmPass = new System.Windows.Forms.Label();
-            this.btnVerify = new System.Windows.Forms.Button();
-            this.btnOTP = new System.Windows.Forms.Button();
-            this.pnlAddUserHeader = new System.Windows.Forms.Panel();
             this.lblAddUserTitle = new System.Windows.Forms.Label();
+            this.lblUsers = new System.Windows.Forms.Label();
+            this.grpUserInformation = new System.Windows.Forms.GroupBox();
+            this.btnAddUser = new System.Windows.Forms.Button();
             this.pnlUserBackground.SuspendLayout();
-            this.pnlUserHeader.SuspendLayout();
             this.pnlAddUserBackground.SuspendLayout();
-            this.grpUserInformation.SuspendLayout();
+            this.pnlUserHeader.SuspendLayout();
             this.pnlAddUserHeader.SuspendLayout();
+            this.grpUserInformation.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpUsers
@@ -144,9 +144,6 @@ namespace ARKODesktop.Views
             // 
             this.cbRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRole.FormattingEnabled = true;
-            this.cbRole.Items.AddRange(new object[] {
-            "Administrator",
-            "Operator"});
             this.cbRole.Location = new System.Drawing.Point(632, 167);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(167, 24);
@@ -235,6 +232,16 @@ namespace ARKODesktop.Views
             this.pnlUserBackground.Size = new System.Drawing.Size(1134, 332);
             this.pnlUserBackground.TabIndex = 16;
             // 
+            // pnlAddUserBackground
+            // 
+            this.pnlAddUserBackground.Controls.Add(this.grpUserInformation);
+            this.pnlAddUserBackground.Controls.Add(this.pnlAddUserHeader);
+            this.pnlAddUserBackground.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlAddUserBackground.Location = new System.Drawing.Point(0, 0);
+            this.pnlAddUserBackground.Name = "pnlAddUserBackground";
+            this.pnlAddUserBackground.Size = new System.Drawing.Size(1134, 328);
+            this.pnlAddUserBackground.TabIndex = 17;
+            // 
             // pnlUserHeader
             // 
             this.pnlUserHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(194)))), ((int)(((byte)(236)))));
@@ -244,6 +251,65 @@ namespace ARKODesktop.Views
             this.pnlUserHeader.Name = "pnlUserHeader";
             this.pnlUserHeader.Size = new System.Drawing.Size(1134, 43);
             this.pnlUserHeader.TabIndex = 2;
+            // 
+            // pnlAddUserHeader
+            // 
+            this.pnlAddUserHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.pnlAddUserHeader.Controls.Add(this.lblAddUserTitle);
+            this.pnlAddUserHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlAddUserHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlAddUserHeader.Name = "pnlAddUserHeader";
+            this.pnlAddUserHeader.Size = new System.Drawing.Size(1134, 43);
+            this.pnlAddUserHeader.TabIndex = 16;
+            // 
+            // btnOTP
+            // 
+            this.btnOTP.Location = new System.Drawing.Point(323, 172);
+            this.btnOTP.Name = "btnOTP";
+            this.btnOTP.Size = new System.Drawing.Size(75, 23);
+            this.btnOTP.TabIndex = 17;
+            this.btnOTP.Text = "Get Code";
+            this.btnOTP.UseVisualStyleBackColor = true;
+            // 
+            // btnVerify
+            // 
+            this.btnVerify.Location = new System.Drawing.Point(323, 222);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(75, 23);
+            this.btnVerify.TabIndex = 18;
+            this.btnVerify.Text = "Verify";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            // 
+            // txtConfirmPassword
+            // 
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPassword.Location = new System.Drawing.Point(150, 120);
+            this.txtConfirmPassword.Name = "txtConfirmPassword";
+            this.txtConfirmPassword.PasswordChar = '●';
+            this.txtConfirmPassword.Size = new System.Drawing.Size(167, 22);
+            this.txtConfirmPassword.TabIndex = 20;
+            // 
+            // lblConfirmPass
+            // 
+            this.lblConfirmPass.AutoSize = true;
+            this.lblConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmPass.Location = new System.Drawing.Point(25, 126);
+            this.lblConfirmPass.Name = "lblConfirmPass";
+            this.lblConfirmPass.Size = new System.Drawing.Size(119, 16);
+            this.lblConfirmPass.TabIndex = 19;
+            this.lblConfirmPass.Text = "Confirm Password:";
+            // 
+            // lblAddUserTitle
+            // 
+            this.lblAddUserTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblAddUserTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddUserTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblAddUserTitle.Name = "lblAddUserTitle";
+            this.lblAddUserTitle.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.lblAddUserTitle.Size = new System.Drawing.Size(1134, 43);
+            this.lblAddUserTitle.TabIndex = 21;
+            this.lblAddUserTitle.Text = "Add User";
+            this.lblAddUserTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblUsers
             // 
@@ -256,16 +322,6 @@ namespace ARKODesktop.Views
             this.lblUsers.TabIndex = 0;
             this.lblUsers.Text = "User List";
             this.lblUsers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pnlAddUserBackground
-            // 
-            this.pnlAddUserBackground.Controls.Add(this.grpUserInformation);
-            this.pnlAddUserBackground.Controls.Add(this.pnlAddUserHeader);
-            this.pnlAddUserBackground.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlAddUserBackground.Location = new System.Drawing.Point(0, 0);
-            this.pnlAddUserBackground.Name = "pnlAddUserBackground";
-            this.pnlAddUserBackground.Size = new System.Drawing.Size(1134, 328);
-            this.pnlAddUserBackground.TabIndex = 17;
             // 
             // grpUserInformation
             // 
@@ -307,65 +363,6 @@ namespace ARKODesktop.Views
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
-            // txtConfirmPassword
-            // 
-            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(150, 120);
-            this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '●';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(167, 22);
-            this.txtConfirmPassword.TabIndex = 20;
-            // 
-            // lblConfirmPass
-            // 
-            this.lblConfirmPass.AutoSize = true;
-            this.lblConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConfirmPass.Location = new System.Drawing.Point(25, 126);
-            this.lblConfirmPass.Name = "lblConfirmPass";
-            this.lblConfirmPass.Size = new System.Drawing.Size(119, 16);
-            this.lblConfirmPass.TabIndex = 19;
-            this.lblConfirmPass.Text = "Confirm Password:";
-            // 
-            // btnVerify
-            // 
-            this.btnVerify.Location = new System.Drawing.Point(323, 222);
-            this.btnVerify.Name = "btnVerify";
-            this.btnVerify.Size = new System.Drawing.Size(75, 23);
-            this.btnVerify.TabIndex = 18;
-            this.btnVerify.Text = "Verify";
-            this.btnVerify.UseVisualStyleBackColor = true;
-            // 
-            // btnOTP
-            // 
-            this.btnOTP.Location = new System.Drawing.Point(323, 172);
-            this.btnOTP.Name = "btnOTP";
-            this.btnOTP.Size = new System.Drawing.Size(75, 23);
-            this.btnOTP.TabIndex = 17;
-            this.btnOTP.Text = "Get Code";
-            this.btnOTP.UseVisualStyleBackColor = true;
-            // 
-            // pnlAddUserHeader
-            // 
-            this.pnlAddUserHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
-            this.pnlAddUserHeader.Controls.Add(this.lblAddUserTitle);
-            this.pnlAddUserHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlAddUserHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlAddUserHeader.Name = "pnlAddUserHeader";
-            this.pnlAddUserHeader.Size = new System.Drawing.Size(1134, 43);
-            this.pnlAddUserHeader.TabIndex = 16;
-            // 
-            // lblAddUserTitle
-            // 
-            this.lblAddUserTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAddUserTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddUserTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblAddUserTitle.Name = "lblAddUserTitle";
-            this.lblAddUserTitle.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.lblAddUserTitle.Size = new System.Drawing.Size(1134, 43);
-            this.lblAddUserTitle.TabIndex = 21;
-            this.lblAddUserTitle.Text = "Add User";
-            this.lblAddUserTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // UserCreation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -378,11 +375,11 @@ namespace ARKODesktop.Views
             this.Name = "UserCreation";
             this.Text = "Dashboard";
             this.pnlUserBackground.ResumeLayout(false);
-            this.pnlUserHeader.ResumeLayout(false);
             this.pnlAddUserBackground.ResumeLayout(false);
+            this.pnlUserHeader.ResumeLayout(false);
+            this.pnlAddUserHeader.ResumeLayout(false);
             this.grpUserInformation.ResumeLayout(false);
             this.grpUserInformation.PerformLayout();
-            this.pnlAddUserHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
