@@ -229,6 +229,13 @@
   <ItemGroup>
     <Content Include="bin\Debug\ARKODesktop.exe" />
     <Content Include="bin\Debug\ARKODesktop.pdb" />
+    <Content Include="Resources\control_icons\audio_off.png" />
+    <Content Include="Resources\control_icons\audio_on.png" />
+    <Content Include="Resources\control_icons\light-bulb.png" />
+    <Content Include="Resources\control_icons\light_on.png" />
+    <Content Include="Resources\control_icons\mic_off_white.png" />
+    <Content Include="Resources\control_icons\mic_on_white.png" />
+    <Content Include="Resources\control_icons\office-push-pin.png" />
     <None Include="Resources\ArkoLogoSideBar.png" />
     <None Include="Resources\arko_logo_ver.png" />
   </ItemGroup>
