@@ -201,24 +201,19 @@ namespace ARKODesktop.Views
                 {
                     BTVerify respond = JsonConvert.DeserializeObject<BTVerify>(rMessage);
 
-                    if (respond.response)
-                    {
-                        btComms.Token = respond.token;
-                        btComms.DeviceName = respond.vessel_name;
-                        btComms.DeviceNetwork = respond.wifi_ssid;
-                        btComms.IpAddress = respond.ip_address;
-                        MessageBox.Show($"Verified Successfuly", "Verification Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        setVesselInfo();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Invalid Credentials", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    btComms.Token = respond.token;
+                    btComms.DeviceName = respond.vessel_name;
+                    btComms.DeviceNetwork = respond.wifi_ssid;
+                    btComms.IpAddress = respond.ip_address;
+                    MessageBox.Show($"Verified Successfuly", "Verification Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    setVesselInfo();
+                    
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{ex}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    MessageBox.Show($"Error: {ex} \nData:{rMessage}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
@@ -230,6 +225,7 @@ namespace ARKODesktop.Views
             if (vesselDAO.AddVessel(btComms))
             {
                 MessageBox.Show($"New Device Successfuly Added", "Insertion Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                setDevices();
             }
             else
             {

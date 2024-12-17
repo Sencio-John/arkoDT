@@ -15,6 +15,7 @@ namespace ARKODesktop.Controller.DAO
             string deviceName = btInfo.DeviceName;
             string ipAddress = btInfo.IpAddress;
             string networkName = btInfo.DeviceNetwork;
+            string token = btInfo.Token;
             string dateCreated = DateTime.Now.ToString("yyyy-MM-dd");
             string timeCreated = DateTime.Now.ToString("HH:mm:ss tt");
 
@@ -24,14 +25,15 @@ namespace ARKODesktop.Controller.DAO
                 {
                     con.Open();
                     string addDevice = "INSERT INTO Vessel" +
-                                        "([vessel_name], [ip_address], [network_name], [date_created], [time_created]) VALUES" +
-                                        "(@DeviceName, @IpAddress, @NetworkName, @DateCreated, @TimeCreated)";
+                                        "([vessel_name], [ip_address], [network_name], [token], [date_created], [time_created]) VALUES" +
+                                        "(@DeviceName, @IpAddress, @NetworkName, @Token, @DateCreated, @TimeCreated)";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(addDevice, con))
                     {
                         cmd.Parameters.AddWithValue("@DeviceName", deviceName);
                         cmd.Parameters.AddWithValue("@IpAddress", ipAddress);
                         cmd.Parameters.AddWithValue("@NetworkName", networkName);
+                        cmd.Parameters.AddWithValue("@Token", token);
                         cmd.Parameters.AddWithValue("@DateCreated", dateCreated);
                         cmd.Parameters.AddWithValue("@TimeCreated", timeCreated);
 
@@ -72,6 +74,7 @@ namespace ARKODesktop.Controller.DAO
                                     Network_name = reader["network_name"].ToString(),
                                     Date_created = reader["date_created"].ToString(),
                                     Time_created = reader["time_created"].ToString()
+
                                 };
 
                                 vesselList.Add(vessel);
@@ -82,7 +85,6 @@ namespace ARKODesktop.Controller.DAO
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Failed to Fetch Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
 
