@@ -16,7 +16,7 @@ namespace ARKODesktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EntryForm());
+            Application.Run(new Operations());
         }
     }
 }

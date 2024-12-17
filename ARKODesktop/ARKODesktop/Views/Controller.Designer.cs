@@ -34,7 +34,9 @@ namespace ARKODesktop
             this.lblWaterLvl = new System.Windows.Forms.Label();
             this.lblLongitude = new System.Windows.Forms.Label();
             this.lblLatitude = new System.Windows.Forms.Label();
+            this.pcbCam = new System.Windows.Forms.PictureBox();
             this.pnlControlData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCam)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlControlData
@@ -92,6 +94,15 @@ namespace ARKODesktop
             this.lblLatitude.TabIndex = 1;
             this.lblLatitude.Text = "Latitude:";
             // 
+            // pcbCam
+            // 
+            this.pcbCam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pcbCam.Location = new System.Drawing.Point(0, 0);
+            this.pcbCam.Name = "pcbCam";
+            this.pcbCam.Size = new System.Drawing.Size(1600, 900);
+            this.pcbCam.TabIndex = 1;
+            this.pcbCam.TabStop = false;
+            // 
             // Operations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +110,7 @@ namespace ARKODesktop
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1600, 900);
             this.Controls.Add(this.pnlControlData);
+            this.Controls.Add(this.pcbCam);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Operations";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -106,6 +118,7 @@ namespace ARKODesktop
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnlControlData.ResumeLayout(false);
             this.pnlControlData.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCam)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -117,5 +130,6 @@ namespace ARKODesktop
         private System.Windows.Forms.Label lblWaterLvl;
         private System.Windows.Forms.Label lblLongitude;
         private System.Windows.Forms.Label lblLatitude;
+        private System.Windows.Forms.PictureBox pcbCam;
     }
 }
