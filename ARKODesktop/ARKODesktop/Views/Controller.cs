@@ -1,84 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using ARKODesktop.Views.Components;
+using ARKODesktop.Controller;
 
 namespace ARKODesktop
 {
-    public class ThrottleControl : Control
-    {
-        private int throttleValue = 0;
-        public int ThrottleValue
-        {
-            get { return throttleValue; }
-            set
-            {
-                throttleValue = Math.Max(0, Math.Min(value, 100));
-                Invalidate(); // Redraw control
-            }
-        }
-
-        public ThrottleControl()
-        {
-            this.Size = new Size(300, 60);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                          ControlStyles.AllPaintingInWmPaint |
-                          ControlStyles.UserPaint, true);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
-            Rectangle bounds = this.ClientRectangle;
-
-            // Draw border (optional for better UI appearance)
-            using (Pen borderPen = new Pen(Color.Gray, 2))
-            {
-                g.DrawRectangle(borderPen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
-            }
-
-            // Draw background
-            using (SolidBrush bgBrush = new SolidBrush(Color.FromArgb(255, 39, 124, 165)))
-            {
-                g.FillRectangle(bgBrush, bounds);
-            }
-
-            // Draw the throttle fill (starting from bottom)
-            int fillHeight = (int)(ThrottleValue / 100.0 * bounds.Height);
-            using (SolidBrush fillBrush = new SolidBrush(Color.FromArgb(200, 17, 53, 71)))
-            {
-                g.FillRectangle(fillBrush, new Rectangle(bounds.X, bounds.Bottom - fillHeight, bounds.Width, fillHeight));
-            }
-
-            // Draw throttle percentage text at the center
-            string label = $"{ThrottleValue}%";
-            using (Font font = new Font("Microsoft Sans Serif", 14, FontStyle.Bold))
-            using (Brush textBrush = new SolidBrush(Color.White))
-            {
-                SizeF textSize = g.MeasureString(label, font);
-                PointF textPos = new PointF(
-                    bounds.X + (bounds.Width - textSize.Width) / 2,
-                    bounds.Y + (bounds.Height - textSize.Height) / 2);
-                g.DrawString(label, font, textBrush, textPos);
-            }
-        }
-    }
-
-
+    
     public partial class Operations : Form
     {
 
         private Dictionary<string, Button> btnControls;
         private Dictionary<string, bool> btnToggleState;
         private ThrottleControl customThrottleControl;
-        public Operations(String IpAdress)
+        
+        private String IpAdress;
+        private VideoFeed videoFeed;
+        private VOIP voip;
+        private Commands command;
+
+        private bool lights;
+        private bool engine = true;
+        private string movement = "ahead";
+        private string direction = "starboard";
+
+        public Operations(string IpAdress, string token)
         {
             InitializeComponent();
             KeyPreview = true;
@@ -88,6 +36,10 @@ namespace ARKODesktop
             btnToggleState = new Dictionary<string, bool>();
 
             string rootPath = GetProjectRootPath();
+            this.IpAdress = IpAdress;
+            videoFeed = new VideoFeed();
+            voip = new VOIP(IpAdress);
+            command = new Commands(IpAdress, token);
 
             // Control Rudder and Throttle
             createBtnControls("A", 60, 720, "btnLeftRudder");
@@ -110,18 +62,26 @@ namespace ARKODesktop
 
             //Throttle
             CreateThrottleControl();
-        }
+            pcbCam.SendToBack();
 
+            
+            videoFeed.StartCamera(this.IpAdress, pcbCam);
+            voip.StartRecording();
+            voip.StartReceiving();
+        }
+        #region Operations
 
         private void Operations_KeyDown(object sender, KeyEventArgs e)
         {
 
             if (e.KeyCode == Keys.A)
             {
+                direction = "starboard";
                 HighlightButton("A");
             }
             else if (e.KeyCode == Keys.D)
             {
+                direction = "port";
                 HighlightButton("D");
             }
             else if (e.KeyCode == Keys.W)
@@ -140,6 +100,7 @@ namespace ARKODesktop
             }
             else if (e.KeyCode == Keys.L)
             {
+                
                 ToggleButtonState("btnLight");  // Toggle light button
             }
             else if (e.KeyCode == Keys.P)  // Triggering highlight for Pin via key
@@ -150,6 +111,8 @@ namespace ARKODesktop
             {
                 ToggleButtonState("btnAudio");
             }
+            command.SendControlCommand((byte)customThrottleControl.ThrottleValue, lights, engine, movement, direction);
+            direction = "";
         }
 
         private void Operations_KeyUp(object sender, KeyEventArgs e)
@@ -160,7 +123,64 @@ namespace ARKODesktop
                 ResetButtonStyles();
             }
         }
+        
+        private void btnStopOperation_Click(object sender, EventArgs e)
+        {
+            CloseAllListeners();
+            this.Close();
+        }
 
+        private void Operations_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseAllListeners();
+        }
+        
+        private void CloseAllListeners()
+        {
+            try
+            {
+                if (videoFeed != null)
+                {
+                    videoFeed.StopCamera();
+                    videoFeed = null;
+                }
+
+                if (voip != null)
+                {
+                    voip.closeVOIP();
+                    voip = null;
+                }
+
+                if (command != null)
+                {
+                    command.CloseConnection();
+                    command = null;
+                }
+
+                if (customThrottleControl != null)
+                {
+                    customThrottleControl.Dispose();
+                    customThrottleControl = null;
+                }
+
+                foreach (var btn in btnControls.Values)
+                {
+                    btn.Dispose();
+                }
+
+                btnControls.Clear();
+                btnToggleState.Clear();
+
+                GC.Collect(); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error while closing resources: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+        #endregion End Operations
+        
         #region UI Behaviours
 
         #region Create Components
@@ -347,14 +367,20 @@ namespace ARKODesktop
                     if (btnName == "btnMic")
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_on_white.png");
+                        voip.ToggleMic(true);
+
                     }
                     else if (btnName == "btnLight")
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_on.png");
+                        lights = true;
+
                     }
                     else if (btnName == "btnAudio")
                     {
+                        
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_on.png");
+                        voip.ToggleSpeaker(true);
                     }
 
                     btn.BackColor = Color.FromArgb(255, HexToColor("#113547"));  // On state (active)
@@ -364,14 +390,17 @@ namespace ARKODesktop
                     if (btnName == "btnMic")
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\mic_off_white.png");
+                        voip.ToggleMic(false);
                     }
                     else if (btnName == "btnLight")
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\light_off.png");
+                        lights = false;
                     }
                     else if (btnName == "btnAudio")
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_off.png");
+                        voip.ToggleSpeaker(false);
                     }
 
                     btn.BackColor = Color.FromArgb(150, HexToColor("#277CA5"));  // Off state (inactive)
@@ -396,6 +425,7 @@ namespace ARKODesktop
             if (customThrottleControl.ThrottleValue < 100)
             {
                 customThrottleControl.ThrottleValue += 10;
+
             }
         }
 
@@ -421,10 +451,12 @@ namespace ARKODesktop
             return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
 
         }
-        #endregion
 
         #endregion
 
+        #endregion
+
+        
     }
 }
 

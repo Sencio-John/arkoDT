@@ -7,6 +7,8 @@ using ARKODesktop.Views.JsonDataAccess;
 using ARKODesktop.Controller.DAO;
 using ARKODesktop.Controller;
 using ARKODesktop.Models;
+using NAudio.Wave;
+
 
 namespace ARKODesktop.Views
 {
@@ -26,6 +28,7 @@ namespace ARKODesktop.Views
             setDevices();
         }
 
+        #region UI Behaviour
         void addCardBluetooth(BluetoothDeviceInfo device)
         {
             Label label = new Label();
@@ -76,6 +79,7 @@ namespace ARKODesktop.Views
             btnControl.Text = "Operate";
             btnControl.Tag = vessel;
             btnControl.UseVisualStyleBackColor = true;
+            btnControl.Click += openController;
 
             btnManage.Location = new System.Drawing.Point(192, 117);
             btnManage.Size = new System.Drawing.Size(75, 23);
@@ -127,27 +131,11 @@ namespace ARKODesktop.Views
             flpDevices.Controls.Add(pnlCard);
             this.lblStatus.Add(lblStatus);
         }
-
-        public void setDevices()
-        {
-            this.vesselList = vesselDAO.SelectAllVessel();
-            flpDevices.Controls.Clear();
-            foreach (Vessel vessel in vesselList)
-            {
-                AddCardDevices(vessel);
-            }
-        }
-
-        public void setVesselInfo()
-        {
-            gbVesselInfo.Enabled = true;
-            gbNetConfigure.Enabled = true;
-            lblVesselName.Text = "Vessel Name: " + btComms.DeviceName;
-            lblNetwork.Text = "Network: " + btComms.DeviceNetwork;
-            lblIP.Text = "IP Address: " + btComms.IpAddress;
-
-        }
-
+        
+        #endregion
+        
+        #region Bluetooth
+        
         private async void btnScanBT_Click(object sender, EventArgs e)
         {
             BluetoothDeviceInfo[] deviceList = await btComms.DiscoverDevicesAsync();
@@ -197,6 +185,65 @@ namespace ARKODesktop.Views
             }
         }
 
+        private async void btnConnectNet_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        #endregion
+
+        #region DAO
+        private void btnAddDevice_Click(object sender, EventArgs e)
+        {
+            if (vesselDAO.AddVessel(btComms))
+            {
+                MessageBox.Show($"New Device Successfuly Added", "Insertion Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                setDevices();
+            }
+            else
+            {
+                MessageBox.Show($"Failed to Insert Device", "Insertion Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        public void setDevices()
+        {
+            this.vesselList = vesselDAO.SelectAllVessel();
+            flpDevices.Controls.Clear();
+            foreach (Vessel vessel in vesselList)
+            {
+                AddCardDevices(vessel);
+            }
+        }
+
+        public void setVesselInfo()
+        {
+            gbVesselInfo.Enabled = true;
+            gbNetConfigure.Enabled = true;
+            lblVesselName.Text = "Vessel Name: " + btComms.DeviceName;
+            lblNetwork.Text = "Network: " + btComms.DeviceNetwork;
+            lblIP.Text = "IP Address: " + btComms.IpAddress;
+
+        }
+        #endregion
+
+        #region Controls
+        public void openController(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            Vessel vessel  = btn.Tag as Vessel;
+            showControler(vessel.Ip_address, vessel.Token);
+        }
+        
+        public void showControler(String ip, String token)
+        {
+            Operations controller = new Operations(ip, token);
+            controller.Show();
+        }
+        #endregion
+
+        #region Listener
         private async void readTimerBT_Tick(object sender, EventArgs e)
         {
             String rMessage = await btComms.ReceiveDataAsync();
@@ -214,7 +261,7 @@ namespace ARKODesktop.Views
                     btComms.IpAddress = respond.ip_address;
                     MessageBox.Show($"Verified Successfuly", "Verification Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     setVesselInfo();
-                    
+
 
                 }
                 catch (Exception ex)
@@ -224,20 +271,6 @@ namespace ARKODesktop.Views
                     MessageBox.Show($"Error: {ex} \nData:{rMessage}", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-            }
-
-        }
-
-        private void btnAddDevice_Click(object sender, EventArgs e)
-        {
-            if (vesselDAO.AddVessel(btComms))
-            {
-                MessageBox.Show($"New Device Successfuly Added", "Insertion Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                setDevices();
-            }
-            else
-            {
-                MessageBox.Show($"Failed to Insert Device", "Insertion Unsuccessful", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -274,6 +307,8 @@ namespace ARKODesktop.Views
                 }
             }
         }
+        #endregion
 
+        
     }
 }

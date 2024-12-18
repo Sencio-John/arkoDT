@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -141,9 +147,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\BluetoothComms.cs" />
+    <Compile Include="Controller\Commands.cs" />
     <Compile Include="Controller\DAO\UserDataAccess.cs" />
     <Compile Include="Controller\DAO\VesselDataAccess.cs" />
+    <Compile Include="Controller\DAO\VoiceCall.cs" />
+    <Compile Include="Controller\VideoFeed.cs" />
     <Compile Include="Controller\ServerComms.cs" />
+    <Compile Include="Controller\VOIP.cs" />
     <Compile Include="EncryptDecrypt.cs" />
     <Compile Include="Models\Operation.cs" />
     <Compile Include="Models\Strandeds.cs" />
@@ -162,8 +172,11 @@
     <Compile Include="Views\Components\ManageWifi.Designer.cs">
       <DependentUpon>ManageWifi.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controller.cs">
+    <Compile Include="Views\Components\ThrottleControl.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Controller.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Controller.Designer.cs">
       <DependentUpon>Controller.cs</DependentUpon>

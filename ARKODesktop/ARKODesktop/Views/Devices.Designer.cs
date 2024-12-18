@@ -191,6 +191,7 @@ namespace ARKODesktop.Views
             this.btnConnectNet.TabIndex = 10;
             this.btnConnectNet.Text = "Connect";
             this.btnConnectNet.UseVisualStyleBackColor = true;
+            this.btnConnectNet.Click += new System.EventHandler(this.btnConnectNet_Click);
             // 
             // txtSSID
             // 

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKODesktop.Views;
 
@@ -13,6 +6,10 @@ namespace ARKODesktop
 {
     public partial class EntryForm : Form
     {
+        private Form frmDevices;
+        private Form frmOperation;
+        private Form frmUserCreation;
+
         public EntryForm()
         {
             InitializeComponent();
@@ -23,34 +20,66 @@ namespace ARKODesktop
             lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
         }
 
-        public void loadForm(object Form) 
-        { 
+        public Form loadForm(Form form)
+        {
             if (this.pnlLoadForm.Controls.Count > 0)
             {
                 this.pnlLoadForm.Controls.RemoveAt(0);
             }
-
-            Form form = Form as Form;
 
             form.TopLevel = false;
             form.Dock = DockStyle.Fill;
             this.pnlLoadForm.Controls.Add(form);
             form.Tag = form;
             form.Show();
+
+            return form;
         }
+
+        private void HideAllFormsExcept(Form visibleForm)
+        {
+            if (frmDevices != null && frmDevices != visibleForm) frmDevices.Hide();
+            if (frmOperation != null && frmOperation != visibleForm) frmOperation.Hide();
+            if (frmUserCreation != null && frmUserCreation != visibleForm) frmUserCreation.Hide();
+
+            if (this.pnlLoadForm.Controls.Count > 0)
+            {
+                this.pnlLoadForm.Controls.RemoveAt(0);
+            }
+            this.pnlLoadForm.Controls.Add(visibleForm);
+        }
+
+        private void ShowForm(ref Form currentForm, Form newForm)
+        {
+
+            if (currentForm == null || currentForm.IsDisposed)
+            {
+                currentForm = loadForm(newForm);
+                
+            }
+            else
+            {
+                currentForm.Show();
+            }
+
+            HideAllFormsExcept(currentForm);
+
+
+        }
+
         private void btnDevices_Click(object sender, EventArgs e)
         {
-            loadForm(new Devices());
+            ShowForm(ref frmDevices, new Devices());
         }
 
         private void btnOperations_Click(object sender, EventArgs e)
         {
-            loadForm(new Operation());
+            ShowForm(ref frmOperation, new Operation());
         }
 
         private void btnUserCreation_Click(object sender, EventArgs e)
         {
-            loadForm(new UserCreation());
+            ShowForm(ref frmUserCreation, new UserCreation());
         }
     }
 }
