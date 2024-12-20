@@ -25,17 +25,14 @@ namespace ARKODesktop.Controller
             _server.OnMessage += (sender, e) => OnMessageReceived(e.Data);
             _server.OnOpen += (sender, e) =>
             {
-                Console.WriteLine("WebSocket connection opened.");
                 status = "●   Online";
             };
             _server.OnError += (sender, e) =>
             {
-                Console.WriteLine($"WebSocket error: {e.Message}");
                 status = "●   Offline";
             };
             _server.OnClose += (sender, e) =>
             {
-                Console.WriteLine("WebSocket connection closed.");
                 status = "●   Offline";
             };
 
@@ -88,7 +85,6 @@ namespace ARKODesktop.Controller
                         if (_server != null && _server.IsAlive)
                         {
                             _server.Send("ping");
-                            Console.WriteLine("Ping sent.");
                         }
                         else
                         {
@@ -132,7 +128,6 @@ namespace ARKODesktop.Controller
         // Event handler for receiving messages
         private void OnMessageReceived(string message)
         {
-            Console.WriteLine($"Message received: {message}");
             status = $"●   {message}"; // Update status with message
         }
     }

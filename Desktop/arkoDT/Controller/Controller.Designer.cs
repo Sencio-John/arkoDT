@@ -41,7 +41,7 @@ namespace arkoDT.Controller
             this.btnMicToggle.Name = "btnMicToggle";
             this.btnMicToggle.Size = new System.Drawing.Size(75, 23);
             this.btnMicToggle.TabIndex = 0;
-            this.btnMicToggle.Text = "Mic: On";
+            this.btnMicToggle.Text = "x`";
             this.btnMicToggle.UseVisualStyleBackColor = true;
             this.btnMicToggle.Click += new System.EventHandler(this.ToggleMic);
             // 

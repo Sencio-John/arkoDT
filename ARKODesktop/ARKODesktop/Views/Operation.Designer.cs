@@ -35,8 +35,8 @@ namespace ARKODesktop.Views
             this.flpOperations = new System.Windows.Forms.FlowLayoutPanel();
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnPin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,16 +84,6 @@ namespace ARKODesktop.Views
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 2;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(306, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // chart1
             // 
             chartArea1.Name = "ChartArea1";
@@ -112,13 +102,23 @@ namespace ARKODesktop.Views
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
             // 
+            // btnPin
+            // 
+            this.btnPin.Location = new System.Drawing.Point(306, 12);
+            this.btnPin.Name = "btnPin";
+            this.btnPin.Size = new System.Drawing.Size(75, 23);
+            this.btnPin.TabIndex = 5;
+            this.btnPin.Text = "button1";
+            this.btnPin.UseVisualStyleBackColor = true;
+            this.btnPin.Click += new System.EventHandler(this.btnPin_Click);
+            // 
             // Operation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1134, 700);
+            this.Controls.Add(this.btnPin);
             this.Controls.Add(this.chart1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.gMap);
             this.Controls.Add(this.flpOperations);
@@ -136,7 +136,7 @@ namespace ARKODesktop.Views
         private System.Windows.Forms.FlowLayoutPanel flpOperations;
         private GMap.NET.WindowsForms.GMapControl gMap;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button btnPin;
     }
 }

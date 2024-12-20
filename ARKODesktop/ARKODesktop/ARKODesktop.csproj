@@ -150,7 +150,7 @@
     <Compile Include="Controller\Commands.cs" />
     <Compile Include="Controller\DAO\UserDataAccess.cs" />
     <Compile Include="Controller\DAO\VesselDataAccess.cs" />
-    <Compile Include="Controller\DAO\VoiceCall.cs" />
+    <Compile Include="Controller\ServerReadings.cs" />
     <Compile Include="Controller\VideoFeed.cs" />
     <Compile Include="Controller\ServerComms.cs" />
     <Compile Include="Controller\VOIP.cs" />

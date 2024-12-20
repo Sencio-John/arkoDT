@@ -5,26 +5,34 @@ using System.Windows.Forms;
 using System.IO;
 using ARKODesktop.Views.Components;
 using ARKODesktop.Controller;
+using WebSocketSharp;
 
 namespace ARKODesktop
 {
-    
+
     public partial class Operations : Form
     {
+        
 
         private Dictionary<string, Button> btnControls;
         private Dictionary<string, bool> btnToggleState;
         private ThrottleControl customThrottleControl;
         
         private String IpAdress;
+        private String token;
         private VideoFeed videoFeed;
         private VOIP voip;
         private Commands command;
+        private ServerReadings serverReadings;
 
         private bool lights;
         private bool engine = true;
         private string movement = "ahead";
         private string direction = "starboard";
+
+
+        static Timer timer;
+        static bool messageReceived = false;
 
         public Operations(string IpAdress, string token)
         {
@@ -40,6 +48,7 @@ namespace ARKODesktop
             videoFeed = new VideoFeed();
             voip = new VOIP(IpAdress);
             command = new Commands(IpAdress, token);
+            serverReadings = new ServerReadings(IpAdress, token);
 
             // Control Rudder and Throttle
             createBtnControls("A", 60, 720, "btnLeftRudder");
@@ -52,6 +61,7 @@ namespace ARKODesktop
             createToggleControls(rootPath + @"Resources\control_icons\audio_off.png", 1525, 160, "btnAudio");
             createToggleControls(rootPath + @"Resources\control_icons\light_off.png", 1525, 220, "btnLight");
             createButtonAction(rootPath + @"Resources\control_icons\pin.png", 1525, 280, "btnPin", Keys.P);
+            createToggleGear(1325, 720, "btnGear");
 
             //Time Panel
             createPanelTime("pnlTime", 1375, 12);
@@ -100,7 +110,6 @@ namespace ARKODesktop
             }
             else if (e.KeyCode == Keys.L)
             {
-                
                 ToggleButtonState("btnLight");  // Toggle light button
             }
             else if (e.KeyCode == Keys.P)  // Triggering highlight for Pin via key
@@ -110,6 +119,10 @@ namespace ARKODesktop
             else if (e.KeyCode == Keys.N)
             {
                 ToggleButtonState("btnAudio");
+            }
+            else if (e.KeyCode == Keys.B)
+            {
+                ToggleButtonState("btnGear");
             }
             command.SendControlCommand((byte)customThrottleControl.ThrottleValue, lights, engine, movement, direction);
             direction = "";
@@ -134,7 +147,25 @@ namespace ARKODesktop
         {
             CloseAllListeners();
         }
-        
+
+        // Assuming serverReadings is an instance of ServerReadings
+        private void tmReadings_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+
+                lblIRSensor.Text = $"IR Sensor: {serverReadings.Detected}";
+                lblLatitude.Text = $"Latitude: {serverReadings.GPS.Latitude:F6}";
+                lblLongitude.Text = $"Longitude: {serverReadings.GPS.Longitude:F6}";
+                lblWaterLvl.Text = $"Water Level: {serverReadings.WaterLevel:F2} meters";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating readings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         private void CloseAllListeners()
         {
             try
@@ -238,6 +269,33 @@ namespace ARKODesktop
             Controls.Add(btnToggle);
         }
 
+        private void createToggleGear(int x, int y, string btnName)
+        {
+            Button btnToggle = new Button
+            {
+                Name = btnName,
+                Size = new Size(250, 100),
+                Location = new Point(x, y),
+                BackColor = Color.FromArgb(150, HexToColor("#277CA5")),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                TabStop = true,
+                FlatStyle = FlatStyle.Flat,
+                Text = "FORWARD",
+                ForeColor = Color.White,
+                Font = new Font("Microsoft Sans Serif", 16, FontStyle.Bold),
+
+            };
+
+            // Add to the dictionary of controls
+            btnControls[btnName] = btnToggle;
+            btnToggleState[btnName] = false; // Initially off
+
+            // Click event to toggle state
+            btnToggle.Click += (sender, e) => ToggleButtonState(btnName);
+
+            Controls.Add(btnToggle);
+        }
+
         private void createButtonAction(string imagePath, int x, int y, string btnName, Keys pressKey)
         {
             Button btn = new Button
@@ -326,7 +384,6 @@ namespace ARKODesktop
 
         }
 
-
         #endregion
 
         #region Behaviors
@@ -382,6 +439,12 @@ namespace ARKODesktop
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_on.png");
                         voip.ToggleSpeaker(true);
                     }
+                    else if (btnName == "btnGear")
+                    {
+                        command.SendControlCommand((byte)customThrottleControl.ThrottleValue, lights, engine, movement, direction);
+                        btn.Text = "REVERSE";
+                        
+                    }
 
                     btn.BackColor = Color.FromArgb(255, HexToColor("#113547"));  // On state (active)
                 }
@@ -401,6 +464,12 @@ namespace ARKODesktop
                     {
                         btn.Image = Image.FromFile(rootPath + @"Resources\control_icons\audio_off.png");
                         voip.ToggleSpeaker(false);
+                    }
+                    else if (btnName == "btnGear")
+                    {
+
+                        btn.Text = "FORWARD";
+
                     }
 
                     btn.BackColor = Color.FromArgb(150, HexToColor("#277CA5"));  // Off state (inactive)
@@ -439,7 +508,6 @@ namespace ARKODesktop
 
         #endregion
 
-
         #region Styles
         private Color HexToColor(string hex)
         {
@@ -452,11 +520,13 @@ namespace ARKODesktop
 
         }
 
-        #endregion
 
         #endregion
 
-        
+        #endregion
+
+       
+
     }
 }
 

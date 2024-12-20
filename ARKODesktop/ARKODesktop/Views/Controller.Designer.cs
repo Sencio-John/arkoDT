@@ -29,6 +29,7 @@ namespace ARKODesktop
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblIRSensor = new System.Windows.Forms.Label();
             this.lblWaterLvl = new System.Windows.Forms.Label();
             this.lblLongitude = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@ namespace ARKODesktop
             this.btnStopOperation = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pcbCam = new System.Windows.Forms.PictureBox();
+            this.tmReadings = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCam)).BeginInit();
             this.SuspendLayout();
@@ -123,6 +125,12 @@ namespace ARKODesktop
             this.pcbCam.TabIndex = 6;
             this.pcbCam.TabStop = false;
             // 
+            // tmReadings
+            // 
+            this.tmReadings.Enabled = true;
+            this.tmReadings.Interval = 1000;
+            this.tmReadings.Tick += new System.EventHandler(this.tmReadings_Tick);
+            // 
             // Operations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,5 +160,6 @@ namespace ARKODesktop
         private System.Windows.Forms.Button btnStopOperation;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.PictureBox pcbCam;
+        private System.Windows.Forms.Timer tmReadings;
     }
 }

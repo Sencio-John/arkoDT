@@ -13,6 +13,7 @@ namespace ARKODesktop
         public EntryForm()
         {
             InitializeComponent();
+            btnUserCreation.Visible = false;
         }
 
         private void dashTime_Tick(object sender, EventArgs e)
