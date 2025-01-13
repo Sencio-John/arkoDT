@@ -61,26 +61,17 @@ const LoginScreen = () =>{
                 // FIREBASE
                 const username = inputs.username;
                 const password = inputs.password;
-                const key = CryptoJS.enc.Utf8.parse('MySecureKey12345'); 
-                const iv = CryptoJS.enc.Utf8.parse('MySecureIV123456'); 
+                const key = CryptoJS.enc.Utf8.parse('gtSZlG2ljzJjB5pu'); 
+                const iv = CryptoJS.enc.Utf8.parse('gtSZlG2ljzJjB5pu'); 
 
                 const dbRef = ref(database);
-                const snapshot = await get(child(dbRef, 'Users'));
+                const snapshot = await get(child(dbRef, `Users/${username}`));
 
                 if (snapshot.exists()) {
                     const users = snapshot.val();
-                    
-                    let foundUser = null;
-                    
-                    for (const userId in users) {
-                        if (users[userId].Username === username) {
-                            foundUser = users[userId];
-                            break;
-                        }
-                    }
 
-                    if (foundUser) {
-                        const bytes = CryptoJS.AES.decrypt(foundUser.Password, key, {
+                    if (users) {
+                        const bytes = CryptoJS.AES.decrypt(users.Password, key, {
                             iv: iv,
                             mode: CryptoJS.mode.CBC,
                             padding: CryptoJS.pad.Pkcs7,
@@ -89,7 +80,7 @@ const LoginScreen = () =>{
                         const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
                         if (decryptedPassword  === password) {
-                            SavedLogIn(foundUser.Email, foundUser.First_Name, foundUser.Last_Name, foundUser.Address, foundUser.Phone, foundUser.BirthDate)
+                            SavedLogIn(users.Email, users.First_Name, users.Last_Name, users.Address, users.Phone, users.BirthDate)
                             Alert.alert('Login Successfully', "Welcome to ARKO")
                             LoginSuccess();
 
@@ -97,7 +88,8 @@ const LoginScreen = () =>{
                             Alert.alert('Error', 'Incorrect password');
                         }
                     } else {
-                        Alert.alert('Error', 'Username not found');
+                        Alert.alert('Error', 'Account does not exist');
+                        console.log(users);
                     }
 
                 } else {
@@ -105,7 +97,7 @@ const LoginScreen = () =>{
                 }
 
             } catch(error){ 
-                Alert.alert('', error.message);
+                Alert.alert('Error', "Account does not exist");
                 console.log(error);
             }
 

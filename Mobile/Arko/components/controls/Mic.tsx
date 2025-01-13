@@ -2,8 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+interface LightProps {
+    onDataSend: (data: object) => void;
+}
 
-export default function MicBtn(){
+const MicBtn: React.FC<LightProps> = ({onDataSend}) => {
 
     const [toggle, setToggle] = React.useState(false);
     const [iconName, setIconName] = React.useState("mic-off")
@@ -11,8 +14,9 @@ export default function MicBtn(){
     const toggleMic = () =>{
         setToggle(prevToggle => {
             const newToggle = !prevToggle;
-            console.log("Light: ", newToggle); 
+            const micState = newToggle ? "on" : "off";
             setIconName(newToggle ? "mic" : "mic-off"); 
+            onDataSend({ mic: micState });
             return newToggle;
         });
     }
@@ -33,15 +37,18 @@ const style = StyleSheet.create({
     },
     btn:{
         padding: 10,
-        borderColor: "#black",
+        borderColor: "#64C2EC",
         borderWidth: 1,
         borderRadius: 10,
     },
     icon:{
         fontSize: 24,
+        color: "#64C2EC"
     },
     on:{
         backgroundColor: "#277CA5",
         color: "#f9f9f9"
     }
 })
+
+export default MicBtn;

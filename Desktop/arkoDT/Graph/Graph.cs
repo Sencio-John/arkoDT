@@ -31,6 +31,10 @@ namespace arkoDT
             series.Points.AddXY("11:00 am", 10);
             series.Points.AddXY("12:00 pm", 20);
             series.Points.AddXY("1:00 pm", 40);
+            series.Points.AddXY("1:00 pm", 60);
+            series.Points.AddXY("1:00 pm", 50);
+            series.Points.AddXY("1:00 pm", 20);
+            series.Points.AddXY("1:00 pm", 10);
 
             // Add the series to the chart control
             chrtLine.Series.Clear();  // Clear existing series

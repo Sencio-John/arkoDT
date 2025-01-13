@@ -8,46 +8,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FireSharp.Config;
-using FireSharp.Interfaces;
-using FireSharp.Response;
 using arkoDT.Classes;
 using System.Text.Json;
+using MySql.Data.MySqlClient;
 
 namespace arkoDT
 {
     public partial class frmLogin : Form
     {
-        public string ID { get; set; }
-        public string Username { get; set; }
-        public string Role { get; set; }
+        private const string LogFilePath = @"C:\Users\SENCIO\Documents\app_log.txt";
         public string UserID { get; set; }
-        private IFirebaseClient client;
-        private bool isFirstImage = true;
+        public new string Name { get; set; }
+        public string Role { get; set; }
+        public string Status { get; set; }
+        public string Username { get; set; }  // Added property to store the username
 
         private const string LockoutFilePath = "lockout.json"; // File to store lockout info
         private const int MaxLoginAttempts = 5;               // Maximum allowed attempts
         private const int LockoutDurationMinutes = 3;         // Lockout duration in minutes
         private Timer lockoutTimer;
-
+        private bool isFirstImage = true;
+        string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
         public frmLogin()
         {
             InitializeComponent();
             this.FormClosing += frmLogin_FormClosing;
-            btnShowPass.BackgroundImage = Image.FromFile(Application.StartupPath + @"\..\..\Resources\hide.png");
-            //btnShowPass.BackgroundImage = Image.FromFile("C:/Users/SENCIO/Documents/GitHub/arkoDT/Desktop/arkoDT/Resources/hide.png");
-            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
+            string imagePath = Path.Combine(Application.StartupPath, @"Resources\hide.png");
 
-            Firebase_Config firebaseConfig = new Firebase_Config();
-            client = firebaseConfig.GetClient();
-
-            if (client == null)
+            if (File.Exists(imagePath))
             {
-                // MessageBox.Show("Failed to connect to Database.");
+                btnShowPass.BackgroundImage = Image.FromFile(imagePath);
+            }
+            btnShowPass.BackgroundImageLayout = ImageLayout.Zoom;
+        }
+
+        private void LogMessage(string message)
+        {
+            try
+            {
+                string logMessage = $"{DateTime.Now}: {message}{Environment.NewLine}";
+                File.AppendAllText(LogFilePath, logMessage);
+            }
+            catch (Exception ex)
+            {
+                // If logging fails, show an error message but continue execution
+                MessageBox.Show($"Error writing to log file: {ex.Message}", "Logging Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Lockout Management
         private class LockoutInfo
         {
             public int FailedAttempts { get; set; } = 0;
@@ -85,16 +93,14 @@ namespace arkoDT
 
             if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
             {
-                // Lockout is still active
-                MessageBox.Show($"Account is locked. Try again after {info.LockoutUntil.Value.ToString("T")}.", "Account Locked");
+                MessageBox.Show($"Account is locked. Try again after {info.LockoutUntil.Value:hh:mm tt}.", "Account Locked");
                 LockUI(info.LockoutUntil.Value);
                 return true;
             }
             else if (info.LockoutUntil.HasValue && info.LockoutUntil.Value <= DateTime.Now)
             {
-                // Lockout period has expired
-                ResetFailedAttempts(); // Reset the failed attempts
-                UnlockUI(); // Re-enable the UI controls
+                ResetFailedAttempts();
+                UnlockUI();
             }
 
             return false;
@@ -108,7 +114,6 @@ namespace arkoDT
             if (info.FailedAttempts >= MaxLoginAttempts)
             {
                 info.LockoutUntil = DateTime.Now.AddMinutes(LockoutDurationMinutes);
-                //MessageBox.Show($"Account locked due to too many failed attempts. Try again after {info.LockoutUntil.Value.ToString("T")}.", "Account Locked");
                 LockUI(info.LockoutUntil.Value);
             }
 
@@ -126,7 +131,7 @@ namespace arkoDT
             txtPassword.Enabled = false;
             btnLogin.Enabled = false;
             lblForgotPassword.Enabled = false;
-            MessageBox.Show($"Device is locked out. Try again at {lockoutEndTime}.", "Device Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show($"Device is locked out. Try again at {lockoutEndTime:hh:mm tt}.", "Device Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void UnlockUI()
@@ -137,7 +142,6 @@ namespace arkoDT
             lblForgotPassword.Enabled = true;
         }
 
-        // Event Handlers
         private async void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
@@ -145,35 +149,162 @@ namespace arkoDT
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Username and password cannot be empty.");
+                MessageBox.Show("Username and password cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
-            // Check if the user is locked out
             if (IsLockedOut())
             {
-                return; // Exit if locked out
+                return;
             }
 
-            // Validate the login
-            var (userId, first_name, last_name, UserType) = await LoginUser(username, password);
+            var userInfo = await Task.Run(() => AuthenticateUser(username, password));
 
-            if (!string.IsNullOrEmpty(userId))
+            if (userInfo != null)
             {
+                if (userInfo.Status == "Inactive")
+                {
+                    MessageBox.Show("Account is inactive. Please contact the administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 ResetFailedAttempts();
                 UnlockUI();
-                Username = first_name + " " + last_name;
-                Role = UserType;
-                UserID = userId;
+                UserID = userInfo.UserID;
+                Role = userInfo.Role;
+
+                // Save the username in the Username property
+                Username = userInfo.Username;  // Save the username here
+
+                // Fetch the first and last name after login
+                var name = await Task.Run(() => GetUserFullName(userInfo.UserID));
+                Name = name;
+
                 this.Hide();
                 new frmDashboard(this).Show();
-                MessageBox.Show("Login successful!");
             }
             else
             {
                 IncrementFailedAttempts();
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
+        }
+
+        private UserRegistration AuthenticateUser(string username, string password)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT 
+                    user_ID, username, password, role, status
+                FROM 
+                    users
+                WHERE 
+                    BINARY username = @username";
+
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Fetch the data from the reader
+                                string dbPassword = reader.GetString("password");
+                                string userId = reader.GetString("user_ID");
+                                string role = reader.GetString("role");
+                                string status = reader.GetString("status");
+
+                                // Decrypt the password stored in the database
+                                string decryptedPassword = PasswordHelper.DecryptPassword(dbPassword);
+
+                                // Check if the decrypted password matches the entered password
+                                if (password == decryptedPassword)
+                                {
+                                    return new UserRegistration
+                                    {
+                                        UserID = userId,
+                                        Username = username,  // Save username in the returned user object
+                                        Role = role,
+                                        Status = status
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
+            return null;
+        }
+
+        private string GetUserFullName(string userId)
+        {
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+                string query = @"
+                    SELECT 
+                        first_Name, last_Name
+                    FROM 
+                        users_info
+                    WHERE 
+                        user_ID = @userId";
+
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string firstName = reader.GetString("first_Name");
+                            string lastName = reader.GetString("last_Name");
+                            return $"{firstName} {lastName}";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to fetch user info: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            finally
+            {
+                // Ensure the connection is always closed
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
+
+        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (lockoutTimer != null)
+            {
+                lockoutTimer.Stop();
+            }
+            Application.Exit();
         }
 
         private void btnShowPass_Click(object sender, EventArgs e)
@@ -194,90 +325,37 @@ namespace arkoDT
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            // Initialize the timer
-            lockoutTimer = new Timer();
-            lockoutTimer.Interval = 1000; // Check every second
-            lockoutTimer.Tick += LockoutTimer_Tick; // Event handler for tick
-            lockoutTimer.Start(); // Start the timer
-
-            // Check if the user is locked out on form load
-            LockoutInfo info = LoadLockoutInfo();
-            if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+            try
             {
-                // Lock UI initially if the user is locked out
-                LockUI(info.LockoutUntil.Value);
-            }
-            else
-            {
-                // If lockout expired, reset failed attempts and unlock UI
-                ResetFailedAttempts();
-                UnlockUI();
-            }
+                LogMessage("frmLogin_Load started.");
 
-            lblForgotPassword.Cursor = Cursors.Hand;
+                // Simulate checking lockout or other initial operations
+                LockoutInfo info = LoadLockoutInfo();
+                if (info.LockoutUntil.HasValue && info.LockoutUntil.Value > DateTime.Now)
+                {
+                    // Lock UI initially if the user is locked out
+                    LockUI(info.LockoutUntil.Value);
+                    LogMessage($"User locked out until {info.LockoutUntil.Value}");
+                }
+                else
+                {
+                    // If lockout expired, reset failed attempts and unlock UI
+                    ResetFailedAttempts();
+                    UnlockUI();
+                }
+
+                LogMessage("frmLogin_Load completed.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error in frmLogin_Load: {ex.Message}");
+            }
         }
 
         private void lblForgotPassword_Click(object sender, EventArgs e)
         {
             frmForgot form1 = new frmForgot();
             form1.Show();
-        }
-
-        private async Task<(string userId, string firstName, string Lastname, string role)> LoginUser(string username, string password)
-        {
-            try
-            {
-                // Fetch all users from Firebase
-                FirebaseResponse response = await client.GetAsync("Users/");
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-                if (users == null)
-                {
-                    MessageBox.Show("No users found.");
-                    return (null, null, null, null);
-                }
-
-                // Find the user by username
-                foreach (var user in users)
-                {
-                    string userId = user.Key; // This is the ID of the user
-                    UserRegistration userData = user.Value;
-
-                    if (userData.Username.Equals(username, StringComparison.Ordinal))
-                    {
-                        // Decrypt the stored password
-                        string decryptedPassword = PasswordHelper.DecryptPassword(userData.Password);
-
-                        // Verify the password
-                        if (password == decryptedPassword)
-                        {
-                            return (userId, userData.First_Name, userData.Last_Name, userData.Role);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Invalid username/password.");
-                            return (null, null, null, null);
-                        }
-                    }
-                }
-
-                //MessageBox.Show("Username does not exist.");
-                return (null, null, null, null);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Login Failed.");
-                return (null, null, null, null);
-            }
-        }
-
-        private void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (lockoutTimer != null)
-            {
-                lockoutTimer.Stop();
-            }
-            Application.Exit();
         }
 
         private void LockoutTimer_Tick(object sender, EventArgs e)
@@ -295,6 +373,5 @@ namespace arkoDT
                 ResetFailedAttempts();
             }
         }
-
     }
 }

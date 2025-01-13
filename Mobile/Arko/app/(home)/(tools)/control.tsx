@@ -1,21 +1,31 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, StatusBar, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 import Light from '@/components/controls/Light';
-import GPSTracker from '@/components/controls/GPStxt';
 import MicBtn from '@/components/controls/Mic';
-import PinBtn from '@/components/controls/Pinbtn';
 import DPad from '@/components/controls/Dpad';
 import Gear from '@/components/controls/GearBtn';
 import ThrottleControl from '@/components/controls/Throttle';
 import BrakeBtn from '@/components/controls/BrakeBtn';
 import { WebView } from 'react-native-webview';
-import CamMvt from '@/components/controls/CameraMvt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
+import Readings from '@/components/controls/GPStxt';
 
-import { CAMERA_IP, CONTROL_IP, READ_IP } from '@/constants/config';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
+
 
 export default function Controller() {
+    const router = useRouter();
+    const [isBraking, setIsBraking] = React.useState(false);
+    const [IPAddress, setIPAddress] = React.useState<string | null>(null);
+    const [controlWS, setControlWS] = React.useState<WebSocket | null>(null);
+    const [serverWS, setServerWS] = React.useState<WebSocket | null>(null);
+    const [pinCode, setPinCode] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
 
     const lockOrientation = async () => {
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
@@ -24,101 +34,220 @@ export default function Controller() {
 
     const revertBack = async () =>{
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+        console.log('WebSocket disconnected');
         StatusBar.setHidden(false);
+
     }   
 
+    //initialize
     React.useEffect(() => {
+        const getIPAddress = async () => {
+            try {
+                const ip = await AsyncStorage.getItem("IPAddress");
+                const pin = await AsyncStorage.getItem("pin");
 
+                setIPAddress(ip);
+                setPinCode(pin);
+                console.log("Retrieved IP:", ip);
+                console.log("Retrieved PIN:", pin);
+            } catch (error) {
+                console.error("Error fetching IP or PIN:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        getIPAddress();
         lockOrientation();
-        
+
         return () => {
             revertBack();
         };
     }, []);
 
-
-    const [websocket, setWebSocket] = React.useState<WebSocket | null>(null);
-    
+    //Controls
     React.useEffect(() => {
-        const controlWS = new WebSocket(`ws://${CONTROL_IP}`);
-        setWebSocket(controlWS);
 
-        controlWS.onopen = () => console.log('WebSocket connected');
-        controlWS.onclose = () => console.log('WebSocket disconnected');
-        controlWS.onerror = (error) => console.error('WebSocket error', error);
+        if (!IPAddress) return;
 
-        return () => {
-            controlWS.close();
+        const control = new WebSocket(`ws://${IPAddress}:4343/controls`);
+        setControlWS(control);
+
+        control.onopen = () => console.log('Control Socket connected');
+        control.onclose = () => {
+
         };
-    }, []);
+        control.onerror = (error) => console.error('Control Socket error', error);
 
-    const sendData = (data: object) => {
-        console.log(data)
-        if (websocket && websocket.readyState === WebSocket.OPEN) {
-            websocket.send(JSON.stringify(data));
+        control.onmessage = async (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                console.log("control response: ",data);
+            } catch (error) {
+                console.error("Error parsing GPS data:", error);
+            }
+        }
+
+        return () => {     
+            control.close()
+            setControlWS(null)
+            console.log(controlWS)
+        };
+    }, [IPAddress]);
+
+    const sendControlData = async(data: object) => {
+        // const token = await AsyncStorage.getItem("token");
+        const token = "Test"
+
+        if (controlWS && controlWS.readyState === WebSocket.OPEN) {
+            const payload = {
+                token: token, 
+                ...data
+            };
+            controlWS.send(JSON.stringify(payload));
+            console.log(payload)
         }
     };
 
     const [gpsData, setGpsData] = React.useState({ latitude: null, longitude: null });
+    const [waterLvl, setWaterLvl] = React.useState(null)
+    const [infrared, setInfrared] = React.useState(null)
 
+
+    //readings
     React.useEffect(() => {
-        const gpsWS = new WebSocket(`ws://${READ_IP}`);
-        gpsWS.onopen = () => console.log("Connected to GPS WebSocket");
 
-        gpsWS.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                setGpsData({ latitude: data.latitude, longitude: data.longitude });
-            } catch (error) {
-                console.error("Error parsing GPS data:", error);
+        if (!IPAddress) return;
+
+        const readings = new WebSocket(`ws://${IPAddress}:5000`);
+
+        readings.onopen = () => {
+            console.log("Readings connected")
+            const token = "Test"
+
+            if (readings && readings.readyState === WebSocket.OPEN) {
+                const payload = {
+                    token: token, 
+                };
+                readings.send(JSON.stringify(payload));
+                console.log("load:", payload)
             }
         };
+        readings.onclose = () => {
 
-        gpsWS.onclose = () => console.log("GPS WebSocket disconnected");
-
-        gpsWS.onerror = (error) => {
-            console.error("GPS WebSocket error:", error);
-            gpsWS.close();
         };
+        readings.onerror = (error) => console.error('Readings Socket error', error);
 
-        return () => gpsWS.close();
-    }, []);
+        readings.onmessage = async (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                console.log(data);
+                setGpsData({ latitude: data.GPS.Latitude, longitude: data.GPS.Longitude });
+                setWaterLvl(data.water_level)
+                setInfrared(data.detected)
+            } catch (error) {
+                console.error("Error getting readings data:", error);
+            }
+        }
+
+        return () => {     
+            readings.close()
+        };
+    }, [IPAddress]);
+
+    
+    React.useEffect(() => {
+
+        if (!IPAddress) return;
+
+        const serverWS = new WebSocket(`ws://${IPAddress}:7777/verify`);
+        setServerWS(serverWS)
+        serverWS.onopen = async() => {
+            console.log("ServerWS connected")
+            sendData();
+        };
+        serverWS.onclose = () => console.log('ServerWS disconnected');
+        serverWS.onerror = (error) => console.error('Server error', error);
+        serverWS.onmessage = async (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                console.log("Get TOKEN from server: ",data);
+                await AsyncStorage.setItem("token", data.token)
+                const suc = await AsyncStorage.getItem("token")
+                console.log(suc)
+            } catch (error) {
+                console.error("Error getting token data:", error);
+            }
+        }
+
+        return () => {
+            serverWS.close()
+        };
+    }, [IPAddress]);
+
+    const sendData = async() =>{
+        if (pinCode) {
+            const data = { token: pinCode };
+            console.log(serverWS);
+            if (serverWS && serverWS.readyState === WebSocket.OPEN) {
+                serverWS.send(JSON.stringify(data));
+                console.log("Sent data to server:", data);
+            }
+        } else{
+            Alert.alert("Error", "No Pin Code");
+        }
+        
+    }
+
+    if (loading) {
+        return (
+            <ThemedView style={style.centered}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <ThemedText>Loading...</ThemedText>
+            </ThemedView>
+        );
+    }
+
 
     return(
         <View style={style.container}>  
-            <WebView 
-                source={{uri: `http:${CAMERA_IP}`}}
-                originWhitelist={['*']}
-                style={style.video}
-            />
-            <View style={style.joystick}>
-                <DPad onDataSend={sendData} />
-            </View> 
+            {IPAddress ? (
+                <WebView
+                    source={{ uri: `http://${IPAddress}:4000` }}
+                    originWhitelist={['*']}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    style={style.video}
+                />
+            ) : (
+                <View style={style.centered}>
+                    <Text style={{ color: "red" }}>No valid IP Address found</Text>
+                </View>
+            )}
 
-            <View style={style.brakebtn}>
-                <Gear onDataSend={sendData}/>
+            <View style={style.gear}>
+                <Gear onDataSend={sendControlData}/>
             </View>
 
             <View style={style.throttle}>
-                <ThrottleControl onDataSend={sendData}/>
+                <ThrottleControl onDataSend={sendControlData} isBraking={isBraking}/>
             </View>
 
-            <View style={style.gear}>
-                <BrakeBtn onDataSend={sendData}/>
+            <View style={style.brakebtn}>
+                <BrakeBtn onDataSend={sendControlData} onBrakeChange={setIsBraking}/>
             </View>
 
             <View style={style.dpad}>
-                <CamMvt onDataSend={sendData} />
+                <DPad onDataSend={sendControlData} />
             </View> 
 
-            <View style={style.btns}>
-                <Light />
-                <MicBtn />
-                <PinBtn />
+            <View style={style.btns}> 
+                <Light onDataSend={sendControlData} />
+                <MicBtn onDataSend={sendControlData}/>
             </View>
             
             <View style={style.details}>
-                <GPSTracker gpsData={gpsData} />
+                <Readings gpsData={gpsData} waterLvl={waterLvl} infrared={infrared}/>
             </View>
         </View>
     )
@@ -136,7 +265,7 @@ const style = StyleSheet.create({
     dpad:{
         position: 'absolute',
         bottom: 45, 
-        right: 45,   
+        right: 40,   
     },
     throttle:{
         position: 'absolute',
@@ -146,7 +275,7 @@ const style = StyleSheet.create({
     brakebtn: {
         position: 'absolute',
         bottom: 55,
-        left: 225,
+        left: 150,
     },
     video: {
         width: '100%',
@@ -155,7 +284,7 @@ const style = StyleSheet.create({
     gear:{
         position: 'absolute',
         bottom: 55,
-        right: 175,
+        left: 75,
     },
     btns:{
         position: 'absolute',
@@ -173,5 +302,10 @@ const style = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         zIndex: 9999,
+    },
+    centered: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
 })

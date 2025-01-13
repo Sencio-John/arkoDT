@@ -28,13 +28,13 @@ const Status = ({
             type === 'green' ? styles.greenDot : undefined,
             styles.statusDot
         ]} />
-            <Text style={[
+            <ThemedText style={[
             type === 'default' ? styles.default : undefined,
             type === 'red' ? styles.red : undefined,
             type === 'yellow' ? styles.yellow : undefined,
             type === 'green' ? styles.green : undefined,
             styles.statusText,
-        ]}>{status}</Text>
+        ]}>{status}</ThemedText>
         </View>
     )
 }

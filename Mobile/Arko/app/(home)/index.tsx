@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler, Touchable } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler, Touchable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
@@ -23,16 +23,26 @@ const Dashboard = () =>{
     const [userData, setUserData] = React.useState(null)
     const [loading, setLoading] = React.useState(true);
     
+    const [connectDevice, setConnectedDevice] = React.useState("");
+    const [connectedSSID, setConnectedSSID] = React.useState("");
+    const [deviceStats, setDeviceStats] = React.useState("default");
 
     React.useEffect(() => {
         const fetchData = async () => {
-            const key = await AsyncStorage.getItem('key');
-            if(key){
-                const data = await getData(key);
-                setUserData(data);
-                console.log(data)
-            } else{
-                router.replace("/(login)/");
+            await AsyncStorage.clear();
+            const device = await AsyncStorage.getItem("deviceKey")
+            const ssid = await AsyncStorage.getItem("ssid")
+
+            if(device){
+                setConnectedDevice(device);
+            }
+
+            if(ssid){
+                setConnectedSSID(ssid)
+            }
+
+            if(ssid && device){
+                setDeviceStats('connected')
             }
             
             setLoading(false);
@@ -45,22 +55,49 @@ const Dashboard = () =>{
         return <SplashScreen />; // Replace with your actual loading component
     }
 
+    const disconnectDevice = async() => {
+        Alert.alert(
+            "Disconnect Device",
+            "Are you sure you want to disconnect the device?",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Yes",
+                    onPress: async () => {
+                        // Perform the actual disconnection logic here
+                        await AsyncStorage.removeItem("deviceKey");
+                        await AsyncStorage.removeItem("ssid");
+                        await AsyncStorage.removeItem("IPAddress")
+                        setConnectedDevice("");
+                        setConnectedSSID("");
+                        setDeviceStats("default");
+
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    }
+
     return(
         <SafeAreaView style={[style.container, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6'}] }>
             {/* TOP BAR */}
             <ThemedView style={style.header}>
                 <View style={style.profilegrp}>
-                    <TouchableOpacity style={style.profileContainer} onPress={() => {router.navigate("/(profile)/")}}>
-                        <Image style={style.profile} source={require('../../assets/images/user-profile-icon.png')}/>
-                    </TouchableOpacity>
-                    <ThemedText style={style.user}>Hi, {userData?.First_Name}</ThemedText>
+                    <View style={style.profileContainer}>
+                        <Image style={style.profile} source={require('@/assets/images/arko-logo.png')}/>
+                    </View>
+                    <ThemedText style={style.user}>Hi, ARKO User</ThemedText>
                 </View>
                 <View>
-                    <TouchableOpacity onPress={() => router.push('/(home)/(settings)')}>
+                    {/* <TouchableOpacity onPress={() => router.push('/(home)/(settings)')}>
                         <ThemedText>
                             <Ionicons style={style.icon} name="settings-outline"/>
                         </ThemedText>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </ThemedView>
             
@@ -72,7 +109,7 @@ const Dashboard = () =>{
                 </View>
                 <ThemedText type='subtitle' style={dashboard.header}>Device</ThemedText>
                 <View style={dashboard.card}>
-                    <DeviceStatusCard onPress={() => {router.navigate('/(home)/(device)/')}} />
+                    <DeviceStatusCard onPress={() => { router.navigate('/(home)/(device)/'); } } deviceName={connectDevice} ssid={connectedSSID} deviceStatus={deviceStats} onDisconnect={disconnectDevice}/>
                 </View>
                 <ThemedText type='subtitle' style={dashboard.header}>Quick Access Tools</ThemedText>
                 <View style={dashboard.card}>

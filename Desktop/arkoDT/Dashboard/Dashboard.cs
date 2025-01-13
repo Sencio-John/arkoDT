@@ -6,11 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
-using FireSharp.Config;
-using FireSharp.Interfaces;
-using FireSharp.Response;
+using MySql.Data.MySqlClient; // Add MySQL namespace
 using arkoDT.Classes;
 
 namespace arkoDT
@@ -18,20 +15,28 @@ namespace arkoDT
     public partial class frmDashboard : Form
     {
         private frmLogin loginForm;
-        private IFirebaseClient client;// Field to store the frmLogin instance
+        private MySqlConnection connection; // MySQL connection object
+        public string userID;
 
         public frmDashboard(frmLogin login)
         {
             InitializeComponent();
             loginForm = login;
-            Firebase_Config firebaseConfig = new Firebase_Config();
-            client = firebaseConfig.GetClient();
+            userID = loginForm.UserID;
 
-            if (client == null)
+            // Set up MySQL connection
+            string connectionString = "Server=127.0.0.1;Port=4000;Database=arkovessel;Uid=root;Pwd=!Arkovessel!;";
+            connection = new MySqlConnection(connectionString);
+
+            // Check connection to the database
+            try
             {
-                MessageBox.Show("Failed to connect to Database.");
-            }// Store the frmLogin instance passed in the constructor
-
+                connection.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to connect to Database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnController_Click(object sender, EventArgs e)
@@ -48,17 +53,22 @@ namespace arkoDT
 
         private void frmDashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Close the connection when the form is closing
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
             Application.Exit();
         }
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
             CountUsers();
-            string user = loginForm.Username;
+            string user = loginForm.Name;
             string role = loginForm.Role;
-            //string user_ID = loginForm.UserID;
             lblWelcome.Text = "Welcome, " + user;
             lblRole.Text = role;
+
             // Set up the Timer
             Timer timer = new Timer();
             timer.Interval = 1000; // 1 second
@@ -99,8 +109,22 @@ namespace arkoDT
 
         private void lblGoUsers_Click(object sender, EventArgs e)
         {
-            frmUsers form4 = new frmUsers();
-            form4.Show();
+            try
+            {
+                // Ensure you close any previous DataReader or connections if any
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+
+                // Create and show the frmUsers form
+                frmUsers form4 = new frmUsers(this);
+                form4.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void lblGoWaterLevel_Click(object sender, EventArgs e)
@@ -112,81 +136,52 @@ namespace arkoDT
         private void btnLogout_Click(object sender, EventArgs e)
         {
             frmLogin loginForm = new frmLogin();
-            loginForm.Show();                  
+            loginForm.Show();
             this.Hide();
         }
 
-        public void RefreshDashboard()
-        {
-            CountUsers(); // Update user count label
-                          // Any other updates needed for the dashboard
-        }
-
-        public async void CountUsers()
+        public void CountUsers()
         {
             try
             {
-                // Fetch all users from the database
-                FirebaseResponse response = await client.GetAsync("Users/");
-                var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-                // Get the count and update label5
-                int userCount = users?.Count ?? 0; // Use 0 if users is null
-                label5.Text = $"User(s): {userCount}";
-            }
-            catch (Exception)
-            {
-                //MessageBox.Show("Failed to count users: " + ex.Message);
-                RetryFetchUserCount(); // Trigger a retry
-            }
-        }
-
-        private async void lblProfile_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Assuming the current user ID is stored as a class field or retrieved from login form
-                string userId = loginForm.UserID;
-
-                // Fetch user data from Firebase
-                FirebaseResponse response = await client.GetAsync($"Users/{userId}");
-                UserRegistration user = response.ResultAs<UserRegistration>();
-
-                if (user != null)
+                if (connection.State == ConnectionState.Closed)
                 {
-                    frmProfile form1 = new frmProfile(
-                        user.First_Name,
-                        user.Last_Name,
-                        user.Email,
-                        user.Role
-                    );
-                    form1.Show();
+                    connection.Open(); // Ensure the connection is open
                 }
-                else
+
+                string query = "SELECT COUNT(*) FROM users";
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
-                    MessageBox.Show("User details could not be found.");
+                    int userCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    label5.Text = $"User(s): {userCount}";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MessageBox.Show("Failed to count users: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RetryFetchUserCount(); // Trigger retry logic
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close(); // Ensure the connection is closed
+                }
             }
         }
 
         private void RetryFetchUserCount()
         {
             Timer retryTimer = new Timer();
-            retryTimer.Interval = 1000; // Retry every 5 seconds
-            retryTimer.Tick += async (sender, e) =>
+            retryTimer.Interval = 1000; // Retry every 1 second
+            retryTimer.Tick += (sender, e) =>
             {
                 try
                 {
                     // Attempt to fetch the user count again
-                    FirebaseResponse response = await client.GetAsync("Users/");
-                    var users = response.ResultAs<Dictionary<string, UserRegistration>>();
-
-                    // Update the count and stop the timer if successful
-                    int userCount = users?.Count ?? 0; // Use 0 if users is null
+                    string query = "SELECT COUNT(*) FROM users";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    int userCount = Convert.ToInt32(cmd.ExecuteScalar());
                     label5.Text = $"User(s): {userCount}";
                     ((Timer)sender).Stop(); // Stop retrying after success
                 }
@@ -198,5 +193,11 @@ namespace arkoDT
             retryTimer.Start();
         }
 
+        private void lblProfile_Click(object sender, EventArgs e)
+        {
+            frmProfile form1 = new frmProfile(this);
+            form1.Show();
+        }
     }
 }
+

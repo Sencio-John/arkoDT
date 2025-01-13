@@ -1,11 +1,11 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get } from "firebase/database";
+import { FirebaseApp, initializeApp } from 'firebase/app';
+import { Database, getDatabase, ref, get } from "firebase/database";
 
 // Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCYu-UXszUNBGqeCYb22KYOyMjCx-Mnsiw",
   authDomain: "arko-uno.firebaseapp.com",
-  databaseURL: "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/", // Correct property name
+  databaseURL: "https://arko-uno-default-rtdb.asia-southeast1.firebasedatabase.app/", 
   projectId: "arko-uno",
   storageBucket: "arko-uno.appspot.com",
   messagingSenderId: "823968137794",
@@ -13,10 +13,7 @@ const firebaseConfig = {
   measurementId: "G-EJ5JQ6J0TY"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Realtime Database
-const database = getDatabase(app);
+const app: FirebaseApp = initializeApp(firebaseConfig);
+const database: Database = getDatabase(app);
 
 export { database };

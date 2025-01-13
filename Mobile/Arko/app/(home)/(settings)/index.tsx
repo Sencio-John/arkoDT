@@ -16,14 +16,11 @@ export default function Settings() {
 
 
     const handleLogOut = async () =>{
-        const key = await AsyncStorage.getItem('log_key')
-        const dbRef = ref(database, `appLog/${key}`);
-        await remove(dbRef);
         await AsyncStorage.clear();
         Alert.alert("Logging Out", "Log Out Successfully")
         router.replace("/(login)");
     }
-    
+        
     return(
         <SafeAreaView style={[style.container, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6'}]}>
             <ThemedView>

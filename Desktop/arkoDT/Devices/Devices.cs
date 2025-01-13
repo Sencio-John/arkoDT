@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InTheHand.Net.Bluetooth;
+using InTheHand.Net.Sockets;
 
 namespace arkoDT
 {
     public partial class frmDevices : Form
     {
+        private BluetoothClient bluetoothClient = new BluetoothClient();
         public frmDevices()
         {
             InitializeComponent();
@@ -19,85 +22,150 @@ namespace arkoDT
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmAdd form1 = new frmAdd(this);
-            form1.Show();
+            UpdateDeviceCards();
         }
 
         public void UpdateDeviceCards()
         {
-            Panel pnlCards = new Panel();
-            Panel pnlHeader = new Panel();
-            Label Title = new Label();
-            Label lblDeviceName = new Label();
-            Label lblStatus = new Label();
-            Button btnRemove = new Button();
-            Button btnChangeName = new Button();
+            // Get available Bluetooth devices
+            List<BluetoothDeviceInfo> devices = GetAvailableBluetoothDevices();
 
-            Title.Dock = System.Windows.Forms.DockStyle.Fill;
-            Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            Title.Location = new System.Drawing.Point(0, 0);
-            Title.Size = new System.Drawing.Size(310, 41);
-            Title.TabIndex = 0;
-            Title.Text = "Devices";
-            Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            if (devices.Count == 0)
+            {
+                MessageBox.Show("No Bluetooth devices found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            pnlHeader.AutoScroll = true;
-            pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            pnlHeader.Location = new System.Drawing.Point(0, 0);
-            pnlHeader.Size = new System.Drawing.Size(310, 41);
-            pnlHeader.TabIndex = 1;
+            // Clear existing cards from the flow layout panel
+            flpDevices.Controls.Clear();
 
-            btnRemove.Location = new System.Drawing.Point(3, 143);
-            btnRemove.Size = new System.Drawing.Size(75, 23);
-            btnRemove.TabIndex = 2;
-            btnRemove.Text = "Remove";
-            btnRemove.UseVisualStyleBackColor = true;
+            // Iterate through each device and create cards
+            foreach (var device in devices)
+            {
+                Panel pnlCards = new Panel();
+                Panel pnlHeader = new Panel();
+                Label Title = new Label();
+                Label lblDeviceName = new Label();
+                Label lblStatus = new Label();
+                Button btnDisconnect = new Button();
+                Button btnConnect = new Button();
 
-            // Ensure the event is hooked up properly to btnRemove
-            btnRemove.Click += new EventHandler(btnRemove_Click);
+                Title.Dock = DockStyle.Fill;
+                Title.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+                Title.Location = new Point(0, 0);
+                Title.Size = new Size(310, 41);
+                Title.TabIndex = 0;
+                Title.Text = "Devices";
+                Title.TextAlign = ContentAlignment.MiddleCenter;
 
-            btnChangeName.Location = new System.Drawing.Point(221, 143);
-            btnChangeName.Size = new System.Drawing.Size(86, 23);
-            btnChangeName.TabIndex = 3;
-            btnChangeName.Text = "Change Name";
-            btnChangeName.UseVisualStyleBackColor = true;
+                pnlHeader.AutoScroll = true;
+                pnlHeader.Location = new Point(0, 0);
+                pnlHeader.Size = new Size(310, 41);
+                pnlHeader.TabIndex = 1;
 
-            // Ensure the event is hooked up properly to btnRemove
-            btnChangeName.Click += new EventHandler(btnChangeName_Click);
+                // Change pnlHeader background color based on connection status
+                pnlHeader.BackColor = device.Connected ? Color.LightGreen : Color.LightCoral;
 
-            lblStatus.AutoSize = true;
-            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblStatus.Location = new System.Drawing.Point(215, 90);
-            lblStatus.Size = new System.Drawing.Size(92, 31);
-            lblStatus.TabIndex = 3;
-            lblStatus.Text = "Status";
+                btnDisconnect.Location = new Point(3, 143);
+                btnDisconnect.Size = new Size(75, 23);
+                btnDisconnect.TabIndex = 2;
+                btnDisconnect.Text = "Disconnect";
+                btnDisconnect.UseVisualStyleBackColor = true;
 
-            lblDeviceName.AutoSize = true;
-            lblDeviceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblDeviceName.Location = new System.Drawing.Point(6, 90);
-            lblDeviceName.Size = new System.Drawing.Size(177, 31);
-            lblDeviceName.TabIndex = 2;
-            lblDeviceName.Text = "Device Name";
+                // Event handler for Disconnect button
+                btnDisconnect.Click += (s, e) =>
+                {
+                    try
+                    {
+                        if (device.Connected)
+                        {
+                            // Disconnect the device
+                            bluetoothClient.Close();
 
-            pnlCards.AutoScroll = true;
-            pnlCards.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            pnlCards.Location = new System.Drawing.Point(3, 3);
-            pnlCards.Size = new System.Drawing.Size(310, 169);
-            pnlCards.TabIndex = 0;
+                            MessageBox.Show($"{device.DeviceName} disconnected successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            pnlHeader.Controls.Add(Title);
-            pnlCards.Controls.Add(btnRemove);
-            pnlCards.Controls.Add(btnChangeName);
-            pnlCards.Controls.Add(lblStatus);
-            pnlCards.Controls.Add(lblDeviceName);
-            pnlCards.Controls.Add(pnlHeader);
-            flpDevices.Controls.Add(pnlCards);
+                            // Update UI elements for disconnection
+                            pnlHeader.BackColor = Color.LightCoral;
+                            lblStatus.Text = "Status: Not Connected";
+                        }
+                        else
+                        {
+                            MessageBox.Show($"{device.DeviceName} is not connected.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
+                btnConnect.Location = new Point(221, 143);
+                btnConnect.Size = new Size(86, 23);
+                btnConnect.TabIndex = 3;
+                btnConnect.Text = "Connect";
+                btnConnect.UseVisualStyleBackColor = true;
+
+                // Event handler for Connect button
+                btnConnect.Click += (s, e) =>
+                {
+                    try
+                    {
+                        MessageBox.Show($"Connecting to {device.DeviceName}...", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Specify the service to connect to
+                        var service = BluetoothService.SerialPort;
+                        bluetoothClient.Connect(device.DeviceAddress, service);
+
+                        MessageBox.Show($"{device.DeviceName} connected successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Update UI elements for connection
+                        pnlHeader.BackColor = Color.LightGreen;
+                        lblStatus.Text = "Status: Connected";
+
+                        //timerReceiver.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
+                lblStatus.AutoSize = true;
+                lblStatus.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+                lblStatus.Location = new Point(215, 90);
+                lblStatus.Size = new Size(92, 31);
+                lblStatus.TabIndex = 3;
+                lblStatus.Text = device.Connected ? "Status: Connected" : "Status: Not Connected";
+
+                lblDeviceName.AutoSize = true;
+                lblDeviceName.Font = new Font("Microsoft Sans Serif", 15.25F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+                lblDeviceName.Location = new Point(6, 90);
+                lblDeviceName.Size = new Size(177, 31);
+                lblDeviceName.TabIndex = 2;
+                lblDeviceName.Text = $"Device Name: {device.DeviceName}";
+
+                pnlCards.AutoScroll = true;
+                pnlCards.BackColor = SystemColors.ControlLightLight;
+                pnlCards.Location = new Point(3, 3);
+                pnlCards.Size = new Size(310, 169);
+                pnlCards.TabIndex = 0;
+
+                pnlHeader.Controls.Add(Title);
+                pnlCards.Controls.Add(btnDisconnect);
+                pnlCards.Controls.Add(btnConnect);
+                pnlCards.Controls.Add(lblStatus);
+                pnlCards.Controls.Add(lblDeviceName);
+                pnlCards.Controls.Add(pnlHeader);
+                flpDevices.Controls.Add(pnlCards);
+            }
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void btnRemove_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -119,11 +187,69 @@ namespace arkoDT
             }
         }
 
-        private void btnChangeName_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
-            frmEdit form1 = new frmEdit();
-            form1.Show();
+            //// Get the parent panel (card) of the clicked button
+            //Button btnConnect = sender as Button;
+            //if (btnConnect == null) return;
+
+            //Panel pnlCard = btnConnect.Parent as Panel;
+            //if (pnlCard == null) return;
+
+            //// Find the device name from the card's label
+            //Label lblDeviceName = pnlCard.Controls.OfType<Label>().FirstOrDefault(lbl => lbl.Text.StartsWith("Device Name:"));
+            //if (lblDeviceName == null) return;
+
+            //string deviceName = lblDeviceName.Text.Replace("Device Name:", "").Trim();
+
+            //try
+            //{
+            //    // Get the Bluetooth device by name
+            //    List<BluetoothDeviceInfo> devices = GetAvailableBluetoothDevices();
+            //    var deviceToConnect = devices.FirstOrDefault(d => d.DeviceName == deviceName);
+
+            //    if (deviceToConnect == null)
+            //    {
+            //        MessageBox.Show("Device not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        return;
+            //    }
+
+            //    // Attempt to connect to the device
+            //    using (BluetoothClient client = new BluetoothClient())
+            //    {
+            //        client.Connect(deviceToConnect.DeviceAddress, BluetoothService.SerialPort);
+            //    }
+
+            //    MessageBox.Show($"Successfully connected to {deviceName}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //    // Refresh the cards to update the connection status
+            //    UpdateDeviceCards();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Failed to connect to {deviceName}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
+        private List<BluetoothDeviceInfo> GetAvailableBluetoothDevices()
+        {
+            List<BluetoothDeviceInfo> devices = new List<BluetoothDeviceInfo>();
+
+            try
+            {
+                // Use the class-level bluetoothClient instance
+                devices.AddRange(bluetoothClient.DiscoverDevices());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error discovering devices: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return devices;
+        }
+
+        private void frmDevices_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

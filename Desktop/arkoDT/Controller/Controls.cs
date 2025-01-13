@@ -11,6 +11,7 @@ namespace arkoDT
 {
     public partial class frmControl : Form
     {
+        private ClientWebSocket _client;
         private MJPEGStream mjpegStream;
         private ClientWebSocket webSocket;
         private bool isFirstImage = true;
@@ -20,6 +21,7 @@ namespace arkoDT
         public frmControl()
         {
             InitializeComponent();
+            InitializeWebSocket();
             pbBattery.Value = 70;
 
             // Load the images once (make sure paths are correct)
@@ -31,6 +33,8 @@ namespace arkoDT
             btnFlash.BackgroundImageLayout = ImageLayout.Zoom;  // Set the layout to Zoom
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+
+            
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -41,6 +45,20 @@ namespace arkoDT
             this.KeyPreview = true;
 
             await ConnectWebSocket(); // Establish WebSocket connection when the form loads
+        }
+        private async void InitializeWebSocket()
+        {
+            _client = new ClientWebSocket();
+            try
+            {
+                string serverUri = "ws://192.168.1.224:4343/controls";
+                await _client.ConnectAsync(new Uri(serverUri), CancellationToken.None);
+                Console.WriteLine("WebSocket connected.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error connecting WebSocket: {ex.Message}");
+            }
         }
 
         private void StartCamera()
@@ -86,97 +104,83 @@ namespace arkoDT
             }
         }
 
-        // Method to send commands via WebSocket
-        private async Task SendCommand(string command)
-        {
-            if (webSocket.State == WebSocketState.Open)
-            {
-                byte[] buffer = Encoding.UTF8.GetBytes(command);
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
-            }
-        }
-
         // Event handler for W, A, S, D key presses
         private async void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (_client.State != WebSocketState.Open)
             {
-                case Keys.W:
-                    btnW.BackColor = Color.LightGray;
-                    break;
-                case Keys.A:
-                    btnA.BackColor = Color.LightGray;
-                    await SendCommand("rudder_left"); // Send command to move rudder left
-                    break;
-                case Keys.S:
-                    btnS.BackColor = Color.LightGray;
-                    break;
-                case Keys.D:
-                    btnD.BackColor = Color.LightGray;
-                    await SendCommand("rudder_right"); // Send command to move rudder right
-                    break;
-                case Keys.I:
-                    btnI.BackColor = Color.LightGray;
-                    break;
-                case Keys.J:
-                    btnJ.BackColor = Color.LightGray;
-                    break;
-                case Keys.K:
-                    btnK.BackColor = Color.LightGray;
-                    break;
-                case Keys.L:
-                    btnL.BackColor = Color.LightGray;
-                    break;
-                case Keys.F:
-                        if (isFirstImage)
-                        {
-                            // Change to the second image (flash on)
-                            btnFlash.BackgroundImage = flashOnImage;
-                        }
-                        else
-                        {
-                            // Revert to the first image (flash off)
-                            btnFlash.BackgroundImage = flashOffImage;
-                        }
+                Console.WriteLine("WebSocket is not connected.");
+                return;
+            }
 
-                    // Toggle the flag
-                    isFirstImage = !isFirstImage;
-                    break;
+            try
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.W:
+                        await SendCommand("{'speed': 10}");
+                        btnW.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.A:
+                        await SendCommand("{\"command\": \"rudder_left\"}");
+                        btnA.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.S:
+                        btnS.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.D:
+                        await SendCommand("{\"command\": \"rudder_right\"}");
+                        btnD.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.I:
+                        btnI.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.J:
+                        btnJ.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.K:
+                        btnK.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.L:
+                        btnL.BackColor = Color.LightGray;
+                        break;
+
+                    case Keys.F:
+                        btnFlash.BackgroundImage = isFirstImage ? flashOnImage : flashOffImage;
+                        isFirstImage = !isFirstImage;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
+
+        private async Task SendCommand(string command)
+        {
+            try
+            {
+                byte[] messageBytes = Encoding.UTF8.GetBytes(command);
+                await _client.SendAsync(new ArraySegment<byte>(messageBytes), WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending command: {ex.Message}");
             }
         }
 
         // Event handler for when keys are released
         private async void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.W:
-                    btnW.BackColor = Color.White;
-                    break;
-                case Keys.A:
-                    btnA.BackColor = Color.White;
-                    await SendCommand("rudder_stop"); // Send command to stop rudder movement
-                    break;
-                case Keys.S:
-                    btnS.BackColor = Color.White;
-                    break;
-                case Keys.D:
-                    btnD.BackColor = Color.White;
-                    await SendCommand("rudder_stop"); // Send command to stop rudder movement
-                    break;
-                case Keys.I:
-                    btnI.BackColor = Color.White;
-                    break;
-                case Keys.J:
-                    btnJ.BackColor = Color.White;
-                    break;
-                case Keys.K:
-                    btnK.BackColor = Color.White;
-                    break;
-                case Keys.L:
-                    btnL.BackColor = Color.White;
-                    break;
-            }
+            
         }
 
         private void btnPinnedLoc_Click(object sender, EventArgs e)
@@ -188,6 +192,11 @@ namespace arkoDT
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

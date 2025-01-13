@@ -37,12 +37,6 @@ const MarkerModal: React.FC<MarkerModalProps> = ({modalVisible, onClose, onAddMa
         } else{
             handleError('', 'title');
         }
-        if(!inputs.description){
-            handleError("Description is required!", "description");
-            hasError = true;
-        } else{
-            handleError('', 'description');
-        }
 
         if(!inputs.fam_name){
             handleError("Name is required!", "fam_name");

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler } from 'react-native';
+import { TouchableOpacity, View, Text, Image, StyleSheet, BackHandler, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useColorScheme } from 'react-native';
@@ -13,13 +13,14 @@ import getData from '@/constants/getData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EditProfileModal from '@/components/modals/choose';
 
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+
 const Profile = () =>{
 
-    const router = useRouter();
     const colorScheme = useColorScheme();
 
     const [modalOpen, setModalOpen] = React.useState(false)
-
+    const [profileImage, setProfileImage] = React.useState(null);
     const [userData, setUserData] = React.useState(null)
 
     React.useEffect(() => {
@@ -59,21 +60,32 @@ const Profile = () =>{
         setError((prevState) => ({ ...prevState, [input]: text }));
     };
 
-    const toggleModal = () => {
+    const toggleModal = async() => {
         setModalOpen(!modalOpen)
     }
     
+
+    const handleCamera = async() => {
+        const result = await launchCamera();
+        setProfileImage(result?.assets[0]?.uri)
+    };
+
+
+    const handleGallery = async() => {
+        const result = await launchImageLibrary();
+        setProfileImage(result?.assets[0]?.uri)
+    };
 
     return(
         <SafeAreaView style={[style.container, {backgroundColor: colorScheme === 'dark' ? '#151718' : '#F6F6F6'}] }>
             <View style={style.profilegrp}>
                 <View style={style.profileContainer}>
-                    <Image style={style.profile} source={require('../../../assets/images/profile.jpg')}/>
-                    <View style={style.btnContainer}>
+                    <Image style={style.profile} source={require('../../../assets/images/arko_icon.png')}/>
+                    {/* <View style={style.btnContainer}>
                         <TouchableOpacity style={style.iconBtn} onPress={() => {toggleModal()} }>
                             <Ionicons name='pencil' style={style.icon} />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
             </View>
             <View style={style.form}>
@@ -129,7 +141,7 @@ const Profile = () =>{
                     </View>
                 </View>
 
-                <EditProfileModal modalVisible={modalOpen} onClose={() => setModalOpen(false)}/>
+                <EditProfileModal modalVisible={modalOpen} onClose={() => setModalOpen(false)} openCamera={handleCamera} openGallery={handleGallery}/>
             </View>
 
             
