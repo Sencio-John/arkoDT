@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "S:\\This PC\\Documents\\GitHub\\arkoDT\\Desktop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E2D14D36-87D7-4DA1-B916-9F0122BF674D}|arkoDT\\arkoDT.csproj|s:\\this pc\\documents\\github\\arkodt\\desktop\\arkodt\\config\\firebase_config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2D14D36-87D7-4DA1-B916-9F0122BF674D}|arkoDT\\arkoDT.csproj|solutionrelative:arkodt\\config\\firebase_config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Firebase_Config.cs",
+              "DocumentMoniker": "S:\\This PC\\Documents\\GitHub\\arkoDT\\Desktop\\arkoDT\\Config\\Firebase_Config.cs",
+              "RelativeDocumentMoniker": "arkoDT\\Config\\Firebase_Config.cs",
+              "ToolTip": "S:\\This PC\\Documents\\GitHub\\arkoDT\\Desktop\\arkoDT\\Config\\Firebase_Config.cs",
+              "RelativeToolTip": "arkoDT\\Config\\Firebase_Config.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T06:19:35.525Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
