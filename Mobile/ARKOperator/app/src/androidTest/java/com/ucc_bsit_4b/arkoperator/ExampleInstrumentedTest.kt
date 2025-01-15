@@ -1,4 +1,4 @@
-package com.example.arkoperator
+package com.ucc_bsit_4b.arkoperator
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.arkoperator", appContext.packageName)
+        assertEquals("com.ucc_bsit_4b.arkoperator", appContext.packageName)
     }
 }

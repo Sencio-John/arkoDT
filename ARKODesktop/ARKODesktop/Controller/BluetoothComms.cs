@@ -15,6 +15,7 @@ namespace ARKODesktop.Controller
         private string deviceNetwork;
         private string ipAddress;
 
+
         public string DeviceName { get => deviceName; set => deviceName = value; }
         public string Token { get => token; set => token = value; }
         public string DeviceNetwork { get => deviceNetwork; set => deviceNetwork = value; }

@@ -1,4 +1,4 @@
-package com.example.arkoperator
+package com.ucc_bsit_4b.arkoperator
 
 import org.junit.Test
 
