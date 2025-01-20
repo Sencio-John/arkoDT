@@ -3,8 +3,17 @@
     <style name="Base.Theme.ARKOperator" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="Theme.ARKOperator" parent="Base.Theme.ARKOperator" />
+    <style name="Theme.ARKOperator" parent="Base.Theme.ARKOperator">
+        <!-- Add app-wide customizations if needed -->
+    </style>
+
+    <style name="Font.Regular" parent="Base.Theme.ARKOperator">
+        <item name="fontFamily">@font/cerapro_regular</item>
+    </style>
+
+    <style name="Font.Bold" parent="Base.Theme.ARKOperator">
+        <item name="fontFamily">@font/cerapro_bold</item>
+    </style>
 </resources>

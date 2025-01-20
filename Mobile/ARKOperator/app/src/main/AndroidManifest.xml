@@ -14,20 +14,23 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".Controller"
+            android:name=".Bluetooth"
             android:exported="true"
-            android:screenOrientation="landscape"
-            >
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".Controller"
+            android:exported="true"
+            android:theme="@style/Theme.App.Fullscreen"
+            android:screenOrientation="landscape">
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>

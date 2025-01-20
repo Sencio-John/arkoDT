@@ -4,4 +4,6 @@
     <string name="latitude">Latitude:</string>
     <string name="water_level">Water Level:</string>
     <string name="ir_sensor">IR Sensor:</string>
+    <string name="refresh">Refresh</string>
+    <string name="paired_devices">Paired Devices</string>
 </resources>
