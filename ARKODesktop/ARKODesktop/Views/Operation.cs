@@ -31,8 +31,6 @@ namespace ARKODesktop.Views
             // Fetch data from the database
             //List<(int stranded_id, string date_created)> operations = GetOperationsFromDatabase();
 
-            foreach (var operation in operations)
-            {
                 Panel pnlOperations = new Panel();
                 Label lblOperationID = new Label();
                 Label lblDate = new Label();
@@ -44,8 +42,8 @@ namespace ARKODesktop.Views
                 Button btnShow = new Button();
 
                 // Set values from the database
-                lblOperationID.Text = $"ID: {operation.stranded_id}";
-                lblDate.Text = $"Date: {operation.date_created}";
+                lblOperationID.Text = $"ID: ";
+                lblDate.Text = $"Date: ";
                 lblTimeOn.Text = "XX:XX";
                 lblTimeOff.Text = "XX:XX";
                 lblTimeOnline.Text = "Time Online";
@@ -85,7 +83,6 @@ namespace ARKODesktop.Views
                 btnShow.Size = new System.Drawing.Size(75, 23);
                 btnShow.Text = "Show";
                 btnShow.UseVisualStyleBackColor = true;
-                btnShow.Tag = operation.stranded_id;
                 btnShow.Click += btnShow_Click;
 
                 // Add controls to the panel
@@ -104,7 +101,6 @@ namespace ARKODesktop.Views
                 // Add panel to the flow layout panel
                 flpOperations.Controls.Add(pnlOperations);
             }
-        }
 
         private void btnShow_Click(object sender, EventArgs e)
         {
@@ -137,17 +133,17 @@ namespace ARKODesktop.Views
 
         private void InitializeMap()
         {
-            //gMap.MapProvider = GMapProviders.GoogleMap;
-            //gMap.Position = new PointLatLng(0, 0); // Default position
-            //gMap.MinZoom = 15;
-            //gMap.MaxZoom = 20;
-            //gMap.Zoom = 17;
+            gMap.MapProvider = GMapProviders.GoogleMap;
+            gMap.Position = new PointLatLng(0, 0); // Default position
+            gMap.MinZoom = 15;
+            gMap.MaxZoom = 20;
+            gMap.Zoom = 17;
 
-            //gMap.CanDragMap = true;
-            //gMap.DragButton = MouseButtons.Left;
-            //gMap.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
-            //gMap.IgnoreMarkerOnMouseWheel = true;
-            //gMap.ShowCenter = true;
+            gMap.CanDragMap = true;
+            gMap.DragButton = MouseButtons.Left;
+            gMap.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
+            gMap.IgnoreMarkerOnMouseWheel = true;
+            gMap.ShowCenter = true;
 
             //GMaps.Instance.Mode = AccessMode.ServerAndCache;
 
@@ -178,75 +174,88 @@ namespace ARKODesktop.Views
 
         private void CenterMapOnDevice(double latitude, double longitude)
         {
-            //// Center the map on the device's location
-            //gMap.Position = new PointLatLng(latitude, longitude);
+            gMap.Position = new PointLatLng(latitude, longitude);
         }
 
         private void GetDeviceLocation()
         {
-            //// Ensure GeoCoordinateWatcher is supported on your platform
-            //GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+            GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
 
-            //watcher.PositionChanged += (sender, e) =>
-            //{
-            //    var location = e.Position.Location;
-            //    if (!location.IsUnknown)
-            //    {
-            //        double latitude = location.Latitude;
-            //        double longitude = location.Longitude;
+            watcher.PositionChanged += (sender, e) =>
+            {
+                var location = e.Position.Location;
+                if (!location.IsUnknown)
+                {
+                    double latitude = location.Latitude;
+                    double longitude = location.Longitude;
 
-            //        // Center map on device location
-            //        CenterMapOnDevice(latitude, longitude);
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Location is unknown.");
-            //    }
-            //};
+                    // Center map on device location
+                    CenterMapOnDevice(latitude, longitude);
+                }
+                else
+                {
+                    MessageBox.Show("Location is unknown.");
+                }
+            };
 
-            //watcher.Start();
+            watcher.Start();
         }
 
         private void Operation_Load(object sender, EventArgs e)
         {
-            //GetDeviceLocation();
+            GetDeviceLocation();
         }
 
         private void btnPin_Click(object sender, EventArgs e)
         {
             //// Initialize GeoCoordinateWatcher to get the current device location
-            //GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+            GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
 
-            //watcher.PositionChanged += (s, ev) =>
-            //{
-            //    var location = ev.Position.Location;
-            //    if (!location.IsUnknown)
-            //    {
-            //        double latitude = location.Latitude;
-            //        double longitude = location.Longitude;
+            watcher.PositionChanged += (s, ev) =>
+            {
+                var location = ev.Position.Location;
+                if (!location.IsUnknown)
+                {
+                    double latitude = location.Latitude;
+                    double longitude = location.Longitude;
+                    // Add a marker to the map
+                    Label lblOperationID = new Label();
+                    lblOperationID.Text = "asd";
+                    GMarkerGoogleType markerType;
+                    if (lblOperationID.Text == "Rescue")
+                    {
+                        markerType = GMarkerGoogleType.red_dot; // Red for "Rescue"
+                    }
+                    else if (lblOperationID.Text == "Relief")
+                    {
+                        markerType = GMarkerGoogleType.yellow_dot; // Yellow for "Relief"
+                    }
+                    else
+                    {
+                        markerType = GMarkerGoogleType.blue_dot; // Default color for other categories
+                    }
 
-            //        // Add a marker to the map
-            //        GMapMarker marker = new GMarkerGoogle(
-            //            new PointLatLng(latitude, longitude),
-            //            GMarkerGoogleType.red_dot
-            //        );
-            //        GMapOverlay markersOverlay = new GMapOverlay("markers");
-            //        markersOverlay.Markers.Add(marker);
-            //        gMap.Overlays.Add(markersOverlay);
+                    GMapMarker marker = new GMarkerGoogle(
+                        new PointLatLng(latitude, longitude),
+                        markerType
+                    );
+                    GMapOverlay markersOverlay = new GMapOverlay("markers");
+                    markersOverlay.Markers.Add(marker);
+                    gMap.Overlays.Add(markersOverlay);
 
-            //        // Save location to the SQLite database
-            //        SaveLocationToDatabase(latitude, longitude);
+                    // Save location to the SQLite database
+                    SaveLocationToDatabase(latitude, longitude);
 
-            //        // Stop the watcher after getting the location
-            //        watcher.Stop();
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Location is unknown.");
-            //    }
-            //};
+                    // Stop the watcher after getting the location
+                    watcher.Stop();
+                }
+                else
+                {
+                    MessageBox.Show("Location is unknown.");
+                }
+            };
 
-            //watcher.Start();
+            watcher.Start();
         }
 
         private void SaveLocationToDatabase(double latitude, double longitude)
