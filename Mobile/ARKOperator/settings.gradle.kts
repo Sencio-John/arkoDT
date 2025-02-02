@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ARKOperator"
+rootProject.name = "ArkOperator"
 include(":app")
+ 
