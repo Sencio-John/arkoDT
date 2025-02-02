@@ -9,6 +9,7 @@ namespace ARKODesktop
         private Form frmDevices;
         private Form frmOperation;
         private Form frmUserCreation;
+        private Form frmMap;
 
         public EntryForm()
         {
@@ -42,6 +43,7 @@ namespace ARKODesktop
             if (frmDevices != null && frmDevices != visibleForm) frmDevices.Hide();
             if (frmOperation != null && frmOperation != visibleForm) frmOperation.Hide();
             if (frmUserCreation != null && frmUserCreation != visibleForm) frmUserCreation.Hide();
+            if (frmMap != null && frmMap != visibleForm) frmMap.Hide();
 
             if (this.pnlLoadForm.Controls.Count > 0)
             {
@@ -81,6 +83,17 @@ namespace ARKODesktop
         private void btnUserCreation_Click(object sender, EventArgs e)
         {
             ShowForm(ref frmUserCreation, new UserCreation());
+        }
+
+        private void EntryForm_Load(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("New Location Tagged in Map", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (result == DialogResult.OK)
+            {
+
+                ShowForm(ref frmMap, new Map());
+            }
         }
     }
 }

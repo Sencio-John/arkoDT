@@ -303,3 +303,10 @@ C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODe
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Components.ChangePassword.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Component.ManageWifi.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Operations.resources
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Components.ChangePassword.resources
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Component.ManageWifi.resources
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.dll
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.Video.dll
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.xml
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.Video.xml
+C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Map.resources

@@ -51,7 +51,7 @@ namespace ARKODesktop
             this.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopBar.Location = new System.Drawing.Point(0, 0);
             this.pnlTopBar.Name = "pnlTopBar";
-            this.pnlTopBar.Size = new System.Drawing.Size(1350, 30);
+            this.pnlTopBar.Size = new System.Drawing.Size(1295, 30);
             this.pnlTopBar.TabIndex = 0;
             // 
             // lblTime
@@ -61,7 +61,7 @@ namespace ARKODesktop
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.Location = new System.Drawing.Point(0, 0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(1350, 30);
+            this.lblTime.Size = new System.Drawing.Size(1295, 30);
             this.lblTime.TabIndex = 1;
             this.lblTime.Text = "00:00:00";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,8 +76,8 @@ namespace ARKODesktop
             this.flpSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.flpSideBar.Location = new System.Drawing.Point(0, 30);
             this.flpSideBar.Name = "flpSideBar";
-            this.flpSideBar.Padding = new System.Windows.Forms.Padding(2);
-            this.flpSideBar.Size = new System.Drawing.Size(200, 699);
+            this.flpSideBar.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flpSideBar.Size = new System.Drawing.Size(200, 690);
             this.flpSideBar.TabIndex = 1;
             // 
             // picLogo
@@ -131,20 +131,21 @@ namespace ARKODesktop
             this.pnlLoadForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoadForm.Location = new System.Drawing.Point(200, 30);
             this.pnlLoadForm.Name = "pnlLoadForm";
-            this.pnlLoadForm.Size = new System.Drawing.Size(1150, 699);
+            this.pnlLoadForm.Size = new System.Drawing.Size(1095, 690);
             this.pnlLoadForm.TabIndex = 2;
             // 
             // EntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.ClientSize = new System.Drawing.Size(1295, 720);
             this.Controls.Add(this.pnlLoadForm);
             this.Controls.Add(this.flpSideBar);
             this.Controls.Add(this.pnlTopBar);
             this.Name = "EntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ARKO";
+            this.Load += new System.EventHandler(this.EntryForm_Load);
             this.pnlTopBar.ResumeLayout(false);
             this.flpSideBar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
