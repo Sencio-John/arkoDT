@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.arkoperator.Services.BluetoothControllable;
+import com.example.arkoperator.Controllers.BluetoothControllable;
 
 import java.io.IOException;
 import java.io.InputStream;

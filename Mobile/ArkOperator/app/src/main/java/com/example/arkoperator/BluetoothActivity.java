@@ -3,6 +3,7 @@ package com.example.arkoperator;
 import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -21,14 +22,13 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.arkoperator.Adapters.CustomBluetoothAdapter;
-import com.example.arkoperator.Controllers.BluetoothController;
+import com.example.arkoperator.Services.BluetoothService;
 import com.example.arkoperator.Network.BluetoothClient;
 
 import java.io.IOException;
@@ -37,10 +37,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@SuppressLint("MissingPermission")
-public class BluetoothActivity extends AppCompatActivity {
+@SuppressLint({"MissingPermission", "SetTextI18n"})
+public class BluetoothActivity extends Activity {
 
-    BluetoothController bluetoothController;
+    BluetoothService bluetoothService;
     BluetoothClient client;
     Intent btEnablingIntent;
     ListView lstBondedDeviceView;
@@ -60,36 +60,9 @@ public class BluetoothActivity extends AppCompatActivity {
     static final int STATE_MESSAGE_RECEIVED = 5;
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    Handler handler = new Handler(Looper.getMainLooper())
-    {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case STATE_LISTENING:
-                    Toast.makeText(getApplicationContext(),"Listening", Toast.LENGTH_LONG).show();
-                    break;
-                case STATE_CONNECTED:
-                    client.start();
-                    loadingDialog.dismiss();
-                    authDialog.show();
-                    Toast.makeText(getApplicationContext(),"Connected", Toast.LENGTH_LONG).show();
-                    break;
-                case STATE_CONNECTION_FAILED:
-                    loadingDialog.dismiss();
-                    Toast.makeText(getApplicationContext(),"Connection Failed", Toast.LENGTH_LONG).show();
-                    break;
-                case STATE_MESSAGE_RECEIVED:
-                    evaluateResponse(msg.obj.toString());
-                    break;
-            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_bluetooth);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bluetooth), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -101,11 +74,10 @@ public class BluetoothActivity extends AppCompatActivity {
         initializeComponents();
         initializeEventListeners();
         initializeBluetooth();
-
     }
 
     private void initializeFields() {
-        bluetoothController = new BluetoothController();
+        bluetoothService = new BluetoothService();
         btEnablingIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         requestCodeForEnable = 1;
     }
@@ -139,7 +111,7 @@ public class BluetoothActivity extends AppCompatActivity {
     private void initializeEventListeners(){
 
         btnRefresh.setOnClickListener(view ->
-                showBondedDevices(bluetoothController.getBondedDevices())
+                showBondedDevices(bluetoothService.getBondedDevices())
         );
 
         lstBondedDeviceView.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -178,17 +150,40 @@ public class BluetoothActivity extends AppCompatActivity {
         });
     }
 
+    Handler handler = new Handler(Looper.getMainLooper())
+    {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case STATE_CONNECTED:
+                    client.start();
+                    loadingDialog.dismiss();
+                    authDialog.show();
+                    Toast.makeText(getApplicationContext(),"Connected", Toast.LENGTH_LONG).show();
+                    break;
+                case STATE_CONNECTION_FAILED:
+                    loadingDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Connection Failed", Toast.LENGTH_LONG).show();
+                    break;
+                case STATE_MESSAGE_RECEIVED:
+                    evaluateResponse(msg.obj.toString());
+                    break;
+            }
+        }
+    };
+
     private void initializeBluetooth(){
-        if (!bluetoothController.isBluetoothAvailable()){
+        if (!bluetoothService.isBluetoothAvailable()){
             Toast.makeText(getApplicationContext(), "Bluetooth does not support on this Device", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (!bluetoothController.isBluetoothOn()){
+        if (!bluetoothService.isBluetoothOn()){
             requestBluetoothOn();
         }
-        bluetoothController.getBondedDevices();
-        showBondedDevices(bluetoothController.getBondedDevices());
+        bluetoothService.getBondedDevices();
+        showBondedDevices(bluetoothService.getBondedDevices());
     }
 
     @Override
@@ -215,7 +210,7 @@ public class BluetoothActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void showBondedDevices(List<BluetoothDevice> devices){
 
-        if (bluetoothController.isBluetoothOn()){
+        if (bluetoothService.isBluetoothOn()){
             CustomBluetoothAdapter customBluetoothAdapter = new CustomBluetoothAdapter(getApplicationContext(), devices);
             lstBondedDeviceView.setAdapter(customBluetoothAdapter);
         } else {
@@ -227,20 +222,16 @@ public class BluetoothActivity extends AppCompatActivity {
         startActivityForResult(btEnablingIntent, requestCodeForEnable);
     }
 
-    private void evaluateResponse(String data) {
-        String[] info = data.split(":");
-        if (info[0].equals("Auth")){
-            try {
-                txtAuthError.setVisibility(VISIBLE);
-                if(Integer.parseInt(info[1]) == 1){
-                    txtAuthError.setText("Valid yan pre");
-                }else{
-                    txtAuthError.setText("Mali borat");
-                }
-            } catch (NumberFormatException e) {
-                txtAuthError.setText("Error receiving data");
-            }
 
+    private void evaluateResponse(String data) {
+        String[] info = data.split("[:,]");
+        if (info[0].equals("Auth")){
+            txtAuthError.setVisibility(VISIBLE);
+            if(info[1].length() > 1){
+                txtAuthError.setText("Valid yan pre");
+            }else{
+                txtAuthError.setText("Invalid Credentials");
+            }
         }
         Toast.makeText(getApplicationContext(), "Message Received: " + Arrays.toString(info), Toast.LENGTH_SHORT).show();
     }
