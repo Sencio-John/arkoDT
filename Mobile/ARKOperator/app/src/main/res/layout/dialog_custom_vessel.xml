@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="16dp"
+    android:backgroundTint="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linkModifyNet">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:paddingTop="10dp"
+                android:paddingEnd="5dp"
+
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:fontFamily="@font/cerapro_bold"
+                    android:gravity="right"
+                    android:paddingRight="6dp"
+                    android:textColor="@color/black"
+                    android:text="@string/lblName" />
+
+                <TextView
+                    android:id="@+id/txtVesselName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lblUnknown"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:layout_gravity="fill_horizontal"
+                    android:textColor="@color/black"
+                    android:layout_columnSpan="1"/>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:fontFamily="@font/cerapro_bold"
+                    android:gravity="right"
+                    android:paddingRight="6dp"
+                    android:textColor="@color/black"
+                    android:text="@string/lblNetworkName" />
+
+                <TextView
+                    android:id="@+id/txtNetworkName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lblUnknown"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:layout_gravity="fill_horizontal"
+                    android:textColor="@color/black"
+                    android:layout_columnSpan="1"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill_horizontal"
+                    android:fontFamily="@font/cerapro_bold"
+                    android:gravity="right"
+                    android:paddingRight="6dp"
+                    android:textColor="@color/black"
+                    android:text="@string/lblIP" />
+
+                <TextView
+                    android:id="@+id/txtIP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lblUnknown"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:layout_gravity="fill_horizontal"
+                    android:textColor="@color/black"
+                    android:layout_columnSpan="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:textAlignment="textEnd"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/cerapro_bold"
+            android:text="@string/lblVesselInformation"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/linkModifyNet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/lblModifyNetwork"
+            android:textColor="@color/linkGreen"
+            android:textSize="16sp"
+            android:fontFamily="@font/cerapro_mediumitalic"
+            android:linksClickable="true"
+            app:layout_constraintEnd_toEndOf="@+id/dialogTitle"
+            app:layout_constraintStart_toStartOf="@+id/dialogTitle"
+            app:layout_constraintTop_toBottomOf="@+id/dialogTitle"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelDialogVessel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/cerapro_bold"
+                android:padding="12dp"
+                android:text="@string/lblCancel"
+                android:textColor="#FD6060"
+                android:textSize="12sp"
+                app:strokeColor="#FD6060"
+                app:strokeWidth="2dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddDevice"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/secondary"
+                android:fontFamily="@font/cerapro_bold"
+                android:padding="12dp"
+                android:text="@string/lblAddDevice"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

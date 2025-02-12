@@ -1,7 +1,7 @@
-package com.example.arkoperator.Controllers;
+package com.example.arkoperator.Vessel;
 
 import java.util.List;
-import com.example.arkoperator.Models.Vessel;
+
 public interface VesselControllable {
     Vessel getVessel(int id);
     List<Vessel> getAllVessel();

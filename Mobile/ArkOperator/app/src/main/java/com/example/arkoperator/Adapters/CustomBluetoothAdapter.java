@@ -43,7 +43,7 @@ public class CustomBluetoothAdapter extends BaseAdapter {
     @SuppressLint({"MissingPermission", "ViewHolder"})
     @Override
     public View getView(int index, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.listview_custom_bluetooth, null);
+        view = inflater.inflate(R.layout.row_custom_bluetooth, null);
         TextView txtNameView = (TextView) view.findViewById(R.id.tvDeviceName);
         TextView txtAddressView = (TextView) view.findViewById(R.id.tvDeviceAddress);
         view.setTag(devices.get(index));

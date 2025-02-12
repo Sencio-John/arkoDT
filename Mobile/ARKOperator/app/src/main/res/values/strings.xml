@@ -1,22 +1,49 @@
 <resources>
+    <!-- APP Labels -->
     <string name="app_name">ArkOperator</string>
-    <string name="longitude">Longitude:</string>
-    <string name="latitude">Latitude:</string>
-    <string name="water_level">Water Level:</string>
-    <string name="ir_sensor">IR Sensor:</string>
-    <string name="refresh">Refresh</string>
-    <string name="paired_devices">Paired Devices</string>
-    <string name="scan_device">Scan Device</string>
-    <string name="available_devices">Available Devices</string>
+    <string name="lblRefresh">Refresh</string>
+    <string name="lblPassword">Password:</string>
+    <string name="lblEnPass">Enter Password</string>
+    <string name="lblCancel">Cancel</string>
+    <string name="lblValidate">Validate</string>
+    <string name="lblConnecting">Connecting… Please wait…</string>
+    <string name="lblValidating">Validating… Please wait…</string>
+    <string name="lblUnknown">Unknown</string>
+    <string name="lblName">Name:</string>
+    <string name="lblControl">control</string>
+    <string name="lblModify">Modify</string>
 
-    <string name="auth_bluetooth">Vessel Authentication</string>
-    <string name="min_des_auth">Enter Vessel key and password</string>
-    <string name="cancel">Cancel</string>
-    <string name="validate">Validate</string>
-    <string name="label_key">Key:</string>
-    <string name="hint_key">Enter Key\n</string>
-    <string name="password">Password:</string>
-    <string name="enter_password">Enter Password</string>
-    <string name="connecting">Connecting… Please wait…</string>
+
+    <!-- Dashboard Labels -->
+    <string name="lblConnected">• Connected</string>
+    <string name="lblOnline">• Online</string>
+    <string name="lblOffline">• Offline</string>
+    <string name="lblDevice">Devices</string>
+
+    <!-- Controller Labels -->
+    <string name="lblLongitude">Longitude:</string>
+    <string name="lblLatitude">Latitude:</string>
+    <string name="lblWaterLevel">Water Level:</string>
+    <string name="lblIRSensor">IR Sensor:</string>
+
+    <!-- Bluetooth Labels -->
+    <string name="lblPairedDevices">Paired Devices</string>
+    <string name="lblScanDevice">Scan Device</string>
+    <string name="lblAvailableDevices">Available Devices</string>
+    <string name="lblAuthBluetoothTitle">Vessel Authentication</string>
+    <string name="lblBTAuthDescription">Enter Vessel key and password</string>
+    <string name="lblKey">Key:</string>
+    <string name="lblEnKey">Enter Key</string>
+
+    <!-- Network Labels -->
+    <string name="lblNetworkAuthTitle">Network Modification</string>
+    <string name="lblNTAuthDescription">Enter Vessel SSID and password</string>
+    <string name="lblSSID">SSID:</string>
+    <string name="lblHintSSID">Enter SSID</string>
+    <string name="lblAddDevice">Add Device</string>
+    <string name="lblModifyNetwork"><u>Modify Network</u></string>
+    <string name="lblVesselInformation">Vessel Information</string>
+    <string name="lblNetworkName">Network:</string>
+    <string name="lblIP">IP Address:</string>
 
 </resources>

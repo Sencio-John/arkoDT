@@ -1,4 +1,4 @@
-package com.example.arkoperator.Models;
+package com.example.arkoperator.Vessel;
 
 public class Vessel {
 

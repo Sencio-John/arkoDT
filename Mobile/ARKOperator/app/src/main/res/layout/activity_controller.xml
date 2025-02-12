@@ -39,7 +39,7 @@
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/latitude"
+            android:text="@string/lblLatitude"
             android:textColor="#fff" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/longitude"
+            android:text="@string/lblLongitude"
             android:textColor="#fff" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/water_level"
+            android:text="@string/lblWaterLevel"
             android:textColor="#fff" />
 
         <TextView
@@ -63,7 +63,7 @@
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/ir_sensor"
+            android:text="@string/lblIRSensor"
             android:textColor="#fff" />
 
     </LinearLayout>

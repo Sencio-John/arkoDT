@@ -6,5 +6,7 @@
     <color name="secondary">#277CA5</color>
     <color name="accent">#64C2EC</color>
     <color name="danger">#d94f4f</color>
+    <color name="linkGreen">#08A600</color>
+    <color name="darkGray">#898989</color>
 
 </resources>

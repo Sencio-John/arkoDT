@@ -1,4 +1,4 @@
-package com.example.arkoperator.Controllers;
+package com.example.arkoperator.Bluetooth;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;

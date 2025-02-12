@@ -1,12 +1,11 @@
-package com.example.arkoperator.Network;
+package com.example.arkoperator.Bluetooth;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Message;
-
-import com.example.arkoperator.Controllers.BluetoothControllable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +22,7 @@ public class BluetoothClient extends Thread implements BluetoothControllable {
     Message msg;
     Handler handler;
 
+    private String messageBuffer = "";
 
     public BluetoothClient(Handler handler, BluetoothDevice device, UUID address){
         this.device = device;
@@ -37,17 +37,21 @@ public class BluetoothClient extends Thread implements BluetoothControllable {
         }
     }
 
-    public void run(){
+    public void run() {
         byte[] buffer = new byte[1024];
         int bytes;
 
         while (isListening) {
             try {
                 bytes = inputStream.read(buffer);
-                String receivedMessage = new String(buffer, 0, bytes);
+                String receivedChunk = new String(buffer, 0, bytes);
 
-                msg = handler.obtainMessage(5, receivedMessage);
-                handler.sendMessage(msg);
+                messageBuffer += receivedChunk;
+
+                if (messageBuffer.contains("\n")) {
+                    handler.obtainMessage(5, messageBuffer.trim()).sendToTarget();
+                    messageBuffer = "";
+                }
 
             } catch (IOException ignored) {
                 break;
