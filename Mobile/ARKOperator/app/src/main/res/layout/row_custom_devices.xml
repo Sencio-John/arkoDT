@@ -19,62 +19,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="16dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <!-- First Row -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_small"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="10dp">
-
-                <TextView
-                    android:id="@+id/txtVesselName"
-                    android:layout_width="0dp"
+                android:orientation="vertical">
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lblName"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/cerapro_bold"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:paddingLeft="10dp"/>
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/txtStatus"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/txtVesselName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lblName"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/cerapro_bold"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:paddingLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/txtStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lblOffline"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/cerapro_bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/danger"
+                        android:paddingRight="10dp"/>
+                </LinearLayout>
+
+                <!-- Second Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lblOffline"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/cerapro_bold"
-                    android:textSize="14sp"
-                    android:textColor="@color/danger"
-                    android:paddingRight="10dp"/>
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/txtNetworkName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/lblNetworkName"
+                        android:textColor="@color/darkGray"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/cerapro_regular"
+                        android:layout_gravity="start"
+                        android:paddingLeft="10dp"/>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Second Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp">
-
-                <TextView
-                    android:id="@+id/txtNetworkName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lblNetworkName"
-                    android:textColor="@color/darkGray"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/cerapro_regular"
-                    android:layout_gravity="start"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
         </LinearLayout>
+
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
