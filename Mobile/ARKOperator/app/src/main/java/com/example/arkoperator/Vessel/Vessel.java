@@ -7,13 +7,22 @@ public class Vessel {
     private String networkName;
     private String ipAddress;
     private String token;
+    private String status;
 
-    public Vessel(int id, String vesselName, String networkName, String ipAddress, String token) {
-        this.id = id;
+    public Vessel(String vesselName, String networkName, String ipAddress, String token) {
         this.vesselName = vesselName;
         this.networkName = networkName;
         this.ipAddress = ipAddress;
         this.token = token;
+        status = "Offline";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {

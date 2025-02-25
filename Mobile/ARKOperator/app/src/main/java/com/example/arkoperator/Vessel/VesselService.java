@@ -62,11 +62,11 @@ public class VesselService extends SQLiteOpenHelper implements VesselControllabl
     }
 
     @Override
-    public List<Vessel> getAllVessel() {
+    public ArrayList<Vessel> getAllVessel() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         rs.moveToFirst();
-        return getVesselsInfo(rs);
+        return getVessels(rs);
     }
 
     @Override
@@ -107,29 +107,31 @@ public class VesselService extends SQLiteOpenHelper implements VesselControllabl
     }
 
     private Vessel getVesselInfo(Cursor rs) {
-        int idIndex = rs.getColumnIndex("vessel_id");
+        int id = rs.getColumnIndex("vessel_id");
         int vesselNameIndex = rs.getColumnIndex("vessel_name");
         int networkNameIndex = rs.getColumnIndex("network_name");
         int ipAddressIndex = rs.getColumnIndex("ip_address");
         int tokenIndex = rs.getColumnIndex("token");
 
-        int id = idIndex >= 0 ? rs.getInt(idIndex) : 0;
+        id = id >= 0 ? rs.getInt(id) : 0;
         String vesselName = vesselNameIndex >= 0 ? rs.getString(vesselNameIndex) : "";
         String networkName = networkNameIndex >= 0 ? rs.getString(networkNameIndex) : "";
         String ipAddress = ipAddressIndex >= 0 ? rs.getString(ipAddressIndex) : "";
         String token = tokenIndex >= 0 ? rs.getString(tokenIndex) : "";
 
-        return new Vessel(id, vesselName, networkName, ipAddress, token);
+        Vessel vessel = new Vessel(vesselName, networkName, ipAddress, token);
+        vessel.setId(id);
+
+        return vessel;
     }
 
-    private List<Vessel> getVesselsInfo(Cursor rs){
-        List<Vessel> vesselList = new ArrayList<>();
+    private ArrayList<Vessel> getVessels(Cursor rs){
+        ArrayList<Vessel> vesselList = new ArrayList<>();
         while (!rs.isAfterLast()){
-
             int id = rs.getColumnIndex(COLUMN_ID);
             int vName = rs.getColumnIndex(COLUMN_NAME);
             int nName = rs.getColumnIndex(COLUMN_NETWORK);
-            int ip = rs.getColumnIndex(COLUMN_TOKEN);
+            int ip = rs.getColumnIndex(COLUMN_IP);
             int tk = rs.getColumnIndex(COLUMN_TOKEN);
 
             id = id >= 0 ? rs.getInt(id) : 0;
@@ -138,9 +140,31 @@ public class VesselService extends SQLiteOpenHelper implements VesselControllabl
             String ip_address = ip >= 0 ? rs.getString(ip) : "";
             String token = tk >= 0 ? rs.getString(tk) : "";
 
-            vesselList.add(new Vessel(id, vessel_name,network_name,ip_address,token));
-        }
+            Vessel vessel = new Vessel(vessel_name, network_name, ip_address, token);
+            vessel.setId(id);
 
+            vesselList.add(vessel);
+            rs.moveToNext();
+        }
         return vesselList;
     }
+
+    public boolean isVesselExists(String networkName, String vesselName, String ipAddress) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " +
+                COLUMN_NETWORK + " = ? AND " +
+                COLUMN_NAME + " = ? AND " +
+                COLUMN_IP + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{networkName, vesselName, ipAddress});
+
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+
+        return count > 0;
+    }
+
+
 }

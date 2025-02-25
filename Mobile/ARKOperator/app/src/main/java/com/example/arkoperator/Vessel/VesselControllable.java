@@ -1,10 +1,10 @@
 package com.example.arkoperator.Vessel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface VesselControllable {
     Vessel getVessel(int id);
-    List<Vessel> getAllVessel();
+    ArrayList<Vessel> getAllVessel();
     boolean addVessel(Vessel vessel);
     boolean removeVessel(int id);
     boolean updateVessel(Vessel vessel);

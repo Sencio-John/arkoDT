@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white">
 
-
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="0dp"
@@ -32,7 +31,6 @@
                 android:columnCount="2"
                 android:paddingTop="10dp"
                 android:paddingEnd="5dp"
-
                 android:layout_gravity="center">
 
                 <TextView
@@ -180,7 +178,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/primary"
                 android:fontFamily="@font/cerapro_bold"
                 android:padding="12dp"
                 android:text="@string/lblAddDevice"

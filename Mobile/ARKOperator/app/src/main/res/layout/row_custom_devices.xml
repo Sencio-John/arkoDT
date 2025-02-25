@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
         android:background="@color/white"
@@ -18,16 +15,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="16dp">
+        android:layout_margin="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_small"/>
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/outlogo3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +34,7 @@
                 <!-- First Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
                     android:layout_weight="1">
@@ -49,9 +47,10 @@
                         android:text="@string/lblName"
                         android:textStyle="bold"
                         android:fontFamily="@font/cerapro_bold"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:paddingLeft="10dp"/>
+                        android:textColor="@color/primary"
+                        android:textSize="20sp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="5dp"/>
 
                     <TextView
                         android:id="@+id/txtStatus"
@@ -62,7 +61,9 @@
                         android:fontFamily="@font/cerapro_bold"
                         android:textSize="14sp"
                         android:textColor="@color/danger"
-                        android:paddingRight="10dp"/>
+                        android:layout_gravity="center"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
                 </LinearLayout>
 
                 <!-- Second Row -->
@@ -82,7 +83,8 @@
                         android:textSize="14sp"
                         android:fontFamily="@font/cerapro_regular"
                         android:layout_gravity="start"
-                        android:paddingLeft="10dp"/>
+                        android:paddingStart="12dp"
+                        android:paddingEnd="5dp"/>
                 </LinearLayout>
             </LinearLayout>
 

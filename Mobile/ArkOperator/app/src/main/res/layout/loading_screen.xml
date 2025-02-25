@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="60dp"
-            android:indeterminateTint="@color/secondary"
+            android:indeterminateTint="@color/primary"
             android:progressTint="@color/secondary"/>
 
         <TextView
