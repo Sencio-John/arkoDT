@@ -262,6 +262,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\Fonts\CeraPro-Bold.ttf" />
+    <None Include="Resources\Fonts\CeraPro-BoldItalic.ttf" />
+    <None Include="Resources\Fonts\CeraPro-Light.ttf" />
+    <None Include="Resources\Fonts\CeraPro-Medium.ttf" />
+    <None Include="Resources\Fonts\CeraPro-MediumItalic.ttf" />
+    <None Include="Resources\Fonts\CeraPro-Regular.ttf" />
+    <None Include="Resources\Fonts\CeraPro-RegularItalic.ttf" />
+    <None Include="Resources\Fonts\CeraPro-Thin.ttf" />
+    <None Include="Resources\Fonts\SpaceMono-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

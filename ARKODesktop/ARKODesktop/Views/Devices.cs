@@ -89,7 +89,7 @@ namespace ARKODesktop.Views
             btnManage.UseVisualStyleBackColor = true;
 
             lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblStatus.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblStatus.Location = new System.Drawing.Point(0, 0);
             lblStatus.Size = new System.Drawing.Size(130, 29);
             lblStatus.TabIndex = 2;
@@ -101,14 +101,14 @@ namespace ARKODesktop.Views
             pnlPlacer.TabIndex = 5;
 
             lblNetworkName.AutoSize = true;
-            lblNetworkName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblNetworkName.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblNetworkName.Location = new System.Drawing.Point(3, 38);
             lblNetworkName.Size = new System.Drawing.Size(97, 16);
             lblNetworkName.TabIndex = 1;
             lblNetworkName.Text = vessel.Network_name;
 
             lblVesselName.AutoSize = true;
-            lblVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblVesselName.Font = new System.Drawing.Font("Cera Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblVesselName.Location = new System.Drawing.Point(3, 5);
             lblVesselName.Size = new System.Drawing.Size(123, 24);
             lblVesselName.TabIndex = 0;

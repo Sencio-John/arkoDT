@@ -78,7 +78,7 @@ namespace ARKODesktop.Views
             // lblFname
             // 
             this.lblFname.AutoSize = true;
-            this.lblFname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFname.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFname.Location = new System.Drawing.Point(534, 36);
             this.lblFname.Name = "lblFname";
             this.lblFname.Size = new System.Drawing.Size(76, 16);
@@ -88,61 +88,61 @@ namespace ARKODesktop.Views
             // lblMname
             // 
             this.lblMname.AutoSize = true;
-            this.lblMname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMname.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMname.Location = new System.Drawing.Point(534, 81);
             this.lblMname.Name = "lblMname";
-            this.lblMname.Size = new System.Drawing.Size(85, 16);
+            this.lblMname.Size = new System.Drawing.Size(86, 16);
             this.lblMname.TabIndex = 1;
             this.lblMname.Text = "Middle Initial:";
             // 
             // lblLname
             // 
             this.lblLname.AutoSize = true;
-            this.lblLname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLname.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLname.Location = new System.Drawing.Point(534, 127);
             this.lblLname.Name = "lblLname";
-            this.lblLname.Size = new System.Drawing.Size(76, 16);
+            this.lblLname.Size = new System.Drawing.Size(75, 16);
             this.lblLname.TabIndex = 2;
             this.lblLname.Text = "Last Name:";
             // 
             // lblRole
             // 
             this.lblRole.AutoSize = true;
-            this.lblRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole.Location = new System.Drawing.Point(534, 175);
             this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(40, 16);
+            this.lblRole.Size = new System.Drawing.Size(38, 16);
             this.lblRole.TabIndex = 3;
             this.lblRole.Text = "Role:";
             // 
             // txtMname
             // 
-            this.txtMname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMname.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMname.Location = new System.Drawing.Point(632, 75);
             this.txtMname.MaxLength = 1;
             this.txtMname.Name = "txtMname";
-            this.txtMname.Size = new System.Drawing.Size(167, 22);
+            this.txtMname.Size = new System.Drawing.Size(167, 24);
             this.txtMname.TabIndex = 4;
             // 
             // txtFname
             // 
-            this.txtFname.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFname.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFname.Location = new System.Drawing.Point(632, 30);
             this.txtFname.Name = "txtFname";
-            this.txtFname.Size = new System.Drawing.Size(167, 22);
+            this.txtFname.Size = new System.Drawing.Size(167, 24);
             this.txtFname.TabIndex = 5;
             // 
             // txtLName
             // 
-            this.txtLName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLName.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLName.Location = new System.Drawing.Point(632, 121);
             this.txtLName.Name = "txtLName";
-            this.txtLName.Size = new System.Drawing.Size(167, 22);
+            this.txtLName.Size = new System.Drawing.Size(167, 24);
             this.txtLName.TabIndex = 6;
             // 
             // cbRole
             // 
-            this.cbRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRole.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRole.FormattingEnabled = true;
             this.cbRole.Location = new System.Drawing.Point(632, 167);
             this.cbRole.Name = "cbRole";
@@ -152,74 +152,74 @@ namespace ARKODesktop.Views
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.Location = new System.Drawing.Point(25, 178);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(45, 16);
+            this.lblEmail.Size = new System.Drawing.Size(43, 16);
             this.lblEmail.TabIndex = 10;
             this.lblEmail.Text = "Email:";
             // 
             // txtEmail
             // 
-            this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.Location = new System.Drawing.Point(150, 172);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(167, 22);
+            this.txtEmail.Size = new System.Drawing.Size(167, 24);
             this.txtEmail.TabIndex = 13;
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsername.Location = new System.Drawing.Point(25, 36);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(74, 16);
+            this.lblUsername.Size = new System.Drawing.Size(71, 16);
             this.lblUsername.TabIndex = 8;
             this.lblUsername.Text = "Username:";
             // 
             // txtPassword
             // 
-            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(150, 78);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(167, 22);
+            this.txtPassword.Size = new System.Drawing.Size(167, 24);
             this.txtPassword.TabIndex = 11;
             // 
             // txtUsername
             // 
-            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsername.Location = new System.Drawing.Point(150, 33);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(167, 22);
+            this.txtUsername.Size = new System.Drawing.Size(167, 24);
             this.txtUsername.TabIndex = 12;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPassword.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.Location = new System.Drawing.Point(25, 78);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(71, 16);
+            this.lblPassword.Size = new System.Drawing.Size(70, 16);
             this.lblPassword.TabIndex = 9;
             this.lblPassword.Text = "Password:";
             // 
             // lblOTP
             // 
             this.lblOTP.AutoSize = true;
-            this.lblOTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOTP.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOTP.Location = new System.Drawing.Point(25, 229);
             this.lblOTP.Name = "lblOTP";
-            this.lblOTP.Size = new System.Drawing.Size(39, 16);
+            this.lblOTP.Size = new System.Drawing.Size(37, 16);
             this.lblOTP.TabIndex = 14;
             this.lblOTP.Text = "OTP:";
             // 
             // txtOTP
             // 
-            this.txtOTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOTP.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOTP.Location = new System.Drawing.Point(150, 223);
             this.txtOTP.Name = "txtOTP";
-            this.txtOTP.Size = new System.Drawing.Size(167, 22);
+            this.txtOTP.Size = new System.Drawing.Size(167, 24);
             this.txtOTP.TabIndex = 15;
             // 
             // pnlUserBackground
@@ -245,7 +245,7 @@ namespace ARKODesktop.Views
             // lblUsers
             // 
             this.lblUsers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsers.Font = new System.Drawing.Font("Cera Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsers.Location = new System.Drawing.Point(0, 0);
             this.lblUsers.Name = "lblUsers";
             this.lblUsers.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -287,6 +287,7 @@ namespace ARKODesktop.Views
             this.grpUserInformation.Controls.Add(this.txtPassword);
             this.grpUserInformation.Controls.Add(this.txtUsername);
             this.grpUserInformation.Controls.Add(this.lblPassword);
+            this.grpUserInformation.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpUserInformation.Location = new System.Drawing.Point(151, 49);
             this.grpUserInformation.Name = "grpUserInformation";
             this.grpUserInformation.Size = new System.Drawing.Size(835, 273);
@@ -296,6 +297,7 @@ namespace ARKODesktop.Views
             // 
             // btnAddUser
             // 
+            this.btnAddUser.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddUser.Location = new System.Drawing.Point(754, 244);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(75, 23);
@@ -306,25 +308,26 @@ namespace ARKODesktop.Views
             // 
             // txtConfirmPassword
             // 
-            this.txtConfirmPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConfirmPassword.Location = new System.Drawing.Point(150, 120);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '●';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(167, 22);
+            this.txtConfirmPassword.Size = new System.Drawing.Size(167, 24);
             this.txtConfirmPassword.TabIndex = 20;
             // 
             // lblConfirmPass
             // 
             this.lblConfirmPass.AutoSize = true;
-            this.lblConfirmPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmPass.Font = new System.Drawing.Font("Cera Pro", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblConfirmPass.Location = new System.Drawing.Point(25, 126);
             this.lblConfirmPass.Name = "lblConfirmPass";
-            this.lblConfirmPass.Size = new System.Drawing.Size(119, 16);
+            this.lblConfirmPass.Size = new System.Drawing.Size(121, 16);
             this.lblConfirmPass.TabIndex = 19;
             this.lblConfirmPass.Text = "Confirm Password:";
             // 
             // btnVerify
             // 
+            this.btnVerify.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerify.Location = new System.Drawing.Point(323, 222);
             this.btnVerify.Name = "btnVerify";
             this.btnVerify.Size = new System.Drawing.Size(75, 23);
@@ -335,6 +338,7 @@ namespace ARKODesktop.Views
             // 
             // btnOTP
             // 
+            this.btnOTP.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOTP.Location = new System.Drawing.Point(323, 172);
             this.btnOTP.Name = "btnOTP";
             this.btnOTP.Size = new System.Drawing.Size(75, 23);
@@ -356,7 +360,7 @@ namespace ARKODesktop.Views
             // lblAddUserTitle
             // 
             this.lblAddUserTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAddUserTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddUserTitle.Font = new System.Drawing.Font("Cera Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAddUserTitle.Location = new System.Drawing.Point(0, 0);
             this.lblAddUserTitle.Name = "lblAddUserTitle";
             this.lblAddUserTitle.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);

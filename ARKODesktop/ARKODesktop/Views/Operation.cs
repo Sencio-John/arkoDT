@@ -52,31 +52,31 @@ namespace ARKODesktop.Views
 
                 // Set styles and locations
                 lblTimeOn.AutoSize = true;
-                lblTimeOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblTimeOn.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblTimeOn.Location = new System.Drawing.Point(20, 103);
 
                 lblTimeOff.AutoSize = true;
-                lblTimeOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblTimeOff.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblTimeOff.Location = new System.Drawing.Point(171, 103);
 
                 lblTimeOffline.AutoSize = true;
-                lblTimeOffline.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblTimeOffline.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblTimeOffline.Location = new System.Drawing.Point(156, 76);
 
                 lblTimeOnline.AutoSize = true;
-                lblTimeOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblTimeOnline.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblTimeOnline.Location = new System.Drawing.Point(5, 76);
 
                 lblNumberOfStranded.AutoSize = true;
-                lblNumberOfStranded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblNumberOfStranded.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblNumberOfStranded.Location = new System.Drawing.Point(3, 139);
 
                 lblDate.AutoSize = true;
-                lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblDate.Font = new System.Drawing.Font("Cera Pro", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblDate.Location = new System.Drawing.Point(3, 42);
 
                 lblOperationID.AutoSize = true;
-                lblOperationID.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblOperationID.Font = new System.Drawing.Font("Cera Pro", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 lblOperationID.Location = new System.Drawing.Point(2, 4);
 
                 btnShow.Location = new System.Drawing.Point(170, 4);

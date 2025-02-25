@@ -46,35 +46,38 @@ namespace ARKODesktop.Views.Components
             // 
             this.lblInstruct.AutoSize = true;
             this.lblInstruct.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblInstruct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruct.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstruct.Location = new System.Drawing.Point(111, 44);
             this.lblInstruct.Name = "lblInstruct";
-            this.lblInstruct.Size = new System.Drawing.Size(165, 15);
+            this.lblInstruct.Size = new System.Drawing.Size(168, 15);
             this.lblInstruct.TabIndex = 13;
             this.lblInstruct.Text = "Change or set new password";
             // 
             // txtOldPass
             // 
+            this.txtOldPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOldPass.Location = new System.Drawing.Point(217, 118);
             this.txtOldPass.Name = "txtOldPass";
             this.txtOldPass.PasswordChar = '*';
-            this.txtOldPass.Size = new System.Drawing.Size(163, 20);
+            this.txtOldPass.Size = new System.Drawing.Size(163, 21);
             this.txtOldPass.TabIndex = 12;
             // 
             // txtKey
             // 
+            this.txtKey.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKey.Location = new System.Drawing.Point(217, 76);
             this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(163, 20);
+            this.txtKey.Size = new System.Drawing.Size(163, 21);
             this.txtKey.TabIndex = 10;
             // 
             // lblKey
             // 
             this.lblKey.AutoSize = true;
             this.lblKey.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblKey.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblKey.Location = new System.Drawing.Point(111, 83);
             this.lblKey.Name = "lblKey";
-            this.lblKey.Size = new System.Drawing.Size(25, 13);
+            this.lblKey.Size = new System.Drawing.Size(26, 14);
             this.lblKey.TabIndex = 11;
             this.lblKey.Text = "Key";
             // 
@@ -82,34 +85,38 @@ namespace ARKODesktop.Views.Components
             // 
             this.lblOldPassword.AutoSize = true;
             this.lblOldPassword.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblOldPassword.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOldPassword.Location = new System.Drawing.Point(111, 125);
             this.lblOldPassword.Name = "lblOldPassword";
-            this.lblOldPassword.Size = new System.Drawing.Size(72, 13);
+            this.lblOldPassword.Size = new System.Drawing.Size(78, 14);
             this.lblOldPassword.TabIndex = 14;
             this.lblOldPassword.Text = "Old Password";
             // 
             // textBox1
             // 
+            this.textBox1.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(217, 201);
             this.textBox1.Name = "textBox1";
             this.textBox1.PasswordChar = '*';
-            this.textBox1.Size = new System.Drawing.Size(163, 20);
+            this.textBox1.Size = new System.Drawing.Size(163, 21);
             this.textBox1.TabIndex = 17;
             // 
             // txtNewPass
             // 
+            this.txtNewPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewPass.Location = new System.Drawing.Point(217, 159);
             this.txtNewPass.Name = "txtNewPass";
-            this.txtNewPass.Size = new System.Drawing.Size(163, 20);
+            this.txtNewPass.Size = new System.Drawing.Size(163, 21);
             this.txtNewPass.TabIndex = 15;
             // 
             // lblNewPass
             // 
             this.lblNewPass.AutoSize = true;
             this.lblNewPass.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblNewPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNewPass.Location = new System.Drawing.Point(111, 166);
             this.lblNewPass.Name = "lblNewPass";
-            this.lblNewPass.Size = new System.Drawing.Size(78, 13);
+            this.lblNewPass.Size = new System.Drawing.Size(82, 14);
             this.lblNewPass.TabIndex = 16;
             this.lblNewPass.Text = "New Password";
             // 
@@ -117,9 +124,10 @@ namespace ARKODesktop.Views.Components
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(111, 208);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 13);
+            this.label2.Size = new System.Drawing.Size(100, 14);
             this.label2.TabIndex = 18;
             this.label2.Text = "Confirm Password";
             // 

@@ -46,11 +46,11 @@ namespace ARKODesktop
             // 
             this.lblIRSensor.AutoSize = true;
             this.lblIRSensor.BackColor = System.Drawing.Color.Transparent;
-            this.lblIRSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIRSensor.Location = new System.Drawing.Point(432, 10);
+            this.lblIRSensor.Font = new System.Drawing.Font("Cera Pro", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIRSensor.Location = new System.Drawing.Point(439, 10);
             this.lblIRSensor.Margin = new System.Windows.Forms.Padding(10, 10, 20, 5);
             this.lblIRSensor.Name = "lblIRSensor";
-            this.lblIRSensor.Size = new System.Drawing.Size(155, 25);
+            this.lblIRSensor.Size = new System.Drawing.Size(162, 26);
             this.lblIRSensor.TabIndex = 4;
             this.lblIRSensor.Text = "Heat Detected:";
             // 
@@ -59,11 +59,11 @@ namespace ARKODesktop
             this.lblWaterLvl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWaterLvl.AutoSize = true;
             this.lblWaterLvl.BackColor = System.Drawing.Color.Transparent;
-            this.lblWaterLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWaterLvl.Location = new System.Drawing.Point(617, 10);
+            this.lblWaterLvl.Font = new System.Drawing.Font("Cera Pro", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWaterLvl.Location = new System.Drawing.Point(631, 10);
             this.lblWaterLvl.Margin = new System.Windows.Forms.Padding(10, 10, 20, 5);
             this.lblWaterLvl.Name = "lblWaterLvl";
-            this.lblWaterLvl.Size = new System.Drawing.Size(133, 25);
+            this.lblWaterLvl.Size = new System.Drawing.Size(135, 26);
             this.lblWaterLvl.TabIndex = 3;
             this.lblWaterLvl.Text = "Water Level:";
             // 
@@ -71,11 +71,11 @@ namespace ARKODesktop
             // 
             this.lblLongitude.AutoSize = true;
             this.lblLongitude.BackColor = System.Drawing.Color.Transparent;
-            this.lblLongitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLongitude.Location = new System.Drawing.Point(289, 10);
+            this.lblLongitude.Font = new System.Drawing.Font("Cera Pro", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLongitude.Location = new System.Drawing.Point(292, 10);
             this.lblLongitude.Margin = new System.Windows.Forms.Padding(10, 10, 20, 5);
             this.lblLongitude.Name = "lblLongitude";
-            this.lblLongitude.Size = new System.Drawing.Size(113, 25);
+            this.lblLongitude.Size = new System.Drawing.Size(117, 26);
             this.lblLongitude.TabIndex = 2;
             this.lblLongitude.Text = "Longitude:";
             // 
@@ -83,16 +83,17 @@ namespace ARKODesktop
             // 
             this.lblLatitude.AutoSize = true;
             this.lblLatitude.BackColor = System.Drawing.Color.Transparent;
-            this.lblLatitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLatitude.Font = new System.Drawing.Font("Cera Pro", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLatitude.Location = new System.Drawing.Point(164, 10);
             this.lblLatitude.Margin = new System.Windows.Forms.Padding(10, 10, 20, 5);
             this.lblLatitude.Name = "lblLatitude";
-            this.lblLatitude.Size = new System.Drawing.Size(95, 25);
+            this.lblLatitude.Size = new System.Drawing.Size(98, 26);
             this.lblLatitude.TabIndex = 1;
             this.lblLatitude.Text = "Latitude:";
             // 
             // btnStopOperation
             // 
+            this.btnStopOperation.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStopOperation.Location = new System.Drawing.Point(3, 3);
             this.btnStopOperation.Name = "btnStopOperation";
             this.btnStopOperation.Size = new System.Drawing.Size(148, 38);

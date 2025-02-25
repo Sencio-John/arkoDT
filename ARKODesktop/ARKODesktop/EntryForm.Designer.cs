@@ -51,17 +51,17 @@ namespace ARKODesktop
             this.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopBar.Location = new System.Drawing.Point(0, 0);
             this.pnlTopBar.Name = "pnlTopBar";
-            this.pnlTopBar.Size = new System.Drawing.Size(1295, 30);
+            this.pnlTopBar.Size = new System.Drawing.Size(1354, 30);
             this.pnlTopBar.TabIndex = 0;
             // 
             // lblTime
             // 
             this.lblTime.BackColor = System.Drawing.Color.Transparent;
             this.lblTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Font = new System.Drawing.Font("Cera Pro", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.Location = new System.Drawing.Point(0, 0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(1295, 30);
+            this.lblTime.Size = new System.Drawing.Size(1354, 30);
             this.lblTime.TabIndex = 1;
             this.lblTime.Text = "00:00:00";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,7 +76,7 @@ namespace ARKODesktop
             this.flpSideBar.Dock = System.Windows.Forms.DockStyle.Left;
             this.flpSideBar.Location = new System.Drawing.Point(0, 30);
             this.flpSideBar.Name = "flpSideBar";
-            this.flpSideBar.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flpSideBar.Padding = new System.Windows.Forms.Padding(2);
             this.flpSideBar.Size = new System.Drawing.Size(200, 690);
             this.flpSideBar.TabIndex = 1;
             // 
@@ -92,6 +92,7 @@ namespace ARKODesktop
             // 
             // btnUserCreation
             // 
+            this.btnUserCreation.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUserCreation.Location = new System.Drawing.Point(5, 103);
             this.btnUserCreation.Name = "btnUserCreation";
             this.btnUserCreation.Size = new System.Drawing.Size(189, 72);
@@ -102,6 +103,7 @@ namespace ARKODesktop
             // 
             // btnDevices
             // 
+            this.btnDevices.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDevices.Location = new System.Drawing.Point(5, 181);
             this.btnDevices.Name = "btnDevices";
             this.btnDevices.Size = new System.Drawing.Size(189, 72);
@@ -112,6 +114,7 @@ namespace ARKODesktop
             // 
             // btnOperations
             // 
+            this.btnOperations.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOperations.Location = new System.Drawing.Point(5, 259);
             this.btnOperations.Name = "btnOperations";
             this.btnOperations.Size = new System.Drawing.Size(189, 72);
@@ -131,14 +134,14 @@ namespace ARKODesktop
             this.pnlLoadForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoadForm.Location = new System.Drawing.Point(200, 30);
             this.pnlLoadForm.Name = "pnlLoadForm";
-            this.pnlLoadForm.Size = new System.Drawing.Size(1095, 690);
+            this.pnlLoadForm.Size = new System.Drawing.Size(1154, 690);
             this.pnlLoadForm.TabIndex = 2;
             // 
             // EntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1295, 720);
+            this.ClientSize = new System.Drawing.Size(1354, 720);
             this.Controls.Add(this.pnlLoadForm);
             this.Controls.Add(this.flpSideBar);
             this.Controls.Add(this.pnlTopBar);

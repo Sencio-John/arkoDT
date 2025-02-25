@@ -42,15 +42,16 @@ namespace ARKODesktop.Views.Component
             // 
             this.lblInstruct.AutoSize = true;
             this.lblInstruct.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblInstruct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstruct.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstruct.Location = new System.Drawing.Point(69, 59);
             this.lblInstruct.Name = "lblInstruct";
-            this.lblInstruct.Size = new System.Drawing.Size(166, 15);
+            this.lblInstruct.Size = new System.Drawing.Size(170, 15);
             this.lblInstruct.TabIndex = 9;
             this.lblInstruct.Text = "Change or set vessel network";
             // 
             // btnConnectNet
             // 
+            this.btnConnectNet.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnectNet.Location = new System.Drawing.Point(359, 130);
             this.btnConnectNet.Name = "btnConnectNet";
             this.btnConnectNet.Size = new System.Drawing.Size(75, 23);
@@ -60,18 +61,20 @@ namespace ARKODesktop.Views.Component
             // 
             // txtSSID
             // 
+            this.txtSSID.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSSID.Location = new System.Drawing.Point(135, 91);
             this.txtSSID.Name = "txtSSID";
-            this.txtSSID.Size = new System.Drawing.Size(163, 20);
+            this.txtSSID.Size = new System.Drawing.Size(163, 21);
             this.txtSSID.TabIndex = 6;
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblPassword.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPassword.Location = new System.Drawing.Point(69, 140);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.Size = new System.Drawing.Size(59, 15);
             this.lblPassword.TabIndex = 9;
             this.lblPassword.Text = "Password";
             // 
@@ -79,18 +82,20 @@ namespace ARKODesktop.Views.Component
             // 
             this.lblSSID.AutoSize = true;
             this.lblSSID.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblSSID.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSSID.Location = new System.Drawing.Point(69, 98);
             this.lblSSID.Name = "lblSSID";
-            this.lblSSID.Size = new System.Drawing.Size(32, 13);
+            this.lblSSID.Size = new System.Drawing.Size(32, 15);
             this.lblSSID.TabIndex = 7;
             this.lblSSID.Text = "SSID";
             // 
             // txtNPass
             // 
+            this.txtNPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNPass.Location = new System.Drawing.Point(135, 134);
             this.txtNPass.Name = "txtNPass";
             this.txtNPass.PasswordChar = '*';
-            this.txtNPass.Size = new System.Drawing.Size(163, 20);
+            this.txtNPass.Size = new System.Drawing.Size(163, 21);
             this.txtNPass.TabIndex = 8;
             // 
             // ManageWifi

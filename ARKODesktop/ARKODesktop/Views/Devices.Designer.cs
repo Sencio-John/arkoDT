@@ -98,6 +98,7 @@ namespace ARKODesktop.Views
             this.gbVerify.Controls.Add(this.label1);
             this.gbVerify.Controls.Add(this.txtKey);
             this.gbVerify.Enabled = false;
+            this.gbVerify.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbVerify.Location = new System.Drawing.Point(380, 53);
             this.gbVerify.Name = "gbVerify";
             this.gbVerify.Size = new System.Drawing.Size(426, 129);
@@ -107,6 +108,7 @@ namespace ARKODesktop.Views
             // 
             // btnVerify
             // 
+            this.btnVerify.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerify.Location = new System.Drawing.Point(319, 94);
             this.btnVerify.Name = "btnVerify";
             this.btnVerify.Size = new System.Drawing.Size(75, 23);
@@ -118,43 +120,48 @@ namespace ARKODesktop.Views
             // lblBTConnection
             // 
             this.lblBTConnection.AutoSize = true;
+            this.lblBTConnection.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBTConnection.Location = new System.Drawing.Point(29, 25);
             this.lblBTConnection.Name = "lblBTConnection";
-            this.lblBTConnection.Size = new System.Drawing.Size(81, 13);
+            this.lblBTConnection.Size = new System.Drawing.Size(83, 14);
             this.lblBTConnection.TabIndex = 4;
             this.lblBTConnection.Text = "Connected To: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(29, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(56, 14);
             this.label2.TabIndex = 3;
             this.label2.Text = "Password";
             // 
             // txtKeyPass
             // 
+            this.txtKeyPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKeyPass.Location = new System.Drawing.Point(106, 98);
             this.txtKeyPass.Name = "txtKeyPass";
             this.txtKeyPass.PasswordChar = '*';
-            this.txtKeyPass.Size = new System.Drawing.Size(163, 20);
+            this.txtKeyPass.Size = new System.Drawing.Size(163, 21);
             this.txtKeyPass.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(29, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.Size = new System.Drawing.Size(26, 14);
             this.label1.TabIndex = 1;
             this.label1.Text = "Key";
             // 
             // txtKey
             // 
+            this.txtKey.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtKey.Location = new System.Drawing.Point(106, 56);
             this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(163, 20);
+            this.txtKey.Size = new System.Drawing.Size(163, 21);
             this.txtKey.TabIndex = 0;
             // 
             // gbNetConfigure
@@ -166,6 +173,7 @@ namespace ARKODesktop.Views
             this.gbNetConfigure.Controls.Add(this.label5);
             this.gbNetConfigure.Controls.Add(this.txtNPass);
             this.gbNetConfigure.Enabled = false;
+            this.gbNetConfigure.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbNetConfigure.Location = new System.Drawing.Point(380, 225);
             this.gbNetConfigure.Name = "gbNetConfigure";
             this.gbNetConfigure.Size = new System.Drawing.Size(426, 142);
@@ -176,15 +184,16 @@ namespace ARKODesktop.Views
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(29, 27);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(166, 15);
+            this.label6.Size = new System.Drawing.Size(170, 15);
             this.label6.TabIndex = 9;
             this.label6.Text = "Change or set vessel network";
             // 
             // btnConnectNet
             // 
+            this.btnConnectNet.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnectNet.Location = new System.Drawing.Point(319, 98);
             this.btnConnectNet.Name = "btnConnectNet";
             this.btnConnectNet.Size = new System.Drawing.Size(75, 23);
@@ -195,35 +204,39 @@ namespace ARKODesktop.Views
             // 
             // txtSSID
             // 
+            this.txtSSID.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSSID.Location = new System.Drawing.Point(106, 60);
             this.txtSSID.Name = "txtSSID";
-            this.txtSSID.Size = new System.Drawing.Size(163, 20);
+            this.txtSSID.Size = new System.Drawing.Size(163, 21);
             this.txtSSID.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(29, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.Size = new System.Drawing.Size(56, 14);
             this.label4.TabIndex = 9;
             this.label4.Text = "Password";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(29, 66);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.Size = new System.Drawing.Size(30, 14);
             this.label5.TabIndex = 7;
             this.label5.Text = "SSID";
             // 
             // txtNPass
             // 
+            this.txtNPass.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNPass.Location = new System.Drawing.Point(106, 102);
             this.txtNPass.Name = "txtNPass";
             this.txtNPass.PasswordChar = '*';
-            this.txtNPass.Size = new System.Drawing.Size(163, 20);
+            this.txtNPass.Size = new System.Drawing.Size(163, 21);
             this.txtNPass.TabIndex = 8;
             // 
             // readTimerBT
@@ -276,6 +289,7 @@ namespace ARKODesktop.Views
             this.gbVesselInfo.Controls.Add(this.lblVesselName);
             this.gbVesselInfo.Controls.Add(this.btnAddDevice);
             this.gbVesselInfo.Enabled = false;
+            this.gbVesselInfo.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbVesselInfo.Location = new System.Drawing.Point(812, 130);
             this.gbVesselInfo.Name = "gbVesselInfo";
             this.gbVesselInfo.Size = new System.Drawing.Size(326, 170);
@@ -286,35 +300,36 @@ namespace ARKODesktop.Views
             // lblIP
             // 
             this.lblIP.AutoSize = true;
-            this.lblIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIP.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIP.Location = new System.Drawing.Point(23, 95);
             this.lblIP.Name = "lblIP";
-            this.lblIP.Size = new System.Drawing.Size(71, 15);
+            this.lblIP.Size = new System.Drawing.Size(70, 15);
             this.lblIP.TabIndex = 8;
             this.lblIP.Text = "IP Address: ";
             // 
             // lblNetwork
             // 
             this.lblNetwork.AutoSize = true;
-            this.lblNetwork.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNetwork.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNetwork.Location = new System.Drawing.Point(23, 67);
             this.lblNetwork.Name = "lblNetwork";
-            this.lblNetwork.Size = new System.Drawing.Size(58, 15);
+            this.lblNetwork.Size = new System.Drawing.Size(60, 15);
             this.lblNetwork.TabIndex = 7;
             this.lblNetwork.Text = "Network: ";
             // 
             // lblVesselName
             // 
             this.lblVesselName.AutoSize = true;
-            this.lblVesselName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVesselName.Font = new System.Drawing.Font("Cera Pro", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVesselName.Location = new System.Drawing.Point(23, 36);
             this.lblVesselName.Name = "lblVesselName";
-            this.lblVesselName.Size = new System.Drawing.Size(86, 15);
+            this.lblVesselName.Size = new System.Drawing.Size(81, 15);
             this.lblVesselName.TabIndex = 6;
             this.lblVesselName.Text = "Vessel Name: ";
             // 
             // btnAddDevice
             // 
+            this.btnAddDevice.Font = new System.Drawing.Font("Cera Pro", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddDevice.Location = new System.Drawing.Point(194, 134);
             this.btnAddDevice.Name = "btnAddDevice";
             this.btnAddDevice.Size = new System.Drawing.Size(126, 23);

@@ -292,7 +292,6 @@ C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKOD
 C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
 C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
 C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.UserCreation.resources
-C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.ThrottleControl.resources
 C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Components.ChangePassword.resources
 C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Component.ManageWifi.resources
 C:\Users\SENCIO\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.dll
@@ -310,3 +309,8 @@ C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.
 C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.xml
 C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.Video.xml
 C:\Users\Admin\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Map.resources
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.dll
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.Video.dll
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.xml
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\bin\Debug\AForge.Video.xml
+C:\Users\Charles\Documents\GitHub\arkoDT\ARKODesktop\ARKODesktop\obj\Debug\ARKODesktop.Views.Map.resources
